@@ -1,24 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nM0-t1-pjN">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--カレンダー-->
+        <scene sceneID="Unq-rT-jrf">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController storyboardIdentifier="calendar" id="umt-0P-3cM" customClass="CalendarViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DbH-wz-BWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="NQC-XV-lvh"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="カレンダー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-Va-gB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-464" y="813"/>
+        </scene>
+        <!--タイムライン-->
+        <scene sceneID="qxs-0r-5YK">
+            <objects>
+                <viewController storyboardIdentifier="timeline" id="uIP-Ny-mpE" customClass="TimeLineViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qqz-61-WXh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ycQ-pL-VyU"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="タイムライン" image="doc.plaintext" catalog="system" id="SVh-LY-bml"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sk1-cU-VTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="813"/>
+        </scene>
+        <!--プロフィール-->
+        <scene sceneID="s8C-zc-HKG">
+            <objects>
+                <viewController storyboardIdentifier="profile" id="jnq-S4-WMj" customClass="ProfileViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o77-xH-izw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5IL-zW-5Ms"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="プロフィール" image="person" catalog="system" id="FtG-ga-AMQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pRe-UF-fhM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1548" y="813"/>
+        </scene>
+        <!--友達-->
+        <scene sceneID="8Le-BH-ND5">
+            <objects>
+                <viewController storyboardIdentifier="friendlist" id="6F9-yE-LlM" customClass="FriendListViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GgT-RQ-sKn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Amc-Bs-yaW"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="友達" image="person.2" catalog="system" id="Xa3-Do-DSp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbb-Lm-wnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="868" y="813"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="aLt-q3-KS0">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="nM0-t1-pjN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8fi-JL-JtZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="umt-0P-3cM" kind="relationship" relationship="viewControllers" id="WsZ-Ne-1iv"/>
+                        <segue destination="uIP-Ny-mpE" kind="relationship" relationship="viewControllers" id="rFU-a5-6a6"/>
+                        <segue destination="6F9-yE-LlM" kind="relationship" relationship="viewControllers" id="H94-aw-rEa"/>
+                        <segue destination="jnq-S4-WMj" kind="relationship" relationship="viewControllers" id="uR8-cS-4z2"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="41V-MT-7hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="143" y="87"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar.badge.plus" catalog="system" width="64" height="50"/>
+        <image name="doc.plaintext" catalog="system" width="56" height="64"/>
+        <image name="person" catalog="system" width="64" height="58"/>
+        <image name="person.2" catalog="system" width="64" height="40"/>
+    </resources>
 </document>
