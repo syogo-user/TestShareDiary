@@ -12,4 +12,6 @@ target 'ShareDiary' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'FirebaseUI/Storage'
+  pod 'FSCalendar'
+  pod 'SVProgressHUD','2.2.5'
 end

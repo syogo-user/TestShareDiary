@@ -15,8 +15,12 @@ class CalendarViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    //追加ボタン押下
+    @IBAction func addButton(_ sender: Any) {
+        let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "Post")
+        self.present(postViewController!, animated: true, completion: nil)
+    }
     
-
     /*
     // MARK: - Navigation
 

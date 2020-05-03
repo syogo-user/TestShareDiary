@@ -10,30 +10,132 @@
         <!--カレンダー-->
         <scene sceneID="Unq-rT-jrf">
             <objects>
-                <viewController storyboardIdentifier="calendar" id="umt-0P-3cM" customClass="CalendarViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Calendar" id="umt-0P-3cM" customClass="CalendarViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DbH-wz-BWZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="En2-qG-0Kn" customClass="FSCalendar">
+                                <rect key="frame" x="10" y="54" width="394" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="B2h-bf-Zm1"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbK-ku-AtB">
+                                <rect key="frame" x="309" y="710" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" backgroundImage="wand.and.stars.inverse" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addButton:" destination="umt-0P-3cM" eventType="touchUpInside" id="zuD-rK-ngL"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="En2-qG-0Kn" firstAttribute="leading" secondItem="NQC-XV-lvh" secondAttribute="leading" constant="10" id="9HW-1x-ew9"/>
+                            <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="En2-qG-0Kn" secondAttribute="trailing" constant="10" id="OxI-uZ-2yo"/>
+                            <constraint firstItem="En2-qG-0Kn" firstAttribute="top" secondItem="NQC-XV-lvh" secondAttribute="top" constant="10" id="Usd-Xi-5F3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="NQC-XV-lvh"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="カレンダー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-Va-gB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-464" y="813"/>
+            <point key="canvasLocation" x="-465.21739130434787" y="812.94642857142856"/>
+        </scene>
+        <!--Post View Controller-->
+        <scene sceneID="7OS-za-ftb">
+            <objects>
+                <viewController storyboardIdentifier="Post" id="Y8g-Km-tVx" customClass="PostViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D9a-oR-lvL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HV0-EK-eKd">
+                                <rect key="frame" x="354" y="44.5" width="50" height="54.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="79Z-CS-zGb"/>
+                                    <constraint firstAttribute="width" constant="50" id="A8h-uc-Fpa"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="paperplane" catalog="system"/>
+                                <connections>
+                                    <action selector="postButton:" destination="Y8g-Km-tVx" eventType="touchUpInside" id="afO-dV-8Mo"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6jy-KB-wBx">
+                                <rect key="frame" x="10" y="104" width="394" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="1Oo-Om-KYb"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bYp-LF-PxU">
+                                <rect key="frame" x="10" y="314" width="200" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="EQh-fj-8LV"/>
+                                    <constraint firstAttribute="width" constant="200" id="zLE-CM-GsK"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="6jy-KB-wBx" secondAttribute="trailing" constant="10" id="EHK-5j-1St"/>
+                            <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="HV0-EK-eKd" secondAttribute="trailing" constant="10" id="H7l-y6-Glb"/>
+                            <constraint firstItem="6jy-KB-wBx" firstAttribute="leading" secondItem="7Lh-HW-IrX" secondAttribute="leading" constant="10" id="WFe-xm-vXe"/>
+                            <constraint firstItem="HV0-EK-eKd" firstAttribute="top" secondItem="7Lh-HW-IrX" secondAttribute="top" id="byj-Ad-131"/>
+                            <constraint firstItem="bYp-LF-PxU" firstAttribute="leading" secondItem="7Lh-HW-IrX" secondAttribute="leading" constant="10" id="fqg-2L-jpt"/>
+                            <constraint firstItem="6jy-KB-wBx" firstAttribute="top" secondItem="HV0-EK-eKd" secondAttribute="bottom" constant="5" id="xPj-pa-QBz"/>
+                            <constraint firstItem="bYp-LF-PxU" firstAttribute="top" secondItem="6jy-KB-wBx" secondAttribute="bottom" constant="10" id="xPt-bT-6jQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Lh-HW-IrX"/>
+                    </view>
+                    <connections>
+                        <outlet property="inputTextView" destination="6jy-KB-wBx" id="6Xe-tT-uPD"/>
+                        <outlet property="postPicture" destination="bYp-LF-PxU" id="brl-CE-y3U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g5c-uz-za2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-462.31884057971018" y="1506.6964285714284"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="qxs-0r-5YK">
             <objects>
-                <viewController storyboardIdentifier="timeline" id="uIP-Ny-mpE" customClass="TimeLineViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Timeline" id="uIP-Ny-mpE" customClass="TimeLineViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qqz-61-WXh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EUK-Mf-4gY">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="EUK-Mf-4gY" firstAttribute="leading" secondItem="ycQ-pL-VyU" secondAttribute="leading" id="khY-Gj-mAB"/>
+                            <constraint firstItem="EUK-Mf-4gY" firstAttribute="top" secondItem="ycQ-pL-VyU" secondAttribute="top" id="wFL-Ay-nR8"/>
+                            <constraint firstItem="ycQ-pL-VyU" firstAttribute="bottom" secondItem="EUK-Mf-4gY" secondAttribute="bottom" id="ysj-Nt-kCq"/>
+                            <constraint firstItem="ycQ-pL-VyU" firstAttribute="trailing" secondItem="EUK-Mf-4gY" secondAttribute="trailing" id="zng-YK-pH2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ycQ-pL-VyU"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="タイムライン" image="doc.plaintext" catalog="system" id="SVh-LY-bml"/>
+                    <connections>
+                        <outlet property="tableView" destination="EUK-Mf-4gY" id="J0s-aK-7xt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sk1-cU-VTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,14 +144,45 @@
         <!--プロフィール-->
         <scene sceneID="s8C-zc-HKG">
             <objects>
-                <viewController storyboardIdentifier="profile" id="jnq-S4-WMj" customClass="ProfileViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" id="jnq-S4-WMj" customClass="ProfileViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o77-xH-izw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OIc-w6-paP">
+                                <rect key="frame" x="57" y="84" width="300" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bMV-xW-chk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCn-79-QF6">
+                                <rect key="frame" x="57" y="135" width="300" height="34"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="dHN-Z6-5Es"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト"/>
+                                <connections>
+                                    <action selector="handleLogout:" destination="jnq-S4-WMj" eventType="touchUpInside" id="zYS-GI-OTv"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="DCn-79-QF6" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="5QN-Pz-a2h"/>
+                            <constraint firstItem="DCn-79-QF6" firstAttribute="top" secondItem="OIc-w6-paP" secondAttribute="bottom" constant="30" id="LlR-Ew-dDR"/>
+                            <constraint firstItem="OIc-w6-paP" firstAttribute="top" secondItem="5IL-zW-5Ms" secondAttribute="top" constant="40" id="ay5-nb-enG"/>
+                            <constraint firstItem="OIc-w6-paP" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="z5F-Gz-qR4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5IL-zW-5Ms"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="プロフィール" image="person" catalog="system" id="FtG-ga-AMQ"/>
+                    <connections>
+                        <outlet property="nickNameTextField" destination="OIc-w6-paP" id="cgg-PN-U9w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pRe-UF-fhM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,7 +191,7 @@
         <!--友達-->
         <scene sceneID="8Le-BH-ND5">
             <objects>
-                <viewController storyboardIdentifier="friendlist" id="6F9-yE-LlM" customClass="FriendListViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Friendlist" id="6F9-yE-LlM" customClass="FriendListViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GgT-RQ-sKn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,9 +207,10 @@
         <!--Tab Bar Controller-->
         <scene sceneID="aLt-q3-KS0">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="nM0-t1-pjN" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="nM0-t1-pjN" customClass="TabBarController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8fi-JL-JtZ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -91,11 +225,106 @@
             </objects>
             <point key="canvasLocation" x="143" y="87"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="ROU-CK-wE8">
+            <objects>
+                <viewController storyboardIdentifier="Login" id="bk6-DO-39k" customClass="LoginViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IF1-iH-Pw4" customClass="Login">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v3x-pz-YGg">
+                                <rect key="frame" x="57" y="124" width="300" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="9gl-F1-M9f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ニックネーム" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-iO-Ufd">
+                                <rect key="frame" x="57" y="212" width="300" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="NF8-hy-jZ1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUr-eT-Qcv">
+                                <rect key="frame" x="57" y="256" width="300" height="34"/>
+                                <color key="backgroundColor" red="1" green="0.77096269511410442" blue="0.14836046450934259" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="6NP-Qx-Jxl"/>
+                                </constraints>
+                                <state key="normal" title="ログイン"/>
+                                <connections>
+                                    <action selector="handleLoginButton:" destination="bk6-DO-39k" eventType="touchUpInside" id="dA7-ca-SRE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSN-9Z-U4H">
+                                <rect key="frame" x="57" y="360" width="300" height="34"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="HHJ-0p-clU"/>
+                                </constraints>
+                                <state key="normal" title="アカウント作成">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleCreateAccountButton:" destination="bk6-DO-39k" eventType="touchUpInside" id="G8E-4k-kZ5"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="orK-8T-YLK">
+                                <rect key="frame" x="57" y="168" width="300" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="DEK-l6-510"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="初めてご利用の方" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cq-ma-10b">
+                                <rect key="frame" x="57" y="329" width="300" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Gbq-Mh-yDG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="iC0-iO-Ufd" firstAttribute="top" secondItem="orK-8T-YLK" secondAttribute="bottom" constant="10" id="11M-Cv-0WI"/>
+                            <constraint firstItem="YUr-eT-Qcv" firstAttribute="top" secondItem="iC0-iO-Ufd" secondAttribute="bottom" constant="10" id="1KZ-HH-caN"/>
+                            <constraint firstItem="v3x-pz-YGg" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="NXI-tg-CDT"/>
+                            <constraint firstItem="1cq-ma-10b" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="U9Y-ht-3iE"/>
+                            <constraint firstItem="YUr-eT-Qcv" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="bt6-UL-Ah0"/>
+                            <constraint firstItem="orK-8T-YLK" firstAttribute="top" secondItem="v3x-pz-YGg" secondAttribute="bottom" constant="10" id="ft6-7A-SnY"/>
+                            <constraint firstItem="orK-8T-YLK" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="giP-5H-u8d"/>
+                            <constraint firstItem="v3x-pz-YGg" firstAttribute="top" secondItem="EIL-C0-Paw" secondAttribute="top" constant="80" id="iAR-ey-46a"/>
+                            <constraint firstItem="BSN-9Z-U4H" firstAttribute="top" secondItem="YUr-eT-Qcv" secondAttribute="bottom" constant="70" id="nDj-Rg-FRc"/>
+                            <constraint firstItem="BSN-9Z-U4H" firstAttribute="top" secondItem="1cq-ma-10b" secondAttribute="bottom" constant="10" id="o6y-Lw-VJX"/>
+                            <constraint firstItem="iC0-iO-Ufd" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="rPK-VN-tJk"/>
+                            <constraint firstItem="BSN-9Z-U4H" firstAttribute="centerX" secondItem="IF1-iH-Pw4" secondAttribute="centerX" id="ujF-qZ-kvC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EIL-C0-Paw"/>
+                    </view>
+                    <connections>
+                        <outlet property="mailAddressTextField" destination="v3x-pz-YGg" id="GPj-Io-iH4"/>
+                        <outlet property="nickNameTextField" destination="iC0-iO-Ufd" id="hhg-SX-Dfh"/>
+                        <outlet property="passwordTextField" destination="orK-8T-YLK" id="Dp7-93-GOM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n5t-gz-CNl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="927.536231884058" y="87.723214285714278"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar.badge.plus" catalog="system" width="64" height="50"/>
         <image name="doc.plaintext" catalog="system" width="56" height="64"/>
+        <image name="paperplane" catalog="system" width="64" height="60"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.2" catalog="system" width="64" height="40"/>
+        <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>
     </resources>
 </document>
