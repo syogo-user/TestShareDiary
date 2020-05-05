@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D031C332461198A00A845C1 /* UsersTableViewCell.swift */; };
+		3D031C362461198A00A845C1 /* UsersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D031C342461198A00A845C1 /* UsersTableViewCell.xib */; };
+		3D031C3824616B0100A845C1 /* UserPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D031C3724616B0100A845C1 /* UserPostData.swift */; };
 		3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42D71C240A8F9900133261 /* PostTableViewCell.swift */; };
 		3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D42D71D240A8F9900133261 /* PostTableViewCell.xib */; };
 		3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */; };
@@ -29,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		283C5F3601AA315FC5B9B827 /* Pods-ShareDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDiary.release.xcconfig"; path = "Target Support Files/Pods-ShareDiary/Pods-ShareDiary.release.xcconfig"; sourceTree = "<group>"; };
+		3D031C332461198A00A845C1 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
+		3D031C342461198A00A845C1 /* UsersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersTableViewCell.xib; sourceTree = "<group>"; };
+		3D031C3724616B0100A845C1 /* UserPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostData.swift; sourceTree = "<group>"; };
 		3D42D71C240A8F9900133261 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		3D42D71D240A8F9900133261 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -101,10 +107,13 @@
 				3DA5F5F92403906500321D00 /* TabBarController.swift */,
 				3D42D71C240A8F9900133261 /* PostTableViewCell.swift */,
 				3D42D71D240A8F9900133261 /* PostTableViewCell.xib */,
+				3D031C332461198A00A845C1 /* UsersTableViewCell.swift */,
+				3D031C342461198A00A845C1 /* UsersTableViewCell.xib */,
 				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
 				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
 				3D871999240A500700D4064E /* Const.swift */,
 				3D87199B240A754900D4064E /* PostData.swift */,
+				3D031C3724616B0100A845C1 /* UserPostData.swift */,
 				3D544A9524057470007793AC /* PostViewController.swift */,
 				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
 				3D9BFE8823FEE75F009893B1 /* Main.storyboard */,
@@ -186,6 +195,7 @@
 			files = (
 				3D9BFE8F23FEE760009893B1 /* LaunchScreen.storyboard in Resources */,
 				3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */,
+				3D031C362461198A00A845C1 /* UsersTableViewCell.xib in Resources */,
 				3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */,
 				3D9BFE8C23FEE760009893B1 /* Assets.xcassets in Resources */,
 				3D9BFE8A23FEE75F009893B1 /* Main.storyboard in Resources */,
@@ -243,7 +253,9 @@
 			files = (
 				3D87199C240A754900D4064E /* PostData.swift in Sources */,
 				3D544A9624057470007793AC /* PostViewController.swift in Sources */,
+				3D031C3824616B0100A845C1 /* UserPostData.swift in Sources */,
 				3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */,
+				3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */,
 				3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */,
 				3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */,
 				3D9BFE9B23FEE95C009893B1 /* FriendListViewController.swift in Sources */,
@@ -400,6 +412,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
 				INFOPLIST_FILE = ShareDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,6 +432,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
 				INFOPLIST_FILE = ShareDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

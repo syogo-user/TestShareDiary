@@ -68,13 +68,23 @@ class LoginViewController: UIViewController {
                             print("DEBUG_PRINT: " + error.localizedDescription)
                             return
                         }
-                        print("DEBUG_PRINT: [displayName = \(user.displayName!)]の設定に成功しました。")
 
+                        //usersにuidとuserNameを設定する
+                        if let myid = Auth.auth().currentUser?.uid {
+                            let postRef = Firestore.firestore().collection(Const.users).document()
+                            let postDic = [
+                            "uid":myid,
+                            "userName":displayName
+                            ] as [String :Any]
+                            postRef.setData(postDic)
+                        }
+                        print("DEBUG_PRINT: [displayName = \(user.displayName!)]の設定に成功しました。")
                         // 画面を閉じてタブ画面に戻る
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
             }
+
         }
     }
     
