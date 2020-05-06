@@ -61,6 +61,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                     let userPostData = UserPostData(document:document)
                     return userPostData
                 }
+                searchBar.endEditing(true)
+                self.tableView.reloadData()
             }
         }
 
@@ -132,11 +134,33 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
             
             let postRef = Firestore.firestore().collection(Const.Follow).document(userPostData.uid!)
             
-            //TODO 配列になるように変更
             let postDic = [
                 "oherUserUid":myUid
-            ] as [String:Any]
-            postRef.setData(postDic)
+            ]
+            postRef.getDocument {
+                (document,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    if let document  = document ,document.exists{
+                        var array  = document["ohereUser"] as! [Any]
+                        array.append(postDic)
+                        let data  = [
+                            "ohereUser" : array
+                        ]
+                        print("submitButton")
+                        postRef.updateData(data)
+                    } else {
+                        var array: [Any] = []
+                        array.append(postDic)
+                        let data  = [
+                            "ohereUser" : array
+                        ]
+                        postRef.setData(data)
+                    }
+                }
+            }
             print("★")
         }
 
