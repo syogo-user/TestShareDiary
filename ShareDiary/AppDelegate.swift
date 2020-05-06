@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import SlideMenuControllerSwift
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,6 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //追記
+        let tabBarController = TabBarController.init(nibName: "tabbar", bundle: nil)
+        let leftViewController = LeftViewController.init(nibName: "Left", bundle: nil)
+        let slideMenuController = SlideMenuController(mainViewController:tabBarController as UIViewController, leftMenuViewController: leftViewController)
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+        
         FirebaseApp.configure()
         return true
     }
