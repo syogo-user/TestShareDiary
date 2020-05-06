@@ -135,6 +135,7 @@ PODS:
   - SDWebImage (5.7.3):
     - SDWebImage/Core (= 5.7.3)
   - SDWebImage/Core (5.7.3)
+  - SlideMenuControllerSwift (4.0.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
@@ -145,6 +146,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI/Storage
   - FSCalendar
+  - SlideMenuControllerSwift
   - SVProgressHUD (= 2.2.5)
 
 SPEC REPOS:
@@ -174,6 +176,7 @@ SPEC REPOS:
     - PromisesObjC
     - Protobuf
     - SDWebImage
+    - SlideMenuControllerSwift
     - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -202,8 +205,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
+  SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: f0ba1fdc61e671ffed3009f96729973e9ce725e7
+PODFILE CHECKSUM: 20ff9d22cb49687cf71b02715ab77d69b3ad718b
 
 COCOAPODS: 1.8.4

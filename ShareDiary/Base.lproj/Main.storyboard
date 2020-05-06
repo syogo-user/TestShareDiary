@@ -188,6 +188,36 @@
             </objects>
             <point key="canvasLocation" x="2457.971014492754" y="812.94642857142856"/>
         </scene>
+        <!--Slide View Controller-->
+        <scene sceneID="guw-kY-RR8">
+            <objects>
+                <viewController storyboardIdentifier="Slide" id="UZa-cD-pLv" customClass="SlideViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OVc-bn-J6z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="uxc-bC-AsM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hiH-zC-enk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3874" y="813"/>
+        </scene>
+        <!--Left View Controller-->
+        <scene sceneID="W7m-hz-8Lj">
+            <objects>
+                <viewController storyboardIdentifier="Left" id="bg7-Pd-uiH" customClass="LeftViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DZ6-WG-fRT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="LuK-iq-sh6"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rd4-YS-gxk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3190" y="813"/>
+        </scene>
         <!--Friend List View Controller-->
         <scene sceneID="8Le-BH-ND5">
             <objects>
@@ -336,7 +366,7 @@
         <!--友達-->
         <scene sceneID="wCT-fH-pj2">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2OR-3a-AwJ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendlistNavi" automaticallyAdjustsScrollViewInsets="NO" id="2OR-3a-AwJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="友達" image="person.2" catalog="system" id="Xa3-Do-DSp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d4a-BI-Ore">

@@ -13,6 +13,8 @@
 		3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42D71C240A8F9900133261 /* PostTableViewCell.swift */; };
 		3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D42D71D240A8F9900133261 /* PostTableViewCell.xib */; };
 		3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */; };
+		3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D46768D2462A52500C60EB1 /* SlideViewController.swift */; };
+		3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D46768F2462A6A500C60EB1 /* LeftViewController.swift */; };
 		3D544A9624057470007793AC /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D544A9524057470007793AC /* PostViewController.swift */; };
 		3D87199A240A500800D4064E /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D871999240A500700D4064E /* Const.swift */; };
 		3D87199C240A754900D4064E /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D87199B240A754900D4064E /* PostData.swift */; };
@@ -38,6 +40,8 @@
 		3D42D71C240A8F9900133261 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		3D42D71D240A8F9900133261 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3D46768D2462A52500C60EB1 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
+		3D46768F2462A6A500C60EB1 /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		3D544A9524057470007793AC /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		3D871999240A500700D4064E /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		3D87199B240A754900D4064E /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
@@ -105,7 +109,9 @@
 				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
 				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
 				3DA5F5F92403906500321D00 /* TabBarController.swift */,
+				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
 				3D42D71C240A8F9900133261 /* PostTableViewCell.swift */,
+				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
 				3D42D71D240A8F9900133261 /* PostTableViewCell.xib */,
 				3D031C332461198A00A845C1 /* UsersTableViewCell.swift */,
 				3D031C342461198A00A845C1 /* UsersTableViewCell.xib */,
@@ -262,7 +268,9 @@
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
+				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
+				3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */,
 				3D87199A240A500800D4064E /* Const.swift in Sources */,
 				3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */,
 			);

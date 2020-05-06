@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SlideMenuControllerSwift
 
 class FriendListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate{
 
@@ -31,6 +32,16 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
+                
+        /* スライドメニュー */
+        //NavigationBarが半透明かどうか
+        navigationController?.navigationBar.isTranslucent = false
+        //NavigationBarの色を変更します
+        navigationController?.navigationBar.barTintColor = UIColor(red: 129/255, green: 212/255, blue: 78/255, alpha: 1)
+        //NavigationBarに乗っている部品の色を変更します
+        navigationController?.navigationBar.tintColor = UIColor.white
+        //バーの左側にボタンを配置します(ライブラリ特有)
+        addLeftBarButtonWithImage(UIImage(named: "menu")!)
     }
     
 //    //検索バーで文字編集中（文字をクリアしたときも実行される）
