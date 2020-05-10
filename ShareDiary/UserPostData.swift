@@ -18,4 +18,10 @@ class UserPostData: NSObject {
         self.uid = postDic["uid"] as? String
         self.userName = postDic["userName"] as? String
     }
+    
+    init(document:[String:Any]){
+        self.uid = document["otherUserUid"] as? String
+        self.userName = document["userName"] as? String
+    }
+
 }

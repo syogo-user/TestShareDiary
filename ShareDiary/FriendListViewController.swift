@@ -14,7 +14,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
 
     @IBOutlet weak var tableView: UITableView!
     
-    // 投稿データを格納する配列
+    // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
     
     override func viewDidLoad() {
@@ -42,6 +42,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         navigationController?.navigationBar.tintColor = UIColor.white
         //バーの左側にボタンを配置します(ライブラリ特有)
         addLeftBarButtonWithImage(UIImage(named: "menu")!)
+
     }
     
 //    //検索バーで文字編集中（文字をクリアしたときも実行される）
@@ -117,10 +118,10 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
 //         //InputViewControllerに画面遷移
 //         performSegue(withIdentifier:"cellSegue",sender:nil)
      }
-     //セルが削除が可能なことを伝えるメソッド
-     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
+    //セルが削除が可能なことを伝えるメソッド
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
          return .delete
-     }
+    }
     
     //Deleteボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
@@ -138,15 +139,16 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //配列からタップされたインデックスのデータを取り出す
         let userPostData = userPostArray[indexPath!.row]
         
-
+        //<<BさんがAさんにフォローリクエストする>>
         //ログインしている自分のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
             //FirebaseのFollowRequestの相手の配下に自分のuidを設定する
-            
-            let postRef = Firestore.firestore().collection(Const.Follow).document(userPostData.uid!)
-            
+            let postRef = Firestore.firestore().collection(Const.FollowRequest).document(userPostData.uid!)
+            let userName = Auth.auth().currentUser?.displayName
+            //自分（Bさん）のuidとuserNameを設定
             let postDic = [
-                "oherUserUid":myUid
+                "otherUserUid":myUid,
+                "userName":userName
             ]
             postRef.getDocument {
                 (document,error) in
@@ -155,10 +157,10 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                     return
                 } else {
                     if let document  = document ,document.exists{
-                        var array  = document["ohereUser"] as! [Any]
+                        var array  = document["otherUser"] as! [Any]
                         array.append(postDic)
                         let data  = [
-                            "ohereUser" : array
+                            "otherUser" : array
                         ]
                         print("submitButton")
                         postRef.updateData(data)
@@ -166,7 +168,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                         var array: [Any] = []
                         array.append(postDic)
                         let data  = [
-                            "ohereUser" : array
+                            "otherUser" : array
                         ]
                         postRef.setData(data)
                     }

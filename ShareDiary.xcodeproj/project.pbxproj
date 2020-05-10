@@ -29,6 +29,9 @@
 		3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */; };
 		3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F524038D6E00321D00 /* LoginViewController.swift */; };
 		3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F92403906500321D00 /* TabBarController.swift */; };
+		3DD44DA22466438F0001E7A8 /* FollowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA12466438F0001E7A8 /* FollowListTableViewController.swift */; };
+		3DD44DA524664DC10001E7A8 /* FollowListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA324664DC10001E7A8 /* FollowListTableViewCell.swift */; };
+		3DD44DA624664DC10001E7A8 /* FollowListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD44DA424664DC10001E7A8 /* FollowListTableViewCell.xib */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +61,9 @@
 		3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F524038D6E00321D00 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F92403906500321D00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3DD44DA12466438F0001E7A8 /* FollowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListTableViewController.swift; sourceTree = "<group>"; };
+		3DD44DA324664DC10001E7A8 /* FollowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListTableViewCell.swift; sourceTree = "<group>"; };
+		3DD44DA424664DC10001E7A8 /* FollowListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowListTableViewCell.xib; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60724E31802F5BBE9FF9228 /* Pods-ShareDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDiary.debug.xcconfig"; path = "Target Support Files/Pods-ShareDiary/Pods-ShareDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,22 +112,25 @@
 			children = (
 				3D9BFE8223FEE75F009893B1 /* AppDelegate.swift */,
 				3D9BFE8423FEE75F009893B1 /* SceneDelegate.swift */,
+				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
 				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
 				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
 				3DA5F5F92403906500321D00 /* TabBarController.swift */,
-				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
 				3D42D71C240A8F9900133261 /* PostTableViewCell.swift */,
-				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
 				3D42D71D240A8F9900133261 /* PostTableViewCell.xib */,
+				3D544A9524057470007793AC /* PostViewController.swift */,
+				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
+				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
+				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
+				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
+				3DD44DA12466438F0001E7A8 /* FollowListTableViewController.swift */,
+				3DD44DA324664DC10001E7A8 /* FollowListTableViewCell.swift */,
+				3DD44DA424664DC10001E7A8 /* FollowListTableViewCell.xib */,
 				3D031C332461198A00A845C1 /* UsersTableViewCell.swift */,
 				3D031C342461198A00A845C1 /* UsersTableViewCell.xib */,
-				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
-				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
 				3D871999240A500700D4064E /* Const.swift */,
 				3D87199B240A754900D4064E /* PostData.swift */,
 				3D031C3724616B0100A845C1 /* UserPostData.swift */,
-				3D544A9524057470007793AC /* PostViewController.swift */,
-				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
 				3D9BFE8823FEE75F009893B1 /* Main.storyboard */,
 				3D9BFE8B23FEE760009893B1 /* Assets.xcassets */,
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
@@ -200,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D9BFE8F23FEE760009893B1 /* LaunchScreen.storyboard in Resources */,
+				3DD44DA624664DC10001E7A8 /* FollowListTableViewCell.xib in Resources */,
 				3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */,
 				3D031C362461198A00A845C1 /* UsersTableViewCell.xib in Resources */,
 				3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */,
@@ -267,10 +277,12 @@
 				3D9BFE9B23FEE95C009893B1 /* FriendListViewController.swift in Sources */,
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
+				3DD44DA524664DC10001E7A8 /* FollowListTableViewCell.swift in Sources */,
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
 				3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */,
+				3DD44DA22466438F0001E7A8 /* FollowListTableViewController.swift in Sources */,
 				3D87199A240A500800D4064E /* Const.swift in Sources */,
 				3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */,
 			);

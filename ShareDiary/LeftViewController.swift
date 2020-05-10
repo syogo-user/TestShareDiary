@@ -16,7 +16,26 @@ class LeftViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    //フォローボタンが押された時
+    @IBAction func followButtonAction(_ sender: Any) {
+        print("フォローボタンタップ")
+  
+    }
+    
+    //フォロワーボタンが押された時
+    @IBAction func followerButtonAction(_ sender: Any) {
+        print("フォロワーボタンタップ")
+    }
+    //フォロリクエストボタンが押された時
+    @IBAction func followRequestAction(_ sender: Any) {
+        print("フォローリクエストボタンタップ")
+                
+        let followListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowList") as! FollowListTableViewController
+        self.present(followListTableViewController, animated: true, completion: nil)
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

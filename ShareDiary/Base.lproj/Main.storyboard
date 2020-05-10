@@ -203,6 +203,48 @@
             </objects>
             <point key="canvasLocation" x="3874" y="813"/>
         </scene>
+        <!--Follow List Table View Controller-->
+        <scene sceneID="J71-LB-gov">
+            <objects>
+                <viewController storyboardIdentifier="FollowList" id="Fle-mM-V3v" customClass="FollowListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Cyu-Eh-D56">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="フォローリクエスト" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A2-gv-aoD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="HRT-1T-P7J"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-Vg-IfE">
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v8g-Vg-IfE" firstAttribute="leading" secondItem="l5Z-wy-fnL" secondAttribute="leading" id="3id-kD-7B5"/>
+                            <constraint firstItem="v8g-Vg-IfE" firstAttribute="top" secondItem="3A2-gv-aoD" secondAttribute="bottom" id="DNy-3F-Jbn"/>
+                            <constraint firstItem="3A2-gv-aoD" firstAttribute="leading" secondItem="l5Z-wy-fnL" secondAttribute="leading" id="DwG-j5-eKf"/>
+                            <constraint firstItem="3A2-gv-aoD" firstAttribute="top" secondItem="l5Z-wy-fnL" secondAttribute="top" id="SLT-ks-zs3"/>
+                            <constraint firstItem="l5Z-wy-fnL" firstAttribute="trailing" secondItem="v8g-Vg-IfE" secondAttribute="trailing" id="gw4-k4-xEU"/>
+                            <constraint firstItem="l5Z-wy-fnL" firstAttribute="bottom" secondItem="v8g-Vg-IfE" secondAttribute="bottom" id="nY1-Mq-YDr"/>
+                            <constraint firstItem="l5Z-wy-fnL" firstAttribute="trailing" secondItem="3A2-gv-aoD" secondAttribute="trailing" id="ofj-kO-eSG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="l5Z-wy-fnL"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="v8g-Vg-IfE" id="eCv-6t-LPd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xEe-l7-aLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3190" y="1554"/>
+        </scene>
         <!--Left View Controller-->
         <scene sceneID="W7m-hz-8Lj">
             <objects>
@@ -210,13 +252,66 @@
                     <view key="view" contentMode="scaleToFill" id="DZ6-WG-fRT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPc-Nl-p0y">
+                                <rect key="frame" x="0.0" y="294" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Xa3-Hi-xmA"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.48857138729999999" blue="0.99499995590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="フォロー">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="followButtonAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="BDp-tt-jx2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69l-Mc-ClK">
+                                <rect key="frame" x="0.0" y="344" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="0sQ-us-nrS"/>
+                                </constraints>
+                                <state key="normal" title="フォロワー">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="followerButtonAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="cW7-TV-tvI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTI-Eo-Doy">
+                                <rect key="frame" x="0.0" y="394" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="FbI-H2-81f"/>
+                                </constraints>
+                                <state key="normal" title="フォローリクエスト">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="followRequestAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="5nI-C0-K8w"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="69l-Mc-ClK" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="4wj-UI-ZlA"/>
+                            <constraint firstItem="LuK-iq-sh6" firstAttribute="trailing" secondItem="69l-Mc-ClK" secondAttribute="trailing" id="6mP-BC-vxw"/>
+                            <constraint firstItem="LuK-iq-sh6" firstAttribute="trailing" secondItem="NTI-Eo-Doy" secondAttribute="trailing" id="At3-P7-w1P"/>
+                            <constraint firstItem="sPc-Nl-p0y" firstAttribute="top" secondItem="LuK-iq-sh6" secondAttribute="top" constant="250" id="htv-Xk-e2Y"/>
+                            <constraint firstItem="69l-Mc-ClK" firstAttribute="top" secondItem="sPc-Nl-p0y" secondAttribute="bottom" id="jbY-IA-8Zn"/>
+                            <constraint firstItem="sPc-Nl-p0y" firstAttribute="trailing" secondItem="LuK-iq-sh6" secondAttribute="trailing" id="n6a-KV-GdI"/>
+                            <constraint firstItem="NTI-Eo-Doy" firstAttribute="top" secondItem="69l-Mc-ClK" secondAttribute="bottom" id="oUQ-xZ-B0a"/>
+                            <constraint firstItem="NTI-Eo-Doy" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="spA-gf-hqh"/>
+                            <constraint firstItem="sPc-Nl-p0y" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="zcy-9h-6IA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="LuK-iq-sh6"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rd4-YS-gxk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3190" y="813"/>
+            <point key="canvasLocation" x="3189.8550724637685" y="812.94642857142856"/>
         </scene>
         <!--Friend List View Controller-->
         <scene sceneID="8Le-BH-ND5">
