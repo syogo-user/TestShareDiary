@@ -14,4 +14,8 @@ struct Const {
     static let Follow = "follow" //フォロー
     static let Follower = "follower"//フォロワー
     static let FollowRequest = "followRequest"//フォローリクエスト
+    
+    static let FollowShowButton = "followShowButton"
+    static let FollowerShowButton = "followerShowButton"
+    //static let FollowRequestShowButton = "followRequestShowButton"
 }

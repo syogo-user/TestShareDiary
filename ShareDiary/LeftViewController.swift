@@ -19,31 +19,29 @@ class LeftViewController: UIViewController {
     //フォローボタンが押された時
     @IBAction func followButtonAction(_ sender: Any) {
         print("フォローボタンタップ")
-  
+      let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerList") as! FollowFollowerListTableViewController
+        followFollowerListTableViewController.fromButton = Const.Follow
+      self.present(followFollowerListTableViewController, animated: true, completion: nil)
     }
     
     //フォロワーボタンが押された時
     @IBAction func followerButtonAction(_ sender: Any) {
         print("フォロワーボタンタップ")
+        let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerList") as! FollowFollowerListTableViewController
+           followFollowerListTableViewController.fromButton = Const.Follower
+         self.present(followFollowerListTableViewController, animated: true, completion: nil)
+        
     }
     //フォロリクエストボタンが押された時
     @IBAction func followRequestAction(_ sender: Any) {
         print("フォローリクエストボタンタップ")
                 
-        let followListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowList") as! FollowListTableViewController
-        self.present(followListTableViewController, animated: true, completion: nil)
+        let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestList") as! FollowRequestListTableViewController
+        
+        self.present(followRequestListTableViewController, animated: true, completion: nil)
     }
     
     
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

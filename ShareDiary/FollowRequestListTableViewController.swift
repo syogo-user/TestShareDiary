@@ -8,10 +8,12 @@
 
 import UIKit
 import Firebase
-class FollowListTableViewController:UIViewController,UITableViewDelegate,UITableViewDataSource{
+class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
+    
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,8 +23,8 @@ class FollowListTableViewController:UIViewController,UITableViewDelegate,UITable
         tableView.delegate = self
         tableView.dataSource = self
         //カスタムセルを登録する(Cellで登録)xib
-        let nib = UINib(nibName: "FollowListTableViewCell", bundle:nil)
-        tableView.register(nib, forCellReuseIdentifier: "FollowListCell")
+        let nib = UINib(nibName: "FollowRequestListTableViewCell", bundle:nil)
+        tableView.register(nib, forCellReuseIdentifier: "FollowRequestListCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +66,7 @@ class FollowListTableViewController:UIViewController,UITableViewDelegate,UITable
     //各セルの内容を返すメソッド
     func tableView(_ tableView : UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         //再利用可能なcellを得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowListCell", for: indexPath) as! FollowListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowRequestListCell", for: indexPath) as! FollowRequestListTableViewCell
         //Cell に値を設定する
         cell.setUserPostData(userPostArray[indexPath.row])
         
@@ -191,7 +193,7 @@ class FollowListTableViewController:UIViewController,UITableViewDelegate,UITable
                         var removeIndex = -1
                         for i in 0...array.count-1{
                             let dictionary = array[i] as! [String:Any]
-                            if otherUserUid == dictionary["otherUserUid"] as? String{
+                            if otherUserUid == dictionary["uid"] as? String{
                                 removeIndex = i
                             }
                         }

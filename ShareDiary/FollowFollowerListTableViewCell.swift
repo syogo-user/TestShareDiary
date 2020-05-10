@@ -1,19 +1,17 @@
 //
-//  FollowListTableViewCell.swift
+//  FollowFollwerListTableViewCell.swift
 //  ShareDiary
 //
-//  Created by 小野寺祥吾 on 2020/05/09.
+//  Created by 小野寺祥吾 on 2020/05/10.
 //  Copyright © 2020 syogo-user. All rights reserved.
 //
 
 import UIKit
 
-class FollowListTableViewCell: UITableViewCell {
+class FollowFollowerListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
-    
-    @IBOutlet weak var followRequestPermissionButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,7 +25,6 @@ class FollowListTableViewCell: UITableViewCell {
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
         self.userName.text = userPostData.userName
-                
+
     }
-    
 }

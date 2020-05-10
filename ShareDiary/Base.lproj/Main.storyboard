@@ -203,10 +203,10 @@
             </objects>
             <point key="canvasLocation" x="3874" y="813"/>
         </scene>
-        <!--Follow List Table View Controller-->
+        <!--Follow Request List Table View Controller-->
         <scene sceneID="J71-LB-gov">
             <objects>
-                <viewController storyboardIdentifier="FollowList" id="Fle-mM-V3v" customClass="FollowListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowRequestList" id="Fle-mM-V3v" customClass="FollowRequestListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cyu-Eh-D56">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,6 +244,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEe-l7-aLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3190" y="1554"/>
+        </scene>
+        <!--Follow Follower List Table View Controller-->
+        <scene sceneID="rOD-lG-XGB">
+            <objects>
+                <viewController storyboardIdentifier="FollowFollowerList" id="U67-Ws-Ks1" customClass="FollowFollowerListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IM8-K6-HG9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="フォロー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc7-0B-gfW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wiu-wO-r3J"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nWZ-X6-Y7f">
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="5GJ-Sc-FNG" firstAttribute="trailing" secondItem="nWZ-X6-Y7f" secondAttribute="trailing" id="AyF-VF-Dwi"/>
+                            <constraint firstItem="Nc7-0B-gfW" firstAttribute="top" secondItem="5GJ-Sc-FNG" secondAttribute="top" id="CuC-Ur-sOx"/>
+                            <constraint firstItem="Nc7-0B-gfW" firstAttribute="leading" secondItem="5GJ-Sc-FNG" secondAttribute="leading" id="QCl-68-9hR"/>
+                            <constraint firstItem="nWZ-X6-Y7f" firstAttribute="top" secondItem="Nc7-0B-gfW" secondAttribute="bottom" id="ato-a3-FtG"/>
+                            <constraint firstItem="5GJ-Sc-FNG" firstAttribute="trailing" secondItem="Nc7-0B-gfW" secondAttribute="trailing" id="gud-or-QiR"/>
+                            <constraint firstItem="nWZ-X6-Y7f" firstAttribute="leading" secondItem="5GJ-Sc-FNG" secondAttribute="leading" id="y77-vv-V89"/>
+                            <constraint firstItem="5GJ-Sc-FNG" firstAttribute="bottom" secondItem="nWZ-X6-Y7f" secondAttribute="bottom" id="z2j-rk-vr7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5GJ-Sc-FNG"/>
+                    </view>
+                    <connections>
+                        <outlet property="followOrFollowerLabel" destination="Nc7-0B-gfW" id="98s-vB-yi8"/>
+                        <outlet property="tableView" destination="nWZ-X6-Y7f" id="u04-8u-oZv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XWN-td-6bS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4006" y="1554"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="W7m-hz-8Lj">

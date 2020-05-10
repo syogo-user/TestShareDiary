@@ -20,7 +20,7 @@ class UserPostData: NSObject {
     }
     
     init(document:[String:Any]){
-        self.uid = document["otherUserUid"] as? String
+        self.uid = document["uid"] as? String
         self.userName = document["userName"] as? String
     }
 

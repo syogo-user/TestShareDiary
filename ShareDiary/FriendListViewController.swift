@@ -147,7 +147,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
             let userName = Auth.auth().currentUser?.displayName
             //自分（Bさん）のuidとuserNameを設定
             let postDic = [
-                "otherUserUid":myUid,
+                "uid":myUid,
                 "userName":userName
             ]
             postRef.getDocument {
