@@ -27,6 +27,7 @@ class FollowRequestListTableViewCell: UITableViewCell {
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
         self.userName.text = userPostData.userName
+
                 
     }
     

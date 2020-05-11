@@ -59,26 +59,71 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     
     //検索ボタンがタップされた時に実行される
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:searchBar.text!)
-        
-        postRef.getDocuments() {
-            (querySnapshot,error) in
-            if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                return
-            } else {
-                self.userPostArray = querySnapshot!.documents.map {
-                    document in
-                    //print("\(document.documentID) => \(document.data())")
-                    let userPostData = UserPostData(document:document)
-                    return userPostData
+        var followArray:[String] = []
+        var followRequestArray :[String] = []
+        //自分のuid取得
+        if let myUid = Auth.auth().currentUser?.uid {
+            //フォローからデータを取得
+            let followPostRef = Firestore.firestore().collection(Const.Follow).document(myUid)
+            
+            followPostRef.getDocument {
+                (document,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    if let document  = document ,document.exists{
+                        let array  = document["otherUser"] as! [Any]
+                        array.map {
+                            doc in
+                            var userPostData = UserPostData(document:doc as! [String:Any])
+                            followArray.append(userPostData.uid!)
+                        }
+                    }
                 }
-                searchBar.endEditing(true)
-                self.tableView.reloadData()
             }
-        }
 
-        
+//            //フォローリクエストからデータを取得
+//            let followRequestPostRef = Firestore.firestore().collection(Const.FollowRequest).document()//documentにAさんのuidをいれたい
+//
+//            followRequestPostRef.getDocument {
+//                (document,error) in
+//                if let error = error {
+//                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+//                    return
+//                } else {
+//                    if let document  = document ,document.exists{
+//                        let array  = document["otherUser"] as! [Any]
+//                        array.map {
+//                            doc in
+//                            var userPostData = UserPostData(document:doc as! [String:Any])
+//                            followRequestArray.append(userPostData.uid!)
+//                        }
+//                    }
+//                }
+//            }
+            
+            
+            //ユーザからデータを取得
+            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:searchBar.text!)
+            postRef.getDocuments() {
+                (querySnapshot,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    self.userPostArray = querySnapshot!.documents.map {
+                        document in
+                        //print("\(document.documentID) => \(document.data())")
+                        let userPostData = UserPostData(document:document,followArray:followArray,followRequestArray:followRequestArray)
+                        return userPostData
+                    }
+                    searchBar.endEditing(true)
+                    self.tableView.reloadData()
+                }
+            }
+
+        }
 //        let predicate = NSPredicate(format:"category == %@",searchBar.text!)
 //        taskArray = realm.objects(Task.self).filter(predicate)
         //キーボード閉じる

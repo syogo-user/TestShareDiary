@@ -27,7 +27,13 @@ class UsersTableViewCell: UITableViewCell {
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
         self.userName.text = userPostData.userName
-                
+                      
+        if let flg = userPostData.followRequestFlg{
+            if flg {
+                 //followRequestFlgがtrue(申請済)の場合
+                self.followRequestButton.setTitle("申請済", for: .normal)
+            }
+        }
     }
     
 }
