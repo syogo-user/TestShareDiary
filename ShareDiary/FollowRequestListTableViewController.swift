@@ -28,11 +28,11 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
         if Auth.auth().currentUser != nil {
             if  let myUid = Auth.auth().currentUser?.uid {
                 //ログイン済み
-                let postRef = Firestore.firestore().collection(Const.FollowRequest).document(myUid) 
+                let postRef = Firestore.firestore().collection(Const.users).document(myUid)
                 postRef.getDocument{
                     (document,error) in
                     if let error = error {
@@ -40,17 +40,28 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                          return
                      } else {
                         if let document  = document ,document.exists{
-                            var array = document["otherUser"] as! [Any]
-//                            for i in 0...array.count-1 {
-//                                self.userPostArray.append(UserPostData(document:array[i] as! [String:Any]))
-//                            }
-                            array.map{
-                                doc in
-                                self.userPostArray.append(UserPostData(document:doc as! [String:Any]))
+                            let followRequestArray = document["followRequest"] as! [String]
+                            //初期化
+                            self.userPostArray = []
+                            
+                            for i in 0...followRequestArray.count-1 {
+                                let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequestArray[i])
+                                postRef2.getDocuments() {
+                                    (querySnapshot,error) in
+                                    if let error = error {
+                                        print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                                        return
+                                    } else {
+                                        querySnapshot!.documents.map{
+                                            document in
+                                            self.userPostArray.append(UserPostData(document:document))
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                    self.tableView.reloadData()
                 }
             }
         }
@@ -92,7 +103,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
     }
     
-    //セル内のボタンがタップされた時に呼ばれるメソッド
+    //セル内の「承認」ボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton,forEvent event:UIEvent){
 
         //タップされたセルのインデックスを求める
@@ -104,133 +115,74 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         //配列からタップされたインデックスのデータを取り出す
         let userPostData = userPostArray[indexPath!.row]
         
-        //TODO ＜＜AさんをBさんがフォロー＞＞（ログインしている自分はAさん）
+        // ＜＜AさんをBさんがフォロー＞＞（ログインしている自分はAさん）
         //ログインしている自分(Aさん)のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
             //自分のuserName
-            let userName = Auth.auth().currentUser?.displayName
+            //let userName = Auth.auth().currentUser?.displayName
             //フォローリクエストが承認されたuidを取得(Bさん)
             let otherUserUid = userPostData.uid!
-            let otherUserName = userPostData.userName!
+            //let otherUserName = userPostData.userName!
             
             //TODOトランザクション開始
 //            let transaction = Firestore.firestore()
-
-            //(Bさん)のフォローの配下に（Aさん)のuidとuserNameを設定する
-            let followPostRef = Firestore.firestore().collection(Const.Follow).document(otherUserUid)
-            //自分（Aさん）のuidとuserNameを設定
-            let followPostDic = [
-                "uid":myUid,
-                "userName":userName
-            ]
-            followPostRef.getDocument {
-                (document,error) in
-                if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    if let document  = document ,document.exists{
-                        var array  = document["otherUser"] as! [Any]
-                        array.append(followPostDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        followPostRef.updateData(data)
-                    } else {
-                        var array: [Any] = []
-                        array.append(followPostDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        followPostRef.setData(data)
-                    }
-                }
-            }
+            //(Aさん)のフォロワーの配列に（Bさん）のuidとuserNameを設定する
+            let followerPostRef = Firestore.firestore().collection(Const.users).document(myUid)
+            // 更新データを作成する
+            var followerUpdateValue: FieldValue
+            followerUpdateValue = FieldValue.arrayUnion([otherUserUid])
+            followerPostRef.updateData(["follower": followerUpdateValue])
             print("★★★★★★★★★★★★★★★★★★★★★")
-            //(Aさん)のフォロワーの配下に（Bさん）のuidとuserNameを設定する
-            let followerPostRef = Firestore.firestore().collection(Const.Follower).document(myUid)
-            //（Bさん）のuidとuserNameを設定
-            let followerPostDic = [
-                "uid":otherUserUid,
-                "userName":otherUserName
-            ]
-            followerPostRef.getDocument {
-                (document,error) in
-                if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    if let document  = document ,document.exists{
-                        var array  = document["otherUser"] as! [Any]
-                        array.append(followerPostDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        print("submitButton")
-                        followerPostRef.updateData(data)
-                    } else {
-                        var array: [Any] = []
-                        array.append(followerPostDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        followerPostRef.setData(data)
-                    }
-                }
-            }
+            
+            //(Bさん)のフォローの配列に（Aさん)のuidとuserNameを設定する
+            let followPostRef = Firestore.firestore().collection(Const.users).document(otherUserUid)
+            // 更新データを作成する
+            var followUpdateValue: FieldValue
+            followUpdateValue = FieldValue.arrayUnion([myUid])
+            followPostRef.updateData(["follow":followUpdateValue])
             print("★★★★★★★★★★★★★★★★★★★★★")
-            //(Aさん)のフォローリクエスト配下の(Bさん)を削除する。
-            let followRequestPostRef = Firestore.firestore().collection(Const.FollowRequest).document(myUid)
-            followRequestPostRef.getDocument {
+            
+//            //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
+            let followRequestPostRef = Firestore.firestore().collection(Const.users).document(myUid)
+            // 更新データを作成する
+            var followRequestUpdateValue: FieldValue
+            followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
+            followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
+            print("★★★★★★★★★★★★★★★★★★★★★")
+            
+            //(Aさん)のフォローリクエストを再取得した画面の再描画する
+            let postRef = Firestore.firestore().collection(Const.users).document(myUid)
+            postRef.getDocument{
                 (document,error) in
                 if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
+                     print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                     return
+                 } else {
                     if let document  = document ,document.exists{
-                        var array  = document["otherUser"] as! [Any]
-                        //Bさんを見つける
-                        var removeIndex = -1
-                        for i in 0...array.count-1{
-                            let dictionary = array[i] as! [String:Any]
-                            if otherUserUid == dictionary["uid"] as? String{
-                                removeIndex = i
-                            }
-                        }
-                        //removeIndexが設定されていたら
-                        if removeIndex >= 0 {
-                            //配列の最後尾と削除する要素が同じでない場合
-                            if array.count-1 != removeIndex  {
-
-                                //配列のインデックスを詰める
-                                for i in removeIndex...array.count-2{
-                                    array[i] = array[i+1]
+                        let followRequestArray = document["followRequest"] as! [String]
+                        
+                        for i in 0...followRequestArray.count-1 {
+                            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequestArray[i])
+                            postRef2.getDocuments() {
+                                (querySnapshot,error) in
+                                if let error = error {
+                                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                                    return
+                                } else {
+                                    querySnapshot!.documents.map{
+                                        document in
+                                        self.userPostArray.append(UserPostData(document:document))
+                                        self.tableView.reloadData()
+                                    }
                                 }
-                                //あまった末尾の配列を削除する
-                                array.removeLast()
-                            } else{
-                                //削除する
-                                array.remove(at: removeIndex)
-                            }
-                            //更新する
-                            let data  = [
-                                "otherUser" : array
-                            ]
-                            //arrayの要素が0の場合はドキュメントごと削除する
-                            if array.count == 0 {
-                                //ドキュメントごと削除
-                                followRequestPostRef.delete()
-                            } else {
-                                //ドキュメントの配下の配列を更新する
-                                followRequestPostRef.updateData(data)
                             }
                         }
                     }
                 }
-                self.tableView.reloadData()
             }
-            print("★★★★★★★★★★★★★★★★★★★★★")
+
             //TODOトランザクション終了
+            
             print("承認されたよ")
             self.tableView.reloadData()
             

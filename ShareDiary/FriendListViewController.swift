@@ -57,7 +57,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
 ////        tableView.reloadData()
 //    }
     
-    //検索ボタンがタップされた時に実行される
+    //検索ボタンがタップされた時に実行される　TODO 修正予定
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         var followArray:[String] = []
         var followRequestArray :[String] = []
@@ -172,7 +172,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
     }
  
-    //セル内のボタンがタップされた時に呼ばれるメソッド
+    //セル内の「フォロー申請」ボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton,forEvent event:UIEvent){
         print("フォロー申請")
         //タップされたセルのインデックスを求める
@@ -187,38 +187,50 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //<<BさんがAさんにフォローリクエストする>>
         //ログインしている自分のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
-            //FirebaseのFollowRequestの相手の配下に自分のuidを設定する
-            let postRef = Firestore.firestore().collection(Const.FollowRequest).document(userPostData.uid!)
-            let userName = Auth.auth().currentUser?.displayName
-            //自分（Bさん）のuidとuserNameを設定
-            let postDic = [
-                "uid":myUid,
-                "userName":userName
-            ]
-            postRef.getDocument {
-                (document,error) in
-                if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    if let document  = document ,document.exists{
-                        var array  = document["otherUser"] as! [Any]
-                        array.append(postDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        print("submitButton")
-                        postRef.updateData(data)
-                    } else {
-                        var array: [Any] = []
-                        array.append(postDic)
-                        let data  = [
-                            "otherUser" : array
-                        ]
-                        postRef.setData(data)
-                    }
-                }
-            }
+            
+            //相手（Aさん）のuidのドキュメントを取得する
+            let usersRef = Firestore.firestore().collection(Const.users).document(userPostData.uid!)//userPostData.uidはAさんのuid
+            // 更新データを作成する
+            var updateValue: FieldValue
+            //AさんのfollowRequestに自分（Bさん）のuidを追加する
+            updateValue = FieldValue.arrayUnion([myUid])
+            usersRef.updateData(["followRequest":updateValue])
+    
+//            //FirebaseのFollowRequestの相手の配下に自分のuidを設定する
+//            let postRef = Firestore.firestore().collection(Const.FollowRequest).document(userPostData.uid!)
+//            let userName = Auth.auth().currentUser?.displayName
+            
+            
+//            //自分（Bさん）のuidとuserNameを設定
+//            let postDic = [
+//                "uid":myUid,
+//                "userName":userName
+//
+//            ]
+//            postRef.getDocument {
+//                (document,error) in
+//                if let error = error {
+//                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+//                    return
+//                } else {
+//                    if let document  = document ,document.exists{
+//                        var array  = document["otherUser"] as! [Any]
+//                        array.append(postDic)
+//                        let data  = [
+//                            "otherUser" : array
+//                        ]
+//                        print("submitButton")
+//                        postRef.updateData(data)
+//                    } else {
+//                        var array: [Any] = []
+//                        array.append(postDic)
+//                        let data  = [
+//                            "otherUser" : array
+//                        ]
+//                        postRef.setData(data)
+//                    }
+//                }
+//            }
             print("★")
         }
 

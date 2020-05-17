@@ -31,23 +31,20 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        if fromButton ==  Const.Follow {
+            //フォローボタンから遷移した場合
+            followOrFollowerLabel.text = "フォロー"
+        } else {
+            //フォロワーボタンから遷移した場合
+            followOrFollowerLabel.text = "フォロワー"
+        }
         if Auth.auth().currentUser != nil {
             if  let myUid = Auth.auth().currentUser?.uid {
                 //ログイン済み
                 var postRef : DocumentReference
                 
-                
-                if fromButton ==  Const.Follow {
-                    //フォローボタンから遷移した場合
-                    postRef = Firestore.firestore().collection(Const.Follow).document(myUid)
-                    followOrFollowerLabel.text = "フォロー"
-                } else {
-                    //フォロワーボタンから遷移した場合
-                    postRef = Firestore.firestore().collection(Const.Follower).document(myUid)
-                    followOrFollowerLabel.text = "フォロワー"
-                }
-                
-                
+                //TODO 修正中
+                postRef = Firestore.firestore().collection(Const.users).document(myUid)
                 postRef.getDocument{
                     (document,error) in
                     if let error = error {
@@ -55,18 +52,102 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                          return
                      } else {
                         if let document  = document ,document.exists{
-                            var array = document["otherUser"] as! [Any]
-//                            for i in 0...array.count-1 {
-//                                self.userPostArray.append(UserPostData(document:array[i] as! [String:Any]))
-//                            }
-                            array.map{
-                                doc in
-                                self.userPostArray.append(UserPostData(document:doc as! [String:Any]))
+                            
+                            if self.fromButton ==  Const.Follow {
+
+                                if document["follow"] != nil {
+                                    //フォローボタンから遷移した場合
+                                    let followArray = document["follow"] as! [String]
+                                    //初期化
+                                    self.userPostArray = []
+                                    for i in 0...followArray.count-1 {
+                                        let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followArray[i])
+                                        postRef2.getDocuments() {
+                                            (querySnapshot,error) in
+                                            if let error = error {
+                                                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                                                return
+                                            } else {
+                                                querySnapshot!.documents.map{
+                                                    document in
+                                                    self.userPostArray.append(UserPostData(document:document))
+                                                    self.tableView.reloadData()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                //followerが存在する場合
+                                if document["follower"] != nil {
+                                    //フォロワーボタンから遷移した場合
+                                    let followerArray = document["follower"] as! [String]
+                                    //初期化
+                                    self.userPostArray = []
+                                    for i in 0...followerArray.count-1 {
+                                        let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followerArray[i])
+                                        postRef2.getDocuments() {
+                                            (querySnapshot,error) in
+                                            if let error = error {
+                                                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                                                return
+                                            } else {
+                                                querySnapshot!.documents.map{
+                                                    document in
+                                                    self.userPostArray.append(UserPostData(document:document))
+                                                    self.tableView.reloadData()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
+
                         }
                     }
-                    self.tableView.reloadData()
+
                 }
+                
+                
+                
+                
+                
+                if fromButton ==  Const.Follow {
+                    //フォローボタンから遷移した場合
+                    
+                    followOrFollowerLabel.text = "フォロー"
+                } else {
+                    //フォロワーボタンから遷移した場合
+ 
+                    followOrFollowerLabel.text = "フォロワー"
+                }
+                
+                
+                
+                
+                
+                
+                
+
+//                postRef.getDocument{
+//                    (document,error) in
+//                    if let error = error {
+//                         print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+//                         return
+//                     } else {
+//                        if let document  = document ,document.exists{
+//                            var array = document["otherUser"] as! [Any]
+////                            for i in 0...array.count-1 {
+////                                self.userPostArray.append(UserPostData(document:array[i] as! [String:Any]))
+////                            }
+//                            array.map{
+//                                doc in
+//                                self.userPostArray.append(UserPostData(document:doc as! [String:Any]))
+//                            }
+//                        }
+//                    }
+//                    self.tableView.reloadData()
+//                }
             }
         }
             

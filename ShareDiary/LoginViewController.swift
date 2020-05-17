@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
 
                         //usersにuidとuserNameを設定する
                         if let myid = Auth.auth().currentUser?.uid {
-                            let postRef = Firestore.firestore().collection(Const.users).document()
+                            let postRef = Firestore.firestore().collection(Const.users).document(myid)
                             let postDic = [
                             "uid":myid,
                             "userName":displayName
