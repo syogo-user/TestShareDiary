@@ -131,10 +131,9 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             let otherUserUid = userPostData.uid!
             
                         
-            let ref = Firestore.firestore().collection(Const.users)
+            let ref = Firestore.firestore()
             //TODOトランザクション開始
-//            ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-
+            ref.runTransaction ( { ( currentData: MutableData) -> TransactionResult in
                 //(Aさん)のフォロワーの配列に（Bさん）のuidとuserNameを設定する
                 let followerPostRef = Firestore.firestore().collection(Const.users).document(myUid)
                 // 更新データを作成する
@@ -151,7 +150,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                 followPostRef.updateData(["follow":followUpdateValue])
                 print("★★★★★★★★★★★★★★★★★★★★★")
                 
-    //            //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
+                //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
                 let followRequestPostRef = Firestore.firestore().collection(Const.users).document(myUid)
                 // 更新データを作成する
                 var followRequestUpdateValue: FieldValue
@@ -159,14 +158,14 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                 followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
                 print("★★★★★★★★★★★★★★★★★★★★★")
                 
-//                //トランザクション成功？
-//                return TransactionResult.success(withValue: currentData)
-//            //TODOトランザクション終了
-//            }) { (error, committed, snapshot) in
-//              if let error = error {
-//                print(error.localizedDescription)
-//              }
-//            }
+                //トランザクション成功？
+                return TransactionResult.success(withValue: currentData)
+            //TODOトランザクション終了
+            }) { (error, committed, snapshot) in
+                  if let error = error {
+                    print(error.localizedDescription)
+                  }
+                }
                 
             //(Aさん)のフォローリクエストを再取得した画面の再描画する
             let postRef = Firestore.firestore().collection(Const.users).document(myUid)
