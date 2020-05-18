@@ -57,53 +57,10 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
 ////        tableView.reloadData()
 //    }
     
-    //検索ボタンがタップされた時に実行される　TODO 修正予定
+    //検索ボタンがタップされた時に実行される
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        var followArray:[String] = []
-        var followRequestArray :[String] = []
         //自分のuid取得
         if let myUid = Auth.auth().currentUser?.uid {
-            //フォローからデータを取得
-            let followPostRef = Firestore.firestore().collection(Const.Follow).document(myUid)
-            
-            followPostRef.getDocument {
-                (document,error) in
-                if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    if let document  = document ,document.exists{
-                        let array  = document["otherUser"] as! [Any]
-                        array.map {
-                            doc in
-                            var userPostData = UserPostData(document:doc as! [String:Any])
-                            followArray.append(userPostData.uid!)
-                        }
-                    }
-                }
-            }
-
-//            //フォローリクエストからデータを取得
-//            let followRequestPostRef = Firestore.firestore().collection(Const.FollowRequest).document()//documentにAさんのuidをいれたい
-//
-//            followRequestPostRef.getDocument {
-//                (document,error) in
-//                if let error = error {
-//                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-//                    return
-//                } else {
-//                    if let document  = document ,document.exists{
-//                        let array  = document["otherUser"] as! [Any]
-//                        array.map {
-//                            doc in
-//                            var userPostData = UserPostData(document:doc as! [String:Any])
-//                            followRequestArray.append(userPostData.uid!)
-//                        }
-//                    }
-//                }
-//            }
-            
-            
             //ユーザからデータを取得
             let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:searchBar.text!)
             postRef.getDocuments() {
@@ -115,7 +72,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                     self.userPostArray = querySnapshot!.documents.map {
                         document in
                         //print("\(document.documentID) => \(document.data())")
-                        let userPostData = UserPostData(document:document,followArray:followArray,followRequestArray:followRequestArray)
+                        let userPostData = UserPostData(document:document)
                         return userPostData
                     }
                     searchBar.endEditing(true)
@@ -124,13 +81,11 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
             }
 
         }
-//        let predicate = NSPredicate(format:"category == %@",searchBar.text!)
-//        taskArray = realm.objects(Task.self).filter(predicate)
         //キーボード閉じる
         searchBar.endEditing(true)
 //
         //リロード
-        tableView.reloadData()
+        //tableView.reloadData()
         
     }
     
@@ -187,7 +142,6 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //<<BさんがAさんにフォローリクエストする>>
         //ログインしている自分のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
-            
             //相手（Aさん）のuidのドキュメントを取得する
             let usersRef = Firestore.firestore().collection(Const.users).document(userPostData.uid!)//userPostData.uidはAさんのuid
             // 更新データを作成する
@@ -195,49 +149,10 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
             //AさんのfollowRequestに自分（Bさん）のuidを追加する
             updateValue = FieldValue.arrayUnion([myUid])
             usersRef.updateData(["followRequest":updateValue])
-    
-//            //FirebaseのFollowRequestの相手の配下に自分のuidを設定する
-//            let postRef = Firestore.firestore().collection(Const.FollowRequest).document(userPostData.uid!)
-//            let userName = Auth.auth().currentUser?.displayName
             
-            
-//            //自分（Bさん）のuidとuserNameを設定
-//            let postDic = [
-//                "uid":myUid,
-//                "userName":userName
-//
-//            ]
-//            postRef.getDocument {
-//                (document,error) in
-//                if let error = error {
-//                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-//                    return
-//                } else {
-//                    if let document  = document ,document.exists{
-//                        var array  = document["otherUser"] as! [Any]
-//                        array.append(postDic)
-//                        let data  = [
-//                            "otherUser" : array
-//                        ]
-//                        print("submitButton")
-//                        postRef.updateData(data)
-//                    } else {
-//                        var array: [Any] = []
-//                        array.append(postDic)
-//                        let data  = [
-//                            "otherUser" : array
-//                        ]
-//                        postRef.setData(data)
-//                    }
-//                }
-//            }
-            print("★")
+
         }
 
-        
-        
-        
-        
         
     }
 }

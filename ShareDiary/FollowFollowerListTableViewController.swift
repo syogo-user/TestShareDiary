@@ -43,7 +43,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                 //ログイン済み
                 var postRef : DocumentReference
                 
-                //TODO 修正中
+                
                 postRef = Firestore.firestore().collection(Const.users).document(myUid)
                 postRef.getDocument{
                     (document,error) in
@@ -56,6 +56,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                             if self.fromButton ==  Const.Follow {
 
                                 if document["follow"] != nil {
+                                    //フォローが存在する場合
                                     //フォローボタンから遷移した場合
                                     let followArray = document["follow"] as! [String]
                                     //初期化
@@ -107,47 +108,15 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     }
 
                 }
-                
-                
-                
-                
-                
+              
                 if fromButton ==  Const.Follow {
                     //フォローボタンから遷移した場合
-                    
                     followOrFollowerLabel.text = "フォロー"
                 } else {
                     //フォロワーボタンから遷移した場合
- 
                     followOrFollowerLabel.text = "フォロワー"
                 }
-                
-                
-                
-                
-                
-                
-                
 
-//                postRef.getDocument{
-//                    (document,error) in
-//                    if let error = error {
-//                         print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-//                         return
-//                     } else {
-//                        if let document  = document ,document.exists{
-//                            var array = document["otherUser"] as! [Any]
-////                            for i in 0...array.count-1 {
-////                                self.userPostArray.append(UserPostData(document:array[i] as! [String:Any]))
-////                            }
-//                            array.map{
-//                                doc in
-//                                self.userPostArray.append(UserPostData(document:doc as! [String:Any]))
-//                            }
-//                        }
-//                    }
-//                    self.tableView.reloadData()
-//                }
             }
         }
             
@@ -166,7 +135,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         cell.setUserPostData(userPostArray[indexPath.row])
         
         //セル内のボタンのアクションをソースコードで設定する
-//        cell.followRequestPermissionButton.addTarget(self,action:#selector(handleButton(_ : forEvent:)),for: .touchUpInside)
+        cell.rejectedButton.addTarget(self,action:#selector(rejectButtonAction(_ : forEvent:)),for: .touchUpInside)
         
         
         return cell
@@ -184,5 +153,65 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     
     //Deleteボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
+    }
+    
+    
+    //rejectButtonActionが押された時に呼ばれるメソッド
+    @objc func rejectButtonAction (_ sender: UIButton,forEvent event:UIEvent){
+        print("リジェクト")
+        
+        //タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        //タッチした座標
+        let point = touch!.location(in:self.tableView)
+        //タッチした座標がtableViewのどのindexPath位置か
+        let indexPath = tableView.indexPathForRow(at: point)
+        //配列からタップされたインデックスのデータを取り出す
+        let userPostData = userPostArray[indexPath!.row]
+        
+
+        //ログインしている自分（Aさん）のuidを取得する
+        if let myUid = Auth.auth().currentUser?.uid {
+            if fromButton ==  Const.Follow {
+                //フォローボタンから遷移した場合
+                //<<BさんがAさんをフォローするのをやめる>>
+                //TODO トランザクション開始
+                //自分（Bさん）のuidのドキュメントを取得する
+                let followRef = Firestore.firestore().collection(Const.users).document(myUid)
+                var updateFollowValue: FieldValue
+                //BさんのfollowからAさんのuidを削除する
+                updateFollowValue = FieldValue.arrayRemove([userPostData.uid!])
+                followRef.updateData(["follow":updateFollowValue])
+                
+                //Aさんのuidドキュメントを取得する
+                let followerRef = Firestore.firestore().collection(Const.users).document(userPostData.uid!)
+                 //AさんのfollowerからBさん(自分)のuidを削除する
+                var updateFollowerValue: FieldValue
+                updateFollowerValue = FieldValue.arrayRemove([myUid])
+                followerRef.updateData(["follower":updateFollowerValue])
+                //TODO トランザクション終了
+            } else {
+                //フォロワーボタンから遷移した場合
+
+                //TODO トランザクション開始
+                //<<AさんがBさんをフォロワーから解除する>>
+                //自分（Aさん）のuidのドキュメントを取得する
+                let followerRef = Firestore.firestore().collection(Const.users).document(myUid)
+                // 更新データを作成する
+                var updateFollowerValue: FieldValue
+                //AさんのfollowerからBさんのuidを削除する
+                updateFollowerValue = FieldValue.arrayRemove([userPostData.uid!])
+                followerRef.updateData(["follower":updateFollowerValue])
+                
+                
+                //Bさんのuidドキュメントを取得する
+                let followRef = Firestore.firestore().collection(Const.users).document(userPostData.uid!)
+                //BさんのfollowからAさんのuidを削除する
+                var updateFollowValue: FieldValue
+                updateFollowValue = FieldValue.arrayRemove([myUid])
+                followRef.updateData(["follow":updateFollowValue])
+                //TODO トランザクション終了
+            }
+        }
     }
 }

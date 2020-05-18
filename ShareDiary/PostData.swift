@@ -11,7 +11,7 @@ import Firebase
 
 class PostData: NSObject {
     var id: String
-    var documentUserName: String?
+    var     documentUserName: String?
     var content: String?
     var date: Date?
     var likes: [String] = []

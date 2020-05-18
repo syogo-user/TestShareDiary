@@ -25,15 +25,25 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVP-iG-27f">
+                        <rect key="frame" x="180" y="40" width="130" height="42"/>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="フォロー中"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="HVP-iG-27f" secondAttribute="trailing" constant="10" id="7HW-fL-we8"/>
                     <constraint firstItem="giS-T3-DmM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="9bk-Yr-Rnd"/>
+                    <constraint firstItem="HVP-iG-27f" firstAttribute="leading" secondItem="giS-T3-DmM" secondAttribute="trailing" constant="20" id="Uim-bj-PKu"/>
                     <constraint firstAttribute="bottom" secondItem="giS-T3-DmM" secondAttribute="bottom" constant="10" id="WNx-mu-ZoE"/>
                     <constraint firstItem="giS-T3-DmM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hOM-od-WCf"/>
+                    <constraint firstAttribute="bottom" secondItem="HVP-iG-27f" secondAttribute="bottom" constant="40" id="sPJ-jO-StQ"/>
+                    <constraint firstItem="HVP-iG-27f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="v1d-mo-Noa"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="rejectedButton" destination="HVP-iG-27f" id="hTC-1A-QnA"/>
                 <outlet property="userName" destination="giS-T3-DmM" id="UB8-29-nFr"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="125.89285714285714"/>

@@ -7,11 +7,12 @@
 //
 
 import UIKit
-
+import Firebase
 class FollowFollowerListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
-
+    @IBOutlet weak var rejectedButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,6 +26,6 @@ class FollowFollowerListTableViewCell: UITableViewCell {
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
         self.userName.text = userPostData.userName
-
+        
     }
 }

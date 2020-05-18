@@ -37,8 +37,10 @@ class PostTableViewCell: UITableViewCell {
 //        postUserImageView.sd_setImage(with: imageRef)
         
         //投稿者の名前
-        self.postUserLabel.text = "\(postData.documentUserName!)"
-        
+        self.postUserLabel.text = ""
+        if let documentUserName = postData.documentUserName {
+            self.postUserLabel.text = "\(documentUserName)"
+        }
         // いいねボタンの表示
         if postData.isLiked {
             let buttonImage = UIImage(named: "like_exist")
@@ -59,7 +61,10 @@ class PostTableViewCell: UITableViewCell {
             self.dateLabel.text = dateString
         }
         // コンテントの表示
-        self.contentTextView.text! = postData.content!
+        self.contentTextView.text = ""
+        if let content = postData.content{
+            self.contentTextView.text! = content
+        }
         //文字入力不可設定
         self.contentTextView.isEditable = false
         // 画像の表示

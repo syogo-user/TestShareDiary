@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class UsersTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!        
@@ -27,13 +27,31 @@ class UsersTableViewCell: UITableViewCell {
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
         self.userName.text = userPostData.userName
-                      
-//        if let flg = userPostData.followRequestFlg{
-//            if flg {
-//                 //followRequestFlgがtrue(申請済)の場合
-//                self.followRequestButton.setTitle("申請済", for: .normal)
-//            }
-//        }
+
+        //ボタンのテキスト変更
+        if let myid = Auth.auth().currentUser?.uid {
+            self.followRequestButton.setTitle("フォロー申請", for: .normal)
+            self.followRequestButton.isEnabled = true
+            
+            if let followRequestArray = userPostData.followRequest {
+                for followRequest in followRequestArray{
+                    //フォローリクエストに今ログインしている自分のuidがあったら
+                    if followRequest == myid {
+                        self.followRequestButton.setTitle("申請済", for: .normal)
+                        self.followRequestButton.isEnabled = false
+                    }
+                }
+            }
+            
+            if let followerArray = userPostData.follower {
+                for follower in followerArray {
+                    //フォロワーに今ログインしている自分のuidがあったら
+                    self.followRequestButton.setTitle("フォロー済", for: .normal)
+                    self.followRequestButton.isEnabled = false
+                }
+            }
+        }
+        
     }
     
 }
