@@ -10,8 +10,9 @@ import UIKit
 import Firebase
 
 class PostData: NSObject {
-    var id: String
-    var     documentUserName: String?
+    var id: String = ""
+    var uid :String
+    var documentUserName: String?
     var content: String?
     var date: Date?
     var likes: [String] = []
@@ -21,7 +22,12 @@ class PostData: NSObject {
         self.id = document.documentID
 
         let postDic = document.data()
-
+        
+        self.uid = ""
+        if let postUid = postDic["uid"] {
+            self.uid = postUid as! String
+        }
+        
         self.documentUserName = postDic["documentUserName"] as? String
 
         self.content = postDic["content"] as? String

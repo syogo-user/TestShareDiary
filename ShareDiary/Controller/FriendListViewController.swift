@@ -13,7 +13,8 @@ import SlideMenuControllerSwift
 class FriendListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate{
 
     @IBOutlet weak var tableView: UITableView!
-    
+    //検索文字列
+    var inputText :String = ""
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
     
@@ -40,9 +41,17 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         navigationController?.navigationBar.barTintColor = UIColor(red: 129/255, green: 212/255, blue: 78/255, alpha: 1)
         //NavigationBarに乗っている部品の色を変更します
         navigationController?.navigationBar.tintColor = UIColor.white
+        
         //バーの左側にボタンを配置します(ライブラリ特有)
         addLeftBarButtonWithImage(UIImage(named: "menu")!)
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 10000
+        //画面下部の境界線を消す
+        tableView.tableFooterView = UIView()
     }
     
 //    //検索バーで文字編集中（文字をクリアしたときも実行される）
@@ -59,10 +68,11 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     
     //検索ボタンがタップされた時に実行される
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        inputText =  searchBar.text!
         //自分のuid取得
         if let myUid = Auth.auth().currentUser?.uid {
             //ユーザからデータを取得
-            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:searchBar.text!)
+            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
             postRef.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
@@ -129,6 +139,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
  
     //セル内の「フォロー申請」ボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton,forEvent event:UIEvent){
+
         print("フォロー申請")
         //タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
@@ -139,20 +150,52 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //配列からタップされたインデックスのデータを取り出す
         let userPostData = userPostArray[indexPath!.row]
         
-        //<<BさんがAさんにフォローリクエストする>>
+ 
+
         //ログインしている自分のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
             //相手（Aさん）のuidのドキュメントを取得する
             let usersRef = Firestore.firestore().collection(Const.users).document(userPostData.uid!)//userPostData.uidはAさんのuid
             // 更新データを作成する
             var updateValue: FieldValue
-            //AさんのfollowRequestに自分（Bさん）のuidを追加する
-            updateValue = FieldValue.arrayUnion([myUid])
+            if sender.titleLabel?.text == "フォロー申請" {
+                //<<BさんがAさんにフォローリクエストする>>
+                //AさんのfollowRequestに自分（Bさん）のuidを追加する
+                updateValue = FieldValue.arrayUnion([myUid])
+
+            } else {
+                //ボタンのラベルが「申請済」の場合
+                //申請のキャンセル
+                print("申請キャンセル")
+                //<<BさんがAさんへのフォローリクエストをキャンセルする>>
+                //AさんのfollowRequestから自分（Bさん）のuidを削除する
+                updateValue = FieldValue.arrayRemove([myUid])
+            }
+            //データ更新
             usersRef.updateData(["followRequest":updateValue])
             
-
+            //再描画のためにデータを取得
+            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
+            postRef.getDocuments() {
+                (querySnapshot,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    self.userPostArray = querySnapshot!.documents.map {
+                        document in
+                        //print("\(document.documentID) => \(document.data())")
+                        let userPostData = UserPostData(document:document)
+                        return userPostData
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+            
         }
 
         
     }
+
+ 
 }

@@ -31,50 +31,10 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     override func viewWillAppear(_ animated: Bool) {
         
         if Auth.auth().currentUser != nil {
-            if  let myUid = Auth.auth().currentUser?.uid {
-                //ログイン済み
-                let postRef = Firestore.firestore().collection(Const.users).document(myUid)
-                postRef.getDocument{
-                    (document,error) in
-                    if let error = error {
-                         print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                         return
-                     } else {
-                        if let document  = document ,document.exists{
-                            if document["followRequest"] != nil {
-                                let followRequestArray = document["followRequest"] as! [String]
-                                //初期化
-                                self.userPostArray = []
-                                if followRequestArray.count != 0 {
-                                    //followRequestArrayに値がある場合
-                                    for i in 0...followRequestArray.count-1 {
-                                        let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequestArray[i])
-                                        postRef2.getDocuments() {
-                                            (querySnapshot,error) in
-                                            if let error = error {
-                                                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                                                return
-                                            } else {
-                                                querySnapshot!.documents.map{
-                                                    document in
-                                                    self.userPostArray.append(UserPostData(document:document))
-                                                    self.tableView.reloadData()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }else {
-                                    //followRequestArrayに値がない場合
-                                    self.userPostArray = []
-                                    self.tableView.reloadData()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            reloadView()
         }
-        
+        //画面下部の境界線を消す
+        tableView.tableFooterView = UIView()
         
         
     }
@@ -92,7 +52,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         
         //セル内のボタンのアクションをソースコードで設定する
         cell.followRequestPermissionButton.addTarget(self,action:#selector(handleButton(_ : forEvent:)),for: .touchUpInside)
-        
+        cell.followRequestRejectionButton.addTarget(self,action:#selector(rejectionButton(_ : forEvent:)),for: .touchUpInside)
         
         return cell
     }
@@ -124,50 +84,98 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         //配列からタップされたインデックスのデータを取り出す
         let userPostData = userPostArray[indexPath!.row]
         
-        // ＜＜AさんをBさんがフォロー＞＞（ログインしている自分はAさん）
+        // ＜＜AさんがBさんフォローリクエストを承認＞＞（ログインしている自分はAさん）
         //ログインしている自分(Aさん)のuidを取得する
         if  let myUid = Auth.auth().currentUser?.uid {
             //フォローリクエストが承認されたuidを取得(Bさん)
             let otherUserUid = userPostData.uid!
             
                         
-            let ref = Firestore.firestore()
-            //TODOトランザクション開始
-            ref.runTransaction ( { ( currentData: MutableData) -> TransactionResult in
-                //(Aさん)のフォロワーの配列に（Bさん）のuidとuserNameを設定する
-                let followerPostRef = Firestore.firestore().collection(Const.users).document(myUid)
-                // 更新データを作成する
-                var followerUpdateValue: FieldValue
-                followerUpdateValue = FieldValue.arrayUnion([otherUserUid])
-                followerPostRef.updateData(["follower": followerUpdateValue])
-                print("★★★★★★★★★★★★★★★★★★★★★")
-                
-                //(Bさん)のフォローの配列に（Aさん)のuidとuserNameを設定する
-                let followPostRef = Firestore.firestore().collection(Const.users).document(otherUserUid)
-                // 更新データを作成する
-                var followUpdateValue: FieldValue
-                followUpdateValue = FieldValue.arrayUnion([myUid])
-                followPostRef.updateData(["follow":followUpdateValue])
-                print("★★★★★★★★★★★★★★★★★★★★★")
-                
-                //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
-                let followRequestPostRef = Firestore.firestore().collection(Const.users).document(myUid)
-                // 更新データを作成する
-                var followRequestUpdateValue: FieldValue
-                followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
-                followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
-                print("★★★★★★★★★★★★★★★★★★★★★")
-                
-                //トランザクション成功？
-                return TransactionResult.success(withValue: currentData)
-            //TODOトランザクション終了
-            }) { (error, committed, snapshot) in
-                  if let error = error {
-                    print(error.localizedDescription)
-                  }
+            let db = Firestore.firestore()
+            //トランザクション開始
+            
+            let batch = db.batch()
+            
+            //(Aさん)のフォロワーの配列に（Bさん）のuidとuserNameを設定する
+            let followerPostRef = db.collection(Const.users).document(myUid)
+            // 更新データを作成する
+            var followerUpdateValue: FieldValue
+            followerUpdateValue = FieldValue.arrayUnion([otherUserUid])
+            batch.updateData(["follower": followerUpdateValue],forDocument: followerPostRef)
+            //followerPostRef.updateData(["follower": followerUpdateValue])
+            print("★★★★★★★★★★★★★★★★★★★★★")
+            
+            //(Bさん)のフォローの配列に（Aさん)のuidとuserNameを設定する
+            let followPostRef = db.collection(Const.users).document(otherUserUid)
+            // 更新データを作成する
+            var followUpdateValue: FieldValue
+            followUpdateValue = FieldValue.arrayUnion([myUid])
+            batch.updateData(["follow":followUpdateValue],forDocument: followPostRef)
+            //followPostRef.updateData(["follow":followUpdateValue])
+            print("★★★★★★★★★★★★★★★★★★★★★")
+            
+            //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
+            let followRequestPostRef = db.collection(Const.users).document(myUid)
+            // 更新データを作成する
+            var followRequestUpdateValue: FieldValue
+            followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
+            batch.updateData(["followRequest":followRequestUpdateValue],forDocument: followRequestPostRef)
+            //followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
+            print("★★★★★★★★★★★★★★★★★★★★★")
+            //トランザクション終了
+            //コミット
+            batch.commit() { err in
+                if let err = err {
+                    print("Error writing batch \(err)")
+                } else {
+                    print("Batch write succeeded.")
                 }
-                
+            }
+                           
             //(Aさん)のフォローリクエストを再取得した画面の再描画する
+            reloadView()
+
+
+            print("承認")
+            self.tableView.reloadData()
+            
+        }
+        
+    }
+    
+    
+    //セル内の拒否ボタンがタップされた時に呼ばれるメソッド
+    @objc func rejectionButton(_ sender: UIButton,forEvent event:UIEvent){
+        print("拒否")
+        //タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        //タッチした座標
+        let point = touch!.location(in:self.tableView)
+        //タッチした座標がtableViewのどのindexPath位置か
+        let indexPath = tableView.indexPathForRow(at: point)
+        //配列からタップされたインデックスのデータを取り出す
+        let userPostData = userPostArray[indexPath!.row]
+        
+        // ＜＜AさんがBさんがフォローリクエストを削除＞＞（ログインしている自分はAさん）
+        //ログインしている自分(Aさん)のuidを取得する
+         if  let myUid = Auth.auth().currentUser?.uid {
+            //フォローリクエストが承認されたuidを取得(Bさん)
+            let otherUserUid = userPostData.uid!
+            let db = Firestore.firestore()
+            //(Aさん)のフォローリクエスト配列の(Bさん)を削除する。
+            let followRequestPostRef = db.collection(Const.users).document(myUid)
+            // 更新データを作成する
+            var followRequestUpdateValue: FieldValue
+            followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
+            followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
+            //再描画
+            reloadView()
+        }
+    }
+    
+    //再描画
+    func reloadView(){
+        if  let myUid = Auth.auth().currentUser?.uid {
             let postRef = Firestore.firestore().collection(Const.users).document(myUid)
             postRef.getDocument{
                 (document,error) in
@@ -177,11 +185,12 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                  } else {
                     if let document  = document ,document.exists{
                         let followRequestArray = document["followRequest"] as! [String]
-                        
+                        //初期化
+                        self.userPostArray = []
                         if followRequestArray.count != 0 {
                             //followRequestArrayに値がある場合
-                            for i in 0...followRequestArray.count-1 {
-                                let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequestArray[i])
+                            for followRequest in followRequestArray {
+                                let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequest)
                                 postRef2.getDocuments() {
                                     (querySnapshot,error) in
                                     if let error = error {
@@ -204,19 +213,6 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                     }
                 }
             }
-
-
-            print("承認されたよ")
-            self.tableView.reloadData()
-            
         }
-        
     }
-    
-    
-    
-    
-    
-
-
 }

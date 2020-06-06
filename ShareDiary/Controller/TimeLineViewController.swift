@@ -14,26 +14,43 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     // 投稿データを格納する配列
     var postArray: [PostData] = []
-
+    
+    var previousUid = ""
     // Firestoreのリスナー
     var listener: ListenerRegistration!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         tableView.delegate = self
         tableView.dataSource = self
 
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
+        //画面下部の境界線を消す
+        tableView.tableFooterView = UIView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
 
+        
         if Auth.auth().currentUser != nil {
+            guard let myUid = Auth.auth().currentUser?.uid else {return}
+            
+            //前にログインしていたuidと変わっていたら
+            if  previousUid != myUid {
+                previousUid = myUid
+                if listener != nil{
+                    listener.remove()
+                    listener = nil
+                    self.postArray = []
+                    self.tableView.reloadData()
+                }
+            }
             // ログイン済み
             if listener == nil {
                 // listener未登録なら、登録してスナップショットを受信する
@@ -43,14 +60,34 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                         print("DEBUG_PRINT: snapshotの取得が失敗しました。 \(error)")
                         return
                     }
-                    // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                    self.postArray = querySnapshot!.documents.map { document in
-                        print("DEBUG_PRINT: document取得 \(document.documentID)")
-                        let postData = PostData(document: document)
-                        return postData
+                    // ここでusersから自分がフォローしている人のuidを取得する
+                    let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+                    postUserRef.getDocument() {
+                        (querySnapshot2,error) in
+                        if let error = error {
+                            print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                            return
+                        } else {
+                            let document = querySnapshot2?.data()
+                            guard let doc = document else{return}
+                            guard let docFollow = doc["follow"] else {return}
+                            let followArray = docFollow as! [String]
+                            self.postArray = []
+                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+                            querySnapshot!.documents.map { document in
+                                let postData = PostData(document: document)
+                                print("DEBUG_PRINT: document取得 \(document.documentID)")
+                                for followUid in followArray{
+                                    if postData.uid == followUid {
+                                        self.postArray.append(postData)
+                                    }
+                                }
+
+                            }
+                            // TableViewの表示を更新する
+                            self.tableView.reloadData()
+                        }
                     }
-                    // TableViewの表示を更新する
-                    self.tableView.reloadData()
                 }
             }
         } else {
@@ -59,10 +96,11 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 // listener登録済みなら削除してpostArrayをクリアする
                 listener.remove()
                 listener = nil
-                postArray = []
-                tableView.reloadData()
+                self.postArray = []
+                self.tableView.reloadData()
             }
         }
+        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

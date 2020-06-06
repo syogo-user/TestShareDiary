@@ -15,6 +15,7 @@ target 'ShareDiary' do
   pod 'FSCalendar'
   pod 'SVProgressHUD','2.2.5'
   pod 'SlideMenuControllerSwift'
+  pod 'CLImageEditor/AllTools','0.2.4'
 end
 swift4 = ['SlideMenuControllerSwift']
 post_install do |installer|

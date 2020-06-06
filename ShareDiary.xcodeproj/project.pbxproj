@@ -116,30 +116,13 @@
 		3D9BFE8123FEE75F009893B1 /* ShareDiary */ = {
 			isa = PBXGroup;
 			children = (
+				3DE733E52483C15C00241528 /* Model */,
+				3DE733E62483C19000241528 /* Xib */,
+				3DE733E82483C25000241528 /* ViewCell */,
+				3DE733E72483C1DE00241528 /* Controller */,
 				3D9BFE8223FEE75F009893B1 /* AppDelegate.swift */,
 				3D9BFE8423FEE75F009893B1 /* SceneDelegate.swift */,
-				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
-				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
-				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
-				3DA5F5F92403906500321D00 /* TabBarController.swift */,
-				3D42D71C240A8F9900133261 /* PostTableViewCell.swift */,
-				3D42D71D240A8F9900133261 /* PostTableViewCell.xib */,
-				3D544A9524057470007793AC /* PostViewController.swift */,
-				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
-				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
-				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
-				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
-				3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */,
-				3D49C2872467F0A7008ACC25 /* FollowFollowerListTableViewCell.swift */,
-				3D49C2882467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib */,
-				3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */,
-				3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */,
-				3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */,
-				3D031C332461198A00A845C1 /* UsersTableViewCell.swift */,
-				3D031C342461198A00A845C1 /* UsersTableViewCell.xib */,
 				3D871999240A500700D4064E /* Const.swift */,
-				3D87199B240A754900D4064E /* PostData.swift */,
-				3D031C3724616B0100A845C1 /* UserPostData.swift */,
 				3D9BFE8823FEE75F009893B1 /* Main.storyboard */,
 				3D9BFE8B23FEE760009893B1 /* Assets.xcassets */,
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
@@ -147,6 +130,55 @@
 				3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */,
 			);
 			path = ShareDiary;
+			sourceTree = "<group>";
+		};
+		3DE733E52483C15C00241528 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3D87199B240A754900D4064E /* PostData.swift */,
+				3D031C3724616B0100A845C1 /* UserPostData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3DE733E62483C19000241528 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				3D42D71D240A8F9900133261 /* PostTableViewCell.xib */,
+				3D031C342461198A00A845C1 /* UsersTableViewCell.xib */,
+				3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */,
+				3D49C2882467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		3DE733E72483C1DE00241528 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3DA5F5F92403906500321D00 /* TabBarController.swift */,
+				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
+				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
+				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
+				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
+				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
+				3D544A9524057470007793AC /* PostViewController.swift */,
+				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
+				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
+				3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */,
+				3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3DE733E82483C25000241528 /* ViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3D42D71C240A8F9900133261 /* PostTableViewCell.swift */,
+				3D031C332461198A00A845C1 /* UsersTableViewCell.swift */,
+				3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */,
+				3D49C2872467F0A7008ACC25 /* FollowFollowerListTableViewCell.swift */,
+			);
+			path = ViewCell;
 			sourceTree = "<group>";
 		};
 		69DD8ABBEFF1D1B33CC4C45C /* Frameworks */ = {

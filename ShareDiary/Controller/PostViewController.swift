@@ -90,9 +90,13 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             }
         }
         
+        guard let myUid = Auth.auth().currentUser?.uid else {
+            return
+        }
         // FireStoreに投稿データを保存する
         let documentUserName = Auth.auth().currentUser?.displayName
         let postDic = [
+            "uid":myUid,
             "documentUserName": documentUserName!,
             "content": self.inputTextView.text!,
             "date": FieldValue.serverTimestamp(),

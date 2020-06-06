@@ -73,8 +73,8 @@ class LoginViewController: UIViewController {
                         if let myid = Auth.auth().currentUser?.uid {
                             let postRef = Firestore.firestore().collection(Const.users).document(myid)
                             let postDic = [
-                            "uid":myid,
-                            "userName":displayName
+                                "uid":myid,
+                                "userName":displayName
                             ] as [String :Any]
                             postRef.setData(postDic)
                         }

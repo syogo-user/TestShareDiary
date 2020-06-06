@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseUI
+import Firebase
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var postUserImageView: UIImageView!
@@ -21,6 +22,7 @@ class PostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        postUserImageView.layer.cornerRadius = 20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,12 +32,6 @@ class PostTableViewCell: UITableViewCell {
     }
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
-        
-        //投稿者のプロフィール写真
-//        postUserImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-//        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postData.id + ".jpg")
-//        postUserImageView.sd_setImage(with: imageRef)
-        
         //投稿者の名前
         self.postUserLabel.text = ""
         if let documentUserName = postData.documentUserName {
@@ -72,6 +68,50 @@ class PostTableViewCell: UITableViewCell {
         let imageRef2 = Storage.storage().reference().child(Const.ImagePath).child(postData.id + ".jpg")
         contetImageView.sd_setImage(with: imageRef2)
 
-        
+        //プロフィール写真を設定
+        setPostImage(uid:postData.uid)
     }
+    
+    private func setPostImage(uid:String){
+        let userRef = Firestore.firestore().collection(Const.users).document(uid)
+        
+        userRef.getDocument() {
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                if let document = querySnapshot!.data(){
+                    let imageName = document["myImageName"] as? String ?? ""
+                    
+                    //画像の取得
+                    let imageRef = Storage.storage().reference().child(Const.ImagePath).child(imageName + ".jpg")
+                    
+                    //画像がなければデフォルトの画像表示
+                    if imageName == "" {
+                        self.postUserImageView.image = UIImage(named: "unknown")
+                    }else{
+                        //取得した画像の表示
+                        self.postUserImageView.sd_imageIndicator =
+                            SDWebImageActivityIndicator.gray
+                        self.postUserImageView.sd_setImage(with: imageRef)
+                    }
+                }
+            }
+        }
+    }
+
+//    private func setPostImage(uid:String){
+//
+//        //ユーザ情報を取得
+//        getUser(uid:uid)
+//
+//        guard let userImageName = userImageName else {return}
+//        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
+//            //取得した画像の表示
+//            self.userImage.sd_imageIndicator =
+//                SDWebImageActivityIndicator.gray
+//            self.userImage.sd_setImage(with: imageRef)
+//
+//    }
 }

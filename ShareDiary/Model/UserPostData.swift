@@ -11,6 +11,8 @@ import Firebase
 class UserPostData: NSObject {
     var uid:String?
     var userName:String?
+    var myImageName :String?
+    var profileMessage:String?
     var follow :[String]?
     var follower:[String]?
     var followRequest:[String]?
@@ -22,6 +24,8 @@ class UserPostData: NSObject {
         let postDic = document.data()
         self.uid = postDic["uid"] as? String
         self.userName = postDic["userName"] as? String
+        self.myImageName = postDic["myImageName"] as? String
+        self.profileMessage = postDic["profileMessage"] as? String
         self.follow  = postDic["follow"] as? [String]
         self.follower  = postDic["follower"] as? [String]
         self.followRequest = postDic["followRequest"] as? [String]
