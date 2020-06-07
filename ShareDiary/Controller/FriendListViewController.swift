@@ -18,18 +18,22 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
     
+    var searchBar :UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //検索バーのインスタンスを取得する
-        let searchBar: UISearchBar = UISearchBar()
-        searchBar.placeholder = "ユーザ名で検索"
-        searchBar.layer.shadowOpacity = 0.2
-        self.navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        
+        if let navigationBarFrame = navigationController?.navigationBar.bounds {
+            //検索バーのインスタンスを取得する
+            let searchBar: UISearchBar = UISearchBar()
+            searchBar.delegate = self
+            searchBar.placeholder = "ユーザ名で検索"
+            searchBar.layer.shadowOpacity = 0.2
+            self.navigationItem.titleView = searchBar
+            navigationItem.titleView?.frame = searchBar.frame
+            self.searchBar = searchBar
+        }
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
