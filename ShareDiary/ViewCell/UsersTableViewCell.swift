@@ -37,6 +37,7 @@ class UsersTableViewCell: UITableViewCell {
         //userNameをセット
         self.userName.text = userPostData.userName
         self.profileMessage.text = userPostData.profileMessage
+        self.profileMessage.isEditable = false//編集不可
         //ボタンのテキスト変更
         if let myid = Auth.auth().currentUser?.uid {
 

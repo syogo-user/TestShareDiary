@@ -18,22 +18,32 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
     
-    var searchBar :UISearchBar!
+    var searchbar :UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        if let navigationBarFrame = navigationController?.navigationBar.bounds {
-            //検索バーのインスタンスを取得する
-            let searchBar: UISearchBar = UISearchBar()
-            searchBar.delegate = self
-            searchBar.placeholder = "ユーザ名で検索"
-            searchBar.layer.shadowOpacity = 0.2
-            self.navigationItem.titleView = searchBar
-            navigationItem.titleView?.frame = searchBar.frame
-            self.searchBar = searchBar
-        }
+//        if let navigationBarFrame = navigationController?.navigationBar.bounds {
+//            //検索バーのインスタンスを取得する
+//            let searchBar: UISearchBar = UISearchBar()
+//            searchBar.delegate = self
+//            searchBar.placeholder = "ユーザ名で検索"
+//            searchBar.layer.shadowOpacity = 0.2
+//            self.navigationItem.titleView = searchBar
+//            navigationItem.titleView?.frame = searchBar.frame
+//            self.searchBar = searchBar
+//        }
+        
+        //検索バーのインスタンスを取得する
+        let searchBar: UISearchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
+        searchBar.placeholder = "ユーザ名で検索"
+        self.searchbar = searchBar
+        self.view.addSubview(searchbar)
+
+        
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -47,7 +57,11 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         navigationController?.navigationBar.tintColor = UIColor.white
         
         //バーの左側にボタンを配置します(ライブラリ特有)
-        addLeftBarButtonWithImage(UIImage(named: "menu")!)
+        navigationController?.addLeftBarButtonWithImage(UIImage(named: "menu")!)
+        //openLeft()
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -58,16 +72,9 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         tableView.tableFooterView = UIView()
     }
     
-//    //検索バーで文字編集中（文字をクリアしたときも実行される）
+    //検索バーで文字編集中（文字をクリアしたときも実行される）
 //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)  {
-////        if searchText != "" {
-////            let predicate = NSPredicate(format:"category == %@",searchText)
-////            taskArray = realm.objects(Task.self).filter(predicate)
-////        } else{
-////            taskArray = realm.objects(Task.self)
-////        }
-////
-////        tableView.reloadData()
+//        self.view.endEditing(true)
 //    }
     
     //検索ボタンがタップされた時に実行される
@@ -97,18 +104,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         }
         //キーボード閉じる
         searchBar.endEditing(true)
-//
-        //リロード
-        //tableView.reloadData()
-        
+
     }
-    
-//    //セルの高さを返すメソッド
-//    func tableView(_ table: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return  60
-//    }
-    
-    
     //データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView , numberOfRowsInSection section:Int ) -> Int{
         return userPostArray.count
@@ -199,6 +196,9 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         }
 
         
+    }
+    @objc func dismissKeyboard(){
+        self.view.endEditing(true)
     }
 
  

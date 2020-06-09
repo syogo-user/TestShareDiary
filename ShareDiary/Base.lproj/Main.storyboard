@@ -411,15 +411,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8cV-vo-nex">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="729"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8cV-vo-nex" firstAttribute="leading" secondItem="Amc-Bs-yaW" secondAttribute="leading" id="3ht-je-ddX"/>
+                            <constraint firstItem="8cV-vo-nex" firstAttribute="top" secondItem="Amc-Bs-yaW" secondAttribute="top" constant="40" id="SpQ-9D-b8e"/>
                             <constraint firstItem="Amc-Bs-yaW" firstAttribute="bottom" secondItem="8cV-vo-nex" secondAttribute="bottom" id="Xco-Hq-8Pr"/>
-                            <constraint firstItem="8cV-vo-nex" firstAttribute="top" secondItem="Amc-Bs-yaW" secondAttribute="top" id="kcp-yc-mIG"/>
                             <constraint firstItem="Amc-Bs-yaW" firstAttribute="trailing" secondItem="8cV-vo-nex" secondAttribute="trailing" id="ylu-i8-lEs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Amc-Bs-yaW"/>
@@ -432,7 +432,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbb-Lm-wnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="813"/>
+            <point key="canvasLocation" x="1776.8115942028987" y="812.94642857142856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aLt-q3-KS0">
@@ -539,6 +539,8 @@
                         <viewLayoutGuide key="safeArea" id="EIL-C0-Paw"/>
                     </view>
                     <connections>
+                        <outlet property="createAcountButton" destination="BSN-9Z-U4H" id="t0m-2a-E7r"/>
+                        <outlet property="loginButton" destination="YUr-eT-Qcv" id="WAm-ph-xyB"/>
                         <outlet property="mailAddressTextField" destination="v3x-pz-YGg" id="GPj-Io-iH4"/>
                         <outlet property="nickNameTextField" destination="iC0-iO-Ufd" id="hhg-SX-Dfh"/>
                         <outlet property="passwordTextField" destination="orK-8T-YLK" id="Dp7-93-GOM"/>

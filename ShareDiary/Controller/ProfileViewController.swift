@@ -46,15 +46,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                     if let document = querySnapshot!.data(){
                         self.nickNameTextField.text = document["userName"] as? String ?? ""
                         self.profileMessage.text = document["profileMessage"] as? String ?? ""
-
+                        
                         let myImageName = document["myImageName"] as? String ?? ""
-//                        let myImageNumber =  Int(String(myImageNameFirebase.suffix(1))) ?? 0
-//
-//                        //ファイル名
-//                        let myImageName = myUid + "\(myImageNumber)"
+                        //                        let myImageNumber =  Int(String(myImageNameFirebase.suffix(1))) ?? 0
+                        //
+                        //                        //ファイル名
+                        //                        let myImageName = myUid + "\(myImageNumber)"
                         //画像の取得
                         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
-
+                        
                         //画像がなければデフォルトの画像表示
                         if myImageName == "" {
                             self.myImage.image = UIImage(named: "unknown")
@@ -207,6 +207,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         
         
         
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
 

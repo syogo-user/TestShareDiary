@@ -38,6 +38,7 @@ class FollowRequestListTableViewCell: UITableViewCell {
         //userNameをセット
         self.userName.text = userPostData.userName
         self.profileMessage.text = userPostData.profileMessage
+        self.profileMessage.isEditable = false//編集不可
         //写真を設定
         setImage(userImageName:userPostData.myImageName)
                 
