@@ -21,6 +21,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="B2h-bf-Zm1"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="yyyy年　MM月"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbK-ku-AtB">
                                 <rect key="frame" x="309" y="710" width="50" height="50"/>
@@ -47,6 +50,9 @@
                         <viewLayoutGuide key="safeArea" id="NQC-XV-lvh"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="カレンダー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
+                    <connections>
+                        <outlet property="calendar" destination="En2-qG-0Kn" id="ucS-Pb-tMK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-Va-gB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

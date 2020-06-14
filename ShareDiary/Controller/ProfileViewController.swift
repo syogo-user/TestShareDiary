@@ -35,8 +35,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         
         if let myUid = Auth.auth().currentUser?.uid {
             //firebaseから自分のユーザ情報の取得
-        let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-
+            let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
             postUserRef.getDocument() {
                 (querySnapshot,error) in
                 if let error = error {

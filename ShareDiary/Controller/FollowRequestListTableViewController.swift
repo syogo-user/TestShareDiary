@@ -175,44 +175,51 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     
     //再描画
     func reloadView(){
-        if  let myUid = Auth.auth().currentUser?.uid {
-            let postRef = Firestore.firestore().collection(Const.users).document(myUid)
-            postRef.getDocument{
-                (document,error) in
-                if let error = error {
-                     print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                     return
-                 } else {
-                    if let document  = document ,document.exists{
-                        let followRequestArray = document["followRequest"] as! [String]
-                        //初期化
+        guard let myUid = Auth.auth().currentUser?.uid else {return }
+        let postRef = Firestore.firestore().collection(Const.users).document(myUid)
+        postRef.getDocument{
+            (document,error) in
+            if let error = error {
+                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                if let document  = document ,document.exists{
+                    let followRequestArray = document["followRequest"] as! [String]
+                    //初期化
+                    self.userPostArray = []
+                    if followRequestArray.count != 0 {
+                        //followRequestArrayに値がある場合
+                        self.arrayAppend(followRequestArray: followRequestArray)
+                        
+                    } else {
+                        //followRequestArrayに値がない場合
                         self.userPostArray = []
-                        if followRequestArray.count != 0 {
-                            //followRequestArrayに値がある場合
-                            for followRequest in followRequestArray {
-                                let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequest)
-                                postRef2.getDocuments() {
-                                    (querySnapshot,error) in
-                                    if let error = error {
-                                        print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                                        return
-                                    } else {
-                                        querySnapshot!.documents.map{
-                                            document in
-                                            self.userPostArray.append(UserPostData(document:document))
-                                            self.tableView.reloadData()
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            //followRequestArrayに値がない場合
-                            self.userPostArray = []
-                            self.tableView.reloadData()
-                        }
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            
+        }
+    }
+    //受け取った配列をuserPostArrayに追加してリロードする
+    private func arrayAppend(followRequestArray:[String]){
+        //followRequestのuid配列からfollowRequestを申請してきているユーザ情報を取得する
+        for followRequest in followRequestArray {
+            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequest)
+            postRef2.getDocuments() {
+                (querySnapshot,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    querySnapshot!.documents.forEach{
+                        document in
+                        self.userPostArray.append(UserPostData(document:document))
+                        self.tableView.reloadData()
                     }
                 }
             }
         }
+        
     }
 }

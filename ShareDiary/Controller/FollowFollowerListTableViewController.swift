@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class FollowFollowerListTableViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource{
-
+    
     @IBOutlet weak var followOrFollowerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     // ユーザデータを格納する配列
@@ -61,13 +61,13 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     }
     //各セルを選択した時に実行されるメソッド
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath ){
-
+        
     }
-        
-        
-     //セルが削除が可能なことを伝えるメソッド
+    
+    
+    //セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
-         return .delete
+        return .delete
     }
     
     //Deleteボタンが押された時に呼ばれるメソッド
@@ -90,8 +90,8 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         let dialog = UIAlertController(title: "\(userPostData.userName!)さんのフォローを解除しますか？", message: nil, preferredStyle: .actionSheet)
         //OKボタン
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-           print("リジェクト")
-
+            print("リジェクト")
+            
             //ログインしている自分（Aさん）のuidを取得する
             if let myUid = Auth.auth().currentUser?.uid {
                 let db = Firestore.firestore()
@@ -107,7 +107,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     //BさんのfollowからAさんのuidを削除する
                     updateFollowValue = FieldValue.arrayRemove([userPostData.uid!])
                     batch.updateData(["follow":updateFollowValue],forDocument: followRef)
-
+                    
                     //Aさんのuidドキュメントを取得する
                     let followerRef = db.collection(Const.users).document(userPostData.uid!)
                     //AさんのfollowerからBさん(自分)のuidを削除する
@@ -143,103 +143,83 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                 //画面再描画のための検索
                 self.reloadView()
             }
-         }))
+        }))
         
         //キャンセルボタン
         dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: { action in
             print("キャンセル")
         }))
         self.present(dialog,animated: true,completion: nil)
-
-       
+        
+        
     }
     
     //データの描画
     func reloadView(){
-        if Auth.auth().currentUser != nil {
-            if  let myUid = Auth.auth().currentUser?.uid {
-                //ログイン済み
-                var postRef : DocumentReference
+        guard let myUid = Auth.auth().currentUser?.uid else {return}
+        //ログイン済み
+        var postRef : DocumentReference
+        postRef = Firestore.firestore().collection(Const.users).document(myUid)
+        //自分のユーザ情報の取得
+        postRef.getDocument{
+            (document,error) in
+            if let error = error {
+                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                //documentが存在しなかったらreturn
+                guard let document  = document ,document.exists else {return }
                 
-                
-                postRef = Firestore.firestore().collection(Const.users).document(myUid)
-                postRef.getDocument{
-                    (document,error) in
-                    if let error = error {
-                         print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                         return
-                     } else {
-                        if let document  = document ,document.exists{
-                            if self.fromButton ==  Const.Follow {
-                                if document["follow"] != nil {
-                                    //フォローが存在する場合
-                                    //フォローボタンから遷移した場合
-                                    let followArray = document["follow"] as! [String]
-                                    //初期化
-                                    self.userPostArray = []
-                                    //countが0の時は配列を初期化し描画する
-                                    guard followArray.count != 0 else {
-                                        //followArrayに値がない場合
-                                        self.userPostArray = []
-                                        self.tableView.reloadData()
-                                        return
-                                    }
-                                    for follow in followArray {
-                                        let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:follow)
-                                        postRef2.getDocuments() {
-                                            (querySnapshot,error) in
-                                            if let error = error {
-                                                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                                                return
-                                            } else {
-                                                querySnapshot!.documents.map{
-                                                    document in
-                                                    self.userPostArray.append(UserPostData(document:document))
-                                                    self.tableView.reloadData()
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            } else {
-                                //followerが存在する場合
-                                if document["follower"] != nil {
-                                    //フォロワーボタンから遷移した場合
-                                    let followerArray = document["follower"] as! [String]
-                                    //初期化
-                                    self.userPostArray = []
-                                    
-                                    //countが0の時は配列を初期化し描画する
-                                    guard followerArray.count != 0 else {
-                                        //followArrayに値がない場合
-                                        self.userPostArray = []
-                                        self.tableView.reloadData()
-                                        return
-                                    }
-                                    
-                                    for follower in followerArray {
-                                        let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:follower)
-                                        postRef2.getDocuments() {
-                                            (querySnapshot,error) in
-                                            if let error = error {
-                                                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                                                return
-                                            } else {
-                                                querySnapshot!.documents.map{
-                                                    document in
-                                                    self.userPostArray.append(UserPostData(document:document))
-                                                    self.tableView.reloadData()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
+                if self.fromButton ==  Const.Follow {
+                    //フォローボタンから遷移した場合
+                    //フォローが存在しない場合はreturn
+                    guard let followArray = document["follow"] as? [String] else {return}
+                    
+                    //初期化
+                    self.userPostArray = []
+                    //countが0の時は配列を初期化し描画する
+                    if followArray.count == 0 {
+                        //followArrayに値がない場合
+                        self.tableView.reloadData()
+                        return
                     }
-
+                    //userPostArrayにappendしてリロードする
+                    self.appendArray(array:followArray)
+                } else {
+                    //フォロワーボタンから遷移した場合
+                    //フォロワーが存在しない場合はreturn
+                    guard let followerArray = document["follower"] as? [String] else{return}
+                    //初期化
+                    self.userPostArray = []
+                    //countが0の時は配列を初期化し描画する
+                    if followerArray.count == 0 {
+                        //followArrayに値がない場合
+                        self.tableView.reloadData()
+                        return
+                    }
+                    //userPostArrayにappendしてリロードする
+                    self.appendArray(array: followerArray)
+                    
+                }              
+            }
+        }
+    }
+    
+    //受け取った配列をuserPostArrayに追加してリロードする
+    private func appendArray(array:[String]){
+        for uid in array {
+            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)
+            postRef2.getDocuments() {
+                (querySnapshot,error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    querySnapshot!.documents.forEach{
+                        document in
+                        self.userPostArray.append(UserPostData(document:document))
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }

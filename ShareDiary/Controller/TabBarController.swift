@@ -71,9 +71,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
                             
                             //TODO fireStorage取得した画像を表示したい
                             let leftBarButton:UIBarButtonItem = UIBarButtonItem(title: "button1", style: .done, target: self, action: #selector(self.addTapped))
+                            
                             leftBarButton.image = UIImage(named: "Oval")
                             let uiImage :UIImageView = UIImageView(image: leftBarButton.image)
-
+                            
                             //取得した画像の表示
                             uiImage.sd_setImage(with: imageRef)
                             self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: true)

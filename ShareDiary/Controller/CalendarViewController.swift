@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import FSCalendar
 
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance {
 
+    @IBOutlet weak var calendar: FSCalendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.calendar.dataSource = self
+        self.calendar.delegate = self
         // Do any additional setup after loading the view.
     }
     //追加ボタン押下
@@ -22,6 +26,29 @@ class CalendarViewController: UIViewController {
         self.present(postViewController!, animated: true, completion: nil)
     }
     
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
+        //選択した日付を取得
+        let selectDay = getDay(date)
+        print(selectDay)
+        
+    }
+    //点マークをつける
+    func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
+        return true
+    }
+    
+    //画像をつける
+    func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
+        return UIImage(named: "Oval")
+    }
+    
+    func getDay(_ date:Date) -> (Int,Int,Int){
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        let year = tmpCalendar.component(.year, from: date)
+        let month = tmpCalendar.component(.month, from: date)
+        let day = tmpCalendar.component(.day, from: date)
+        return (year,month,day)
+    }
     /*
     // MARK: - Navigation
 
