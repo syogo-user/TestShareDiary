@@ -32,6 +32,7 @@
 		3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */; };
 		3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F524038D6E00321D00 /* LoginViewController.swift */; };
 		3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F92403906500321D00 /* TabBarController.swift */; };
+		3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */; };
 		3DD44DA22466438F0001E7A8 /* FollowRequestListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */; };
 		3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */; };
 		3DD44DA624664DC10001E7A8 /* FollowRequestListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */; };
@@ -67,6 +68,7 @@
 		3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F524038D6E00321D00 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F92403906500321D00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceViewController.swift; sourceTree = "<group>"; };
 		3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewController.swift; sourceTree = "<group>"; };
 		3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowRequestListTableViewCell.xib; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
 				3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */,
 				3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */,
+				3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
 				3D49C2862467EF7C008ACC25 /* FollowFollowerListTableViewController.swift in Sources */,
 				3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */,
+				3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */,
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,

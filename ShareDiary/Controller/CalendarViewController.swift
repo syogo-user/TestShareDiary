@@ -32,12 +32,12 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         print(selectDay)
         
     }
-    //点マークをつける
+    //点マークをつける TODO
     func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
         return true
     }
     
-    //画像をつける
+    //画像をつける TODO
     func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
         return UIImage(named: "Oval")
     }

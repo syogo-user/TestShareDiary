@@ -14,7 +14,10 @@ import SVProgressHUD
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var imagePicture :UIImage = UIImage()
     
+    var backgroundColor :UIColor = .white
+    
     @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
     
     @IBOutlet weak var postPicture: UIImageView!
     
@@ -29,8 +32,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         //ツールバーに配置するアイテムのインスタンスを作成
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let imageButton:UIBarButtonItem = UIBarButtonItem(title:"画像", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapImageButton(_:)))
+        let colorButton:UIBarButtonItem = UIBarButtonItem(title:"背景色", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapColorButton(_:)))
         //アイテムを配置
-        toolBar.setItems([imageButton,flexibleItem],animated: true)
+        toolBar.setItems([imageButton,flexibleItem,colorButton],animated: true)
 
         //ツールバーのサイズを指定
         toolBar.sizeToFit()
@@ -38,7 +42,26 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         //デリゲートを設定
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
+
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //TODO背景色を変更する
+//        self.view.backgroundColor = backgroundColor
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        let color1 = UIColor(red:235/255,green:228/255,blue:233/255,alpha:0.3).cgColor//UIColor.orange.cgColor//
+        let color2 = UIColor.yellow.cgColor//UIColor(red:210/255,green:204/255,blue:198/255,alpha:1.0).cgColor
+        
+        //CAGradientLayerにグラデーションさせるカラーをセット
+        gradientLayer.colors = [color1,color2]
+        gradientLayer.startPoint = CGPoint.init(x:0,y:0)
+        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+        self.view.layer.insertSublayer(gradientLayer, at:0)
+    }
+
+
     @objc func tapImageButton(_ sender:UIButton){
         print("画像選択ボタンがタップされました")
         // ライブラリ（カメラロール）を指定してピッカーを開く
@@ -49,6 +72,12 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             self.present(pickerController, animated: true, completion: nil)
         }
     }
+    @objc func tapColorButton(_ sender:UIButton){
+        print("背景色選択ボタンがタップされました")
+        let colorChoiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ColorChoice")
+        colorChoiceViewController?.modalPresentationStyle = .fullScreen
+        self.present(colorChoiceViewController!, animated: true, completion: nil)
+    }
     // 写真を撮影/選択したときに呼ばれるメソッド
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if info[.originalImage] != nil {
@@ -56,7 +85,28 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             let image = info[.originalImage] as! UIImage
             
             //選択した画像を画面のimageに設定
-            postPicture.image = image
+            //imageViewの初期化
+            let imageView = UIImageView(image:image)
+
+            //スクリーンの縦横サイズを取得
+            let screenWidth :CGFloat = view.frame.size.width
+            let screenHeight :CGFloat = view.frame.size.height / 2
+            
+            //画像の縦横サイズを取得
+            let imageWidth :CGFloat = image.size.width
+            let imageHeight :CGFloat = image.size.height
+            
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale,height: imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            
+            //            postPicture.image = image
             
             //変数に写真を設定
             imagePicture = image
@@ -108,7 +158,20 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
         
     }
-    
-        
+    //テキストを入力すると呼び出される
+    func textViewDidChange(_ textView: UITextView) {
+
+        self.inputTextView.translatesAutoresizingMaskIntoConstraints = true
+        self.inputTextView.sizeToFit()
+        self.inputTextView.isScrollEnabled = false
+        let resizedHeight = self.inputTextView.frame.size.height
+        self.inputTextViewConstraintHeight.constant = resizedHeight
+        //@x: 20（左のマージン）
+        //@y: 60（上のマージン）
+        //@width: self.view.frame.width - 40(左右のマージン)
+        //@height: sizeToFit()後の高さ
+        self.inputTextView.frame = CGRect(x: 20, y: 60, width: self.view.frame.width - 40, height: resizedHeight)
+
+    }
 
 }
