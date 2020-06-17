@@ -14,7 +14,8 @@ import SVProgressHUD
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var imagePicture :UIImage = UIImage()
     
-    var backgroundColor :UIColor = .white
+//    var backgroundColor :UIColor = .white
+    var backgroundColorArrayIndex = 0
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
@@ -49,16 +50,25 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         super.viewWillAppear(animated)
         //TODO背景色を変更する
 //        self.view.backgroundColor = backgroundColor
+        print(backgroundColorArrayIndex)
+//        self.view.layer.removeFromSuperlayer()
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        let color1 = UIColor(red:235/255,green:228/255,blue:233/255,alpha:0.3).cgColor//UIColor.orange.cgColor//
-        let color2 = UIColor.yellow.cgColor//UIColor(red:210/255,green:204/255,blue:198/255,alpha:1.0).cgColor
-        
+        //遷移前の画面から受け取ったIndexで色を決定する
+        let color = Const.color[backgroundColorArrayIndex]
+        let color1 = color["startColor"] ?? UIColor().cgColor
+        let color2 = color["endColor"] ?? UIColor().cgColor
         //CAGradientLayerにグラデーションさせるカラーをセット
         gradientLayer.colors = [color1,color2]
-        gradientLayer.startPoint = CGPoint.init(x:0,y:0)
+        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-        self.view.layer.insertSublayer(gradientLayer, at:0)
+        self.view.layer.addSublayer(gradientLayer)
+//        self.view.layer.insertSublayer(gradientLayer, at:0)
+
+        
+
+        
+
     }
 
 
@@ -106,7 +116,15 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
             
-            //            postPicture.image = image
+            
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+            
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale ).isActive = true
             
             //変数に写真を設定
             imagePicture = image
@@ -150,6 +168,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             "documentUserName": documentUserName!,
             "content": self.inputTextView.text!,
             "date": FieldValue.serverTimestamp(),
+            "backgroundColor":"yellow",
             ] as [String : Any]
         postRef.setData(postDic)
         // HUDで投稿完了を表示する

@@ -17,7 +17,8 @@ class PostData: NSObject {
     var date: Date?
     var likes: [String] = []
     var isLiked: Bool = false
-
+    var backgroundColor :String?
+    
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
 
@@ -29,7 +30,8 @@ class PostData: NSObject {
         }
         
         self.documentUserName = postDic["documentUserName"] as? String
-
+        self.backgroundColor = postDic["backgroundColor"] as? String
+        
         self.content = postDic["content"] as? String
 
         let timestamp = postDic["date"] as? Timestamp

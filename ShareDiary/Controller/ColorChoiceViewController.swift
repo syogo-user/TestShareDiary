@@ -28,13 +28,26 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 18 //表示するセルの数
+        return 12 //表示するセルの数
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) 
-        cell.backgroundColor = .red  // セルの色
-        cell.layer.cornerRadius = 15
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
+        //単色：赤
+//        cell.backgroundColor = .red  // セルの色
+        
+        //グラデーション
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = cell.contentView.bounds
+        let color = Const.color[indexPath.item]
+        let color1 = color["startColor"] ?? UIColor().cgColor
+        let color2 = color["endColor"] ?? UIColor().cgColor
+        gradientLayer.colors = [color1,color2]
+        gradientLayer.startPoint = CGPoint.init(x:0.0,y:0.0)
+        gradientLayer.endPoint = CGPoint.init(x:1.0,y:1.0)
+        cell.contentView.layer.insertSublayer(gradientLayer, at: 0)
+        
+       
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -45,8 +58,10 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     // cell選択時に呼ばれる関数
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+                
         let preVC = self.presentingViewController as! PostViewController
-        preVC.backgroundColor = .blue
+//        preVC.backgroundColor = .blue
+        preVC.backgroundColorArrayIndex = indexPath.item
         self.dismiss(animated: true, completion:nil)
     }
 

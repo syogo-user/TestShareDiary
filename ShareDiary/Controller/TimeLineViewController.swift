@@ -37,7 +37,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
 
-        
         if Auth.auth().currentUser != nil {
             guard let myUid = Auth.auth().currentUser?.uid else {return}
             
@@ -52,41 +51,40 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 }
             }
             // ログイン済み
-            if listener == nil {
-                // listener未登録なら、登録してスナップショットを受信する
-                let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
-                listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
+            //listener がnilでなかったらreturn
+            guard listener == nil else {return}
+            // listener未登録なら、登録してスナップショットを受信する
+            let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
+            listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
+                if let error = error {
+                    print("DEBUG_PRINT: snapshotの取得が失敗しました。 \(error)")
+                    return
+                }
+                // ここでusersから自分がフォローしている人のuidを取得する
+                let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+                postUserRef.getDocument() {
+                    (querySnapshot2,error) in
                     if let error = error {
-                        print("DEBUG_PRINT: snapshotの取得が失敗しました。 \(error)")
+                        print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
                         return
-                    }
-                    // ここでusersから自分がフォローしている人のuidを取得する
-                    let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-                    postUserRef.getDocument() {
-                        (querySnapshot2,error) in
-                        if let error = error {
-                            print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                            return
-                        } else {
-                            let document = querySnapshot2?.data()
-                            guard let doc = document else{return}
-                            guard let docFollow = doc["follow"] else {return}
-                            let followArray = docFollow as! [String]
-                            self.postArray = []
-                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                            querySnapshot!.documents.map { document in
-                                let postData = PostData(document: document)
-                                print("DEBUG_PRINT: document取得 \(document.documentID)")
-                                for followUid in followArray{
-                                    if postData.uid == followUid {
-                                        self.postArray.append(postData)
-                                    }
+                    } else {
+                        let document = querySnapshot2?.data()
+                        guard let doc = document else{return}
+                        guard let docFollow = doc["follow"] else {return}
+                        let followArray = docFollow as! [String]
+                        self.postArray = []
+                        // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+                        querySnapshot!.documents.forEach { document in
+                            let postData = PostData(document: document)
+                            print("DEBUG_PRINT: document取得 \(document.documentID)")
+                            for followUid in followArray{
+                                if postData.uid == followUid {
+                                    self.postArray.append(postData)
                                 }
-
                             }
-                            // TableViewの表示を更新する
-                            self.tableView.reloadData()
                         }
+                        // TableViewの表示を更新する
+                        self.tableView.reloadData()
                     }
                 }
             }

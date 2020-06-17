@@ -70,6 +70,9 @@ class PostTableViewCell: UITableViewCell {
 
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
+        //背景色を設定
+        setBackgroundColor()
+
     }
     
     private func setPostImage(uid:String){
@@ -100,18 +103,20 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
+    private func setBackgroundColor(){
+        //TODO背景色を変更する
+        //        self.view.backgroundColor = backgroundColor
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.contentView.bounds
+        let color = Const.color[0]
+        let color1 = color["startColor"] ?? UIColor().cgColor
+        let color2 = color["endColor"] ?? UIColor().cgColor
+        //CAGradientLayerにグラデーションさせるカラーをセット
+        gradientLayer.colors = [color1,color2]
+        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+        self.contentView.layer.insertSublayer(gradientLayer, at:0)
+    }
 
-//    private func setPostImage(uid:String){
-//
-//        //ユーザ情報を取得
-//        getUser(uid:uid)
-//
-//        guard let userImageName = userImageName else {return}
-//        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
-//            //取得した画像の表示
-//            self.userImage.sd_imageIndicator =
-//                SDWebImageActivityIndicator.gray
-//            self.userImage.sd_setImage(with: imageRef)
-//
-//    }
+
 }
