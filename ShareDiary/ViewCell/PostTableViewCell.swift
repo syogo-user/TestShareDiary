@@ -71,7 +71,7 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-        setBackgroundColor()
+        setBackgroundColor(colorIndex:postData.backgroundColorIndex ?? 0)
 
     }
     
@@ -103,19 +103,26 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
-    private func setBackgroundColor(){
+    private func setBackgroundColor(colorIndex:Int){
         //TODO背景色を変更する
         //        self.view.backgroundColor = backgroundColor
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.contentView.bounds
-        let color = Const.color[0]
-        let color1 = color["startColor"] ?? UIColor().cgColor
-        let color2 = color["endColor"] ?? UIColor().cgColor
+        gradientLayer.frame = self.layer.bounds
+        let color = Const.color[colorIndex]
+        let color1 = color["startColor"] ?? UIColor.white.cgColor
+        let color2 = color["endColor"] ?? UIColor.white.cgColor
         //CAGradientLayerにグラデーションさせるカラーをセット
         gradientLayer.colors = [color1,color2]
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-        self.contentView.layer.insertSublayer(gradientLayer, at:0)
+        
+        self.layer.insertSublayer(gradientLayer, at:0)
+        if self.layer.sublayers![0] is CAGradientLayer {
+            self.layer.sublayers![0].removeFromSuperlayer()
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
     }
 
 

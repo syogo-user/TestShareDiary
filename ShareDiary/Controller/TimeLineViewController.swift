@@ -15,6 +15,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     // 投稿データを格納する配列
     var postArray: [PostData] = []
     
+    let refreshCtl = UIRefreshControl()
     var previousUid = ""
     // Firestoreのリスナー
     var listener: ListenerRegistration!
@@ -25,7 +26,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        tableView.refreshControl = refreshCtl
+        refreshCtl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -74,12 +76,14 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                         let followArray = docFollow as! [String]
                         self.postArray = []
                         // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                        querySnapshot!.documents.forEach { document in
-                            let postData = PostData(document: document)
-                            print("DEBUG_PRINT: document取得 \(document.documentID)")
+                        querySnapshot!.documents.forEach { documentA in
+                            let postData = PostData(document: documentA)
+                            print("DEBUG_PRINT: document取得 \(documentA.documentID)")
                             for followUid in followArray{
-                                if postData.uid == followUid {
+                                //フォローしているuidまたは自分のuidの場合postArrayに設定
+                                if postData.uid == followUid || postData.uid == myUid {
                                     self.postArray.append(postData)
+                                    break
                                 }
                             }
                         }
@@ -146,5 +150,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
             postRef.updateData(["likes": updateValue])
         }
+    }
+    @objc func refresh( sender: UIRefreshControl){
+        tableView.reloadData()
+        //通信終了後、endRefreshingを実行することでロードインジケータ（くるくる）が終了する
+        sender.endRefreshing()
     }
 }

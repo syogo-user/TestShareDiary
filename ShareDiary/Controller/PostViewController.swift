@@ -58,12 +58,20 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         let color = Const.color[backgroundColorArrayIndex]
         let color1 = color["startColor"] ?? UIColor().cgColor
         let color2 = color["endColor"] ?? UIColor().cgColor
+        //３色にするか迷う
         //CAGradientLayerにグラデーションさせるカラーをセット
         gradientLayer.colors = [color1,color2]
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-        self.view.layer.addSublayer(gradientLayer)
-//        self.view.layer.insertSublayer(gradientLayer, at:0)
+//        self.view.layer.addSublayer(gradientLayer)
+        
+        //サブレイヤーがある場合は削除してからinsertSublayerする
+        if self.view.layer.sublayers![0] is CAGradientLayer{
+            self.view.layer.sublayers![0].removeFromSuperlayer()
+            self.view.layer.insertSublayer(gradientLayer, at: 0)
+        }else {
+            self.view.layer.insertSublayer(gradientLayer, at:0)
+        }
 
         
 
@@ -168,7 +176,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             "documentUserName": documentUserName!,
             "content": self.inputTextView.text!,
             "date": FieldValue.serverTimestamp(),
-            "backgroundColor":"yellow",
+            "backgroundColorIndex":backgroundColorArrayIndex,
             ] as [String : Any]
         postRef.setData(postDic)
         // HUDで投稿完了を表示する

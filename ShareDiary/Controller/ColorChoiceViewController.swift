@@ -38,14 +38,14 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
         
         //グラデーション
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = cell.contentView.bounds
+        gradientLayer.frame = cell.bounds
         let color = Const.color[indexPath.item]
         let color1 = color["startColor"] ?? UIColor().cgColor
         let color2 = color["endColor"] ?? UIColor().cgColor
         gradientLayer.colors = [color1,color2]
         gradientLayer.startPoint = CGPoint.init(x:0.0,y:0.0)
         gradientLayer.endPoint = CGPoint.init(x:1.0,y:1.0)
-        cell.contentView.layer.insertSublayer(gradientLayer, at: 0)
+        cell.layer.insertSublayer(gradientLayer, at: 0)
         
        
         return cell
