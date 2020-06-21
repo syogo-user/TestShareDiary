@@ -22,8 +22,11 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     
     @IBOutlet weak var postPicture: UIImageView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         //キーボード表示
         self.inputTextView.becomeFirstResponder()
 
@@ -72,9 +75,17 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         }else {
             self.view.layer.insertSublayer(gradientLayer, at:0)
         }
-
+        //テキストにフォーカスを当てる
+        inputTextView.becomeFirstResponder()
         
+//        //スクロールビュー
+         let scrollView = UIScrollView()
+        scrollView.frame = self.view.bounds
+        scrollView.contentSize  = CGSize(width:1000,height: 1000)
+        scrollView.isScrollEnabled = true
 
+        scrollView.alwaysBounceVertical = true
+        self.view.addSubview(scrollView)
         
 
     }
@@ -148,8 +159,10 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         // 画像と投稿データの保存場所を定義する
         let postRef = Firestore.firestore().collection(Const.PostPath).document()
         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postRef.documentID + ".jpg")
-        // HUDで投稿処理中の表示を開始
-        SVProgressHUD.show()
+        
+        guard let myUid = Auth.auth().currentUser?.uid else {
+            return
+        }
         // Storageに画像をアップロードする
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
@@ -162,28 +175,24 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
                     // 投稿処理をキャンセルし、先頭画面に戻る
                     UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
                     return
+                }else {
+                    //写真のアップロード成功
+                    // FireStoreに投稿データを保存する
+                    let documentUserName = Auth.auth().currentUser?.displayName
+                    let postDic = [
+                        "uid":myUid,
+                        "documentUserName": documentUserName!,
+                        "content": self.inputTextView.text!,
+                        "date": FieldValue.serverTimestamp(),
+                        "backgroundColorIndex":self.backgroundColorArrayIndex,
+                        ] as [String : Any]
+                    postRef.setData(postDic)
+                    //先頭画面に戻る
+                    UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
+                
             }
         }
-        
-        guard let myUid = Auth.auth().currentUser?.uid else {
-            return
-        }
-        // FireStoreに投稿データを保存する
-        let documentUserName = Auth.auth().currentUser?.displayName
-        let postDic = [
-            "uid":myUid,
-            "documentUserName": documentUserName!,
-            "content": self.inputTextView.text!,
-            "date": FieldValue.serverTimestamp(),
-            "backgroundColorIndex":backgroundColorArrayIndex,
-            ] as [String : Any]
-        postRef.setData(postDic)
-        // HUDで投稿完了を表示する
-        SVProgressHUD.showSuccess(withStatus: "投稿しました")
-        // 投稿処理が完了したので先頭画面に戻る
-        UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
-        
     }
     //テキストを入力すると呼び出される
     func textViewDidChange(_ textView: UITextView) {

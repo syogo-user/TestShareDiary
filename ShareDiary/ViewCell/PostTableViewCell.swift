@@ -47,6 +47,7 @@ class PostTableViewCell: UITableViewCell {
         }
         // いいね数の表示
         let likeNumber = postData.likes.count
+        likeNumberLabel.text = ""
         likeNumberLabel.text = "\(likeNumber)"
         // 日時の表示
         self.dateLabel.text = ""
@@ -116,7 +117,7 @@ class PostTableViewCell: UITableViewCell {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        self.layer.insertSublayer(gradientLayer, at:0)
+        //self.layer.insertSublayer(gradientLayer, at:0)
         if self.layer.sublayers![0] is CAGradientLayer {
             self.layer.sublayers![0].removeFromSuperlayer()
             self.layer.insertSublayer(gradientLayer, at: 0)

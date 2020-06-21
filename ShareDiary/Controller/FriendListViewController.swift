@@ -73,13 +73,19 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //検索バーで文字編集中（文字をクリアしたときも実行される）
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)  {
-//        self.view.endEditing(true)
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)  {
+        //文字が空の場合userPostArrayを空にする
+        if  searchText.isEmpty {
+            self.userPostArray  = []
+            self.tableView.reloadData()
+        }
+    }
     
     //検索ボタンがタップされた時に実行される
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inputText =  searchBar.text!
+        
+
         //自分のuid取得
         if let myUid = Auth.auth().currentUser?.uid {
             //ユーザからデータを取得

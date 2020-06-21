@@ -36,8 +36,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         self.tabBar.barTintColor = UIColor(red: 0.96, green: 0.91, blue: 0.87, alpha: 1)
         // UITabBarControllerDelegateプロトコルのメソッドをこのクラスで処理する。
         self.delegate = self
-        
-
 
 
     }
