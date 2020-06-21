@@ -47,6 +47,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         if Auth.auth().currentUser == nil {
             // ログインしていないときの処理
             let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            loginViewController?.modalPresentationStyle = .fullScreen
             self.present(loginViewController!, animated: true, completion: nil)
         } else {
             guard let myUid = Auth.auth().currentUser?.uid else {return}

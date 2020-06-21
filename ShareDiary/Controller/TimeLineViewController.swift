@@ -17,6 +17,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     
     let refreshCtl = UIRefreshControl()
     var previousUid = ""
+
     // Firestoreのリスナー
     var listener: ListenerRegistration!
 
@@ -38,13 +39,16 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
-
+        //ユーザが変わったかどうかのフラグ
+//        var userChangeFlg = false
+        
         if Auth.auth().currentUser != nil {
             guard let myUid = Auth.auth().currentUser?.uid else {return}
-            
             //前にログインしていたuidと変わっていたら
             if  previousUid != myUid {
                 previousUid = myUid
+                //ログインユーザが変わっていたら
+//                userChangeFlg = true
                 if listener != nil{
                     listener.remove()
                     listener = nil
@@ -52,9 +56,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     self.tableView.reloadData()
                 }
             }
+
             // ログイン済み
-            //listener がnilでなかったらreturn
-            guard listener == nil else {return}
+            //listenerがnilでないとき return
+            guard listener == nil  else{return}
             // listener未登録なら、登録してスナップショットを受信する
             let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
             listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
@@ -72,23 +77,39 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     } else {
                         let document = querySnapshot2?.data()
                         guard let doc = document else{return}
-                        guard let docFollow = doc["follow"] else {return}
-                        let followArray = docFollow as! [String]
-                        self.postArray = []
-                        // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                        querySnapshot!.documents.forEach { documentA in
-                            let postData = PostData(document: documentA)
-                            print("DEBUG_PRINT: document取得 \(documentA.documentID)")
-                            for followUid in followArray{
-                                //フォローしているuidまたは自分のuidの場合postArrayに設定
-                                if postData.uid == followUid || postData.uid == myUid {
-                                    self.postArray.append(postData)
-                                    break
+                        if let docFollow = doc["follow"] {
+                            let followArray = docFollow as! [String]
+                            self.postArray = []
+                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+                            querySnapshot!.documents.forEach { documentA in
+                                let postData = PostData(document: documentA)
+                                print("DEBUG_PRINT: document取得 \(documentA.documentID)")
+                                for followUid in followArray{
+                                    //フォローしているuidまたは自分のuidの場合postArrayに設定
+                                    if postData.uid == followUid || postData.uid == myUid {
+                                        self.postArray.append(postData)
+                                        break
+                                    }
                                 }
                             }
+                            // TableViewの表示を更新する
+                            self.tableView.reloadData()
+                        }else{
+                            //followがnil
+                            self.postArray = []
+                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+                            querySnapshot!.documents.forEach { documentA in
+                                let postData = PostData(document: documentA)
+                                //フォローしているuidまたは自分のuidの場合postArrayに設定
+                                if  postData.uid == myUid {
+                                    self.postArray.append(postData)
+                                }
+                                
+                            }
+                            // TableViewの表示を更新する
+                            self.tableView.reloadData()
                         }
-                        // TableViewの表示を更新する
-                        self.tableView.reloadData()
+
                     }
                 }
             }

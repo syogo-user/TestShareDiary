@@ -14,9 +14,12 @@ import SVProgressHUD
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var imagePicture :UIImage = UIImage()
     
-//    var backgroundColor :UIColor = .white
+    @IBOutlet weak var postButton: UIButton!
+    //    var backgroundColor :UIColor = .white
     var backgroundColorArrayIndex = 0
-    
+    //入力している文字の色
+    var typeingColor = UIColor.black
+
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
     
@@ -26,7 +29,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        typeingColor = inputTextView.tintColor
         //キーボード表示
         self.inputTextView.becomeFirstResponder()
 
@@ -47,10 +50,20 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
 
+        //        //スクロールビュー
+//         let scrollView = UIScrollView()
+//        scrollView.frame = self.view.bounds
+//        scrollView.contentSize  = CGSize(width:1000,height: 1000)
+//        scrollView.isScrollEnabled = true
+//
+//        scrollView.alwaysBounceVertical = true
+//        self.view.addSubview(scrollView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //投稿ボタンを非活性
+         postButton.isEnabled = false
         //TODO背景色を変更する
 //        self.view.backgroundColor = backgroundColor
         print(backgroundColorArrayIndex)
@@ -72,22 +85,28 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         if self.view.layer.sublayers![0] is CAGradientLayer{
             self.view.layer.sublayers![0].removeFromSuperlayer()
             self.view.layer.insertSublayer(gradientLayer, at: 0)
+
         }else {
             self.view.layer.insertSublayer(gradientLayer, at:0)
         }
+//        self.view.layer.accessibilityScroll(<#T##direction: UIAccessibilityScrollDirection##UIAccessibilityScrollDirection#>)(CGPoint(x:1000,y:1000))
+//
+//
+//         let scrollView = UIScrollView()
+//        scrollView.frame = self.view.bounds
+//        scrollView.contentSize  = CGSize(width:1000,height: 1000)
+//        scrollView.isScrollEnabled = true
+//
+//        scrollView.alwaysBounceVertical = true
+//        self.view.addSubview(scrollView)
+        
+        //文字の色変化
+        typeingColor  = UIColor.gray
+        inputTextView.textColor = typeingColor
         //テキストにフォーカスを当てる
         inputTextView.becomeFirstResponder()
         
-//        //スクロールビュー
-         let scrollView = UIScrollView()
-        scrollView.frame = self.view.bounds
-        scrollView.contentSize  = CGSize(width:1000,height: 1000)
-        scrollView.isScrollEnabled = true
-
-        scrollView.alwaysBounceVertical = true
-        self.view.addSubview(scrollView)
         
-
     }
 
 
@@ -153,7 +172,11 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     }
         
     @IBAction func postButton(_ sender: Any) {
+
+        //テキストが空の時は投稿できないようにする
+        guard self.inputTextView.text != "" else {return}
         print("投稿されました")
+
         // 画像をJPEG形式に変換する
         let imageData = imagePicture.jpegData(compressionQuality: 0.75)
         // 画像と投稿データの保存場所を定義する
@@ -163,6 +186,15 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         guard let myUid = Auth.auth().currentUser?.uid else {
             return
         }
+        let documentUserName = Auth.auth().currentUser?.displayName
+        //投稿するデータをまとめる
+        let postDic = [
+            "uid":myUid,
+            "documentUserName": documentUserName!,
+            "content": self.inputTextView.text!,
+            "date": FieldValue.serverTimestamp(),
+            "backgroundColorIndex":self.backgroundColorArrayIndex,
+            ] as [String : Any]
         // Storageに画像をアップロードする
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
@@ -178,25 +210,29 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
                 }else {
                     //写真のアップロード成功
                     // FireStoreに投稿データを保存する
-                    let documentUserName = Auth.auth().currentUser?.displayName
-                    let postDic = [
-                        "uid":myUid,
-                        "documentUserName": documentUserName!,
-                        "content": self.inputTextView.text!,
-                        "date": FieldValue.serverTimestamp(),
-                        "backgroundColorIndex":self.backgroundColorArrayIndex,
-                        ] as [String : Any]
                     postRef.setData(postDic)
                     //先頭画面に戻る
                     UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
                 
             }
+            
+        } else {
+            // FireStoreに投稿データを保存する
+            //写真を投稿しない場合
+            postRef.setData(postDic)
+            //先頭画面に戻る
+            UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
         }
     }
     //テキストを入力すると呼び出される
     func textViewDidChange(_ textView: UITextView) {
-
+        //テキストが空の時は投稿ボタンを非活性とする
+        if inputTextView.text == "" {
+            postButton.isEnabled = false
+        }else{
+            postButton.isEnabled = true
+        }
         self.inputTextView.translatesAutoresizingMaskIntoConstraints = true
         self.inputTextView.sizeToFit()
         self.inputTextView.isScrollEnabled = false

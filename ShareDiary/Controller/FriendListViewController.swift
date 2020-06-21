@@ -68,6 +68,9 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         super.viewWillAppear(animated)
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 10000
+        self.searchbar.text = ""
+        self.userPostArray = []
+        self.tableView.reloadData()
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
     }

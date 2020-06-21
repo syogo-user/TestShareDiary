@@ -32,15 +32,10 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         print(selectDay)
         
     }
-    //点マークをつける TODO
-    func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
-        return true
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
+        return 1 //ここに入る数字によって点の数が変わる
     }
-    
-    //画像をつける TODO
-    func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
-        return UIImage(named: "Oval")
-    }
+
     
     func getDay(_ date:Date) -> (Int,Int,Int){
         let tmpCalendar = Calendar(identifier: .gregorian)
@@ -49,6 +44,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         let day = tmpCalendar.component(.day, from: date)
         return (year,month,day)
     }
+    
     /*
     // MARK: - Navigation
 
