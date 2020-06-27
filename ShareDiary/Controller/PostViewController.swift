@@ -14,7 +14,11 @@ import SVProgressHUD
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var imagePicture :UIImage = UIImage()
     
+    //投稿ボタン
     @IBOutlet weak var postButton: UIButton!
+    //キャンセルボタン
+    @IBOutlet weak var cancelButton: UIButton!
+    
     //    var backgroundColor :UIColor = .white
     var backgroundColorArrayIndex = 0
     //入力している文字の色
@@ -53,6 +57,8 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
         
+        cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
+
 //        var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add,target: self,action:#selector(rightButtonTapped(_:)))
 //        self.navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
 
@@ -65,14 +71,14 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 //        scrollView.alwaysBounceVertical = true
 //        self.view.addSubview(scrollView)
     }
-    @objc func rightButtonTapped(_ sender: UIBarButtonItem){
-        
-    }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //投稿ボタンを非活性
+        if inputTextView.text == ""{
          postButton.isEnabled = false
+        }
         //TODO背景色を変更する
 //        self.view.backgroundColor = backgroundColor
         print(getDay(selectDate))
@@ -122,6 +128,10 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         super.viewWillDisappear(animated)
         presentingViewController?.beginAppearanceTransition(true, animated: animated)
         presentingViewController?.endAppearanceTransition()
+    }
+    
+    @objc func tapCancelButton(_ sender:UIButton){
+        dismiss(animated: true, completion: nil)
     }
 
     @objc func tapImageButton(_ sender:UIButton){
@@ -268,7 +278,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         //@y: 60（上のマージン）
         //@width: self.view.frame.width - 40(左右のマージン)
         //@height: sizeToFit()後の高さ
-        self.inputTextView.frame = CGRect(x: 20, y: 60, width: self.view.frame.width - 40, height: resizedHeight)
+        self.inputTextView.frame = CGRect(x: 20, y: 120, width: self.view.frame.width - 40, height: resizedHeight)
 
     }
     func getDay(_ date:Date) -> (Int,Int,Int){

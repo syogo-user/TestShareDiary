@@ -150,7 +150,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6jy-KB-wBx">
-                                <rect key="frame" x="10" y="104" width="394" height="50"/>
+                                <rect key="frame" x="20" y="119" width="374" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WQD-7T-DGL"/>
@@ -159,18 +159,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVh-zz-xSd">
+                                <rect key="frame" x="10" y="44" width="77" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="VAa-sY-wVk"/>
+                                </constraints>
+                                <state key="normal" title="キャンセル"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="6jy-KB-wBx" secondAttribute="trailing" constant="10" id="EHK-5j-1St"/>
+                            <constraint firstItem="uVh-zz-xSd" firstAttribute="leading" secondItem="7Lh-HW-IrX" secondAttribute="leading" constant="10" id="8bg-Pd-wJi"/>
+                            <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="6jy-KB-wBx" secondAttribute="trailing" constant="20" id="EHK-5j-1St"/>
+                            <constraint firstItem="HV0-EK-eKd" firstAttribute="top" secondItem="uVh-zz-xSd" secondAttribute="top" id="FKO-6z-yib"/>
                             <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="HV0-EK-eKd" secondAttribute="trailing" constant="10" id="H7l-y6-Glb"/>
-                            <constraint firstItem="6jy-KB-wBx" firstAttribute="leading" secondItem="7Lh-HW-IrX" secondAttribute="leading" constant="10" id="WFe-xm-vXe"/>
+                            <constraint firstItem="6jy-KB-wBx" firstAttribute="leading" secondItem="7Lh-HW-IrX" secondAttribute="leading" constant="20" id="WFe-xm-vXe"/>
                             <constraint firstItem="HV0-EK-eKd" firstAttribute="top" secondItem="7Lh-HW-IrX" secondAttribute="top" id="byj-Ad-131"/>
-                            <constraint firstItem="6jy-KB-wBx" firstAttribute="top" secondItem="HV0-EK-eKd" secondAttribute="bottom" constant="5" id="xPj-pa-QBz"/>
+                            <constraint firstItem="6jy-KB-wBx" firstAttribute="top" secondItem="HV0-EK-eKd" secondAttribute="bottom" constant="20" id="xPj-pa-QBz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Lh-HW-IrX"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="uVh-zz-xSd" id="yKV-HA-VyZ"/>
                         <outlet property="inputTextView" destination="6jy-KB-wBx" id="6Xe-tT-uPD"/>
                         <outlet property="inputTextViewConstraintHeight" destination="WQD-7T-DGL" id="3jG-Te-Ghk"/>
                         <outlet property="postButton" destination="HV0-EK-eKd" id="1Sm-GS-Cmo"/>
@@ -225,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYn-pu-o7Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="359.4202898550725" y="1506.6964285714284"/>
+            <point key="canvasLocation" x="222" y="1507"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="qxs-0r-5YK">

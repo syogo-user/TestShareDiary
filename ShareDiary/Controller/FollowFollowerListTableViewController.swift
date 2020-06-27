@@ -67,7 +67,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     
     //セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
-        return .delete
+        return .none
     }
     
     //Deleteボタンが押された時に呼ばれるメソッド

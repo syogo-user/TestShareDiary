@@ -88,10 +88,16 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inputText =  searchBar.text!
         
-
+        self.userPostArray  = []
         //自分のuid取得
-        if let myUid = Auth.auth().currentUser?.uid {
+        if (Auth.auth().currentUser?.uid) != nil {
+            
+
+
             //ユーザからデータを取得
+//            let postRef = Firestore.firestore().collection(Const.users)
+//            postRef.whereField("userName", isGreaterThanOrEqualTo: inputText).whereField("userName", isLessThanOrEqualTo: "IN")
+//            postRef.whereField("userName", isEqualTo:inputText)
             let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
             postRef.getDocuments() {
                 (querySnapshot,error) in
@@ -101,7 +107,6 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                 } else {
                     self.userPostArray = querySnapshot!.documents.map {
                         document in
-                        //print("\(document.documentID) => \(document.data())")
                         let userPostData = UserPostData(document:document)
                         return userPostData
                     }
@@ -109,11 +114,9 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
                     self.tableView.reloadData()
                 }
             }
-
         }
         //キーボード閉じる
         searchBar.endEditing(true)
-
     }
     //データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView , numberOfRowsInSection section:Int ) -> Int{
@@ -140,7 +143,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
      }
     //セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
-         return .delete
+         return .none
     }
     
     //Deleteボタンが押された時に呼ばれるメソッド

@@ -58,30 +58,34 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
                     print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
                     return
                 } else {
-                    if let document = querySnapshot!.data(){
-                        let myImageName = document["myImageName"] as? String ?? ""
-                        //画像の取得
-                        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
-                        //画像がなければデフォルトの画像表示
-                        if myImageName == "" {
+//                    if let document = querySnapshot!.data(){
+//                        let myImageName = document["myImageName"] as? String ?? ""
+//                        //画像の取得
+//                        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
+//                        //画像がなければデフォルトの画像表示
+//                        if myImageName == "" {
+//
+//                        }else{
+//
+//
+//                            //TODO fireStorage取得した画像を表示したい
+//                            let leftBarButton:UIBarButtonItem = UIBarButtonItem(title: "button1", style: .done, target: self, action: #selector(self.addTapped))
+//
+//                            leftBarButton.image = UIImage(named: "Oval")
+//                            let uiImage :UIImageView = UIImageView(image: leftBarButton.image)
+//
+//                            //取得した画像の表示
+//                            uiImage.sd_setImage(with: imageRef)
+//                            self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: true)
+//                            //self.navigationItem.titleView = uiImage
+//
+//
+                    //                        }
+                    //                    }
+                    let leftBarButton:UIBarButtonItem = UIBarButtonItem(title: "button1", style: .done, target: self, action: #selector(self.addTapped))
+                    leftBarButton.image = UIImage(named: "leftButton")
+                    self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: true)
 
-                        }else{
-
-                            
-                            //TODO fireStorage取得した画像を表示したい
-                            let leftBarButton:UIBarButtonItem = UIBarButtonItem(title: "button1", style: .done, target: self, action: #selector(self.addTapped))
-                            
-                            leftBarButton.image = UIImage(named: "Oval")
-                            let uiImage :UIImageView = UIImageView(image: leftBarButton.image)
-                            
-                            //取得した画像の表示
-                            uiImage.sd_setImage(with: imageRef)
-                            self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: true)
-                            //self.navigationItem.titleView = uiImage
-                            
-                            
-                        }
-                    }
                 }
             }
             

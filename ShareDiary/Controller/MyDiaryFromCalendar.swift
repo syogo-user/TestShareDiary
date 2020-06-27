@@ -32,9 +32,7 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 投稿の取得
-
-        //TODO どこかでpostArrayを初期化する
-        guard let myUid = Auth.auth().currentUser?.uid else {return}
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
         let postRef =  Firestore.firestore().collection(Const.PostPath)
             .whereField("selectDate", isEqualTo: diaryDate)
         postRef.getDocuments() {
