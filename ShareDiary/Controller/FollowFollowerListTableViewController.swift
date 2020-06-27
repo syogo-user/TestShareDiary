@@ -73,7 +73,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     //Deleteボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
     }
-    
+
     
     //rejectButtonActionが押された時に呼ばれるメソッド
     @objc func rejectButtonAction (_ sender: UIButton,forEvent event:UIEvent){

@@ -58,5 +58,6 @@ struct Const {
          "endColor":UIColor(red:173/255,green:255/255,blue:255/255,alpha:1.0).cgColor,
         ]
     ]
-    //static let FollowRequestShowButton = "followRequestShowButton"
+
+    
 }

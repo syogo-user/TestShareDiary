@@ -19,7 +19,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     var backgroundColorArrayIndex = 0
     //入力している文字の色
     var typeingColor = UIColor.black
-
+    //選択された日付（デフォルトは今日）
+    var selectDate = Date()
+    
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
     
@@ -28,7 +30,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        selectDate = Date()
         typeingColor = inputTextView.tintColor
         //キーボード表示
         self.inputTextView.becomeFirstResponder()
@@ -40,8 +42,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let imageButton:UIBarButtonItem = UIBarButtonItem(title:"画像", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapImageButton(_:)))
         let colorButton:UIBarButtonItem = UIBarButtonItem(title:"背景色", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapColorButton(_:)))
+        let dateButton:UIBarButtonItem = UIBarButtonItem(title:"日付",style: UIBarButtonItem.Style.plain,target:self,action:#selector(tapDateButton(_:)))
         //アイテムを配置
-        toolBar.setItems([imageButton,flexibleItem,colorButton],animated: true)
+        toolBar.setItems([imageButton,flexibleItem,dateButton,flexibleItem,colorButton],animated: true)
 
         //ツールバーのサイズを指定
         toolBar.sizeToFit()
@@ -49,6 +52,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         //デリゲートを設定
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
+        
+//        var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add,target: self,action:#selector(rightButtonTapped(_:)))
+//        self.navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
 
         //        //スクロールビュー
 //         let scrollView = UIScrollView()
@@ -59,6 +65,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 //        scrollView.alwaysBounceVertical = true
 //        self.view.addSubview(scrollView)
     }
+    @objc func rightButtonTapped(_ sender: UIBarButtonItem){
+        
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,6 +75,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
          postButton.isEnabled = false
         //TODO背景色を変更する
 //        self.view.backgroundColor = backgroundColor
+        print(getDay(selectDate))
         print(backgroundColorArrayIndex)
 //        self.view.layer.removeFromSuperlayer()
         let gradientLayer = CAGradientLayer()
@@ -108,7 +118,11 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presentingViewController?.beginAppearanceTransition(true, animated: animated)
+        presentingViewController?.endAppearanceTransition()
+    }
 
     @objc func tapImageButton(_ sender:UIButton){
         print("画像選択ボタンがタップされました")
@@ -124,7 +138,16 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         print("背景色選択ボタンがタップされました")
         let colorChoiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ColorChoice")
         colorChoiceViewController?.modalPresentationStyle = .fullScreen
+//        self.navigationController?.pushViewController(colorChoiceViewController, animated: true)
         self.present(colorChoiceViewController!, animated: true, completion: nil)
+    }
+    
+    @objc func tapDateButton(_ sender:UIButton){
+        print("日付選択ボタンがタップされました")
+        let dateSelectViewController = self.storyboard?.instantiateViewController(withIdentifier:"DateSelect") 
+        dateSelectViewController?.modalPresentationStyle = .fullScreen
+        self.present(dateSelectViewController!,animated: true,completion:nil)
+//        self.navigationController?.pushViewController(dateSelectViewController, animated: true)
     }
     // 写真を撮影/選択したときに呼ばれるメソッド
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -187,11 +210,14 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             return
         }
         let documentUserName = Auth.auth().currentUser?.displayName
+        let strDate = dateFormat(date:selectDate)
+
         //投稿するデータをまとめる
         let postDic = [
             "uid":myUid,
             "documentUserName": documentUserName!,
             "content": self.inputTextView.text!,
+            "selectDate":strDate,
             "date": FieldValue.serverTimestamp(),
             "backgroundColorIndex":self.backgroundColorArrayIndex,
             ] as [String : Any]
@@ -245,5 +271,24 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         self.inputTextView.frame = CGRect(x: 20, y: 60, width: self.view.frame.width - 40, height: resizedHeight)
 
     }
-
+    func getDay(_ date:Date) -> (Int,Int,Int){
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        let year = tmpCalendar.component(.year, from: date)
+        let month = tmpCalendar.component(.month, from: date)
+        let day = tmpCalendar.component(.day, from: date)
+        return (year,month,day)
+    }
+    //Dateを時間なしの文字列に変換
+    func dateFormat(date:Date?) -> String {
+        var strDate:String = ""
+        
+        if let day = date {
+            let format  = DateFormatter()
+            format.locale = Locale(identifier: "ja_JP")
+            format.dateStyle = .short
+            format.timeStyle = .none
+            strDate = format.string(from:day)
+        }
+        return strDate
+    }
 }

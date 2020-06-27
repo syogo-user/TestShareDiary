@@ -12,6 +12,7 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
 
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
 
 
     
@@ -58,8 +59,10 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     // cell選択時に呼ばれる関数
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                
+        //前画面への値の受け渡し
         let preVC = self.presentingViewController as! PostViewController
+//        let preNC = self.navigationController?.presentingViewController  as! UINavigationController
+//        let preVC = preNC.viewControllers[preNC.viewControllers.count - 1 ] as! PostViewController
 //        preVC.backgroundColor = .blue
         preVC.backgroundColorArrayIndex = indexPath.item
         self.dismiss(animated: true, completion:nil)

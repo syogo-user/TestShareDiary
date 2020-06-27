@@ -18,6 +18,7 @@ class PostData: NSObject {
     var likes: [String] = []
     var isLiked: Bool = false
     var backgroundColorIndex :Int?
+    var selectDate :String?
     
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
@@ -39,6 +40,10 @@ class PostData: NSObject {
         if let likes = postDic["likes"] as? [String] {
             self.likes = likes
         }
+
+//        let timestamp2 = postDic["selectDate"] as? Timestamp
+//        self.selectDate = timestamp2?.dateValue()
+        self.selectDate =  postDic["selectDate"] as? String 
         if let myid = Auth.auth().currentUser?.uid {
             // likesの配列の中にmyidが含まれているかチェックすることで、自分がいいねを押しているかを判断
             if self.likes.firstIndex(of: myid) != nil {

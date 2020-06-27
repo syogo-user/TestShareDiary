@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myImage.layer.cornerRadius = 140
+        myImage.layer.cornerRadius = 125
         logoutButton.layer.cornerRadius = 15
         profileMessage.layer.cornerRadius = 15
         messageSaveButton.addTarget(self, action: #selector(messageSave), for: .touchUpInside)

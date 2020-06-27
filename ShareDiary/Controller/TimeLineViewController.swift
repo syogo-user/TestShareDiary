@@ -39,8 +39,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
-        //ユーザが変わったかどうかのフラグ
-//        var userChangeFlg = false
         
         if Auth.auth().currentUser != nil {
             guard let myUid = Auth.auth().currentUser?.uid else {return}
