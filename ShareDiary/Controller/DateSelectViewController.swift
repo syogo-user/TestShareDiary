@@ -12,6 +12,7 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
 
     @IBOutlet weak var dateSelectCalendar: FSCalendar!
     
+    @IBOutlet weak var cancelButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         dateSelectCalendar.delegate = self
@@ -23,6 +24,8 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         dateSelectCalendar.calendarWeekdayView.weekdayLabels[4].text = "木"
         dateSelectCalendar.calendarWeekdayView.weekdayLabels[5].text = "金"
         dateSelectCalendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        
+        cancelButton.addTarget(self, action: #selector(tabCancelButton(_:)), for: .touchUpInside)
         // Do any additional setup after loading the view.
 
     }
@@ -39,6 +42,10 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         preVC.selectDate = selectDay
         self.dismiss(animated: true, completion:nil)
         
+    }
+    //キャンセルボタン押下時
+    @objc func tabCancelButton(_ sender :UIButton){
+        dismiss(animated: true, completion: nil)
     }
     func getDay(_ date:Date) -> (Int,Int,Int){
            let tmpCalendar = Calendar(identifier: .gregorian)

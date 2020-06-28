@@ -52,12 +52,25 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         //NavigationBarが半透明かどうか
         navigationController?.navigationBar.isTranslucent = false
         //NavigationBarの色を変更します
-        navigationController?.navigationBar.barTintColor = UIColor(red: 129/255, green: 212/255, blue: 78/255, alpha: 1)
-        //NavigationBarに乗っている部品の色を変更します
-        navigationController?.navigationBar.tintColor = UIColor.white
+//        navigationController?.navigationBar.barTintColor = UIColor(red: 129/255, green: 212/255, blue: 78/255, alpha: 1)
         
+//        let gradientLayer = CAGradientLayer()
+//        if let navFrame = self.navigationController?.navigationBar.frame {
+//            gradientLayer.frame = navFrame
+//
+//            //遷移前の画面から受け取ったIndexで色を決定する
+//            let color = Const.color[0]
+//            let color1 = color["startColor"] ?? UIColor().cgColor
+//            let color2 = color["endColor"] ?? UIColor().cgColor
+//            //３色にするか迷う
+//            //CAGradientLayerにグラデーションさせるカラーをセット
+//            gradientLayer.colors = [color1,color2]
+//            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+//            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+//            navigationController?.navigationBar.layer.insertSublayer(gradientLayer, at:0)
+//        }
         //バーの左側にボタンを配置します(ライブラリ特有)
-        navigationController?.addLeftBarButtonWithImage(UIImage(named: "menu")!)
+//        navigationController?.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         //openLeft()
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
@@ -87,6 +100,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
     //検索ボタンがタップされた時に実行される
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inputText =  searchBar.text!
+        inputText = inputText.trimmingCharacters(in: .whitespaces)
+
         
         self.userPostArray  = []
         //自分のuid取得

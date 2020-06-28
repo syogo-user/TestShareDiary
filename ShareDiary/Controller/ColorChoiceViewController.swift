@@ -12,6 +12,7 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
 
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cancelButton: UIButton!
     
 
 
@@ -25,6 +26,9 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:15,left:15,bottom:15,right:15)
         collectionView.collectionViewLayout = layout
+        
+        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
+        
     }
     
     
@@ -67,6 +71,8 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
         preVC.backgroundColorArrayIndex = indexPath.item
         self.dismiss(animated: true, completion:nil)
     }
-
+    @objc func tapCancelButton(_ sender:UIButton){
+        dismiss(animated: true, completion: nil)
+    }
 
 }

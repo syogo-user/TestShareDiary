@@ -36,8 +36,64 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         self.tabBar.barTintColor = UIColor(red: 0.96, green: 0.91, blue: 0.87, alpha: 1)
         // UITabBarControllerDelegateプロトコルのメソッドをこのクラスで処理する。
         self.delegate = self
+        
+        let gradientLayer = CAGradientLayer()
+//        if let statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
+//            gradientLayer.frame = statusBarFrame
+//
+//
+//            let color = Const.color[0]
+//            let color1 = color["startColor"] ?? UIColor().cgColor
+//            let color2 = color["endColor"] ?? UIColor().cgColor
+//            //３色にするか迷う
+//            //CAGradientLayerにグラデーションさせるカラーをセット
+//            gradientLayer.colors = [color1,color2]
+//            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+//            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+//            navigationController?.navigationBar.layer.insertSublayer(gradientLayer, at:0)
+//        }
+        
+        
+        if let navBar = self.navigationController?.navigationBar {
+            var bounds = navBar.bounds
+            bounds.size.height += self.additionalSafeAreaInsets.top
+            gradientLayer.frame = bounds
+                
+
+            let color = Const.color[0]
+            let color1 = color["startColor"] ?? UIColor().cgColor
+            let color2 = color["endColor"] ?? UIColor().cgColor
+            //３色にするか迷う
+            //CAGradientLayerにグラデーションさせるカラーをセット
+            gradientLayer.colors = [color1,color2]
+            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+            if let image = getImageFromGradientLayer(gradientLayer: gradientLayer) {
+                // navigationBarにグラデーションの画像を設定
+                navBar.setBackgroundImage(image, for: .default)
+            }
+//            navigationController?.navigationBar.layer.insertSublayer(gradientLayer, at:0)
+        }
 
 
+    }
+    // CAGradienstLayerから画像を作成
+    func  getImageFromGradientLayer(gradientLayer: CAGradientLayer) -> UIImage? {
+        var gradientImage: UIImage?
+        // gradientLayerと同サイズの描画環境CurrentContextに設定
+        UIGraphicsBeginImageContext(gradientLayer.frame.size)
+
+        // 作成した描画環境があるか
+        if let context = UIGraphicsGetCurrentContext() {
+            // レイヤーをcontextに描画する
+            gradientLayer.render(in: context)
+            // 描画されたcontextをimageに変換してresize
+            gradientImage = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch)
+        }
+        // 最初に設定したCurrentContextをスタックメモリー上から解放
+        UIGraphicsEndImageContext()
+        // UIImageをreturn
+        return gradientImage
     }
     
     override func viewDidAppear(_ animated: Bool) {

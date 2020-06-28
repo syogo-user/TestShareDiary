@@ -73,7 +73,9 @@ class LoginViewController: UIViewController {
                 let user = Auth.auth().currentUser
                 if let user = user {
                     let changeRequest = user.createProfileChangeRequest()
-                    changeRequest.displayName = displayName
+                    //名前の前後の空白を削除
+                    let trimDisplayName = displayName.trimmingCharacters(in: .whitespaces)
+                    changeRequest.displayName = trimDisplayName
                     changeRequest.commitChanges { error in
                         if let error = error {
                             // プロフィールの更新でエラーが発生
@@ -87,7 +89,7 @@ class LoginViewController: UIViewController {
                             let postRef = Firestore.firestore().collection(Const.users).document(myid)
                             let postDic = [
                                 "uid":myid,
-                                "userName":displayName
+                                "userName":trimDisplayName
                             ] as [String :Any]
                             postRef.setData(postDic)
                         }

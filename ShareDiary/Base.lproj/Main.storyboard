@@ -82,17 +82,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzI-MB-Ei1">
+                                <rect key="frame" x="10" y="44" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="VBW-D6-vBB"/>
+                                    <constraint firstAttribute="height" constant="50" id="urE-V7-z1c"/>
+                                </constraints>
+                                <state key="normal" title="キャンセル"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ZzI-MB-Ei1" firstAttribute="leading" secondItem="95V-mL-dVa" secondAttribute="leading" constant="10" id="MgS-uB-aAa"/>
                             <constraint firstItem="QHf-hA-dRp" firstAttribute="top" secondItem="95V-mL-dVa" secondAttribute="top" constant="150" id="VVF-zT-IkQ"/>
                             <constraint firstItem="95V-mL-dVa" firstAttribute="trailing" secondItem="QHf-hA-dRp" secondAttribute="trailing" constant="40" id="pBS-oV-N7i"/>
                             <constraint firstItem="QHf-hA-dRp" firstAttribute="leading" secondItem="95V-mL-dVa" secondAttribute="leading" constant="40" id="qJD-Gc-7m3"/>
                             <constraint firstItem="95V-mL-dVa" firstAttribute="bottom" secondItem="QHf-hA-dRp" secondAttribute="bottom" constant="150" id="w9P-fm-dmK"/>
+                            <constraint firstItem="ZzI-MB-Ei1" firstAttribute="top" secondItem="95V-mL-dVa" secondAttribute="top" id="yKR-Qv-Vg3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="95V-mL-dVa"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="ZzI-MB-Ei1" id="rZz-KT-Xv4"/>
                         <outlet property="dateSelectCalendar" destination="QHf-hA-dRp" id="ZfZ-qn-mcN"/>
                     </connections>
                 </viewController>
@@ -199,7 +210,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QxN-rD-9hK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1gu-uZ-6j3">
                                     <size key="itemSize" width="50" height="59"/>
@@ -219,17 +230,28 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJK-qy-5ix">
+                                <rect key="frame" x="10" y="44" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="GBs-iM-aPj"/>
+                                    <constraint firstAttribute="width" constant="80" id="L6s-Oh-WuI"/>
+                                </constraints>
+                                <state key="normal" title="キャンセル"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="QxN-rD-9hK" firstAttribute="top" secondItem="wOE-vs-XPh" secondAttribute="top" id="5MN-n8-7Nd"/>
+                            <constraint firstItem="QxN-rD-9hK" firstAttribute="top" secondItem="wOE-vs-XPh" secondAttribute="top" constant="50" id="5MN-n8-7Nd"/>
+                            <constraint firstItem="qJK-qy-5ix" firstAttribute="leading" secondItem="wOE-vs-XPh" secondAttribute="leading" constant="10" id="MDh-Df-C5T"/>
                             <constraint firstItem="QxN-rD-9hK" firstAttribute="leading" secondItem="wOE-vs-XPh" secondAttribute="leading" id="PH6-LJ-apu"/>
+                            <constraint firstItem="qJK-qy-5ix" firstAttribute="top" secondItem="wOE-vs-XPh" secondAttribute="top" id="g8t-aV-0Y5"/>
                             <constraint firstItem="wOE-vs-XPh" firstAttribute="trailing" secondItem="QxN-rD-9hK" secondAttribute="trailing" id="lcU-lz-4hp"/>
                             <constraint firstItem="wOE-vs-XPh" firstAttribute="bottom" secondItem="QxN-rD-9hK" secondAttribute="bottom" id="umx-Ms-tvU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wOE-vs-XPh"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="qJK-qy-5ix" id="Ht5-he-5me"/>
                         <outlet property="collectionView" destination="QxN-rD-9hK" id="aHZ-y7-q8e"/>
                     </connections>
                 </viewController>

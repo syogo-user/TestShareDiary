@@ -32,9 +32,9 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 投稿の取得
-        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        guard let myUid = Auth.auth().currentUser?.uid else {return}
         let postRef =  Firestore.firestore().collection(Const.PostPath)
-            .whereField("selectDate", isEqualTo: diaryDate)
+            .whereField("selectDate", isEqualTo: diaryDate).whereField("uid", isEqualTo: myUid)
         postRef.getDocuments() {
             (querySnapshot,error) in
             if let error = error {

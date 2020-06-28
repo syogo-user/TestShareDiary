@@ -57,7 +57,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
         
-        cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
 
 //        var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add,target: self,action:#selector(rightButtonTapped(_:)))
 //        self.navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
@@ -79,22 +79,22 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         if inputTextView.text == ""{
          postButton.isEnabled = false
         }
-        //TODO背景色を変更する
+        //背景色を変更する
 //        self.view.backgroundColor = backgroundColor
         print(getDay(selectDate))
         print(backgroundColorArrayIndex)
 //        self.view.layer.removeFromSuperlayer()
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        //遷移前の画面から受け取ったIndexで色を決定する
-        let color = Const.color[backgroundColorArrayIndex]
-        let color1 = color["startColor"] ?? UIColor().cgColor
-        let color2 = color["endColor"] ?? UIColor().cgColor
-        //３色にするか迷う
-        //CAGradientLayerにグラデーションさせるカラーをセット
-        gradientLayer.colors = [color1,color2]
-        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
-        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = self.view.bounds
+            //遷移前の画面から受け取ったIndexで色を決定する
+            let color = Const.color[backgroundColorArrayIndex]
+            let color1 = color["startColor"] ?? UIColor().cgColor
+            let color2 = color["endColor"] ?? UIColor().cgColor
+            //３色にするか迷う
+            //CAGradientLayerにグラデーションさせるカラーをセット
+            gradientLayer.colors = [color1,color2]
+            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
 //        self.view.layer.addSublayer(gradientLayer)
         
         //サブレイヤーがある場合は削除してからinsertSublayerする
