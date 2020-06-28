@@ -31,34 +31,43 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
 //        self.view.addSubview(navBar)
 
         // タブアイコンの色
-        self.tabBar.tintColor = UIColor(red: 1.0, green: 0.44, blue: 0.11, alpha: 1)
+//        self.tabBar.tintColor = UIColor(red: 1.0, green: 0.44, blue: 0.11, alpha: 1)
+        self.tabBar.tintColor =  .black
         // タブバーの背景色
-        self.tabBar.barTintColor = UIColor(red: 0.96, green: 0.91, blue: 0.87, alpha: 1)
+        let gradientLayerTab = CAGradientLayer()
+        gradientLayerTab.frame = self.tabBar.bounds
+        
+        let color = Const.color[0]
+        let color1 = color["startColor"] ?? UIColor().cgColor
+        let color2 = color["endColor"] ?? UIColor().cgColor
+        //CAGradientLayerにグラデーションさせるカラーをセット
+        gradientLayerTab.colors = [color1,color2]
+        gradientLayerTab.startPoint = CGPoint.init(x:0.1,y:0.1)
+        gradientLayerTab.endPoint = CGPoint.init(x:0.9,y:0.9)
+//        self.tabBar.layer.insertSublayer(gradientLayerTab, at:0)
+        if let image = getImageFromGradientLayer(gradientLayer: gradientLayerTab) {
+            // navigationBarにグラデーションの画像を設定
+            self.tabBar.backgroundImage = image
+        }
+        
+        
         // UITabBarControllerDelegateプロトコルのメソッドをこのクラスで処理する。
         self.delegate = self
         
+        
+        
+        
+
+        //ナビゲーションバーの色をグラデーションにする
+        //NavigationBarが半透明かどうか
+        navigationController?.navigationBar.isTranslucent = false
+        
         let gradientLayer = CAGradientLayer()
-//        if let statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
-//            gradientLayer.frame = statusBarFrame
-//
-//
-//            let color = Const.color[0]
-//            let color1 = color["startColor"] ?? UIColor().cgColor
-//            let color2 = color["endColor"] ?? UIColor().cgColor
-//            //３色にするか迷う
-//            //CAGradientLayerにグラデーションさせるカラーをセット
-//            gradientLayer.colors = [color1,color2]
-//            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
-//            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-//            navigationController?.navigationBar.layer.insertSublayer(gradientLayer, at:0)
-//        }
-        
-        
         if let navBar = self.navigationController?.navigationBar {
             var bounds = navBar.bounds
+            //safeエリア
             bounds.size.height += self.additionalSafeAreaInsets.top
             gradientLayer.frame = bounds
-                
 
             let color = Const.color[0]
             let color1 = color["startColor"] ?? UIColor().cgColor

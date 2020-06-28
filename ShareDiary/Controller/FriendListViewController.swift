@@ -49,8 +49,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         tableView.register(nib, forCellReuseIdentifier: "Cell")
                 
         /* スライドメニュー */
-        //NavigationBarが半透明かどうか
-        navigationController?.navigationBar.isTranslucent = false
+//        //NavigationBarが半透明かどうか
+//        navigationController?.navigationBar.isTranslucent = false
         //NavigationBarの色を変更します
 //        navigationController?.navigationBar.barTintColor = UIColor(red: 129/255, green: 212/255, blue: 78/255, alpha: 1)
         
