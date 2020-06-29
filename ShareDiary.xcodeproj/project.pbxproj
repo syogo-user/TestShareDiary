@@ -34,6 +34,7 @@
 		3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F524038D6E00321D00 /* LoginViewController.swift */; };
 		3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F92403906500321D00 /* TabBarController.swift */; };
 		3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */; };
+		3DB3ABA524AA0D3A0055E742 /* DitailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */; };
 		3DD44DA22466438F0001E7A8 /* FollowRequestListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */; };
 		3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */; };
 		3DD44DA624664DC10001E7A8 /* FollowRequestListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */; };
@@ -72,6 +73,7 @@
 		3DA5F5F524038D6E00321D00 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F92403906500321D00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceViewController.swift; sourceTree = "<group>"; };
+		3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailViewController.swift; sourceTree = "<group>"; };
 		3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewController.swift; sourceTree = "<group>"; };
 		3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowRequestListTableViewCell.xib; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */,
 				3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */,
 				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */,
+				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				3D49C2892467F0A7008ACC25 /* FollowFollowerListTableViewCell.swift in Sources */,
 				3D87199C240A754900D4064E /* PostData.swift in Sources */,
 				3D544A9624057470007793AC /* PostViewController.swift in Sources */,
+				3DB3ABA524AA0D3A0055E742 /* DitailViewController.swift in Sources */,
 				3D031C3824616B0100A845C1 /* UserPostData.swift in Sources */,
 				3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */,
 				3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */,

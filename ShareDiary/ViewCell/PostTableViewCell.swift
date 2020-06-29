@@ -64,7 +64,7 @@ class PostTableViewCell: UITableViewCell {
         }
         //文字入力不可設定
         self.contentTextView.isEditable = false
-        // 画像の表示
+        // 投稿画像の表示
         contetImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         let imageRef2 = Storage.storage().reference().child(Const.ImagePath).child(postData.id + ".jpg")
         contetImageView.sd_setImage(with: imageRef2)
@@ -105,7 +105,7 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     private func setBackgroundColor(colorIndex:Int){
-        //TODO背景色を変更する
+        //背景色を変更する
         //        self.view.backgroundColor = backgroundColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.layer.bounds

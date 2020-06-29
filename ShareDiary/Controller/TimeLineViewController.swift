@@ -142,6 +142,18 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 600
     }
+    //セルを選択時
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO　詳細画面に遷移する
+        let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath.row]
+        
+        detailViewController.postData = postData
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+        
+    }
     // セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")

@@ -19,7 +19,7 @@ class PostData: NSObject {
     var isLiked: Bool = false
     var backgroundColorIndex :Int?
     var selectDate :String?
-    
+
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
 
@@ -53,4 +53,5 @@ class PostData: NSObject {
         }
 
     }
+
 }

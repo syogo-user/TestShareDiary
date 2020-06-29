@@ -118,7 +118,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
 //               myImageNumber =  Int(String(myImageNameFirebase.suffix(1))) ?? 0
                oldImageName = myImageNameFirebase
             }
-            //TODO 修正　異なる写真が表示される
+            //修正　異なる写真が表示される
             myImageNumber = myImageNumber + 1
             
             myImageName = myUid + "\(myImageNumber)"
