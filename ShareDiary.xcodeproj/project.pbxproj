@@ -35,6 +35,9 @@
 		3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F92403906500321D00 /* TabBarController.swift */; };
 		3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */; };
 		3DB3ABA524AA0D3A0055E742 /* DitailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */; };
+		3DC3185F24ACBED4000D38F3 /* LikeUserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC3185D24ACBED4000D38F3 /* LikeUserListTableViewCell.swift */; };
+		3DC3186024ACBED4000D38F3 /* LikeUserListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3185E24ACBED4000D38F3 /* LikeUserListTableViewCell.xib */; };
+		3DCBC98124AB65AD00E78626 /* LikeUserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */; };
 		3DD44DA22466438F0001E7A8 /* FollowRequestListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */; };
 		3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */; };
 		3DD44DA624664DC10001E7A8 /* FollowRequestListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */; };
@@ -74,6 +77,9 @@
 		3DA5F5F92403906500321D00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceViewController.swift; sourceTree = "<group>"; };
 		3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailViewController.swift; sourceTree = "<group>"; };
+		3DC3185D24ACBED4000D38F3 /* LikeUserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUserListTableViewCell.swift; sourceTree = "<group>"; };
+		3DC3185E24ACBED4000D38F3 /* LikeUserListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeUserListTableViewCell.xib; sourceTree = "<group>"; };
+		3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUserListTableViewController.swift; sourceTree = "<group>"; };
 		3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewController.swift; sourceTree = "<group>"; };
 		3DD44DA324664DC10001E7A8 /* FollowRequestListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		3DD44DA424664DC10001E7A8 /* FollowRequestListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowRequestListTableViewCell.xib; sourceTree = "<group>"; };
@@ -136,6 +142,8 @@
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
 				3D9BFE9023FEE760009893B1 /* Info.plist */,
 				3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */,
+				3DC3185D24ACBED4000D38F3 /* LikeUserListTableViewCell.swift */,
+				3DC3185E24ACBED4000D38F3 /* LikeUserListTableViewCell.xib */,
 			);
 			path = ShareDiary;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 				3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */,
 				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */,
 				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
+				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -264,6 +273,7 @@
 				3D49C28A2467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib in Resources */,
 				3D9BFE8F23FEE760009893B1 /* LaunchScreen.storyboard in Resources */,
 				3DD44DA624664DC10001E7A8 /* FollowRequestListTableViewCell.xib in Resources */,
+				3DC3186024ACBED4000D38F3 /* LikeUserListTableViewCell.xib in Resources */,
 				3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */,
 				3D031C362461198A00A845C1 /* UsersTableViewCell.xib in Resources */,
 				3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */,
@@ -334,10 +344,12 @@
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
 				3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */,
+				3DC3185F24ACBED4000D38F3 /* LikeUserListTableViewCell.swift in Sources */,
 				3D49C2862467EF7C008ACC25 /* FollowFollowerListTableViewController.swift in Sources */,
 				3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */,
 				3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */,
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
+				3DCBC98124AB65AD00E78626 /* LikeUserListTableViewController.swift in Sources */,
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
 				3D7549D424A372A80062BEC8 /* DateSelectViewController.swift in Sources */,

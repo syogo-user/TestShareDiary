@@ -15,7 +15,7 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var likeCount: UILabel!
+    @IBOutlet weak var likeUserButton: UIButton!
     @IBOutlet weak var diaryDate: UILabel!
     @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var contentImageView: UIImageView!
@@ -44,6 +44,8 @@ class DitailViewController: UIViewController {
         }
         //削除ボタン押下時
         postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
+        //likeUserButton押下時
+        likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
         
         // Do any additional setup after loading the view.
     }
@@ -62,8 +64,9 @@ class DitailViewController: UIViewController {
         }
         // いいね数の表示
         let likeNumber = post.likes.count
-        self.likeCount.text = likeNumber.description //文字列変換
-        
+        self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
+        likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
+        likeUserButton.setTitleColor(.black, for: .normal)
         // 日時の表示
         self.diaryDate.text = ""
         if let date = post.date {
@@ -172,5 +175,39 @@ class DitailViewController: UIViewController {
         
 
     }
+    //likeUserButton押下時
+    @objc func likeUserShow(_:UIButton) {
+        //画面遷移
+        let likeUserListTableViewController = storyboard?.instantiateViewController(withIdentifier: "LikeUserListTableViewController") as! LikeUserListTableViewController
+//        guard let myUid = self.postData?.uid else { return}
+//        likeUserListTableViewController.uid = myUid
+        let likeUsers :[String] = self.postData?.likes ?? []
+        //likeUsersからユーザ情報を取得
+//        let userPostData = getUsersData(likeUsers)
+        
+//        likeUserListTableViewController.userPostData = userPostData
+        likeUserListTableViewController.likeUsers = likeUsers
+        
+        self.present(likeUserListTableViewController, animated: true, completion: nil)
+    }
+    
+    
+     //likeUsersからユーザ情報（userPostData）の配列を取得
+//    private func getUsersData(_ likeUsers :[String]) -> [UserPostData] {
+//        var userPostDataArray :[UserPostData] = []
+//
+//        userPostDataArray = likeUsers.map { (likeUser) in
+//            let postRef = Firestore.firestore().collection(Const.users).document(likeUser)
+//              postRef.getDocument{
+//                  (document ,error) in
+//                  guard let error = error else{
+//                      print("DEBUG_PRINT: snapshotの取得が失敗しました。")
+//                      return
+//                }
+//                    return UserPostData(document:document)
+//              }
+//
+//        }
+//    }
 
 }
