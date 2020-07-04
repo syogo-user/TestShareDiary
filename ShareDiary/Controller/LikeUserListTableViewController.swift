@@ -13,6 +13,7 @@ class LikeUserListTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 //    var userPostData :[UserPostData] = []
     var likeUsers :[String] = []
+    @IBOutlet weak var backButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +24,7 @@ class LikeUserListTableViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
-
+        backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
     }
 
 
@@ -58,7 +59,9 @@ extension LikeUserListTableViewController:UITableViewDataSource,UITableViewDeleg
     }
     
     
-
+    @objc func tabBackButton(_ sender:UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
 }

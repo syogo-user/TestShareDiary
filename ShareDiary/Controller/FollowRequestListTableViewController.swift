@@ -14,7 +14,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
     
-
+    @IBOutlet weak var backButton: UIButton!
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,6 +27,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "FollowRequestListTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "FollowRequestListCell")
+        backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,5 +224,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             }
         }
         
+    }
+    @objc func tabBackButton(_ sender :UIButton){
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -15,6 +15,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
+    @IBOutlet weak var backButton: UIButton!
     
     //遷移元を知るためのフラグ
     var fromButton :String = ""
@@ -28,6 +29,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "FollowFollowerListTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "FollowFollowerListCell")
+        backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
     }
     override func viewWillAppear(_ animated: Bool) {
         if fromButton ==  Const.Follow {
@@ -223,5 +225,9 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                 }
             }
         }
+    }
+    
+    @objc func tabBackButton(_ sender :UIButton){
+         self.dismiss(animated: true, completion: nil)
     }
 }
