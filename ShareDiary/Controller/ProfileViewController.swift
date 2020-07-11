@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         logoutButton.layer.cornerRadius = 15
         profileMessage.layer.cornerRadius = 15
         messageSaveButton.addTarget(self, action: #selector(messageSave), for: .touchUpInside)
+        self.view.backgroundColor = Const.darkColor
         // Do any additional setup after loading the view.
     }
     

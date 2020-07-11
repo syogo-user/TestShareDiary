@@ -135,7 +135,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
-
+        //コメントボタンを押下時
+        cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
         return cell
     }
     //高さ調整
@@ -144,9 +145,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     //セルを選択時
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO　詳細画面に遷移する
+        //詳細画面に遷移する
         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
-        
+        //コメントボタン押下時の遷移はtrue
+        detailViewController.commentFlg = false
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath.row]
         
@@ -186,5 +188,22 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         tableView.reloadData()
         //通信終了後、endRefreshingを実行することでロードインジケータ（くるくる）が終了する
         sender.endRefreshing()
+    }
+    //コメントボタン押下時
+    @objc func tapCommnetButton(_ sender: UIButton, forEvent event: UIEvent){
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        
+        //詳細画面に遷移する
+        let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
+        detailViewController.postData = postData
+        //コメントボタン押下時の遷移はtrue
+        detailViewController.commentFlg = true
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -32,58 +32,65 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
 
         // タブアイコンの色
 //        self.tabBar.tintColor = UIColor(red: 1.0, green: 0.44, blue: 0.11, alpha: 1)
-        self.tabBar.tintColor =  .black
+        self.tabBar.isTranslucent = false
+        self.tabBar.tintColor =  .white
+        
+        self.tabBar.barTintColor = Const.darkColor
+        
         // タブバーの背景色
-        let gradientLayerTab = CAGradientLayer()
-        gradientLayerTab.frame = self.tabBar.bounds
-        
-        let color = Const.color[0]
-        let color1 = color["startColor"] ?? UIColor().cgColor
-        let color2 = color["endColor"] ?? UIColor().cgColor
-        //CAGradientLayerにグラデーションさせるカラーをセット
-        gradientLayerTab.colors = [color1,color2]
-        gradientLayerTab.startPoint = CGPoint.init(x:0.1,y:0.1)
-        gradientLayerTab.endPoint = CGPoint.init(x:0.9,y:0.9)
-//        self.tabBar.layer.insertSublayer(gradientLayerTab, at:0)
-        if let image = getImageFromGradientLayer(gradientLayer: gradientLayerTab) {
-            // navigationBarにグラデーションの画像を設定
-            self.tabBar.backgroundImage = image
-        }
-        
+        //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+//        let gradientLayerTab = CAGradientLayer()
+//        gradientLayerTab.frame = self.tabBar.bounds
+//
+//        let color = Const.color[0]
+//        let color1 = color["startColor"] ?? UIColor().cgColor
+//        let color2 = color["endColor"] ?? UIColor().cgColor
+//        //CAGradientLayerにグラデーションさせるカラーをセット
+//        gradientLayerTab.colors = [color1,color2]
+//        gradientLayerTab.startPoint = CGPoint.init(x:0.1,y:0.1)
+//        gradientLayerTab.endPoint = CGPoint.init(x:0.9,y:0.9)
+//        if let image = getImageFromGradientLayer(gradientLayer: gradientLayerTab) {
+//            // navigationBarにグラデーションの画像を設定
+//            self.tabBar.backgroundImage = image
+//        }
+          //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
         
         // UITabBarControllerDelegateプロトコルのメソッドをこのクラスで処理する。
         self.delegate = self
         
         
-        
-        
-
-        //ナビゲーションバーの色をグラデーションにする
         //NavigationBarが半透明かどうか
         navigationController?.navigationBar.isTranslucent = false
         
-        let gradientLayer = CAGradientLayer()
-        if let navBar = self.navigationController?.navigationBar {
-            var bounds = navBar.bounds
-            //safeエリア
-            bounds.size.height += self.additionalSafeAreaInsets.top
-            gradientLayer.frame = bounds
 
-            let color = Const.color[0]
-            let color1 = color["startColor"] ?? UIColor().cgColor
-            let color2 = color["endColor"] ?? UIColor().cgColor
-            //３色にするか迷う
-            //CAGradientLayerにグラデーションさせるカラーをセット
-            gradientLayer.colors = [color1,color2]
-            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
-            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-            if let image = getImageFromGradientLayer(gradientLayer: gradientLayer) {
-                // navigationBarにグラデーションの画像を設定
-                navBar.setBackgroundImage(image, for: .default)
-            }
-//            navigationController?.navigationBar.layer.insertSublayer(gradientLayer, at:0)
-        }
-
+        self.navigationController?.navigationBar.barTintColor = Const.darkColor
+        
+        //ナビゲーションバーの色をグラデーションにする
+        //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+        //NavigationBarが半透明かどうか
+//        navigationController?.navigationBar.isTranslucent = false
+//
+//        let gradientLayer = CAGradientLayer()
+//        if let navBar = self.navigationController?.navigationBar {
+//            var bounds = navBar.bounds
+//            //safeエリア
+//            bounds.size.height += self.additionalSafeAreaInsets.top
+//            gradientLayer.frame = bounds
+//
+//            let color = Const.color[0]
+//            let color1 = color["startColor"] ?? UIColor().cgColor
+//            let color2 = color["endColor"] ?? UIColor().cgColor
+//            //３色にするか迷う
+//            //CAGradientLayerにグラデーションさせるカラーをセット
+//            gradientLayer.colors = [color1,color2]
+//            gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+//            gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+//            if let image = getImageFromGradientLayer(gradientLayer: gradientLayer) {
+//                // navigationBarにグラデーションの画像を設定
+//                navBar.setBackgroundImage(image, for: .default)
+//            }
+//        }
+        //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
     }
     // CAGradienstLayerから画像を作成

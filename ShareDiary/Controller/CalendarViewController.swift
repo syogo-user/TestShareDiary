@@ -19,7 +19,8 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         super.viewDidLoad()
         self.calendar.dataSource = self
         self.calendar.delegate = self
-        
+        self.calendar.backgroundColor = Const.darkColor
+        self.view.backgroundColor = Const.darkColor
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
         calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
@@ -88,7 +89,9 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
 
         return count //ここに入る数字によって点の数が変わる
     }
-
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+//        return Const.darkColor
+//    }
     
     func getDay(_ date:Date) -> (Int,Int,Int){
         let tmpCalendar = Calendar(identifier: .gregorian)

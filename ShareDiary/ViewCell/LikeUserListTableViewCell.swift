@@ -17,7 +17,7 @@ class LikeUserListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userImageView.layer.cornerRadius = 30
-
+        
     }
 
     func setUserPostData(_ likeUserUid:String){

@@ -24,6 +24,7 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = Const.darkColor
 //        if let navigationBarFrame = navigationController?.navigationBar.bounds {
 //            //検索バーのインスタンスを取得する
 //            let searchBar: UISearchBar = UISearchBar()

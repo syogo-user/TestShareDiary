@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="ShareDiary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="380" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2U-x4-hav">
+                        <rect key="frame" x="10" y="35" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="QV3-Ib-JY4"/>
+                            <constraint firstAttribute="width" constant="50" id="xRS-cc-S5m"/>
+                        </constraints>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haF-cX-jrS">
+                        <rect key="frame" x="75" y="20" width="200" height="80"/>
+                        <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="Ed5-Ow-GAF"/>
+                        </constraints>
+                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeu-dI-dkh">
+                        <rect key="frame" x="280" y="78" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="haF-cX-jrS" firstAttribute="leading" secondItem="D2U-x4-hav" secondAttribute="trailing" constant="15" id="2hg-bA-A25"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="yeu-dI-dkh" secondAttribute="bottom" constant="10" id="Dtv-qI-Urr"/>
+                    <constraint firstItem="D2U-x4-hav" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="IlN-5k-iO0"/>
+                    <constraint firstItem="yeu-dI-dkh" firstAttribute="leading" secondItem="haF-cX-jrS" secondAttribute="trailing" constant="5" id="Q7b-Lk-L9s"/>
+                    <constraint firstItem="haF-cX-jrS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YqR-81-xHy"/>
+                    <constraint firstAttribute="bottom" secondItem="haF-cX-jrS" secondAttribute="bottom" constant="20" id="sYg-Up-BDG"/>
+                    <constraint firstItem="D2U-x4-hav" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="udK-XJ-xLe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="comment" destination="haF-cX-jrS" id="Zbd-Dm-A9Z"/>
+                <outlet property="commentWidthConstraint" destination="Ed5-Ow-GAF" id="Gey-rZ-YH7"/>
+                <outlet property="createdAt" destination="yeu-dI-dkh" id="8iu-rM-s0t"/>
+                <outlet property="userImageView" destination="D2U-x4-hav" id="A9b-eW-dA1"/>
+            </connections>
+            <point key="canvasLocation" x="178.2608695652174" y="105.80357142857143"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -10,21 +10,32 @@ import UIKit
 import FirebaseUI
 import Firebase
 class DitailViewController: UIViewController {
-    @IBOutlet weak var viewLayer: UIView!
+
     
+    @IBOutlet weak var scrollViewLayer: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeUserButton: UIButton!
     @IBOutlet weak var diaryDate: UILabel!
     @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var contentImageView: UIImageView!
-    
     @IBOutlet weak var postDeleteButton: UIButton!
     
+    @IBOutlet weak var tableView: UITableView!
     var postData :PostData?
+    var commentData : [CommentData] = [CommentData]()
+    var commentFlg:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
+        //カスタムセルを登録する(Cellで登録)xib
+        let nib = UINib(nibName: "CommentTableViewCell", bundle:nil)
+        tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        
         
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
@@ -46,12 +57,54 @@ class DitailViewController: UIViewController {
         postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
         //likeUserButton押下時
         likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
+        //コメントボタン押下時
+        commentButton.addTarget(self, action: #selector(tapCommentButton(_:)), for: .touchUpInside)
+        //コメントボタン押下後の遷移時はコメント入力欄を表示する
+        if commentFlg {
+            commentInputShow()
+        }
+        //テーブルビューの表示
+        tableViewSet()
         
-        // Do any additional setup after loading the view.
     }
+    //テーブルビューの表示 
+    private func tableViewSet(){
+        guard let postDataId = postData?.id else { return }
+        
+        Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").addSnapshotListener { (snapshots, err) in
+            
+            if let err = err {
+                print("メッセージ情報の取得に失敗しました。\(err)")
+                return
+            }
+            snapshots?.documentChanges.forEach({ (documentChange) in
+                switch documentChange.type {
+                case .added:
+                    let dic = documentChange.document.data()
+                    let comment = CommentData(document:dic)
+                    
+                    self.commentData.append(comment)
+                    self.commentData.sort { (m1, m2) -> Bool in
+                        let m1Date = m1.createdAt.dateValue()
+                        let m2Date = m2.createdAt.dateValue()
+                        return m1Date < m2Date
+                    }
+                    
+                    self.tableView.reloadData()
+//                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
+                    
+                case .modified, .removed:
+                    print("nothing to do")
+                }
+            })
+            
+            
+        }
+    }
+    
     //画面項目の設定
     private func contentSet(post:PostData){
-        
+
         //ユーザ名
         self.userName.text = post.documentUserName ?? ""
         // いいねボタンの表示
@@ -62,7 +115,7 @@ class DitailViewController: UIViewController {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
-        // いいね数の表示
+        //いいね数の表示
         let likeNumber = post.likes.count
         self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
         likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
@@ -122,7 +175,7 @@ class DitailViewController: UIViewController {
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.viewLayer.layer.bounds
+        gradientLayer.frame = self.scrollViewLayer.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
@@ -131,11 +184,11 @@ class DitailViewController: UIViewController {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        if self.viewLayer.layer.sublayers![0] is CAGradientLayer {
-            self.viewLayer.layer.sublayers![0].removeFromSuperlayer()
-            self.viewLayer.layer.insertSublayer(gradientLayer, at: 0)
+        if self.scrollViewLayer.layer.sublayers![0] is CAGradientLayer {
+            self.scrollViewLayer.layer.sublayers![0].removeFromSuperlayer()
+            self.scrollViewLayer.layer.insertSublayer(gradientLayer, at: 0)
         } else {
-            self.viewLayer.layer.insertSublayer(gradientLayer, at: 0)
+            self.scrollViewLayer.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
     @objc func postDelete(_ sender:UIButton){
@@ -190,24 +243,51 @@ class DitailViewController: UIViewController {
         
         self.present(likeUserListTableViewController, animated: true, completion: nil)
     }
+    //コメントボタン押下時
+    @objc func tapCommentButton(_ sender:UIButton){
+        //コメント入力欄を表示
+        commentInputShow()
+    }
+    
+    //コメント入力欄を表示
+    private func commentInputShow(){
+        //画面遷移
+        let commentInputViewControlelr = storyboard?.instantiateViewController(withIdentifier: "CommentInput") as! CommentInputViewControlelr
+        commentInputViewControlelr.postData = postData
+        self.present(commentInputViewControlelr, animated: true, completion: nil)
+    }
     
     
-     //likeUsersからユーザ情報（userPostData）の配列を取得
-//    private func getUsersData(_ likeUsers :[String]) -> [UserPostData] {
-//        var userPostDataArray :[UserPostData] = []
-//
-//        userPostDataArray = likeUsers.map { (likeUser) in
-//            let postRef = Firestore.firestore().collection(Const.users).document(likeUser)
-//              postRef.getDocument{
-//                  (document ,error) in
-//                  guard let error = error else{
-//                      print("DEBUG_PRINT: snapshotの取得が失敗しました。")
-//                      return
-//                }
-//                    return UserPostData(document:document)
-//              }
-//
-//        }
-//    }
+}
 
+extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //高さの最低基準
+        self.tableView.estimatedRowHeight = 100
+        
+        //高さをコメントに合わせる
+        return UITableView.automaticDimension
+//        return 100
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return commentData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+
+        //再利用可能なcellを得る
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
+        cell.translatesAutoresizingMaskIntoConstraints = false
+        //Cell に値を設定する
+        cell.setCommentData(commentData[indexPath.row])
+        return cell
+    }
+    
+
+    
+    
+    
 }
