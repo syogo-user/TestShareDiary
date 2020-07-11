@@ -28,6 +28,12 @@ class DitailViewController: UIViewController {
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
     var commentFlg:Bool = false
+    
+    private var inputTextView : InputTextView = {
+        let view = InputTextView()
+        view.frame = .init(x: 0, y: 0, width: view.frame.width, height: 100)
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         //カスタムセルを登録する(Cellで登録)xib
@@ -66,6 +72,17 @@ class DitailViewController: UIViewController {
         //テーブルビューの表示
         tableViewSet()
         
+    }
+    //元々持っている；プロパティ
+    override var inputAccessoryView: UIView?{
+        //inputAccessoryViewにInputTextViewを設定する
+        get {
+            return inputTextView
+        }
+    }
+    
+    override  var canBecomeFirstResponder: Bool{
+        return true
     }
     //テーブルビューの表示 
     private func tableViewSet(){
@@ -265,11 +282,9 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //高さの最低基準
-        self.tableView.estimatedRowHeight = 100
-        
+        self.tableView.estimatedRowHeight = 100        
         //高さをコメントに合わせる
         return UITableView.automaticDimension
-//        return 100
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentData.count

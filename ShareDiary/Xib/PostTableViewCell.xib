@@ -91,6 +91,7 @@
                         <state key="normal" image="menu"/>
                     </button>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="fDD-AG-CrA" secondAttribute="trailing" constant="10" id="4vV-cN-Uou"/>
                     <constraint firstItem="ga0-2s-bLv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Sf-ao-hHj"/>
@@ -114,6 +115,7 @@
                     <constraint firstItem="PsC-hC-Zrv" firstAttribute="top" secondItem="fDD-AG-CrA" secondAttribute="bottom" constant="5" id="yEe-uD-gqS"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentButton" destination="ga0-2s-bLv" id="x6T-68-OyI"/>

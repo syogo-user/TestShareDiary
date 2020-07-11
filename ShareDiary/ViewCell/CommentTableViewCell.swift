@@ -13,19 +13,19 @@ class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userImageView: UIImageView!
 
-    @IBOutlet weak var comment: UITextView!
+    @IBOutlet weak var partnerComment: UITextView!
     //    @IBOutlet weak var comment: UITextView!
-
-   
-    @IBOutlet weak var commentWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var myComment: UITextView!
+    @IBOutlet weak var partnerCommentWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var myCommentWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var partnerCreatedAt: UILabel!
+    @IBOutlet weak var myCreatedAt: UILabel!
     
-    
-    @IBOutlet weak var createdAt: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        comment.layer.cornerRadius = 20
+        partnerComment.layer.cornerRadius = 20
         userImageView.layer.cornerRadius = 25
-
+        myComment.layer.cornerRadius = 20
         // Initialization code
     }
 
@@ -36,17 +36,53 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func setCommentData(_ commentData:CommentData){
-        self.comment.text = commentData.message
-        self.createdAt.text =  dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
-        //コメントの横幅調整
-        let width = frameWidthTextView(text:comment.text!).width + 10
-        commentWidthConstraint.constant = width
-        //画像の表示
-        setImageShow(userUid:commentData.uid)
+        guard let myUid = Auth.auth().currentUser?.uid else {return}
+        
+        if myUid == commentData.uid{
+            //自分の場合
+            self.partnerComment.isHidden = true
+            self.partnerCreatedAt.isHidden = true
+            self.userImageView.isHidden = true
+            self.myComment.isHidden = false
+            self.myCreatedAt.isHidden = false
+                        
+            self.myComment.text = commentData.message
+            self.myCreatedAt.text = dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
+            //コメントの横幅調整
+            let width = frameWidthTextView(text:myComment.text!).width + 10
+            self.myCommentWidthConstraint.constant = width
+            
+            
+
+            
+        } else {
+            //相手の場合
+            self.partnerComment.isHidden = false
+            self.partnerCreatedAt.isHidden = false
+            self.userImageView.isHidden = false
+            self.myComment.isHidden = true
+            self.myCreatedAt.isHidden = true
+            
+            self.partnerComment.text = commentData.message
+            self.partnerCreatedAt.text =  dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
+            //コメントの横幅調整
+            let width = frameWidthTextView(text:partnerComment.text!).width + 10
+            self.partnerCommentWidthConstraint.constant = width
+            //画像の表示
+            setImageShow(userUid:commentData.uid)
+
+            
+        }
+        
+        
+        
+
 
         
         
+        
     }
+
     
     private func dateFormatterForDateLabel(date: Date) -> String {
         let formatter = DateFormatter()
