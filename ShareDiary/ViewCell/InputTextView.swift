@@ -8,15 +8,28 @@
 
 
 import UIKit
+import Firebase
+protocol InputTextViewDelegate:class{
+    func tapSubmitButton(text:String)
+}
+
+
 class InputTextView :UIView{
     
     @IBOutlet weak var inputText: UITextView!
     @IBOutlet weak var submitButton: UIButton!
+    var postData:PostData?
     
+    @objc func tapSubmitButton(_ sender :UIButton){
+        guard let text = inputText.text else{return}
+        delegate?.tapSubmitButton(text:text)
+    }
+    weak var delegate :InputTextViewDelegate?
     override init(frame:CGRect){
         super.init(frame:frame)
         nibinit()
         setView()
+
         //テキストの高さを可変にする
         autoresizingMask = .flexibleHeight
     }
@@ -24,6 +37,8 @@ class InputTextView :UIView{
         inputText.layer.cornerRadius = 15
         inputText.layer.borderColor = UIColor.rgbColor(red: 220, green: 225, blue: 225).cgColor
         inputText.layer.borderWidth = 1
+        inputText.text = ""
+        inputText.delegate = self
         
         submitButton.layer.cornerRadius = 15
         submitButton.imageView?.contentMode = .scaleAspectFill
@@ -31,7 +46,8 @@ class InputTextView :UIView{
         submitButton.contentVerticalAlignment = .fill
         submitButton.isEnabled = false
         
-    
+        submitButton.addTarget(self, action: #selector(tapSubmitButton(_:)), for: .touchUpInside)
+        
     }
     //テキストの高さを可変にする
     override var intrinsicContentSize: CGSize{
@@ -51,4 +67,19 @@ class InputTextView :UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func textClear(){
+        inputText.text = ""
+        submitButton.isEnabled = false
+    }
+}
+
+extension InputTextView:UITextViewDelegate{
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            submitButton.isEnabled = false
+        } else{
+            submitButton.isEnabled = true
+        }
+    }
 }

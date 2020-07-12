@@ -68,67 +68,6 @@
             </objects>
             <point key="canvasLocation" x="-465.21739130434787" y="812.94642857142856"/>
         </scene>
-        <!--Comment Input View Controlelr-->
-        <scene sceneID="2Mi-xK-852">
-            <objects>
-                <viewController storyboardIdentifier="CommentInput" id="ErF-Vx-ZsC" customClass="CommentInputViewControlelr" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LwG-ui-QnD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auL-xn-ke4">
-                                <rect key="frame" x="30" y="444" width="354" height="200"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-ou-aip">
-                                        <rect key="frame" x="10" y="10" width="334" height="150"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="bmx-fn-IJE"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Anm-bt-s7n">
-                                        <rect key="frame" x="294" y="160" width="50" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="Jvd-Lg-Wqq"/>
-                                        </constraints>
-                                        <state key="normal" title="送信">
-                                            <color key="titleColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Anm-bt-s7n" firstAttribute="trailing" secondItem="Fch-ou-aip" secondAttribute="trailing" id="30H-0L-Jzs"/>
-                                    <constraint firstAttribute="bottom" secondItem="Anm-bt-s7n" secondAttribute="bottom" id="BY8-JI-WNL"/>
-                                    <constraint firstItem="Fch-ou-aip" firstAttribute="top" secondItem="auL-xn-ke4" secondAttribute="top" constant="10" id="LBB-6z-dbH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Fch-ou-aip" secondAttribute="trailing" constant="10" id="PYU-O3-vXW"/>
-                                    <constraint firstItem="Anm-bt-s7n" firstAttribute="top" secondItem="Fch-ou-aip" secondAttribute="bottom" id="cQO-Dz-aQ7"/>
-                                    <constraint firstAttribute="height" constant="200" id="qFZ-tW-5KS"/>
-                                    <constraint firstItem="Fch-ou-aip" firstAttribute="leading" secondItem="auL-xn-ke4" secondAttribute="leading" constant="10" id="u4L-iT-xuG"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="auL-xn-ke4" firstAttribute="leading" secondItem="OrU-SQ-Iv8" secondAttribute="leading" constant="30" id="1ch-fT-elU"/>
-                            <constraint firstItem="auL-xn-ke4" firstAttribute="centerX" secondItem="LwG-ui-QnD" secondAttribute="centerX" id="AYQ-Wd-fIS"/>
-                            <constraint firstItem="OrU-SQ-Iv8" firstAttribute="trailing" secondItem="auL-xn-ke4" secondAttribute="trailing" constant="30" id="YmE-Mv-fEi"/>
-                            <constraint firstItem="auL-xn-ke4" firstAttribute="top" secondItem="OrU-SQ-Iv8" secondAttribute="top" constant="400" id="n7B-XZ-I1F"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="OrU-SQ-Iv8"/>
-                    </view>
-                    <connections>
-                        <outlet property="inputTextView" destination="Fch-ou-aip" id="ZhX-G8-UpD"/>
-                        <outlet property="submitButton" destination="Anm-bt-s7n" id="1h9-OH-HbD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ke-ym-r8E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2878.2608695652175" y="1508.7053571428571"/>
-        </scene>
         <!--Date Select View Controller-->
         <scene sceneID="cx4-dt-sg1">
             <objects>
@@ -379,13 +318,6 @@
                                         </constraints>
                                         <state key="normal" image="like_none"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mr-wo-tcT">
-                                        <rect key="frame" x="244" y="25" width="60" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="fMt-0T-qAQ"/>
-                                        </constraints>
-                                        <state key="normal" image="menu"/>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXb-kr-NfD">
                                         <rect key="frame" x="10" y="90" width="100" height="25"/>
                                         <constraints>
@@ -429,8 +361,6 @@
                                     <constraint firstItem="azw-71-H95" firstAttribute="leading" secondItem="wCa-3d-n3A" secondAttribute="leading" constant="20" id="G6q-OV-kZh"/>
                                     <constraint firstItem="XKe-Bk-Zcw" firstAttribute="top" secondItem="bXb-kr-NfD" secondAttribute="bottom" constant="10" id="GZl-IW-hPf"/>
                                     <constraint firstItem="12e-uw-oFU" firstAttribute="trailing" secondItem="qgZ-2Q-DdI" secondAttribute="trailing" constant="10" id="HTl-jd-xdk"/>
-                                    <constraint firstItem="0mr-wo-tcT" firstAttribute="top" secondItem="12e-uw-oFU" secondAttribute="top" constant="25" id="IF1-v7-wdi"/>
-                                    <constraint firstItem="0mr-wo-tcT" firstAttribute="bottom" secondItem="bvx-A1-YwU" secondAttribute="bottom" id="JWz-Cv-Myl"/>
                                     <constraint firstItem="HZf-tU-gRG" firstAttribute="top" secondItem="azw-71-H95" secondAttribute="bottom" constant="20" id="LEd-js-b4p"/>
                                     <constraint firstItem="HqJ-Tb-bhF" firstAttribute="top" secondItem="12e-uw-oFU" secondAttribute="top" constant="25" id="MQL-ad-JV4"/>
                                     <constraint firstItem="bvx-A1-YwU" firstAttribute="top" secondItem="12e-uw-oFU" secondAttribute="top" constant="25" id="MXf-3F-MTd"/>
@@ -446,8 +376,6 @@
                                     <constraint firstItem="HZf-tU-gRG" firstAttribute="width" secondItem="Xcc-XA-u0I" secondAttribute="width" id="oIi-Ir-QSm"/>
                                     <constraint firstItem="bu0-Gl-ccg" firstAttribute="top" secondItem="12e-uw-oFU" secondAttribute="top" constant="5" id="pFn-qp-veH"/>
                                     <constraint firstItem="qgZ-2Q-DdI" firstAttribute="top" secondItem="bvx-A1-YwU" secondAttribute="top" id="pxf-hy-6he"/>
-                                    <constraint firstItem="gt3-f4-omQ" firstAttribute="leading" secondItem="0mr-wo-tcT" secondAttribute="trailing" id="tje-5o-5qk"/>
-                                    <constraint firstItem="0mr-wo-tcT" firstAttribute="top" secondItem="bvx-A1-YwU" secondAttribute="top" id="vC9-BF-8Tg"/>
                                     <constraint firstItem="bXb-kr-NfD" firstAttribute="top" secondItem="bvx-A1-YwU" secondAttribute="bottom" constant="5" id="w5G-Wg-swn"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="12e-uw-oFU"/>
@@ -464,7 +392,6 @@
                         <viewLayoutGuide key="safeArea" id="m1I-nd-y7Q"/>
                     </view>
                     <connections>
-                        <outlet property="commentButton" destination="0mr-wo-tcT" id="jk2-p6-CBy"/>
                         <outlet property="contentImageView" destination="azw-71-H95" id="xIG-mO-dIJ"/>
                         <outlet property="diaryDate" destination="bXb-kr-NfD" id="3aY-SQ-e50"/>
                         <outlet property="diaryText" destination="XKe-Bk-Zcw" id="gE7-cA-tlH"/>
@@ -1013,7 +940,6 @@
         <image name="doc.plaintext" catalog="system" width="56" height="64"/>
         <image name="like_none" width="40" height="40"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
-        <image name="menu" width="51" height="41"/>
         <image name="paperplane" catalog="system" width="64" height="60"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>

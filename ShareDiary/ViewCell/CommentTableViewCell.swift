@@ -51,10 +51,7 @@ class CommentTableViewCell: UITableViewCell {
             //コメントの横幅調整
             let width = frameWidthTextView(text:myComment.text!).width + 10
             self.myCommentWidthConstraint.constant = width
-            
-            
-
-            
+                                
         } else {
             //相手の場合
             self.partnerComment.isHidden = false
@@ -70,16 +67,7 @@ class CommentTableViewCell: UITableViewCell {
             self.partnerCommentWidthConstraint.constant = width
             //画像の表示
             setImageShow(userUid:commentData.uid)
-
-            
-        }
-        
-        
-        
-
-
-        
-        
+        }        
         
     }
 

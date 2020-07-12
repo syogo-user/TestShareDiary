@@ -147,8 +147,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //詳細画面に遷移する
         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
-        //コメントボタン押下時の遷移はtrue
-        detailViewController.commentFlg = false
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath.row]
         
@@ -202,8 +200,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         //詳細画面に遷移する
         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
         detailViewController.postData = postData
-        //コメントボタン押下時の遷移はtrue
-        detailViewController.commentFlg = true
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
