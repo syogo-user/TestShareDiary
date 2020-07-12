@@ -17,15 +17,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var profileMessage: UITextView!
     @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var messageSaveButton: UIButton!
+//    @IBOutlet weak var messageSaveButton: UIButton!
+    
+    @IBOutlet weak var imageChoiceButton: UIButton!
+    @IBOutlet weak var changeProfileButton: UIButton!
+    
+    @IBOutlet weak var follow: UILabel!
+    @IBOutlet weak var follower: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         myImage.layer.cornerRadius = 125
         logoutButton.layer.cornerRadius = 15
         profileMessage.layer.cornerRadius = 15
-        messageSaveButton.addTarget(self, action: #selector(messageSave), for: .touchUpInside)
+        //        messageSaveButton.addTarget(self, action: #selector(messageSave), for: .touchUpInside)
+        
+        changeProfileButton.addTarget(self, action: #selector(changeProfile), for: .touchUpInside)
+        changeProfileButton.layer.cornerRadius = 15
         self.view.backgroundColor = Const.darkColor
+        imageChoiceButton.layer.cornerRadius = 15
         // Do any additional setup after loading the view.
     }
     
@@ -33,43 +43,39 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         super.viewWillAppear(animated)
         self.nickNameTextField.text = ""
         self.profileMessage.text = ""
+        self.follow.text = "フォロー："
+        self.follower.text = "フォロワー："
         
-        if let myUid = Auth.auth().currentUser?.uid {
-            //firebaseから自分のユーザ情報の取得
-            let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-            postUserRef.getDocument() {
-                (querySnapshot,error) in
-                if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    if let document = querySnapshot!.data(){
-                        self.nickNameTextField.text = document["userName"] as? String ?? ""
-                        self.profileMessage.text = document["profileMessage"] as? String ?? ""
-                        
-                        let myImageName = document["myImageName"] as? String ?? ""
-                        //                        let myImageNumber =  Int(String(myImageNameFirebase.suffix(1))) ?? 0
-                        //
-                        //                        //ファイル名
-                        //                        let myImageName = myUid + "\(myImageNumber)"
-                        //画像の取得
-                        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
-                        
-                        //画像がなければデフォルトの画像表示
-                        if myImageName == "" {
-                            self.myImage.image = UIImage(named: "unknown")
-                        }else{
-                            //取得した画像の表示
-                            self.myImage.sd_imageIndicator =
-                                SDWebImageActivityIndicator.gray
-                            self.myImage.sd_setImage(with: imageRef)
-                        }
-                    }
+        guard  let myUid = Auth.auth().currentUser?.uid else { return}
+        //firebaseから自分のユーザ情報の取得
+        let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+        postUserRef.getDocument() {
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                guard let document = querySnapshot!.data() else {return}
+                self.nickNameTextField.text = document["userName"] as? String ?? ""
+                self.profileMessage.text = document["profileMessage"] as? String ?? ""
+                let myImageName = document["myImageName"] as? String ?? ""
+                let myFollow = document["follow"] as? [String] ?? []
+                let myFollower = document["follower"] as? [String] ?? []
+                self.follow.text = "フォロー： \(myFollow.count)"
+                self.follower.text = "フォロワー：\(myFollower.count)"
+                //画像の取得
+                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
+                //画像がなければデフォルトの画像表示
+                if myImageName == "" {
+                    self.myImage.image = UIImage(named: "unknown")
+                }else{
+                    //取得した画像の表示
+                    self.myImage.sd_imageIndicator =
+                        SDWebImageActivityIndicator.gray
+                    self.myImage.sd_setImage(with: imageRef)
                 }
             }
         }
-
-
     }
     
     @IBAction func imageChoiceAction(_ sender: Any) {
@@ -193,22 +199,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         // ログイン画面から戻ってきた時のためにホーム画面（index = 0）を選択している状態にしておく
         tabBarController?.selectedIndex = 0
     }
-    //メッセージ保存ボタン押下時
-    @objc private func messageSave(){
-        guard let myUid = Auth.auth().currentUser?.uid else {return}
-        let message = self.profileMessage.text!
-        let docData = [
-            "profileMessage": message
-        ] as [String : Any]
-        //メッセージの保存
-        
-        let userRef = Firestore.firestore().collection(Const.users).document(myUid)
-        userRef.updateData(docData)
+
+    //プロフィール変更画面に遷移
+    @objc private func changeProfile(){
+        let profileEditViewController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
+        self.navigationController?.pushViewController(profileEditViewController, animated: true)
         
         
-        
-        
+        //        self.navigationController?.pushViewController(postViewController, animated: true)
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

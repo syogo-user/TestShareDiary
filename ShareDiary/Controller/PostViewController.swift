@@ -104,18 +104,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 
         }else {
             self.view.layer.insertSublayer(gradientLayer, at:0)
-        }
-//        self.view.layer.accessibilityScroll(<#T##direction: UIAccessibilityScrollDirection##UIAccessibilityScrollDirection#>)(CGPoint(x:1000,y:1000))
-//
-//
-//         let scrollView = UIScrollView()
-//        scrollView.frame = self.view.bounds
-//        scrollView.contentSize  = CGSize(width:1000,height: 1000)
-//        scrollView.isScrollEnabled = true
-//
-//        scrollView.alwaysBounceVertical = true
-//        self.view.addSubview(scrollView)
-        
+        }        
         //文字の色変化
         typeingColor  = UIColor.gray
         inputTextView.textColor = typeingColor

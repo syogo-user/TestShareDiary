@@ -100,10 +100,6 @@ class DitailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         //キーボードが隠れる時の通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-            
-            
-        
-        
     
     }
     @objc func keyboardWillShow(notification:NSNotification){
@@ -367,11 +363,13 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
+
         cell.translatesAutoresizingMaskIntoConstraints = false
         //Cell に値を設定する
         cell.setCommentData(commentData[indexPath.row])
         return cell
     }
+    
     
 
     

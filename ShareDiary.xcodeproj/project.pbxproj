@@ -37,6 +37,7 @@
 		3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F524038D6E00321D00 /* LoginViewController.swift */; };
 		3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5F5F92403906500321D00 /* TabBarController.swift */; };
 		3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */; };
+		3DB165DF24BB21BF00E9AC7A /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */; };
 		3DB3ABA524AA0D3A0055E742 /* DitailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */; };
 		3DC3185F24ACBED4000D38F3 /* LikeUserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC3185D24ACBED4000D38F3 /* LikeUserListTableViewCell.swift */; };
 		3DC3186024ACBED4000D38F3 /* LikeUserListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3185E24ACBED4000D38F3 /* LikeUserListTableViewCell.xib */; };
@@ -85,6 +86,7 @@
 		3DA5F5F524038D6E00321D00 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3DA5F5F92403906500321D00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChoiceViewController.swift; sourceTree = "<group>"; };
+		3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailViewController.swift; sourceTree = "<group>"; };
 		3DC3185D24ACBED4000D38F3 /* LikeUserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUserListTableViewCell.swift; sourceTree = "<group>"; };
 		3DC3185E24ACBED4000D38F3 /* LikeUserListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeUserListTableViewCell.xib; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */,
 				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
 				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
+				3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
 				3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */,
 				3DC3185F24ACBED4000D38F3 /* LikeUserListTableViewCell.swift in Sources */,
+				3DB165DF24BB21BF00E9AC7A /* ProfileEditViewController.swift in Sources */,
 				3D49C2862467EF7C008ACC25 /* FollowFollowerListTableViewController.swift in Sources */,
 				3DD44DA524664DC10001E7A8 /* FollowRequestListTableViewCell.swift in Sources */,
 				3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */,

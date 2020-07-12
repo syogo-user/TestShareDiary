@@ -107,7 +107,6 @@ class PostTableViewCell: UITableViewCell {
     }
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
-        //        self.view.backgroundColor = backgroundColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.layer.bounds
         let color = Const.color[colorIndex]
@@ -118,7 +117,6 @@ class PostTableViewCell: UITableViewCell {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        //self.layer.insertSublayer(gradientLayer, at:0)
         if self.layer.sublayers![0] is CAGradientLayer {
             self.layer.sublayers![0].removeFromSuperlayer()
             self.layer.insertSublayer(gradientLayer, at: 0)

@@ -26,6 +26,7 @@ class CommentTableViewCell: UITableViewCell {
         partnerComment.layer.cornerRadius = 20
         userImageView.layer.cornerRadius = 25
         myComment.layer.cornerRadius = 20
+        self.backgroundColor = Const.darkColor
         // Initialization code
     }
 
