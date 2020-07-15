@@ -149,8 +149,8 @@ class DitailViewController: UIViewController {
                     
                     self.tableView.reloadData()
 //                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
-                    self.scrollViewLayer.contentSize.height += 20
-                    self.tableView.contentSize.height += 20
+//                    self.scrollViewLayer.contentSize.height += 20
+//                    self.tableView.contentSize.height += 20
                     print("scrollViewLayer.contentSize:",self.scrollViewLayer.contentSize.height)
                     print("tableView.contentSize.height",self.tableView.contentSize.height)
                 case .modified, .removed:
