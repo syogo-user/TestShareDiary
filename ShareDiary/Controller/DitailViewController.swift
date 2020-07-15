@@ -78,7 +78,7 @@ class DitailViewController: UIViewController {
         //スクロールでキーボードをしまう
         self.scrollViewLayer.keyboardDismissMode = .interactive
         setupNotification()
-        
+
         
     }
     
@@ -149,7 +149,10 @@ class DitailViewController: UIViewController {
                     
                     self.tableView.reloadData()
 //                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
-                    
+                    self.scrollViewLayer.contentSize.height += 20
+                    self.tableView.contentSize.height += 20
+                    print("scrollViewLayer.contentSize:",self.scrollViewLayer.contentSize.height)
+                    print("tableView.contentSize.height",self.tableView.contentSize.height)
                 case .modified, .removed:
                     print("nothing to do")
                 }
@@ -319,16 +322,18 @@ extension DitailViewController :InputTextViewDelegate{
             "createdAt": Timestamp(),
             "message": text,
             ] as [String : Any]
+        //入力欄をクリア
+        self.inputTextView.textClear()
+        
         Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").document(messageId).setData(docData) {(err) in
             if let err = err {
                 print("メッセージ情報の保存に失敗しました。\(err)")
                 return
             }
             print("コメントメッセージの保存に成功しました")
-            //送信後は入力欄をクリア
-            self.inputTextView.textClear()
+            
         }
-
+        
         
     }
     func randomString(length: Int) -> String {

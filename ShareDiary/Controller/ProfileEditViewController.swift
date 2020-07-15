@@ -65,6 +65,22 @@ class ProfileEditViewController: UIViewController {
         
         let userRef = Firestore.firestore().collection(Const.users).document(myUid)
         userRef.updateData(docData)
+        //表示名設定
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let changeRequest = user.createProfileChangeRequest()
+            changeRequest.displayName = userName
+            changeRequest.commitChanges { error in
+                if let error = error {
+                    // プロフィールの更新でエラーが発生
+                    print("DEBUG_PRINT: " + error.localizedDescription)
+                    return
+                }
+                print("DEBUG_PRINT: [displayName = \(user.displayName!)]の設定に成功しました。")
+
+
+            }
+        }
         //前の画面に戻る
         self.navigationController?.popViewController(animated: true)
     }

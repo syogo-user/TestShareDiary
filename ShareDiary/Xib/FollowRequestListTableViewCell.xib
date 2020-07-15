@@ -75,6 +75,7 @@
                     <constraint firstItem="shZ-Yl-jKl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="rJR-f3-j1K"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="FollowRequestPermissionButton" destination="AI6-MS-I9b" id="v7c-pU-vWI"/>

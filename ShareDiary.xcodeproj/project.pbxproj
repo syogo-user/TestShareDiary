@@ -20,6 +20,7 @@
 		3D49C28A2467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D49C2882467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib */; };
 		3D544A9624057470007793AC /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D544A9524057470007793AC /* PostViewController.swift */; };
 		3D7549D424A372A80062BEC8 /* DateSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7549D324A372A70062BEC8 /* DateSelectViewController.swift */; };
+		3D82A78524BDECBC00494A4A /* UISearchBarExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */; };
 		3D87199A240A500800D4064E /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D871999240A500700D4064E /* Const.swift */; };
 		3D87199C240A754900D4064E /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D87199B240A754900D4064E /* PostData.swift */; };
 		3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE8223FEE75F009893B1 /* AppDelegate.swift */; };
@@ -29,7 +30,7 @@
 		3D9BFE8F23FEE760009893B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */; };
 		3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */; };
 		3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */; };
-		3D9BFE9B23FEE95C009893B1 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */; };
+		3D9BFE9B23FEE95C009893B1 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9A23FEE95C009893B1 /* FriendSearchViewController.swift */; };
 		3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */; };
 		3DA5083524B1C61500FE1148 /* CommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5083424B1C61500FE1148 /* CommentData.swift */; };
 		3DA5083824B1D0FA00FE1148 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5083624B1D0FA00FE1148 /* CommentTableViewCell.swift */; };
@@ -67,6 +68,7 @@
 		3D49C2882467F0A7008ACC25 /* FollowFollowerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowFollowerListTableViewCell.xib; sourceTree = "<group>"; };
 		3D544A9524057470007793AC /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		3D7549D324A372A70062BEC8 /* DateSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectViewController.swift; sourceTree = "<group>"; };
+		3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBarExtention.swift; sourceTree = "<group>"; };
 		3D871999240A500700D4064E /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		3D87199B240A754900D4064E /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		3D9BFE7F23FEE75F009893B1 /* ShareDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,7 +80,7 @@
 		3D9BFE9023FEE760009893B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
-		3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
+		3D9BFE9A23FEE95C009893B1 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3DA5083424B1C61500FE1148 /* CommentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentData.swift; sourceTree = "<group>"; };
 		3DA5083624B1D0FA00FE1148 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,7 +195,7 @@
 				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
 				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
 				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
-				3D9BFE9A23FEE95C009893B1 /* FriendListViewController.swift */,
+				3D9BFE9A23FEE95C009893B1 /* FriendSearchViewController.swift */,
 				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
 				3D544A9524057470007793AC /* PostViewController.swift */,
 				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
@@ -204,6 +206,7 @@
 				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */,
 				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
 				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
+				3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */,
 				3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */,
 			);
 			path = Controller;
@@ -359,6 +362,7 @@
 				3D544A9624057470007793AC /* PostViewController.swift in Sources */,
 				3DB3ABA524AA0D3A0055E742 /* DitailViewController.swift in Sources */,
 				3D031C3824616B0100A845C1 /* UserPostData.swift in Sources */,
+				3D82A78524BDECBC00494A4A /* UISearchBarExtention.swift in Sources */,
 				3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */,
 				3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */,
 				3DE8129624B991B700E85957 /* InputTextView.swift in Sources */,
@@ -366,7 +370,7 @@
 				3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */,
 				3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */,
 				3DA5083524B1C61500FE1148 /* CommentData.swift in Sources */,
-				3D9BFE9B23FEE95C009893B1 /* FriendListViewController.swift in Sources */,
+				3D9BFE9B23FEE95C009893B1 /* FriendSearchViewController.swift in Sources */,
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
 				3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */,

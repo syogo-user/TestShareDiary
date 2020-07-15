@@ -24,6 +24,7 @@ class UsersTableViewCell: UITableViewCell {
         followRequestButton.setTitleColor(UIColor.white ,for: .highlighted)
         userImage.layer.cornerRadius = 30
         followRequestButton.layer.cornerRadius = 15
+
         
     }
 

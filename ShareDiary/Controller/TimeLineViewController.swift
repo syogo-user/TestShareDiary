@@ -55,6 +55,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 }
             }
 
+
             // ログイン済み
             //listenerがnilでないとき return
             guard listener == nil  else{return}

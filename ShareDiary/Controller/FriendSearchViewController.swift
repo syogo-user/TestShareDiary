@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SlideMenuControllerSwift
 
-class FriendListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate{
+class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     //検索文字列
@@ -25,6 +25,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = Const.darkColor
+
+
 //        if let navigationBarFrame = navigationController?.navigationBar.bounds {
 //            //検索バーのインスタンスを取得する
 //            let searchBar: UISearchBar = UISearchBar()
@@ -42,9 +44,12 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         searchBar.placeholder = "ユーザ名で検索"
         self.searchbar = searchBar
-        self.view.addSubview(searchbar)
 
-        
+        self.view.addSubview(searchbar)
+        searchBar.disableBlur()
+        searchBar.backgroundColor = Const.darkColor
+        searchBar.searchBarStyle = .prominent
+        searchBar.barTintColor = .white
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -87,8 +92,11 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
         self.tableView.reloadData()
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
+
     }
-    
+     
+     
+
     //検索バーで文字編集中（文字をクリアしたときも実行される）
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)  {
         //文字が空の場合userPostArrayを空にする
@@ -96,6 +104,8 @@ class FriendListViewController: UIViewController,UITableViewDelegate,UITableView
             self.userPostArray  = []
             self.tableView.reloadData()
         }
+
+
     }
     
     //検索ボタンがタップされた時に実行される

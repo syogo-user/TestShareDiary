@@ -60,6 +60,7 @@
                     <constraint firstItem="giS-T3-DmM" firstAttribute="leading" secondItem="8lR-8T-KDA" secondAttribute="trailing" constant="10" id="vgb-HQ-l0e"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="profileMessage" destination="KoA-Lb-hyq" id="g26-Xx-nLe"/>

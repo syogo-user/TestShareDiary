@@ -22,7 +22,7 @@ class SlideViewController: SlideMenuController {
         mainViewController = navigationController
         leftViewController = leftVC
         //スライドメニューの幅
-        SlideMenuOptions.leftViewWidth = 250
+        SlideMenuOptions.leftViewWidth = 270
         //スライドが表示された時のMainの縮み率 1は縮まない
         SlideMenuOptions.contentViewScale = 1     
         super.awakeFromNib()
