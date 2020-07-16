@@ -401,6 +401,7 @@
                         <outlet property="postDeleteButton" destination="bu0-Gl-ccg" id="pOK-ya-rFz"/>
                         <outlet property="scrollViewLayer" destination="Xcc-XA-u0I" id="7xc-Yx-nDB"/>
                         <outlet property="tableView" destination="HZf-tU-gRG" id="S8C-Hd-8Db"/>
+                        <outlet property="tableViewHeight" destination="Odr-f7-hTJ" id="Gdu-Yh-lt7"/>
                         <outlet property="userName" destination="HqJ-Tb-bhF" id="rdE-lC-g41"/>
                     </connections>
                 </viewController>

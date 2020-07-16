@@ -25,6 +25,8 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var postDeleteButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
 
@@ -79,7 +81,6 @@ class DitailViewController: UIViewController {
         self.scrollViewLayer.keyboardDismissMode = .interactive
         setupNotification()
 
-        
     }
     
     
@@ -127,7 +128,6 @@ class DitailViewController: UIViewController {
     //テーブルビューの表示
     private func tableViewSet(){
         guard let postDataId = postData?.id else { return }
-        
         Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").addSnapshotListener { (snapshots, err) in
             
             if let err = err {
@@ -148,11 +148,15 @@ class DitailViewController: UIViewController {
                     }
                     
                     self.tableView.reloadData()
+                    self.tableViewHeight.constant = self.tableView.contentSize.height
+
+                    print("self.tableViewHeight.constant",self.tableViewHeight.constant)
+                    print("self.tableView.contentSize.height",self.tableView.contentSize.height)
 //                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
 //                    self.scrollViewLayer.contentSize.height += 20
 //                    self.tableView.contentSize.height += 20
-                    print("scrollViewLayer.contentSize:",self.scrollViewLayer.contentSize.height)
-                    print("tableView.contentSize.height",self.tableView.contentSize.height)
+//                    print("scrollViewLayer.contentSize:",self.scrollViewLayer.contentSize.height)
+//                    print("tableView.contentSize.height",self.tableView.contentSize.height)
                 case .modified, .removed:
                     print("nothing to do")
                 }
@@ -180,6 +184,7 @@ class DitailViewController: UIViewController {
         self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
         likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
         likeUserButton.setTitleColor(.black, for: .normal)
+
         // 日時の表示
         self.diaryDate.text = ""
         if let date = post.date {
