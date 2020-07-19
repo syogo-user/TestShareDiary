@@ -197,8 +197,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 
         //テキストが空の時は投稿できないようにする
         guard self.inputTextView.text != "" else {return}
-        print("投稿されました")
 
+        //HUD
+        SVProgressHUD.show()
         // 画像をJPEG形式に変換する
         let imageData = imagePicture.jpegData(compressionQuality: 0.75)
         // 画像と投稿データの保存場所を定義する
@@ -210,7 +211,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         }
         let documentUserName = Auth.auth().currentUser?.displayName
         let strDate = dateFormat(date:selectDate)
-
+        
         //投稿するデータをまとめる
         let postDic = [
             "uid":myUid,
@@ -236,6 +237,8 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
                     //写真のアップロード成功
                     // FireStoreに投稿データを保存する
                     postRef.setData(postDic)
+                    
+                    SVProgressHUD.dismiss()
                     //先頭画面に戻る
                     UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
@@ -246,6 +249,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             // FireStoreに投稿データを保存する
             //写真を投稿しない場合
             postRef.setData(postDic)
+            SVProgressHUD.dismiss()
             //先頭画面に戻る
             UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
         }

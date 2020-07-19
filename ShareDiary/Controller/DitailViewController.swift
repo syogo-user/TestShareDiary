@@ -45,7 +45,8 @@ class DitailViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
-                
+        tableView.tableFooterView = UIView()
+        
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
