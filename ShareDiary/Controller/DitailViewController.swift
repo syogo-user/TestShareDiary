@@ -12,11 +12,12 @@ import Firebase
 class DitailViewController: UIViewController {
 
     
-    @IBOutlet weak var scrollViewLayer: UIScrollView!
+//    @IBOutlet weak var scrollViewLayer: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var commentButton: UIButton!
+//    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeUserButton: UIButton!
     @IBOutlet weak var diaryDate: UILabel!
@@ -25,8 +26,6 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var postDeleteButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
-    
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
 
@@ -46,8 +45,7 @@ class DitailViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
-        
-        
+                
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
@@ -72,13 +70,13 @@ class DitailViewController: UIViewController {
         //テーブルビューの表示
         tableViewSet()
         //
-        scrollViewLayer.contentInset = contentInset
-        scrollViewLayer.scrollIndicatorInsets = indicateInset
+//a        scrollViewLayer.contentInset = contentInset
+//a        scrollViewLayer.scrollIndicatorInsets = indicateInset
 //        self.scrollViewLayer.contentOffset = CGPoint(x:0,y:200)
         
         
         //スクロールでキーボードをしまう
-        self.scrollViewLayer.keyboardDismissMode = .interactive
+        self.tableView.keyboardDismissMode = .interactive
         setupNotification()
 
     }
@@ -111,9 +109,9 @@ class DitailViewController: UIViewController {
             let bottom = keyboadFrame.height
             //スクロールビューをキーボードの分高さを上にあげる
             let contentInset = UIEdgeInsets(top:0,left:0,bottom:bottom,right: 0)
-            scrollViewLayer.contentInset = contentInset
-            scrollViewLayer.scrollIndicatorInsets = contentInset
-//            scrollViewLayer.contentOffset = CGPoint(x:0,y:bottom)
+            tableView.contentInset = contentInset
+            tableView.scrollIndicatorInsets = contentInset
+//            tableView.contentOffset = CGPoint(x:0,y:bottom)
             
         }
         
@@ -121,8 +119,8 @@ class DitailViewController: UIViewController {
     }
     @objc func keyboardWillHide(){
         print("keyboardWillHide")
-        scrollViewLayer.contentInset = contentInset
-        scrollViewLayer.scrollIndicatorInsets = indicateInset
+        tableView.contentInset = contentInset
+        tableView.scrollIndicatorInsets = indicateInset
     }
     
     //テーブルビューの表示
@@ -148,9 +146,8 @@ class DitailViewController: UIViewController {
                     }
                     
                     self.tableView.reloadData()
-                    self.tableViewHeight.constant = self.tableView.contentSize.height
 
-                    print("self.tableViewHeight.constant",self.tableViewHeight.constant)
+
                     print("self.tableView.contentSize.height",self.tableView.contentSize.height)
 //                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
 //                    self.scrollViewLayer.contentSize.height += 20
@@ -201,7 +198,7 @@ class DitailViewController: UIViewController {
         // 投稿画像表示
          contentImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
          let imageRef2 = Storage.storage().reference().child(Const.ImagePath).child(post.id + ".jpg")
-         contentImageView.sd_setImage(with: imageRef2)
+          contentImageView.sd_setImage(with: imageRef2)
         //プロフィール写真を設定
         setPostImage(uid:post.uid)
         //背景色を設定
@@ -240,7 +237,7 @@ class DitailViewController: UIViewController {
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.scrollViewLayer.layer.bounds
+        gradientLayer.frame = self.viewHeader.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
@@ -249,11 +246,11 @@ class DitailViewController: UIViewController {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        if self.scrollViewLayer.layer.sublayers![0] is CAGradientLayer {
-            self.scrollViewLayer.layer.sublayers![0].removeFromSuperlayer()
-            self.scrollViewLayer.layer.insertSublayer(gradientLayer, at: 0)
+        if self.viewHeader.layer.sublayers![0] is CAGradientLayer {
+            self.viewHeader.layer.sublayers![0].removeFromSuperlayer()
+            self.viewHeader.layer.insertSublayer(gradientLayer, at: 0)
         } else {
-            self.scrollViewLayer.layer.insertSublayer(gradientLayer, at: 0)
+            self.viewHeader.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
     @objc func postDelete(_ sender:UIButton){
