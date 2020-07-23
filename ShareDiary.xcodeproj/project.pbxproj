@@ -12,7 +12,6 @@
 		3D031C3824616B0100A845C1 /* UserPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D031C3724616B0100A845C1 /* UserPostData.swift */; };
 		3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42D71C240A8F9900133261 /* PostTableViewCell.swift */; };
 		3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D42D71D240A8F9900133261 /* PostTableViewCell.xib */; };
-		3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */; };
 		3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D46768D2462A52500C60EB1 /* SlideViewController.swift */; };
 		3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D46768F2462A6A500C60EB1 /* LeftViewController.swift */; };
 		3D49C2862467EF7C008ACC25 /* FollowFollowerListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */; };
@@ -51,6 +50,7 @@
 		3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8129724B9981300E85957 /* UIColorExtention.swift */; };
 		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
+		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +60,6 @@
 		3D031C3724616B0100A845C1 /* UserPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostData.swift; sourceTree = "<group>"; };
 		3D42D71C240A8F9900133261 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		3D42D71D240A8F9900133261 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
-		3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D46768D2462A52500C60EB1 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		3D46768F2462A6A500C60EB1 /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowFollowerListTableViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		3DE8129524B991B700E85957 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3DE8129724B9981300E85957 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
 		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendar.swift; sourceTree = "<group>"; };
+		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60724E31802F5BBE9FF9228 /* Pods-ShareDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDiary.debug.xcconfig"; path = "Target Support Files/Pods-ShareDiary/Pods-ShareDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,7 +158,7 @@
 				3D9BFE8B23FEE760009893B1 /* Assets.xcassets */,
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
 				3D9BFE9023FEE760009893B1 /* Info.plist */,
-				3D43ED2F2400F97F0015A109 /* GoogleService-Info.plist */,
+				9131F08824C974E80055F925 /* GoogleService-Info.plist */,
 			);
 			path = ShareDiary;
 			sourceTree = "<group>";
@@ -301,8 +301,8 @@
 				3DC3186024ACBED4000D38F3 /* LikeUserListTableViewCell.xib in Resources */,
 				3D42D71F240A8F9900133261 /* PostTableViewCell.xib in Resources */,
 				3D031C362461198A00A845C1 /* UsersTableViewCell.xib in Resources */,
-				3D43ED302400F97F0015A109 /* GoogleService-Info.plist in Resources */,
 				3D9BFE8C23FEE760009893B1 /* Assets.xcassets in Resources */,
+				9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */,
 				3D9BFE8A23FEE75F009893B1 /* Main.storyboard in Resources */,
 				3DA5083924B1D0FA00FE1148 /* CommentTableViewCell.xib in Resources */,
 			);
