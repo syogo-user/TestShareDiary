@@ -68,7 +68,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 }
                 // ここでusersから自分がフォローしている人のuidを取得する
                 let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-                postUserRef.getDocument() {
+                postUserRef.addSnapshotListener() {
                     (querySnapshot2,error) in
                     if let error = error {
                         print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
