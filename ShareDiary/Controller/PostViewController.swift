@@ -26,11 +26,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     //選択された日付（デフォルトは今日）
     var selectDate = Date()
     
+
     @IBOutlet weak var inputTextView: UITextView!
-    @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var postPicture: UIImageView!
-    
+//    @IBOutlet weak var inputTextViewConstraintHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +57,13 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
 
-        //スクロールビュー
-         let scrollView = UIScrollView()
-        scrollView.frame = self.view.bounds
-        scrollView.contentSize  = CGSize(width:self.view.frame.width,height: 1000)
-        scrollView.isScrollEnabled = true
-        scrollView.alwaysBounceVertical = true
-        self.view.addSubview(scrollView)
+//        //スクロールビュー
+//         let scrollView = UIScrollView()
+//        scrollView.frame = self.view.bounds
+//        scrollView.contentSize  = CGSize(width:self.view.frame.width,height: 1000)
+//        scrollView.isScrollEnabled = true
+//        scrollView.alwaysBounceVertical = true
+//        self.view.addSubview(scrollView)
     }
     
 
@@ -256,6 +254,15 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         }else{
             postButton.isEnabled = true
         }
+        
+//        //今のtextViewの高さが　以上だったら
+//        if inputTextView.frame.height > 100 {
+//            inputTextView.isScrollEnabled  = true
+//        } else {
+//            //スクロールを止める
+//            inputTextView.isScrollEnabled = false
+//            
+//        }
 //        self.inputTextView.translatesAutoresizingMaskIntoConstraints = true
 //        self.inputTextView.sizeToFit()
 //        self.inputTextView.isScrollEnabled = true
