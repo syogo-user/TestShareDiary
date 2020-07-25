@@ -16,12 +16,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fDD-AG-CrA">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDD-AG-CrA">
                         <rect key="frame" x="10" y="110" width="300" height="250"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="250" id="Bey-zy-dhT"/>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="o9K-6y-FEg"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="rDv-j5-b5F"/>
                         </constraints>
                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>

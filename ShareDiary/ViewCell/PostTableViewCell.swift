@@ -11,6 +11,7 @@ import FirebaseUI
 import Firebase
 class PostTableViewCell: UITableViewCell {
 
+
     @IBOutlet weak var postUserImageView: UIImageView!
     @IBOutlet weak var postUserLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -74,7 +75,9 @@ class PostTableViewCell: UITableViewCell {
         setPostImage(uid:postData.uid)
         //背景色を設定
         setBackgroundColor(colorIndex:postData.backgroundColorIndex ?? 0)
-
+        if postData.backgroundColorIndex == nil {
+            print("postData.backgroundColorIndex がnilです")
+        }
     }
     
     private func setPostImage(uid:String){

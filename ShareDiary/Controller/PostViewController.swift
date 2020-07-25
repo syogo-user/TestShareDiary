@@ -59,17 +59,13 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
 
-//        var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add,target: self,action:#selector(rightButtonTapped(_:)))
-//        self.navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
-
-        //        //スクロールビュー
-//         let scrollView = UIScrollView()
-//        scrollView.frame = self.view.bounds
-//        scrollView.contentSize  = CGSize(width:1000,height: 1000)
-//        scrollView.isScrollEnabled = true
-//
-//        scrollView.alwaysBounceVertical = true
-//        self.view.addSubview(scrollView)
+        //スクロールビュー
+         let scrollView = UIScrollView()
+        scrollView.frame = self.view.bounds
+        scrollView.contentSize  = CGSize(width:self.view.frame.width,height: 1000)
+        scrollView.isScrollEnabled = true
+        scrollView.alwaysBounceVertical = true
+        self.view.addSubview(scrollView)
     }
     
 
@@ -95,13 +91,11 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             gradientLayer.colors = [color1,color2]
             gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
             gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-//        self.view.layer.addSublayer(gradientLayer)
         
         //サブレイヤーがある場合は削除してからinsertSublayerする
         if self.view.layer.sublayers![0] is CAGradientLayer{
             self.view.layer.sublayers![0].removeFromSuperlayer()
             self.view.layer.insertSublayer(gradientLayer, at: 0)
-
         }else {
             self.view.layer.insertSublayer(gradientLayer, at:0)
         }        
