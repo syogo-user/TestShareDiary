@@ -256,16 +256,16 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         }else{
             postButton.isEnabled = true
         }
-        self.inputTextView.translatesAutoresizingMaskIntoConstraints = true
-        self.inputTextView.sizeToFit()
-        self.inputTextView.isScrollEnabled = false
-        let resizedHeight = self.inputTextView.frame.size.height
-        self.inputTextViewConstraintHeight.constant = resizedHeight
+//        self.inputTextView.translatesAutoresizingMaskIntoConstraints = true
+//        self.inputTextView.sizeToFit()
+//        self.inputTextView.isScrollEnabled = true
+//        let resizedHeight = self.inputTextView.frame.size.height
+//        self.inputTextViewConstraintHeight.constant = resizedHeight
         //@x: 20（左のマージン）
         //@y: 60（上のマージン）
         //@width: self.view.frame.width - 40(左右のマージン)
         //@height: sizeToFit()後の高さ
-        self.inputTextView.frame = CGRect(x: 20, y: 120, width: self.view.frame.width - 40, height: resizedHeight)
+//        self.inputTextView.frame = CGRect(x: 20, y: 120, width: self.view.frame.width - 40, height: resizedHeight)
 
     }
     func getDay(_ date:Date) -> (Int,Int,Int){
