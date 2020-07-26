@@ -74,10 +74,7 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-        setBackgroundColor(colorIndex:postData.backgroundColorIndex ?? 0)
-        if postData.backgroundColorIndex == nil {
-            print("postData.backgroundColorIndex がnilです")
-        }
+        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
     private func setPostImage(uid:String){

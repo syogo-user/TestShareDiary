@@ -17,7 +17,7 @@ class PostData: NSObject {
     var date: Date?
     var likes: [String] = []
     var isLiked: Bool = false
-    var backgroundColorIndex :Int?
+    var backgroundColorIndex :Int = 0
     var selectDate :String?
 
     init(document: QueryDocumentSnapshot) {
