@@ -20,7 +20,6 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var contetImageView: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
     
-    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
