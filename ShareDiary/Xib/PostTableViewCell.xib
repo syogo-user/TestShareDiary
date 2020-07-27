@@ -16,17 +16,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDD-AG-CrA">
-                        <rect key="frame" x="10" y="110" width="300" height="250"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="250" id="Bey-zy-dhT"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="rDv-j5-b5F"/>
-                        </constraints>
-                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooc-bI-76m">
                         <rect key="frame" x="225" y="10" width="45" height="40"/>
                         <constraints>
@@ -75,9 +64,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PsC-hC-Zrv">
-                        <rect key="frame" x="10" y="365" width="140" height="105"/>
+                        <rect key="frame" x="10" y="315" width="200" height="150"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="140" id="0we-o1-qlD"/>
+                            <constraint firstAttribute="width" constant="200" id="0we-o1-qlD"/>
+                            <constraint firstAttribute="height" constant="150" id="Qby-Vh-PUY"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ga0-2s-bLv">
@@ -88,37 +78,41 @@
                         </constraints>
                         <state key="normal" image="menu"/>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-XL-Yh4">
+                        <rect key="frame" x="10" y="105" width="300" height="200"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="fDD-AG-CrA" secondAttribute="trailing" constant="10" id="4vV-cN-Uou"/>
                     <constraint firstItem="ga0-2s-bLv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Sf-ao-hHj"/>
                     <constraint firstItem="PsC-hC-Zrv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6gN-BL-bIg"/>
                     <constraint firstItem="lNF-2p-zdQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="BMy-Jg-aog"/>
-                    <constraint firstItem="fDD-AG-CrA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="DUJ-We-6Dw"/>
+                    <constraint firstItem="Uvo-XL-Yh4" firstAttribute="top" secondItem="5g6-z9-oAc" secondAttribute="bottom" constant="5" id="IoS-Ci-WzE"/>
                     <constraint firstItem="5g6-z9-oAc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="KKt-F9-yRQ"/>
                     <constraint firstItem="Ooc-bI-76m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ka5-c9-axG"/>
                     <constraint firstItem="JN6-Fi-Azo" firstAttribute="leading" secondItem="Ooc-bI-76m" secondAttribute="trailing" id="LzE-Ui-gLJ"/>
+                    <constraint firstAttribute="trailing" secondItem="Uvo-XL-Yh4" secondAttribute="trailing" constant="10" id="Qp2-vg-l4W"/>
                     <constraint firstItem="Ooc-bI-76m" firstAttribute="leading" secondItem="ga0-2s-bLv" secondAttribute="trailing" id="USx-9V-MRe"/>
-                    <constraint firstItem="fDD-AG-CrA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="VEk-KC-fgt"/>
-                    <constraint firstItem="fDD-AG-CrA" firstAttribute="top" secondItem="5g6-z9-oAc" secondAttribute="bottom" constant="10" id="WV7-v6-ccW"/>
                     <constraint firstItem="31F-Mi-oZ9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ZBu-p7-GRj"/>
                     <constraint firstItem="lNF-2p-zdQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cRZ-dD-e1T"/>
                     <constraint firstAttribute="trailing" secondItem="JN6-Fi-Azo" secondAttribute="trailing" constant="10" id="ctA-zx-edG"/>
-                    <constraint firstAttribute="trailing" secondItem="fDD-AG-CrA" secondAttribute="trailing" constant="10" id="eOL-sK-KyR"/>
                     <constraint firstItem="5g6-z9-oAc" firstAttribute="top" secondItem="lNF-2p-zdQ" secondAttribute="bottom" constant="10" id="jbD-Ny-FCu"/>
+                    <constraint firstItem="Uvo-XL-Yh4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jxh-YN-mbu"/>
+                    <constraint firstItem="PsC-hC-Zrv" firstAttribute="top" secondItem="Uvo-XL-Yh4" secondAttribute="bottom" constant="10" id="kyS-uL-t4S"/>
                     <constraint firstItem="31F-Mi-oZ9" firstAttribute="leading" secondItem="lNF-2p-zdQ" secondAttribute="trailing" constant="5" id="lsd-Vq-qnX"/>
                     <constraint firstItem="JN6-Fi-Azo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lyh-wK-j6y"/>
                     <constraint firstItem="ga0-2s-bLv" firstAttribute="leading" secondItem="31F-Mi-oZ9" secondAttribute="trailing" id="nuh-oO-CMq"/>
-                    <constraint firstAttribute="bottom" secondItem="PsC-hC-Zrv" secondAttribute="bottom" constant="5" id="s8b-Uf-brJ"/>
-                    <constraint firstItem="PsC-hC-Zrv" firstAttribute="top" secondItem="fDD-AG-CrA" secondAttribute="bottom" constant="5" id="yEe-uD-gqS"/>
+                    <constraint firstAttribute="bottom" secondItem="PsC-hC-Zrv" secondAttribute="bottom" constant="10" id="s8b-Uf-brJ"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentButton" destination="ga0-2s-bLv" id="x6T-68-OyI"/>
-                <outlet property="contentTextView" destination="fDD-AG-CrA" id="XTW-SR-kiw"/>
+                <outlet property="contentLabel" destination="Uvo-XL-Yh4" id="YmZ-Oj-Qff"/>
                 <outlet property="contetImageView" destination="PsC-hC-Zrv" id="irO-bG-fIZ"/>
                 <outlet property="dateLabel" destination="5g6-z9-oAc" id="Tc9-hS-xOo"/>
                 <outlet property="likeButton" destination="Ooc-bI-76m" id="UzO-nt-6nU"/>

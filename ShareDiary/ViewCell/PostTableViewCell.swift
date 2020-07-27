@@ -17,10 +17,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeNumberLabel: UILabel!
-    @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var contetImageView: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
     
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var contentLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -60,12 +61,12 @@ class PostTableViewCell: UITableViewCell {
             self.dateLabel.text = dateString
         }
         // コンテントの表示
-        self.contentTextView.text = ""
+        self.contentLabel.text = ""
         if let content = postData.content{
-            self.contentTextView.text! = content
+            self.contentLabel.text! = content
         }
         //文字入力不可設定
-        self.contentTextView.isEditable = false
+//        self.contentLabel.isEditable = false
         // 投稿画像の表示
         contetImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         let imageRef2 = Storage.storage().reference().child(Const.ImagePath).child(postData.id + ".jpg")

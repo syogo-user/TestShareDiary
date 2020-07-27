@@ -203,7 +203,7 @@ class DitailViewController: UIViewController {
         //プロフィール写真を設定
         setPostImage(uid:post.uid)
         //背景色を設定
-        setBackgroundColor(colorIndex:post.backgroundColorIndex ?? 0)
+        setBackgroundColor(colorIndex:post.backgroundColorIndex)
         
     }
     private func setPostImage(uid:String){

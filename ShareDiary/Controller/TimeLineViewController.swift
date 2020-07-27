@@ -34,6 +34,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +143,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 600
+        tableView.estimatedRowHeight = 100 //セルの高さ
+        return UITableView.automaticDimension
     }
     //セルを選択時
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
