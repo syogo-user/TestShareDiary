@@ -21,6 +21,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     
     @IBOutlet weak var contentLabel: UILabel!
+    
+    var backgroundColorIndex :Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,6 +33,14 @@ class PostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        //描画されるときに呼び出される
+        super.layoutSubviews()
+        //背景色を設定
+        setBackgroundColor(colorIndex: backgroundColorIndex)
+    
     }
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
@@ -74,7 +84,8 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
+        self.backgroundColorIndex = postData.backgroundColorIndex
+//        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
     private func setPostImage(uid:String){
