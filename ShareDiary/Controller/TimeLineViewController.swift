@@ -143,7 +143,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.estimatedRowHeight = 100 //セルの高さ
+        tableView.estimatedRowHeight = 400 //セルの高さ
         return UITableView.automaticDimension
     }
     //セルを選択時
