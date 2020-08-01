@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseUI
 import SVProgressHUD
+import DKImagePickerController
 
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var imagePicture :UIImage = UIImage()
@@ -18,6 +19,8 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     @IBOutlet weak var postButton: UIButton!
     //キャンセルボタン
     @IBOutlet weak var cancelButton: UIButton!
+    
+
     
     //    var backgroundColor :UIColor = .white
     var backgroundColorArrayIndex = 0
@@ -116,14 +119,62 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     }
 
     @objc func tapImageButton(_ sender:UIButton){
-        print("画像選択ボタンがタップされました")
-        // ライブラリ（カメラロール）を指定してピッカーを開く
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let pickerController = UIImagePickerController()
-            pickerController.delegate = self
-            pickerController.sourceType = .photoLibrary
-            self.present(pickerController, animated: true, completion: nil)
+        let pickerController = DKImagePickerController()
+        pickerController.maxSelectableCount = 4
+        pickerController.didSelectAssets = {
+            [unowned self] (assets:[DKAsset])in
+            for asset in assets{
+                asset.fetchFullScreenImage(completeBlock: {(image,info) in
+//                    self.testImageView.image = image
+                    //画像を設定
+                    self.imageSet(image: image)
+                })
+            }
         }
+        self.present(pickerController, animated: true) {}
+        
+        
+        
+        // ライブラリ（カメラロール）を指定してピッカーを開く
+        //20200801 DkImagePickerControllerを使用するためコメントアウト
+//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+//            let pickerController = UIImagePickerController()
+//            pickerController.delegate = self
+//            pickerController.sourceType = .photoLibrary
+//            self.present(pickerController, animated: true, completion: nil)
+//        }
+    }
+    private func imageSet(image:UIImage?){
+        guard let image = image else{return}
+        //imageViewの初期化
+        let imageView = UIImageView(image:image)        
+        //スクリーンの縦横サイズを取得
+        let screenWidth :CGFloat = view.frame.size.width
+        let screenHeight :CGFloat = view.frame.size.height / 2
+        
+        //画像の縦横サイズを取得
+        let imageWidth :CGFloat = image.size.width
+        let imageHeight :CGFloat = image.size.height
+        
+        //画像サイズをスクリーンサイズ幅に合わせる
+        let scale:CGFloat = screenWidth/imageWidth
+        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale,height: imageHeight * scale)
+        // ImageView frame をCGRectで作った矩形に合わせる
+        imageView.frame = rect
+        //画像の中心を設定
+        imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+        // UIImageViewのインスタンスをビューに追加
+        self.view.addSubview(imageView)
+        
+        
+        //AutoLayout
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+        imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+        
+        imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale ).isActive = true
     }
     @objc func tapColorButton(_ sender:UIButton){
         print("背景色選択ボタンがタップされました")
@@ -141,49 +192,50 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 //        self.navigationController?.pushViewController(dateSelectViewController, animated: true)
     }
     // 写真を撮影/選択したときに呼ばれるメソッド
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if info[.originalImage] != nil {
-            // 撮影/選択された画像を取得する
-            let image = info[.originalImage] as! UIImage
-            
-            //選択した画像を画面のimageに設定
-            //imageViewの初期化
-            let imageView = UIImageView(image:image)
-
-            //スクリーンの縦横サイズを取得
-            let screenWidth :CGFloat = view.frame.size.width
-            let screenHeight :CGFloat = view.frame.size.height / 2
-            
-            //画像の縦横サイズを取得
-            let imageWidth :CGFloat = image.size.width
-            let imageHeight :CGFloat = image.size.height
-            
-            //画像サイズをスクリーンサイズ幅に合わせる
-            let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale,height: imageHeight * scale)
-            // ImageView frame をCGRectで作った矩形に合わせる
-            imageView.frame = rect
-            //画像の中心を設定
-            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
-            // UIImageViewのインスタンスをビューに追加
-            self.view.addSubview(imageView)
-            
-            
-            //AutoLayout
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
-            
-            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale ).isActive = true
-            
-            //変数に写真を設定
-            imagePicture = image
-            print("DEBUG_PRINT: image = \(image)")
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
+    //20200801 DkImagePickerControllerを使用するためコメントアウト
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if info[.originalImage] != nil {
+//            // 撮影/選択された画像を取得する
+//            let image = info[.originalImage] as! UIImage
+//
+//            //選択した画像を画面のimageに設定
+//            //imageViewの初期化
+//            let imageView = UIImageView(image:image)
+//
+//            //スクリーンの縦横サイズを取得
+//            let screenWidth :CGFloat = view.frame.size.width
+//            let screenHeight :CGFloat = view.frame.size.height / 2
+//
+//            //画像の縦横サイズを取得
+//            let imageWidth :CGFloat = image.size.width
+//            let imageHeight :CGFloat = image.size.height
+//
+//            //画像サイズをスクリーンサイズ幅に合わせる
+//            let scale:CGFloat = screenWidth/imageWidth
+//            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale,height: imageHeight * scale)
+//            // ImageView frame をCGRectで作った矩形に合わせる
+//            imageView.frame = rect
+//            //画像の中心を設定
+//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+//            // UIImageViewのインスタンスをビューに追加
+//            self.view.addSubview(imageView)
+//
+//
+//            //AutoLayout
+//            imageView.translatesAutoresizingMaskIntoConstraints = false
+//            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+//            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+//
+//            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+//            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+//            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale ).isActive = true
+//
+//            //変数に写真を設定
+//            imagePicture = image
+//            print("DEBUG_PRINT: image = \(image)")
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
         
     @IBAction func postButton(_ sender: Any) {
 

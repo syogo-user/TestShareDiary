@@ -23,7 +23,7 @@ PODS:
     - CLImageEditor/Core
   - CLImageEditor/TextTool (0.2.4):
     - CLImageEditor/Core
-  - CropViewController (2.5.4)
+  - CropViewController (2.5.3)
   - DKCamera (1.6.7)
   - DKImagePickerController (4.3.2):
     - DKImagePickerController/Camera (= 4.3.2)
@@ -209,6 +209,7 @@ PODS:
 
 DEPENDENCIES:
   - CLImageEditor/AllTools (= 0.2.4)
+  - CropViewController (= 2.5.3)
   - DKImagePickerController
   - Firebase (= 6.11.0)
   - Firebase/Analytics
@@ -259,7 +260,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   CLImageEditor: dc3e5358f641368da3a76fc1c744a4c2ceb270ad
-  CropViewController: 980df34ffc499db89755b2f307f20eca00cd40c6
+  CropViewController: a5c143548a0fabcd6cc25f2d26e40460cfb8c78c
   DKCamera: a902b66921fca14b7a75266feb8c7568aa7caa71
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
@@ -291,6 +292,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
 
-PODFILE CHECKSUM: 6d32f4aba97be3ba24f86850fdeedb3aaf21e04b
+PODFILE CHECKSUM: b63a8fe88c92030db04ba1ee910cc1f790cb25fb
 
 COCOAPODS: 1.9.3
