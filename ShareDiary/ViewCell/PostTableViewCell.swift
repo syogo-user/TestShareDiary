@@ -21,11 +21,14 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     
     @IBOutlet weak var contentLabel: UILabel!
-    
-    var backgroundColorIndex :Int = 0
+    //8/1
+    var gradientLayer = CAGradientLayer()
+//    var backgroundColorIndex :Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //8/1
+        self.layer.insertSublayer(gradientLayer, at: 0)
         postUserImageView.layer.cornerRadius = 20
     }
 
@@ -34,21 +37,23 @@ class PostTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    override func prepareForReuse() {
-        //再利用可能なセルを準備するときに呼ばれる
-        super.prepareForReuse()
-        if self.layer.sublayers![0] is CAGradientLayer {
-            self.layer.sublayers![0].removeFromSuperlayer()
-        }
-    }
+    //8/1
+//    override func prepareForReuse() {
+//        //再利用可能なセルを準備するときに呼ばれる
+//        super.prepareForReuse()
+//        if self.layer.sublayers![0] is CAGradientLayer {
+//            self.layer.sublayers![0].removeFromSuperlayer()
+//        }
+//    }
     override func layoutSubviews() {
         //描画されるときに呼び出される
         super.layoutSubviews()
+        gradientLayer.frame = self.layer.bounds
         //背景色を設定
 //        setBackgroundColor(colorIndex: backgroundColorIndex)
-        if self.layer.sublayers![0] is CAGradientLayer {
-            self.layer.sublayers![0].frame = self.bounds
-        }
+//        if self.layer.sublayers![0] is CAGradientLayer {
+//            self.layer.sublayers![0].frame = self.bounds
+//        }
     }
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
@@ -92,8 +97,7 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-        self.backgroundColorIndex = postData.backgroundColorIndex
-//        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
+//        self.backgroundColorIndex = postData.backgroundColorIndex
         setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
@@ -127,8 +131,8 @@ class PostTableViewCell: UITableViewCell {
     }
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.layer.bounds
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = self.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
@@ -137,12 +141,12 @@ class PostTableViewCell: UITableViewCell {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        if self.layer.sublayers![0] is CAGradientLayer {
-            self.layer.sublayers![0].removeFromSuperlayer()
-            self.layer.insertSublayer(gradientLayer, at: 0)
-        } else {
-            self.layer.insertSublayer(gradientLayer, at: 0)
-        }
+//        if self.layer.sublayers![0] is CAGradientLayer {
+//            self.layer.sublayers![0].removeFromSuperlayer()
+//            self.layer.insertSublayer(gradientLayer, at: 0)
+//        } else {
+//            self.layer.insertSublayer(gradientLayer, at: 0)
+//        }
     }
 
 
