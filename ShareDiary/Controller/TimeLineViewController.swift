@@ -23,7 +23,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        tableView.estimatedRowHeight = 800 //セルの高さ
 
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -133,8 +135,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
+        cell.selectionStyle = .none
         cell.setPostData(postArray[indexPath.row])
-        
+
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時

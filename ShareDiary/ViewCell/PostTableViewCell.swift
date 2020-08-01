@@ -34,13 +34,20 @@ class PostTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        if self.layer.sublayers![0] is CAGradientLayer {
+            self.layer.sublayers![0].removeFromSuperlayer()
+        }
+    }
     override func layoutSubviews() {
         //描画されるときに呼び出される
         super.layoutSubviews()
         //背景色を設定
-        setBackgroundColor(colorIndex: backgroundColorIndex)
-    
+//        setBackgroundColor(colorIndex: backgroundColorIndex)
+        if self.layer.sublayers![0] is CAGradientLayer {
+            self.layer.sublayers![0].frame = self.bounds
+        }
     }
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
@@ -86,6 +93,7 @@ class PostTableViewCell: UITableViewCell {
         //背景色を設定
         self.backgroundColorIndex = postData.backgroundColorIndex
 //        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
+        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
     private func setPostImage(uid:String){

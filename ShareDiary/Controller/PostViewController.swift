@@ -121,14 +121,17 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     @objc func tapImageButton(_ sender:UIButton){
         let pickerController = DKImagePickerController()
         pickerController.maxSelectableCount = 4
+        
         pickerController.didSelectAssets = {
             [unowned self] (assets:[DKAsset])in
+            var index = 1
+            //選択した画像を取得
             for asset in assets{
                 asset.fetchFullScreenImage(completeBlock: {(image,info) in
-//                    self.testImageView.image = image
                     //画像を設定
-                    self.imageSet(image: image)
+                    self.imageSet(image: image,index: index,maxCount:assets.count)
                 })
+                index = index + 1
             }
         }
         self.present(pickerController, animated: true) {}
@@ -144,7 +147,8 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 //            self.present(pickerController, animated: true, completion: nil)
 //        }
     }
-    private func imageSet(image:UIImage?){
+    //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
+    private func imageSet(image:UIImage?,index:Int,maxCount:Int){
         guard let image = image else{return}
         //imageViewの初期化
         let imageView = UIImageView(image:image)        
@@ -156,26 +160,95 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         let imageWidth :CGFloat = image.size.width
         let imageHeight :CGFloat = image.size.height
         
+        
+        //画像の枚数によってサイズと配置場所を設定する
+        switch maxCount {
+        case 1:
+            //画像１枚の場合
+            imageCount1(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
+        case 2:
+            imageCount2(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
+        case 3: break
+//            imageCount3(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
+        case 4: break
+//            imageCount4(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
+        default: break
+            
+        }
+
+    }
+    
+    
+    private func imageCount1(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
         let scale:CGFloat = screenWidth/imageWidth
-        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale,height: imageHeight * scale)
+        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
         //画像の中心を設定
         imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
         // UIImageViewのインスタンスをビューに追加
         self.view.addSubview(imageView)
-        
-        
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
         imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
-        
         imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale ).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale  ).isActive = true
     }
+    
+    private func imageCount2(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat,index:Int){
+        switch index {
+        case 1:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale / 2 ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            
+            
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            //        imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 - 30).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        case 2:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale / 2 ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            
+            
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            //        imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 - 30).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        default:
+            break
+        }
+
+    }
+    
+    
+    
+    
     @objc func tapColorButton(_ sender:UIButton){
         print("背景色選択ボタンがタップされました")
         let colorChoiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ColorChoice")
