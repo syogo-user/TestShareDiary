@@ -23,10 +23,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.estimatedRowHeight = 800 //セルの高さ
-
-        
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = refreshCtl
@@ -36,7 +32,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -135,7 +130,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
+        //セルを選択した時に選択状態の表示にしない（セルを選択した時に選択状態の表示にしない）
+        //(つまりセルが選択された時にUITableViewCellSelectedBackgroundを使用しない)
         cell.selectionStyle = .none
+        
         cell.setPostData(postArray[indexPath.row])
 
         // セル内のボタンのアクションをソースコードで設定する

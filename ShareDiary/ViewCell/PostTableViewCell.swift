@@ -35,6 +35,7 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     override func prepareForReuse() {
+        //再利用可能なセルを準備するときに呼ばれる
         super.prepareForReuse()
         if self.layer.sublayers![0] is CAGradientLayer {
             self.layer.sublayers![0].removeFromSuperlayer()
