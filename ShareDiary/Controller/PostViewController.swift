@@ -13,8 +13,8 @@ import SVProgressHUD
 import DKImagePickerController
 
 class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    var imagePicture :UIImage = UIImage()
-    
+//    var imagePicture :UIImage = UIImage()
+    var imagePictureArray :[UIImage] = []
     //投稿ボタン
     @IBOutlet weak var postButton: UIButton!
     //キャンセルボタン
@@ -122,6 +122,10 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         let pickerController = DKImagePickerController()
         pickerController.maxSelectableCount = 4
         
+        //imagePictureArray配列を初期化
+        self.imagePictureArray = []
+    
+        
         pickerController.didSelectAssets = {
             [unowned self] (assets:[DKAsset])in
             var index = 1
@@ -130,8 +134,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
                 asset.fetchFullScreenImage(completeBlock: {(image,info) in
                     //画像を設定
                     self.imageSet(image: image,index: index,maxCount:assets.count)
+                    index = index + 1
                 })
-                index = index + 1
+                
             }
         }
         self.present(pickerController, animated: true) {}
@@ -150,16 +155,22 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(image:UIImage?,index:Int,maxCount:Int){
         guard let image = image else{return}
+        //写真を配列に追加★
+        self.imagePictureArray.append(image)
+        
         //imageViewの初期化
-        let imageView = UIImageView(image:image)        
+        let imageView = UIImageView(image:image)
         //スクリーンの縦横サイズを取得
         let screenWidth :CGFloat = view.frame.size.width
         let screenHeight :CGFloat = view.frame.size.height / 2
         
         //画像の縦横サイズを取得
-        let imageWidth :CGFloat = image.size.width
-        let imageHeight :CGFloat = image.size.height
-        
+//        let imageWidth :CGFloat = image.size.width
+//        let imageHeight :CGFloat = image.size.height
+        let imageWidth :CGFloat = 828
+        let imageHeight :CGFloat = 550
+
+//        removeAllSubviews(parentView:self.view)
         
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
@@ -167,17 +178,25 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             //画像１枚の場合
             imageCount1(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
         case 2:
+            //画像２枚の場合
             imageCount2(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
-        case 3: break
-//            imageCount3(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
-        case 4: break
-//            imageCount4(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight)
+        case 3:
+            //画像３枚の場合
+            imageCount3(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
+        case 4:
+            //画像４枚の場合
+            imageCount4(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
         default: break
             
         }
 
     }
-    
+        private func removeAllSubviews(parentView: UIView){
+            var subviews = parentView.subviews
+            for subview in subviews {
+                subview.removeFromSuperview()
+            }
+        }
     
     private func imageCount1(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
@@ -192,7 +211,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-        imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
         imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale  ).isActive = true
@@ -203,7 +222,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale / 2 ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -211,42 +230,167 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
             
-            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            //        imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 - 30).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale / 2 ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
             imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
-            
-            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: self.inputTextView.bottomAnchor, constant:20.0).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            //        imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 - 30).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
         }
-
+        
     }
-    
-    
+    private func imageCount3(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat,index:Int){
+        switch index {
+        case 1:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2).isActive = true
+        case 2:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        case 3:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo:inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2) ).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            //            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 3 * 2  ).isActive = true
+        default:
+            break
+        }
+    }
+    private func imageCount4(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat,index:Int){
+        switch index {
+        case 1:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        case 2:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        case 3:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        case 4:
+            //画像サイズをスクリーンサイズ幅に合わせる
+            let scale:CGFloat = screenWidth/imageWidth
+            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            // ImageView frame をCGRectで作った矩形に合わせる
+            imageView.frame = rect
+            //画像の中心を設定
+            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
+            // UIImageViewのインスタンスをビューに追加
+            self.view.addSubview(imageView)
+            //AutoLayout
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+        default:
+            break
+        }
+        
+    }
     
     
     @objc func tapColorButton(_ sender:UIButton){
@@ -314,14 +458,13 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
 
         //テキストが空の時は投稿できないようにする
         guard self.inputTextView.text != "" else {return}
-
+        
         //HUD
         SVProgressHUD.show()
-        // 画像をJPEG形式に変換する
-        let imageData = imagePicture.jpegData(compressionQuality: 0.75)
+        
         // 画像と投稿データの保存場所を定義する
         let postRef = Firestore.firestore().collection(Const.PostPath).document()
-        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postRef.documentID + ".jpg")
+        
         
         guard let myUid = Auth.auth().currentUser?.uid else {
             return
@@ -341,34 +484,51 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         // Storageに画像をアップロードする
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        if let imageData = imageData {
-            imageRef.putData(imageData, metadata: metadata) { (metadata, error) in
-                if error != nil {
-                    // 画像のアップロード失敗
-                    print(error!)
-                    SVProgressHUD.showError(withStatus: "画像のアップロードが失敗しました")
-                    // 投稿処理をキャンセルし、先頭画面に戻る
-                    UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
-                    return
-                }else {
-                    //写真のアップロード成功
-                    // FireStoreに投稿データを保存する
-                    postRef.setData(postDic)
-                    
-                    SVProgressHUD.dismiss()
-                    //先頭画面に戻る
-                    UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        
+        
+        if imagePictureArray.count > 0 {
+            var fileNumber = 0
+            //投稿する写真を選択している場合
+            for imagePicture in imagePictureArray.enumerated() {
+                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postRef.documentID + "\(fileNumber).jpg")
+                // 画像をJPEG形式に変換する
+                let imageData = imagePicture.element.jpegData(compressionQuality: 0.75)
+                if let imageData = imageData {
+                    imageRef.putData(imageData, metadata: metadata) { (metadata, error) in
+                        if error != nil {
+                            // 画像のアップロード失敗
+                            print(error!)
+                            SVProgressHUD.showError(withStatus: "画像のアップロードが失敗しました")
+                            // 投稿処理をキャンセルし、先頭画面に戻る
+                            UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
+                            return
+                        }else {
+                            //写真のアップロード成功
+                            // FireStoreに投稿データを保存する
+                            postRef.setData(postDic)
+                            
+                           
+                            //配列の最後になったら
+                            if imagePicture.offset == self.imagePictureArray.count - 1 {
+                                SVProgressHUD.dismiss()
+                                //先頭画面に戻る
+                                UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                        
+                    }
                 }
-                
+                fileNumber  = fileNumber + 1
             }
-            
-        } else {
+        }else{
             // FireStoreに投稿データを保存する
             //写真を投稿しない場合
             postRef.setData(postDic)
             SVProgressHUD.dismiss()
             //先頭画面に戻る
             UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
+            
         }
     }
     //テキストを入力すると呼び出される
