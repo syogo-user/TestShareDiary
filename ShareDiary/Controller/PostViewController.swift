@@ -124,7 +124,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         //imagePictureArray配列を初期化
         self.imagePictureArray = []
-    
+        
+        //写真がviewにある場合は削除
+        removeUIImageSubviews(parentView:self.view)
         
         pickerController.didSelectAssets = {
             [unowned self] (assets:[DKAsset])in
@@ -170,7 +172,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         let imageWidth :CGFloat = 828
         let imageHeight :CGFloat = 550
 
-//        removeAllSubviews(parentView:self.view)
+        
         
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
@@ -191,12 +193,17 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         }
 
     }
-        private func removeAllSubviews(parentView: UIView){
-            var subviews = parentView.subviews
-            for subview in subviews {
+    
+    //写真を削除
+    private func removeUIImageSubviews(parentView: UIView){
+        let subviews = parentView.subviews
+        for subview in subviews {
+            if let subview = subview as? UIImageView{
+                //UIImageViewが存在していたら削除する
                 subview.removeFromSuperview()
             }
         }
+    }
     
     private func imageCount1(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
