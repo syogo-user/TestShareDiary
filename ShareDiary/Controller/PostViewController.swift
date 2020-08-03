@@ -208,8 +208,8 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
     private func imageCount1(imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
         let scale:CGFloat = screenWidth/imageWidth
-        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
+        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
         imageView.frame = rect
         //画像の中心を設定
         imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
@@ -396,7 +396,6 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         default:
             break
         }
-        
     }
     
     
@@ -487,6 +486,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
             "selectDate":strDate,
             "date": FieldValue.serverTimestamp(),
             "backgroundColorIndex":self.backgroundColorArrayIndex,
+            "contentImageMaxNumber":imagePictureArray.count,
             ] as [String : Any]
         // Storageに画像をアップロードする
         let metadata = StorageMetadata()
@@ -495,7 +495,7 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         
         if imagePictureArray.count > 0 {
-            var fileNumber = 0
+            var fileNumber = 1
             //投稿する写真を選択している場合
             for imagePicture in imagePictureArray.enumerated() {
                 let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postRef.documentID + "\(fileNumber).jpg")

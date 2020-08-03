@@ -19,6 +19,7 @@ class PostData: NSObject {
     var isLiked: Bool = false
     var backgroundColorIndex :Int = 0
     var selectDate :String?
+    var contentImageMaxNumber : Int = 0
 
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
@@ -40,7 +41,9 @@ class PostData: NSObject {
         if let likes = postDic["likes"] as? [String] {
             self.likes = likes
         }
-
+        //投稿写真の枚数
+        self.contentImageMaxNumber = postDic["contentImageMaxNumber"] as? Int ?? 0
+        
 //        let timestamp2 = postDic["selectDate"] as? Timestamp
 //        self.selectDate = timestamp2?.dateValue()
         self.selectDate =  postDic["selectDate"] as? String 
