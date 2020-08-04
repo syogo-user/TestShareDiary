@@ -22,7 +22,15 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
     //8/1
+    //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
+    //投稿写真の選択された枚数
+    var imageMaxNumber = 0
+    //ドキュメントID
+    var postDocumentId = ""
+    
+//    var screenWidth :CGFloat = 0
+//    var screenHeight :CGFloat = 0
     //    var backgroundColorIndex :Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,12 +57,39 @@ class PostTableViewCell: UITableViewCell {
         //描画されるときに呼び出される
         super.layoutSubviews()
         gradientLayer.frame = self.layer.bounds
+//        screenWidth = self.frame.size.width
+//        screenHeight = self.frame.size.height / 2
+//        print("★screenWidth layoutSub:",screenWidth)
+        //        print("★screenHeight layoutSub:",screenHeight)
+        
+        
+        //投稿写真の枚数分ループする (1,2,3,4)
+        //投稿された写真の表示
+        if imageMaxNumber > 0{
+            for i in 1...imageMaxNumber{
+                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postDocumentId + "\(i).jpg")
+                //        contetImageView.sd_setImage(with: imageRef2)
+                
+                //
+                imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
+            }
+        }
+        
+        
+        
         //背景色を設定
         //        setBackgroundColor(colorIndex: backgroundColorIndex)
         //        if self.layer.sublayers![0] is CAGradientLayer {
         //            self.layer.sublayers![0].frame = self.bounds
         //        }
     }
+    override func updateConstraints() {
+        //制約を設定？
+        
+        
+        super.updateConstraints()
+    }
+    
     
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(imageRef:StorageReference,index:Int,maxCount:Int){
@@ -89,6 +124,7 @@ class PostTableViewCell: UITableViewCell {
         case 4:
             //画像４枚の場合
             imageCount4(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
+
         default: break
             
         }
@@ -303,9 +339,18 @@ class PostTableViewCell: UITableViewCell {
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
+            
+            print("★imageWidth:",imageWidth)
+            print("★imageHeight",imageHeight)
+            print("★screenWidth:",screenWidth)
+            print("★screenHeight:",screenHeight)
+            print("★height:",imageHeight * scale / 2)
+            print("★width:",(screenWidth / 2) - 15)
+            print("◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆")
         default:
             break
         }
+
     }
     
     
@@ -348,14 +393,22 @@ class PostTableViewCell: UITableViewCell {
 //        self.contentLabel.isEditable = false
         // 投稿画像の表示★★★
         //        contetImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        //投稿写真の枚数分ループする (1,2,3,4)
-        for i in 1...postData.contentImageMaxNumber {
-            let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postData.id + "\(i).jpg")
-            //        contetImageView.sd_setImage(with: imageRef2)
+       
+        imageMaxNumber  = postData.contentImageMaxNumber
+        postDocumentId = postData.id
+//        let imageMaxNumber  = postData.contentImageMaxNumber
+        
+        
+//        if imageMaxNumber > 0{
+//            for i in 1...imageMaxNumber{
+//                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postData.id + "\(i).jpg")
+//                //        contetImageView.sd_setImage(with: imageRef2)
+//
+//                //
+//                imageSet(imageRef:imageRef ,index: i, maxCount: postData.contentImageMaxNumber)
+//            }
+//        }
 
-            //TODO
-            imageSet(imageRef:imageRef ,index: i, maxCount: postData.contentImageMaxNumber)
-        }
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定

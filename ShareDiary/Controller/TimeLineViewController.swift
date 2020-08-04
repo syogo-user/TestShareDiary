@@ -132,7 +132,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
         //セルを選択した時に選択状態の表示にしない（セルを選択した時に選択状態の表示にしない）
         //(つまりセルが選択された時にUITableViewCellSelectedBackgroundを使用しない)
-//        cell.selectionStyle = .none
+        cell.selectionStyle = .none
         
         cell.setPostData(postArray[indexPath.row])
 
