@@ -140,6 +140,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
         cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
+        //自作のデリゲート
+        cell.postTableViewCellDelegate = self
+        
         return cell
     }
     //高さ調整
@@ -206,4 +209,22 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         detailViewController.postData = postData
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
+}
+
+extension TimeLineViewController:PostTableViewCellDelegate{
+    //PostTablViewCellの投稿写真をタップしたときに呼ばれる
+    func imageTransition(_ sender:UITapGestureRecognizer) {
+        print("画像がタップされました")
+        //タップしたUIImageViewを取得
+        let tappedImageView = sender.view! as! UIImageView
+        //  UIImage を取得
+        let tappedImage = tappedImageView.image!
+        
+        let fullsizeImageViewController = self.storyboard?.instantiateViewController(withIdentifier: "FullsizeImageViewController") as! FullsizeImageViewController
+        fullsizeImageViewController.modalPresentationStyle = .fullScreen
+        fullsizeImageViewController.image = tappedImage
+        self.present(fullsizeImageViewController, animated: true, completion: nil)
+    }
+    
+    
 }

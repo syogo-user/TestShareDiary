@@ -9,6 +9,12 @@
 import UIKit
 import FirebaseUI
 import Firebase
+
+protocol PostTableViewCellDelegate {
+    func imageTransition(_ sender:UITapGestureRecognizer)
+}
+
+
 class PostTableViewCell: UITableViewCell {
     
     
@@ -28,6 +34,8 @@ class PostTableViewCell: UITableViewCell {
     var imageMaxNumber = 0
     //ドキュメントID
     var postDocumentId = ""
+    //デリゲート
+    var postTableViewCellDelegate :PostTableViewCellDelegate?
     
 //    var screenWidth :CGFloat = 0
 //    var screenHeight :CGFloat = 0
@@ -97,6 +105,9 @@ class PostTableViewCell: UITableViewCell {
 
         //imageViewの初期化
         let imageView = UIImageView()
+        //タップイベント追加
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTransition(_:))))
         
         //画像のアスペクト比　sacaleAspectFil：写真の比率は変わらない。imageViewの枠を超える。cliptToBounds をtrueにしているため枠は超えずに、比率も変わらない。
         imageView.contentMode = .scaleAspectFill
@@ -145,6 +156,10 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
+    //フルサイズの写真をモーダルで表示
+    @objc func imageTransition(_ sender:UITapGestureRecognizer){
+        postTableViewCellDelegate?.imageTransition(sender)
+    }
     
     private func imageCount1(imageRef:StorageReference,imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
@@ -155,6 +170,8 @@ class PostTableViewCell: UITableViewCell {
         //画像の中心を設定
 //        imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
         imageView.sd_setImage(with: imageRef)
+
+        
         // UIImageViewのインスタンスをビューに追加
         self.addSubview(imageView)
         //AutoLayout

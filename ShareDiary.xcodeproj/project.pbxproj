@@ -51,6 +51,7 @@
 		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
 		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
+		919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		3DE8129724B9981300E85957 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
 		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendar.swift; sourceTree = "<group>"; };
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60724E31802F5BBE9FF9228 /* Pods-ShareDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDiary.debug.xcconfig"; path = "Target Support Files/Pods-ShareDiary/Pods-ShareDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +210,7 @@
 				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
 				3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */,
 				3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */,
+				919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
 				3DA5083824B1D0FA00FE1148 /* CommentTableViewCell.swift in Sources */,
 				3DCBC98124AB65AD00E78626 /* LikeUserListTableViewController.swift in Sources */,
+				919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */,
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
 				3D7549D424A372A80062BEC8 /* DateSelectViewController.swift in Sources */,
