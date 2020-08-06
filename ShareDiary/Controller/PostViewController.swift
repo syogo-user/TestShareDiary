@@ -162,6 +162,9 @@ class PostViewController: UIViewController ,UITextViewDelegate,UIImagePickerCont
         
         //imageViewの初期化
         let imageView = UIImageView(image:image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .black
         //スクリーンの縦横サイズを取得
         let screenWidth :CGFloat = view.frame.size.width
         let screenHeight :CGFloat = view.frame.size.height / 2

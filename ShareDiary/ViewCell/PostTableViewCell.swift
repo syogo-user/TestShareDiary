@@ -97,6 +97,11 @@ class PostTableViewCell: UITableViewCell {
 
         //imageViewの初期化
         let imageView = UIImageView()
+        
+        //画像のアスペクト比　sacaleAspectFil：写真の比率は変わらない。imageViewの枠を超える。cliptToBounds をtrueにしているため枠は超えずに、比率も変わらない。
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .black
         //スクリーンの縦横サイズを取得
         let screenWidth :CGFloat = self.frame.size.width
         let screenHeight :CGFloat = self.frame.size.height / 2
