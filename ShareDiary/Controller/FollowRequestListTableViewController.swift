@@ -187,7 +187,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                 return
             } else {
                 if let document  = document ,document.exists{
-                    let followRequestArray = document["followRequest"] as! [String]
+                    //フォローリクエストが存在しない場合はreturn
+                    guard let followRequestArray = document["followRequest"] as? [String] else{return}
                     //初期化
                     self.userPostArray = []
                     if followRequestArray.count != 0 {

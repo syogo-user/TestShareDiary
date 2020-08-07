@@ -63,7 +63,7 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath) as! PostTableViewCell
         cell.setPostData(postArray[indexPath.row])
-        
+        cell.postTableViewCellDelegate = self
         return cell
     }
     //Dateを時間なしの文字列に変換
@@ -80,6 +80,23 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
         return strDate
     }
     
+    
+    
+}
+extension MyDiaryFromCalendar:PostTableViewCellDelegate{
+    //PostTablViewCellの投稿写真をタップしたときに呼ばれる
+    func imageTransition(_ sender:UITapGestureRecognizer) {
+        print("画像がタップされました")
+        //タップしたUIImageViewを取得
+        let tappedImageView = sender.view! as! UIImageView
+        //  UIImage を取得
+        let tappedImage = tappedImageView.image!
+        
+        let fullsizeImageViewController = self.storyboard?.instantiateViewController(withIdentifier: "FullsizeImageViewController") as! FullsizeImageViewController
+        fullsizeImageViewController.modalPresentationStyle = .fullScreen
+        fullsizeImageViewController.image = tappedImage
+        self.present(fullsizeImageViewController, animated: true, completion: nil)
+    }
     
     
 }

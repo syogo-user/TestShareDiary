@@ -187,7 +187,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     }
                     //userPostArrayにappendしてリロードする
                     self.appendArray(array:followArray)
-                } else {
+                } else if self.fromButton == Const.Follower{
                     //フォロワーボタンから遷移した場合
                     //フォロワーが存在しない場合はreturn
                     guard let followerArray = document["follower"] as? [String] else{return}
