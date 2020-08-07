@@ -12,17 +12,14 @@ import FirebaseUI
 import SVProgressHUD
 import DKImagePickerController
 
-class PostViewController: UIViewController,DKImagePickerController,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+
+class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 //    var imagePicture :UIImage = UIImage()
     var imagePictureArray :[UIImage] = []
     //投稿ボタン
     @IBOutlet weak var postButton: UIButton!
     //キャンセルボタン
     @IBOutlet weak var cancelButton: UIButton!
-
-
-    //UIのカスタマイズ
-    self.UIDelegate = CustomUIDelegate()
     
     //    var backgroundColor :UIColor = .white
     var backgroundColorArrayIndex = 0
@@ -122,8 +119,9 @@ class PostViewController: UIViewController,DKImagePickerController,UITextViewDel
     }
 
     @objc func tapImageButton(_ sender:UIButton){
-        let pickerController = DKImagePickerController()
-        pickerController.maxSelectableCount = 4
+        
+        let pickerController = ImageSelectViewController()
+//        pickerController.maxSelectableCount = 4
 
         //imagePictureArray配列を初期化
         self.imagePictureArray = []
