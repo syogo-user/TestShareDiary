@@ -120,7 +120,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
 
     @objc func tapImageButton(_ sender:UIButton){
         
-        let pickerController = ImageSelectViewController()
+        let pickerController = self.storyboard?.instantiateViewController(withIdentifier: "ImageSelectViewController") as! ImageSelectViewController
 //        pickerController.maxSelectableCount = 4
 
         //imagePictureArray配列を初期化
