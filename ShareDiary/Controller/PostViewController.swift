@@ -12,7 +12,7 @@ import FirebaseUI
 import SVProgressHUD
 import DKImagePickerController
 
-class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class PostViewController: UIViewController,DKImagePickerController,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 //    var imagePicture :UIImage = UIImage()
     var imagePictureArray :[UIImage] = []
     //投稿ボタン
@@ -22,7 +22,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
 
 
     //UIのカスタマイズ
-//    self.UIDelegate = CustomUIDelegate()
+    self.UIDelegate = CustomUIDelegate()
     
     //    var backgroundColor :UIColor = .white
     var backgroundColorArrayIndex = 0
