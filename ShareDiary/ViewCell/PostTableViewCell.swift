@@ -84,16 +84,16 @@ class PostTableViewCell: UITableViewCell {
                 
                 //
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
-                if imageMaxNumber == 2 {
-                    //写真の枚数が2枚のとき
-                    contentLabelBottomConstraint.constant = 200
-                } else {
-                    contentLabelBottomConstraint.constant = 350
-                }
+
             }
         }
-
-        
+//        if imageMaxNumber == 2 {
+//            //写真の枚数が2枚のとき
+//            contentLabelBottomConstraint.constant = 200
+//        } else {
+//            contentLabelBottomConstraint.constant = 350
+//        }
+//
         
         //背景色を設定
         //        setBackgroundColor(colorIndex: backgroundColorIndex)
@@ -440,7 +440,14 @@ class PostTableViewCell: UITableViewCell {
 //                imageSet(imageRef:imageRef ,index: i, maxCount: postData.contentImageMaxNumber)
 //            }
 //        }
-
+        if imageMaxNumber == 2 {
+            //写真の枚数が2枚のとき
+            contentLabelBottomConstraint.constant = 240
+        } else if imageMaxNumber == 3{
+            contentLabelBottomConstraint.constant = 390
+        }else {
+            contentLabelBottomConstraint.constant = 350
+        }
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
