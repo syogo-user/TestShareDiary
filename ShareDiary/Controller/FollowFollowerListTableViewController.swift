@@ -30,6 +30,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         let nib = UINib(nibName: "FollowFollowerListTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "FollowFollowerListCell")
         backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         if fromButton ==  Const.Follow {

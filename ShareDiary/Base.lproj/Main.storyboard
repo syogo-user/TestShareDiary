@@ -91,12 +91,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AGQ-rP-yYC">
-                                <rect key="frame" x="30" y="294" width="354" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="qOO-Ae-jcn"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2k-U7-1iB">
                                 <rect key="frame" x="10" y="44" width="120" height="50"/>
                                 <constraints>
@@ -108,17 +102,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="AGQ-rP-yYC" firstAttribute="leading" secondItem="K1S-AH-8Sk" secondAttribute="leading" constant="30" id="Nxb-ta-Tq6"/>
                             <constraint firstItem="H2k-U7-1iB" firstAttribute="leading" secondItem="K1S-AH-8Sk" secondAttribute="leading" constant="10" id="OQ6-Dj-CIZ"/>
                             <constraint firstItem="H2k-U7-1iB" firstAttribute="top" secondItem="K1S-AH-8Sk" secondAttribute="top" id="Qb2-gs-jQ2"/>
-                            <constraint firstItem="AGQ-rP-yYC" firstAttribute="top" secondItem="K1S-AH-8Sk" secondAttribute="top" constant="250" id="eiG-rK-Tgw"/>
-                            <constraint firstItem="K1S-AH-8Sk" firstAttribute="trailing" secondItem="AGQ-rP-yYC" secondAttribute="trailing" constant="30" id="p2v-NE-FOm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K1S-AH-8Sk"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="H2k-U7-1iB" id="7qy-oD-aYI"/>
-                        <outlet property="fullsizeImageview" destination="AGQ-rP-yYC" id="EKk-3h-IqL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bh-pO-WxS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

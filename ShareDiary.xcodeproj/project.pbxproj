@@ -137,7 +137,6 @@
 				3D9BFE8123FEE75F009893B1 /* ShareDiary */,
 				3D9BFE8023FEE75F009893B1 /* Products */,
 				1F37A0A2487ACF5D8F3D0236 /* Pods */,
-				69DD8ABBEFF1D1B33CC4C45C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,6 +164,7 @@
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
 				3D9BFE9023FEE760009893B1 /* Info.plist */,
 				9131F08824C974E80055F925 /* GoogleService-Info.plist */,
+				69DD8ABBEFF1D1B33CC4C45C /* Frameworks */,
 			);
 			path = ShareDiary;
 			sourceTree = "<group>";
@@ -241,6 +241,7 @@
 				DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

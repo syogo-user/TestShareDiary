@@ -14,13 +14,13 @@ class CustomUIDelegate: DKImagePickerControllerBaseUIDelegate {
         let button = UIButton(type: UIButton.ButtonType.custom)
         button.setTitle("選択", for: .normal)
         button.setTitleColor(UINavigationBar.appearance().tintColor ?? self.imagePickerController.navigationBar.tintColor, for: .normal)
-        button.addTarget(self, action: #selector(DKImagePickerController.done), for: .touchUpInside)
+        button.addTarget(self.imagePickerController, action: #selector(DKImagePickerController.done), for: .touchUpInside)        
         return button
     }
 
     //写真選択超過時のアラートのカスタマイズ
     override func imagePickerControllerDidReachMaxLimit(_ imagePickerController: DKImagePickerController) {
-        let alert = UIAlertController.init(title: "注意", message: "これ以上選択できません!", preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "注意", message: "複数選択は４枚までです！", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil)
         alert.addAction(okAction)
         imagePickerController.present(alert, animated: true, completion: nil)

@@ -41,6 +41,7 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
                 print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
+                self.postArray = []
                 querySnapshot?.documents.forEach{
                     (document) in
                     let postData = PostData(document: document)
