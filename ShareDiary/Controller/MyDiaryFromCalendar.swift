@@ -99,5 +99,4 @@ extension MyDiaryFromCalendar:PostTableViewCellDelegate{
         self.present(fullsizeImageViewController, animated: true, completion: nil)
     }
     
-    
 }

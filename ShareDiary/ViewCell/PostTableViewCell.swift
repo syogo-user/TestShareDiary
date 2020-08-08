@@ -23,11 +23,13 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeNumberLabel: UILabel!
-    @IBOutlet weak var contetImageView: UIImageView!
+//    @IBOutlet weak var contetImageView: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
     
+//    @IBOutlet weak var contentLabelBottomConstraint: UIView!
     @IBOutlet weak var contentLabel: UILabel!
     //8/1
+    @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
     //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
     //投稿写真の選択された枚数
@@ -62,6 +64,7 @@ class PostTableViewCell: UITableViewCell {
     //        }
     //    }
     override func layoutSubviews() {
+
         //描画されるときに呼び出される
         super.layoutSubviews()
         gradientLayer.frame = self.layer.bounds
@@ -70,7 +73,8 @@ class PostTableViewCell: UITableViewCell {
 //        print("★screenWidth layoutSub:",screenWidth)
         //        print("★screenHeight layoutSub:",screenHeight)
         
-        
+        //写真を削除
+        self.removeUIImageSubviews(parentView: self)
         //投稿写真の枚数分ループする (1,2,3,4)
         //投稿された写真の表示
         if imageMaxNumber > 0{
@@ -80,9 +84,15 @@ class PostTableViewCell: UITableViewCell {
                 
                 //
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
+                if imageMaxNumber == 2 {
+                    //写真の枚数が2枚のとき
+                    contentLabelBottomConstraint.constant = 200
+                } else {
+                    contentLabelBottomConstraint.constant = 350
+                }
             }
         }
-        
+
         
         
         //背景色を設定
@@ -123,7 +133,7 @@ class PostTableViewCell: UITableViewCell {
         let imageWidth :CGFloat = 828
         let imageHeight :CGFloat = 550
         
-        
+
         
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
@@ -133,6 +143,7 @@ class PostTableViewCell: UITableViewCell {
         case 2:
             //画像２枚の場合
             imageCount2(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
+            
         case 3:
             //画像３枚の場合
             imageCount3(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
@@ -409,8 +420,7 @@ class PostTableViewCell: UITableViewCell {
         if let content = postData.content{
             self.contentLabel.text! = content
         }
-        //写真を削除
-        self.removeUIImageSubviews(parentView: self)
+
         //文字入力不可設定
 //        self.contentLabel.isEditable = false
         // 投稿画像の表示★★★

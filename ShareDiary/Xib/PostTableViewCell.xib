@@ -104,6 +104,7 @@
             <connections>
                 <outlet property="commentButton" destination="ga0-2s-bLv" id="x6T-68-OyI"/>
                 <outlet property="contentLabel" destination="Uvo-XL-Yh4" id="YmZ-Oj-Qff"/>
+                <outlet property="contentLabelBottomConstraint" destination="6cV-RO-SwJ" id="Jlf-gg-Qh8"/>
                 <outlet property="dateLabel" destination="5g6-z9-oAc" id="Tc9-hS-xOo"/>
                 <outlet property="likeButton" destination="Ooc-bI-76m" id="UzO-nt-6nU"/>
                 <outlet property="likeNumberLabel" destination="JN6-Fi-Azo" id="1ax-iY-LyA"/>

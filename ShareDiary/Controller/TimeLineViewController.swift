@@ -216,8 +216,9 @@ extension TimeLineViewController:PostTableViewCellDelegate{
     func imageTransition(_ sender:UITapGestureRecognizer) {
         print("画像がタップされました")
         //タップしたUIImageViewを取得
-        let tappedImageView = sender.view! as! UIImageView
+        let tappedUIImageView = sender.view! as? UIImageView
         //  UIImage を取得
+        guard let tappedImageView = tappedUIImageView  else {return}
         let tappedImage = tappedImageView.image!
         
         let fullsizeImageViewController = self.storyboard?.instantiateViewController(withIdentifier: "FullsizeImageViewController") as! FullsizeImageViewController

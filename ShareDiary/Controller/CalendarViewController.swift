@@ -33,7 +33,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         calendar.reloadData()
-        //TODO 投稿の中から自分のものだけを取得する
+        //投稿の中から自分のものだけを取得する
         guard let myUid = Auth.auth().currentUser?.uid else {return}
         let postRef = Firestore.firestore().collection(Const.PostPath).whereField("uid", isEqualTo: myUid)
         postRef.getDocuments(){

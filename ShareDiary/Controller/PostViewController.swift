@@ -463,9 +463,12 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
 //            self.dismiss(animated: true, completion: nil)
 //        }
 //    }
-        
+    //投稿ボタン押下時
     @IBAction func postButton(_ sender: Any) {
-
+        
+        //連續タップ防止のために一度ボタンを非活性とする
+        postButton.isEnabled = false
+        
         //テキストが空の時は投稿できないようにする
         guard self.inputTextView.text != "" else {return}
         

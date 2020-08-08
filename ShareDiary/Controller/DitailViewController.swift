@@ -560,7 +560,7 @@ class DitailViewController: UIViewController {
         guard let post = postData else {return}
         //確認メッセージ出力
         let alert : UIAlertController = UIAlertController(title: "この投稿を削除してもよろしいですか？", message :nil, preferredStyle: UIAlertController.Style.alert)
-        
+        var count = 0
         //OKボタン押下時
         let defaultAction :UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {
             (action :UIAlertAction! ) -> Void in
@@ -570,24 +570,24 @@ class DitailViewController: UIViewController {
             postsRef.delete()
             //写真の枚数
             let imageMaxNumber  = post.contentImageMaxNumber
-            //TODO　ここの動作を確認する
             if imageMaxNumber == 0{
                 //写真の枚数が0枚だったら一つ前の画面に戻る
                 self.navigationController?.popToRootViewController(animated: true)
-            }
-
-            for i in 1...imageMaxNumber{
-                //・firestorageから写真を削除
-                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(post.id + "\(i).jpg")
-                imageRef.delete{ error in
-                    if let error = error {
-                        print("DEBUG_PRINT: \(error)")
-                    } else {
-                        print("DEBUG_PRINT: 画像の削除が成功しました。")
-                        
-                        if i == imageMaxNumber {
-                            //最後の写真を削除し終わったら、一つ前の画面に戻る
-                            self.navigationController?.popToRootViewController(animated: true)
+            }else {                
+                for i in 1...imageMaxNumber{
+                    //・firestorageから写真を削除
+                    let imageRef = Storage.storage().reference().child(Const.ImagePath).child(post.id + "\(i).jpg")
+                    imageRef.delete{ error in
+                        if let error = error {
+                            print("DEBUG_PRINT: \(error)")
+                        } else {
+                            print("DEBUG_PRINT: 画像の削除が成功しました。")
+                            //for文のiだとdeleteの中では1から順にならないことがあるためcount変数を用意
+                            count = count + 1
+                            if count == imageMaxNumber {
+                                //最後の写真を削除し終わったら、一つ前の画面に戻る
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
                         }
                     }
                 }
