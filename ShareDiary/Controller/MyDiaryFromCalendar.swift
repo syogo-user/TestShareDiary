@@ -46,6 +46,8 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
                     (document) in
                     let postData = PostData(document: document)
                     self.postArray.append(postData)
+                    //TODO並び替えの処理を入れる
+                    
                 }
                 self.userTableView.reloadData()
             }

@@ -81,11 +81,20 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             querySnapshot!.documents.forEach { documentA in
                                 let postData = PostData(document: documentA)
                                 print("DEBUG_PRINT: document取得 \(documentA.documentID)")
-                                for followUid in followArray{
-                                    //フォローしているuidまたは自分のuidの場合postArrayに設定
-                                    if postData.uid == followUid || postData.uid == myUid {
+                                
+                                if followArray.count == 0 {
+                                    //followArrayが0の場合
+                                    if postData.uid == myUid {
                                         self.postArray.append(postData)
-                                        break
+                                    }
+                                }else {
+                                    //followArrayに値がある場合
+                                    for followUid in followArray{
+                                        //フォローしているuidまたは自分のuidの場合postArrayに設定
+                                        if postData.uid == followUid || postData.uid == myUid {
+                                            self.postArray.append(postData)
+                                            break
+                                        }
                                     }
                                 }
                             }

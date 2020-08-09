@@ -66,6 +66,12 @@ class FullsizeImageViewController: UIViewController {
         downSwipeGesture.direction = .down
         // 画面にジェスチャーを登録
         self.view.addGestureRecognizer(downSwipeGesture)
+        
+        // 上向きにスワイプした時のジェスチャーを作成
+        let upSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.closeView))
+        upSwipeGesture.direction = .up
+        // 画面にジェスチャーを登録
+        self.view.addGestureRecognizer(upSwipeGesture)
     }
     
     @objc private func tapCancelButton(_ sender :UIButton){
