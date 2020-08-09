@@ -145,8 +145,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         
         cell.setPostData(postArray[indexPath.row])
 
-        // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        // セル内のいいねボタンのアクションをソースコードで設定する
+        cell.likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
         cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
         //自作のデリゲート
@@ -170,8 +170,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(detailViewController, animated: true)
         
     }
-    // セル内のボタンがタップされた時に呼ばれるメソッド
-    @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
+    // セル内のいいねボタンがタップされた時に呼ばれるメソッド
+    @objc func likeButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")
 
         // タップされたセルのインデックスを求める
@@ -235,6 +235,4 @@ extension TimeLineViewController:PostTableViewCellDelegate{
         fullsizeImageViewController.image = tappedImage
         self.present(fullsizeImageViewController, animated: true, completion: nil)
     }
-    
-    
 }

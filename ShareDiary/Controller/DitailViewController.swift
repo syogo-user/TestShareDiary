@@ -46,7 +46,9 @@ class DitailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
+        //いいねボタンのアクションを設定
+        likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
+            
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
@@ -463,12 +465,13 @@ class DitailViewController: UIViewController {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+
         //いいね数の表示
         let likeNumber = post.likes.count
         self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
         likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
         likeUserButton.setTitleColor(.black, for: .normal)
-
+        
         // 日時の表示
         self.diaryDate.text = ""
         if let date = post.date {
@@ -506,6 +509,45 @@ class DitailViewController: UIViewController {
         //背景色を設定
         setBackgroundColor(colorIndex:post.backgroundColorIndex)
         
+    }
+    private func reloadLikeShow(postId:String){
+        let postRef = Firestore.firestore().collection(Const.PostPath).document(postId)
+        
+        postRef.getDocument() {
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                guard let document = querySnapshot!.data() else {return}
+                guard let likes = document["likes"] as? [String] else {return}
+                                                
+                guard let myid = Auth.auth().currentUser?.uid else {return}
+                // likesの配列の中にmyidが含まれているかチェックすることで、自分がいいねを押しているかを判断
+                if likes.firstIndex(of: myid) != nil {
+                    // myidがあれば、いいねを押していると認識する。
+                    let buttonImage = UIImage(named: "like_exist")
+                    self.likeButton.setImage(buttonImage, for: .normal)
+                    //変数に設定
+                    self.postData?.isLiked = true
+                }else {
+                    //いいねを押していない
+                    let buttonImage = UIImage(named: "like_none")
+                    self.likeButton.setImage(buttonImage, for: .normal)
+                    //変数に設定
+                    self.postData?.isLiked = false
+                }
+                //変数にもlikesを設定
+                self.postData?.likes = likes
+                //いいね数の表示
+                let likeNumber = likes.count
+                self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
+                self.likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
+                self.likeUserButton.setTitleColor(.black, for: .normal)
+                
+                
+            }
+        }
     }
     private func setPostImage(uid:String){
         let userRef = Firestore.firestore().collection(Const.users).document(uid)
@@ -601,8 +643,31 @@ class DitailViewController: UIViewController {
         alert.addAction(defaultAction)
         //Alertを表示
         present(alert,animated: true)
-        
 
+    }
+    // いいねボタンがタップされた時に呼ばれるメソッド
+    @objc func likeButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: likeボタンがタップされました。")
+        guard let postData = postData else{ return }
+        
+        // likesを更新する
+        if let myid = Auth.auth().currentUser?.uid {
+            // 更新データを作成する
+            var updateValue: FieldValue
+            if postData.isLiked {
+                // すでにいいねをしている場合は、いいね解除のためmyidを取り除く更新データを作成
+                updateValue = FieldValue.arrayRemove([myid])
+            } else {
+                // 今回新たにいいねを押した場合は、myidを追加する更新データを作成
+                updateValue = FieldValue.arrayUnion([myid])
+            }
+            // likesに更新データを書き込む
+            let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
+            postRef.updateData(["likes": updateValue])
+            
+            //いいねの再表示
+            reloadLikeShow(postId:postData.id)
+        }
     }
     //likeUserButton押下時
     @objc func likeUserShow(_:UIButton) {
