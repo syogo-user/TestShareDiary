@@ -7,20 +7,19 @@
 //
 import UIKit
 extension UISearchBar {
-//    var textField: UITextField? {
-//        return value(forKey: "_searchField") as? UITextField
-//    }
+    var textField: UITextField? {
+        if #available(iOS 13.0, *) {
+            //iOS13以上の場合
+            return searchTextField
+        } else {
+            return value(forKey: "_searchField") as? UITextField
+        }
+    }
     
     func disableBlur() {
         backgroundImage = UIImage()
         isTranslucent = true
     }
     
-    var textField: UITextField? {
-        if #available(iOS 13.0, *) {
-            return searchTextField
-        } else {
-            return value(forKey: "_searchField") as? UITextField
-        }
-    }
+
 }

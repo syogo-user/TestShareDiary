@@ -17,6 +17,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.calendar.dataSource = self
         self.calendar.delegate = self
         self.calendar.backgroundColor = Const.darkColor
@@ -32,6 +33,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.dateArray = []
         calendar.reloadData()
         //投稿の中から自分のものだけを取得する
         guard let myUid = Auth.auth().currentUser?.uid else {return}
@@ -40,7 +42,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
             (querySnapshot,error) in
             if let error = error {
                 print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
-                  return
+                return
             } else {
                 self.dateArray = []
                 querySnapshot!.documents.forEach{
@@ -51,7 +53,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
             }
             
         }
-        
+        calendar.reloadData()
         
         
         
@@ -68,8 +70,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         //選択した日付を取得
         let strDate = dateFormat(date:date)
-
-        //TODO 選択した日の自分の投稿を表示
+        //選択した日の自分の投稿を表示
         let myDiaryViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyDiaryFromCalendar") as! MyDiaryFromCalendar
         myDiaryViewController.diaryDate = strDate
 //        myDiaryViewController.modalPresentationStyle = .fullScreen
@@ -77,6 +78,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.navigationController?.pushViewController(myDiaryViewController, animated: true)
         
     }
+    //点の表示
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
         var count = 0
         
