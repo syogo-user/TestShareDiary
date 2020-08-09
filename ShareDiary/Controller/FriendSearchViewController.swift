@@ -104,7 +104,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
             self.userPostArray  = []
             self.tableView.reloadData()
         }
-
+        searchBar.textField?.textColor = UIColor.white
 
     }
     
