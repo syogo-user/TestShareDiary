@@ -48,12 +48,12 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         dismiss(animated: true, completion: nil)
     }
     func getDay(_ date:Date) -> (Int,Int,Int){
-           let tmpCalendar = Calendar(identifier: .gregorian)
-           let year = tmpCalendar.component(.year, from: date)
-           let month = tmpCalendar.component(.month, from: date)
-           let day = tmpCalendar.component(.day, from: date)
-           return (year,month,day)
-       }
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        let year = tmpCalendar.component(.year, from: date)
+        let month = tmpCalendar.component(.month, from: date)
+        let day = tmpCalendar.component(.day, from: date)
+        return (year,month,day)
+    }
     /*
     // MARK: - Navigation
 

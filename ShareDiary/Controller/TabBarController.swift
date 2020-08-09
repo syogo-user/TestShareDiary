@@ -61,8 +61,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         
         //NavigationBarが半透明かどうか
         navigationController?.navigationBar.isTranslucent = false
-        
-
+        //ヘッダーの文字（バッテリーマークなども）白くなる
+        self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.barTintColor = Const.darkColor
         
         //ナビゲーションバーの色をグラデーションにする

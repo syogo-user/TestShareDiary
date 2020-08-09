@@ -46,6 +46,7 @@ class PostTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         //8/1
+        self.contentView.layer.cornerRadius = 15
         self.layer.insertSublayer(gradientLayer, at: 0)
         postUserImageView.layer.cornerRadius = 20
     }

@@ -219,6 +219,10 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                     querySnapshot!.documents.forEach{
                         document in
                         self.userPostArray.append(UserPostData(document:document))
+                        //ユーザの名前順(昇順)に並び替えの処理を入れる
+                        self.userPostArray.sort(by: { (a,b) -> Bool in
+                            return a.userName ?? "" < b.userName ?? ""
+                        })
                         self.tableView.reloadData()
                     }
                 }

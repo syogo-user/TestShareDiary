@@ -29,7 +29,6 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
         calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
-        // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,13 +50,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
                     self.calendar.reloadData()
                 }
             }
-            
         }
-        calendar.reloadData()
-        
-        
-        
-        
     }
     //追加ボタン押下
     @IBAction func addButton(_ sender: Any) {
@@ -103,27 +96,18 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         return (year,month,day)
     }
     
-        //Dateを時間なしの文字列に変換
-        func dateFormat(date:Date?) -> String {
-            var strDate:String = ""
-            
-            if let day = date {
-                let format  = DateFormatter()
-                format.locale = Locale(identifier: "ja_JP")
-                format.dateStyle = .short
-                format.timeStyle = .none
-                strDate = format.string(from:day)
-            }
-            return strDate
+    //Dateを時間なしの文字列に変換
+    func dateFormat(date:Date?) -> String {
+        var strDate:String = ""
+        
+        if let day = date {
+            let format  = DateFormatter()
+            format.locale = Locale(identifier: "ja_JP")
+            format.dateStyle = .short
+            format.timeStyle = .none
+            strDate = format.string(from:day)
         }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        return strDate
     }
-    */
 
 }
