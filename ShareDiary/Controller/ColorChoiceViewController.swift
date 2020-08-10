@@ -27,7 +27,7 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12 //表示するセルの数
+        return Const.color.count //表示するセルの数
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

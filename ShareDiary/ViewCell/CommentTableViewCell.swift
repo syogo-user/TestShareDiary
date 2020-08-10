@@ -97,12 +97,17 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     //画像の設定
-    private func setImage(userImageName:String?){
-        guard let userImageName = userImageName else {return}
-        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
+    private func setImage(userImageName:String?){        
+        if let userImageName = userImageName {
+            let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
             //取得した画像の表示
             self.userImageView.sd_imageIndicator =
                 SDWebImageActivityIndicator.gray
             self.userImageView.sd_setImage(with: imageRef)
+        } else {
+            //画像が設定されていない場合
+            //デフォルトの写真を表示
+            self.userImageView.image = UIImage(named: "unknown")
+        }
     }
 }

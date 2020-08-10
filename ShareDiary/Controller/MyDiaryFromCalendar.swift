@@ -55,7 +55,9 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
     }
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 600
+        
+        tableView.estimatedRowHeight = 800 //セルの高さ
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,6 +70,18 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
         cell.postTableViewCellDelegate = self
         return cell
     }
+    
+    //セルを選択時
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         //詳細画面に遷移する
+         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
+         // 配列からタップされたインデックスのデータを取り出す
+         let postData = postArray[indexPath.row]
+         
+         detailViewController.postData = postData
+         self.navigationController?.pushViewController(detailViewController, animated: true)
+         
+     }
     //Dateを時間なしの文字列に変換
     func dateFormat(date:Date?) -> String {
         var strDate:String = ""
