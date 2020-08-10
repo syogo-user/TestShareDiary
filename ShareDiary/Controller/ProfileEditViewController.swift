@@ -9,10 +9,10 @@
 import UIKit
 import Firebase
 class ProfileEditViewController: UIViewController {
-
-    @IBOutlet weak var userName: UITextField!
     
+    @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var profileMessage: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
@@ -34,7 +34,7 @@ class ProfileEditViewController: UIViewController {
         postUserRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 guard let document = querySnapshot!.data() else {return}
@@ -54,15 +54,14 @@ class ProfileEditViewController: UIViewController {
             self.present(dialog, animated: true, completion: nil)
             return
         }
-
+        
         let userName = self.userName.text!
         let message = self.profileMessage.text ?? ""
         let docData = [
             "userName":userName,
             "profileMessage": message
-        ] as [String : Any]
-        //メッセージの保存
-        
+            ] as [String : Any]
+        //メッセージの保存        
         let userRef = Firestore.firestore().collection(Const.users).document(myUid)
         userRef.updateData(docData)
         //表示名設定
@@ -73,18 +72,16 @@ class ProfileEditViewController: UIViewController {
             changeRequest.commitChanges { error in
                 if let error = error {
                     // プロフィールの更新でエラーが発生
-                    print("DEBUG_PRINT: " + error.localizedDescription)
+                    print("DEBUG: " + error.localizedDescription)
                     return
                 }
-                print("DEBUG_PRINT: [displayName = \(user.displayName!)]の設定に成功しました。")
-
-
+                print("DEBUG: [displayName = \(user.displayName!)]の設定に成功しました。")
             }
         }
         //前の画面に戻る
         self.navigationController?.popViewController(animated: true)
     }
     
-
-
+    
+    
 }

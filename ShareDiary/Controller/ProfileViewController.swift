@@ -17,11 +17,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var profileMessage: UITextView!
     @IBOutlet weak var logoutButton: UIButton!
-//    @IBOutlet weak var messageSaveButton: UIButton!
-    
     @IBOutlet weak var imageChoiceButton: UIButton!
     @IBOutlet weak var changeProfileButton: UIButton!
-    
     @IBOutlet weak var follow: UILabel!
     @IBOutlet weak var follower: UILabel!
     
@@ -30,13 +27,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         myImage.layer.cornerRadius = 125
         logoutButton.layer.cornerRadius = 15
         profileMessage.layer.cornerRadius = 15
-        //        messageSaveButton.addTarget(self, action: #selector(messageSave), for: .touchUpInside)
-        
         changeProfileButton.addTarget(self, action: #selector(changeProfile), for: .touchUpInside)
         changeProfileButton.layer.cornerRadius = 15
         self.view.backgroundColor = Const.darkColor
         imageChoiceButton.layer.cornerRadius = 15
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +46,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         postUserRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 guard let document = querySnapshot!.data() else {return}
@@ -93,7 +87,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         if info[.originalImage] != nil {
             // 撮影/選択された画像を取得する
             let image = info[.originalImage] as! UIImage
-//            self.myImage.image = image
             //CLImageEditorにimageを渡して加工画面を起動する
             let editor = CLImageEditor(image:image)!
             editor.delegate = self
@@ -122,8 +115,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             if let myImageNameFirebase = data["myImageName"] as? String {
                 //myImageNameから番号だけを取得する
                 myImageNumber = self.getNumber(myImageName:myImageNameFirebase)
-//               myImageNumber =  Int(String(myImageNameFirebase.suffix(1))) ?? 0
-               oldImageName = myImageNameFirebase
+                oldImageName = myImageNameFirebase
             }
             //修正　異なる写真が表示される
             myImageNumber = myImageNumber + 1
@@ -134,7 +126,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             self.saveImageFirebase(myImageNumber:myImageNumber, myImageName:myImageName, image:image, myUid:myUid,oldImageName:oldImageName)
             
         }
-
+        
     }
     //myImageNameからmyImageNumberを切り出す
     private func getNumber(myImageName:String) -> Int {
@@ -180,7 +172,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         imageRef.delete{
             error in
             if let  error = error {
-                print(error)
+                print("DEBUG:\(error)")
             }else {
                 print("\(oldImageName)を削除しました")
             }
@@ -190,28 +182,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBAction func handleLogout(_ sender: Any) {
         // ログアウトする
         try! Auth.auth().signOut()
-
         // ログイン画面を表示する
         let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
         loginViewController?.modalPresentationStyle = .fullScreen
         self.present(loginViewController!, animated: true, completion: nil)
-
         // ログイン画面から戻ってきた時のためにホーム画面（index = 0）を選択している状態にしておく
         tabBarController?.selectedIndex = 0
     }
-
+    
     //プロフィール変更画面に遷移
     @objc private func changeProfile(){
         let profileEditViewController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
         self.navigationController?.pushViewController(profileEditViewController, animated: true)
-        
-        
-        //        self.navigationController?.pushViewController(postViewController, animated: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
-
+    
+    
 }

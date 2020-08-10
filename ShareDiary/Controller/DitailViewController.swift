@@ -10,25 +10,21 @@ import UIKit
 import FirebaseUI
 import Firebase
 class DitailViewController: UIViewController {
-
     
-//    @IBOutlet weak var scrollViewLayer: UIScrollView!
+    
+    
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var userName: UILabel!
-//    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeUserButton: UIButton!
     @IBOutlet weak var diaryDate: UILabel!
     @IBOutlet weak var diaryText: UITextView!
-//    @IBOutlet weak var contentImageView: UIImageView!
     @IBOutlet weak var postDeleteButton: UIButton!
-    
     @IBOutlet weak var tableView: UITableView!
+    
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
-
     private let contentInset :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
     private let indicateInset:UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
     
@@ -38,6 +34,7 @@ class DitailViewController: UIViewController {
         view.delegate = self
         return view
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //カスタムセルを登録する(Cellで登録)xib
@@ -48,7 +45,7 @@ class DitailViewController: UIViewController {
         tableView.tableFooterView = UIView()
         //いいねボタンのアクションを設定
         likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
-            
+        
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
@@ -69,15 +66,8 @@ class DitailViewController: UIViewController {
         postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
         //likeUserButton押下時
         likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
-        
         //テーブルビューの表示
         tableViewSet()
-        //
-        //a        scrollViewLayer.contentInset = contentInset
-        //a        scrollViewLayer.scrollIndicatorInsets = indicateInset
-        //        self.scrollViewLayer.contentOffset = CGPoint(x:0,y:200)
-        
-        
         //スクロールでキーボードをしまう
         self.tableView.keyboardDismissMode = .interactive
         setupNotification()
@@ -105,8 +95,6 @@ class DitailViewController: UIViewController {
         let screenHeight :CGFloat = self.view.frame.height / 2
         
         //画像の縦横サイズを取得
-        //        let imageWidth :CGFloat = image.size.width
-        //        let imageHeight :CGFloat = image.size.height
         let imageWidth :CGFloat = 828
         let imageHeight :CGFloat = 550
         
@@ -163,8 +151,6 @@ class DitailViewController: UIViewController {
         let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
-        //画像の中心を設定
-        //        imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
         imageView.sd_setImage(with: imageRef)
         
         // UIImageViewのインスタンスをビューに追加
@@ -186,8 +172,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -205,8 +189,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -230,8 +212,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -248,8 +228,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -291,8 +269,6 @@ class DitailViewController: UIViewController {
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
             //AutoLayout
@@ -308,8 +284,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -326,8 +300,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -344,8 +316,6 @@ class DitailViewController: UIViewController {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-            //            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
@@ -356,14 +326,6 @@ class DitailViewController: UIViewController {
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
-            
-            print("★imageWidth:",imageWidth)
-            print("★imageHeight",imageHeight)
-            print("★screenWidth:",screenWidth)
-            print("★screenHeight:",screenHeight)
-            print("★height:",imageHeight * scale / 2)
-            print("★width:",(screenWidth / 2) - 15)
-            print("◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆")
         default:
             break
         }
@@ -388,7 +350,7 @@ class DitailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         //キーボードが隠れる時の通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    
+        
     }
     @objc func keyboardWillShow(notification:NSNotification){
         print("keyboardWillShow")
@@ -400,8 +362,6 @@ class DitailViewController: UIViewController {
             let contentInset = UIEdgeInsets(top:0,left:0,bottom:bottom,right: 0)
             tableView.contentInset = contentInset
             tableView.scrollIndicatorInsets = contentInset
-//            tableView.contentOffset = CGPoint(x:0,y:bottom)
-            
         }
         
         
@@ -426,7 +386,6 @@ class DitailViewController: UIViewController {
                 case .added:
                     let dic = documentChange.document.data()
                     let comment = CommentData(document:dic)
-                    
                     self.commentData.append(comment)
                     self.commentData.sort { (m1, m2) -> Bool in
                         let m1Date = m1.createdAt.dateValue()
@@ -435,26 +394,16 @@ class DitailViewController: UIViewController {
                     }
                     
                     self.tableView.reloadData()
-
-
-                    print("self.tableView.contentSize.height",self.tableView.contentSize.height)
-//                    self.tableView.scrollToRow(at: IndexPath(row: self.commentData.count - 1, section: 0), at: .bottom, animated: true)
-//                    self.scrollViewLayer.contentSize.height += 20
-//                    self.tableView.contentSize.height += 20
-//                    print("scrollViewLayer.contentSize:",self.scrollViewLayer.contentSize.height)
-//                    print("tableView.contentSize.height",self.tableView.contentSize.height)
                 case .modified, .removed:
                     print("nothing to do")
                 }
             })
-            
             
         }
     }
     
     //画面項目の設定
     private func contentSet(post:PostData){
-
         //ユーザ名
         self.userName.text = post.documentUserName ?? ""
         // いいねボタンの表示
@@ -465,7 +414,6 @@ class DitailViewController: UIViewController {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
-
         //いいね数の表示
         let likeNumber = post.likes.count
         self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
@@ -485,11 +433,6 @@ class DitailViewController: UIViewController {
         if let content = post.content{
             self.diaryText.text! = content
         }
-        // 投稿画像表示
-//         contentImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-//         let imageRef2 = Storage.storage().reference().child(Const.ImagePath).child(post.id + ".jpg")
-//          contentImageView.sd_setImage(with: imageRef2)
-        
         //選択された写真の枚数
         let imageMaxNumber  = post.contentImageMaxNumber
         let postDocumentId = post.id
@@ -516,12 +459,12 @@ class DitailViewController: UIViewController {
         postRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 guard let document = querySnapshot!.data() else {return}
                 guard let likes = document["likes"] as? [String] else {return}
-                                                
+                
                 guard let myid = Auth.auth().currentUser?.uid else {return}
                 // likesの配列の中にmyidが含まれているかチェックすることで、自分がいいねを押しているかを判断
                 if likes.firstIndex(of: myid) != nil {
@@ -555,7 +498,7 @@ class DitailViewController: UIViewController {
         userRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 if let document = querySnapshot!.data(){
@@ -598,7 +541,7 @@ class DitailViewController: UIViewController {
         }
     }
     @objc func postDelete(_ sender:UIButton){
-         print("削除ボタンを押下")
+        print("削除ボタンを押下")
         guard let post = postData else {return}
         //確認メッセージ出力
         let alert : UIAlertController = UIAlertController(title: "この投稿を削除してもよろしいですか？", message :nil, preferredStyle: UIAlertController.Style.alert)
@@ -621,9 +564,9 @@ class DitailViewController: UIViewController {
                     let imageRef = Storage.storage().reference().child(Const.ImagePath).child(post.id + "\(i).jpg")
                     imageRef.delete{ error in
                         if let error = error {
-                            print("DEBUG_PRINT: \(error)")
+                            print("DEBUG: \(error)")
                         } else {
-                            print("DEBUG_PRINT: 画像の削除が成功しました。")
+                            print("DEBUG: 画像の削除が成功しました。")
                             //for文のiだとdeleteの中では1から順にならないことがあるためcount変数を用意
                             count = count + 1
                             if count == imageMaxNumber {
@@ -643,11 +586,11 @@ class DitailViewController: UIViewController {
         alert.addAction(defaultAction)
         //Alertを表示
         present(alert,animated: true)
-
+        
     }
     // いいねボタンがタップされた時に呼ばれるメソッド
     @objc func likeButton(_ sender: UIButton, forEvent event: UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
+        print("DEBUG: likeボタンがタップされました。")
         guard let postData = postData else{ return }
         
         // likesを更新する
@@ -673,20 +616,20 @@ class DitailViewController: UIViewController {
     @objc func likeUserShow(_:UIButton) {
         //画面遷移
         let likeUserListTableViewController = storyboard?.instantiateViewController(withIdentifier: "LikeUserListTableViewController") as! LikeUserListTableViewController
-//        guard let myUid = self.postData?.uid else { return}
-//        likeUserListTableViewController.uid = myUid
+        //        guard let myUid = self.postData?.uid else { return}
+        //        likeUserListTableViewController.uid = myUid
         let likeUsers :[String] = self.postData?.likes ?? []
         //likeUsersからユーザ情報を取得
-//        let userPostData = getUsersData(likeUsers)
+        //        let userPostData = getUsersData(likeUsers)
         
-//        likeUserListTableViewController.userPostData = userPostData
+        //        likeUserListTableViewController.userPostData = userPostData
         likeUserListTableViewController.likeUsers = likeUsers
         
         self.present(likeUserListTableViewController, animated: true, completion: nil)
     }
-
     
-
+    
+    
     
     
 }
@@ -720,7 +663,7 @@ extension DitailViewController :InputTextViewDelegate{
     func randomString(length: Int) -> String {
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let len = UInt32(letters.length)
-
+        
         var randomString = ""
         for _ in 0 ..< length {
             let rand = arc4random_uniform(len)
@@ -734,8 +677,6 @@ extension DitailViewController :InputTextViewDelegate{
 }
 
 extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
-    
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //高さの最低基準
         self.tableView.estimatedRowHeight = 100        
@@ -749,16 +690,10 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
-
+        
         cell.translatesAutoresizingMaskIntoConstraints = false
         //Cell に値を設定する
         cell.setCommentData(commentData[indexPath.row])
         return cell
     }
-    
-    
-
-    
-    
-    
 }

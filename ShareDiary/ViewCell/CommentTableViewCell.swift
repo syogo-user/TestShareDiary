@@ -12,9 +12,7 @@ import SDWebImage
 class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userImageView: UIImageView!
-
     @IBOutlet weak var partnerComment: UITextView!
-    //    @IBOutlet weak var comment: UITextView!
     @IBOutlet weak var myComment: UITextView!
     @IBOutlet weak var partnerCommentWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var myCommentWidthConstraint: NSLayoutConstraint!
@@ -27,13 +25,10 @@ class CommentTableViewCell: UITableViewCell {
         userImageView.layer.cornerRadius = 25
         myComment.layer.cornerRadius = 20
         self.backgroundColor = Const.darkColor
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setCommentData(_ commentData:CommentData){
@@ -68,16 +63,12 @@ class CommentTableViewCell: UITableViewCell {
             self.partnerCommentWidthConstraint.constant = width
             //画像の表示
             setImageShow(userUid:commentData.uid)
-        }        
-        
+        }
     }
 
     
     private func dateFormatterForDateLabel(date: Date) -> String {
         let formatter = DateFormatter()
-//        formatter.dateStyle = .short
-//        formatter.timeStyle = .short
-//        formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "MM/dd HH:mm"
         return formatter.string(from: date)
     }
@@ -85,7 +76,6 @@ class CommentTableViewCell: UITableViewCell {
     private func frameWidthTextView(text: String) -> CGRect {
         let size = CGSize(width: 200, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
         return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
     
@@ -94,7 +84,7 @@ class CommentTableViewCell: UITableViewCell {
         postRef.getDocument{
             (document ,error) in
             if error != nil {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。")
+                print("DEBUG: snapshotの取得が失敗しました。")
                 return
             }
             //userNameとuserImageViewを設定
@@ -114,6 +104,5 @@ class CommentTableViewCell: UITableViewCell {
             self.userImageView.sd_imageIndicator =
                 SDWebImageActivityIndicator.gray
             self.userImageView.sd_setImage(with: imageRef)
-        
     }
 }

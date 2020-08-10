@@ -12,11 +12,9 @@ import DKImagePickerController
 class ImageSelectViewController :DKImagePickerController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.maxSelectableCount = 4
         self.showsCancelButton = true
         //UIのカスタマイズ
         self.UIDelegate = CustomUIDelegate()
-        
     }
 }

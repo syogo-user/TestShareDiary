@@ -13,7 +13,6 @@ class SlideViewController: SlideMenuController {
     
     
     override func awakeFromNib() {
-        
         let mainVC = storyboard?.instantiateViewController(withIdentifier: "tabbar")
         let leftVC = storyboard?.instantiateViewController(withIdentifier: "Left")
         //UIViewControllerにはNavigationBarは無いためUINavigationControllerを生成しています。 //NavigationBarを追加すことでtabbarを呼び出す
@@ -26,9 +25,8 @@ class SlideViewController: SlideMenuController {
         //スライドが表示された時のMainの縮み率 1は縮まない
         SlideMenuOptions.contentViewScale = 1     
         super.awakeFromNib()
-
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -14,11 +14,9 @@ class FollowFollowerListTableViewCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var profileMessage: UITextView!
     @IBOutlet weak var rejectedButton: UIButton!
-    
     @IBOutlet weak var userImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         //タップした瞬間の文字色変更
         rejectedButton.setTitleColor(UIColor.white ,for: .highlighted)
         rejectedButton.layer.cornerRadius = 15
@@ -27,8 +25,6 @@ class FollowFollowerListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット
@@ -40,12 +36,16 @@ class FollowFollowerListTableViewCell: UITableViewCell {
         
     }
     private func setImage(userImageName:String?){
-        guard let userImageName = userImageName else {return}
-        let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
+        if let userImageName = userImageName {
+            let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
             //取得した画像の表示
             self.userImage.sd_imageIndicator =
                 SDWebImageActivityIndicator.gray
             self.userImage.sd_setImage(with: imageRef)
-        
+        } else {
+            //画像が設定されていない場合
+            //デフォルトの写真を表示
+            self.userImage.image = UIImage(named: "unknown")
+        }
     }
 }

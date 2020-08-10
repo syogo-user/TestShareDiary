@@ -9,26 +9,20 @@
 import UIKit
 
 class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout{
-
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var cancelButton: UIButton!
-    
-
-
     
     override func  viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         //CollectionViewのサイズ調整
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:15,left:15,bottom:15,right:15)
         collectionView.collectionViewLayout = layout
-        
         cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
-        
     }
     
     
@@ -38,9 +32,6 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
-        //単色：赤
-//        cell.backgroundColor = .red  // セルの色
-        
         //グラデーション
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = cell.bounds
@@ -51,8 +42,6 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
         gradientLayer.startPoint = CGPoint.init(x:0.0,y:0.0)
         gradientLayer.endPoint = CGPoint.init(x:1.0,y:1.0)
         cell.layer.insertSublayer(gradientLayer, at: 0)
-        
-       
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -65,14 +54,11 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //前画面への値の受け渡し
         let preVC = self.presentingViewController as! PostViewController
-//        let preNC = self.navigationController?.presentingViewController  as! UINavigationController
-//        let preVC = preNC.viewControllers[preNC.viewControllers.count - 1 ] as! PostViewController
-//        preVC.backgroundColor = .blue
         preVC.backgroundColorArrayIndex = indexPath.item
         self.dismiss(animated: true, completion:nil)
     }
     @objc func tapCancelButton(_ sender:UIButton){
         dismiss(animated: true, completion: nil)
     }
-
+    
 }

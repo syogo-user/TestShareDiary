@@ -9,12 +9,11 @@
 import UIKit
 import Firebase
 class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDelegate{
+    
+    @IBOutlet weak var userTableView: UITableView!
     //投稿データを格納する配列
     var postArray :[PostData] = []
     var diaryDate :String = ""
-    
-    
-    @IBOutlet weak var userTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,6 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
         userTableView.dataSource = self
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
-
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         userTableView.register(nib, forCellReuseIdentifier: "tableCell")
@@ -38,7 +36,7 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
         postRef.getDocuments() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 self.postArray = []
@@ -46,12 +44,13 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
                     (document) in
                     let postData = PostData(document: document)
                     self.postArray.append(postData)
-                    //TODO並び替えの処理を入れる
-                    
+                    //投稿した日付（date）の（降順）で順番を並び替える 日付は必ず値が入るので強制アンラップで良い。
+                    self.postArray.sort(by: { (a,b) -> Bool in
+                        return a.date! > b.date!
+                    })
                 }
                 self.userTableView.reloadData()
             }
-            
         }
     }
     //高さ調整
@@ -81,15 +80,12 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
             strDate = format.string(from:day)
         }
         return strDate
-    }
-    
-    
+    }        
     
 }
 extension MyDiaryFromCalendar:PostTableViewCellDelegate{
     //PostTablViewCellの投稿写真をタップしたときに呼ばれる
     func imageTransition(_ sender:UITapGestureRecognizer) {
-        print("画像がタップされました")
         //タップしたUIImageViewを取得
         let tappedImageView = sender.view! as! UIImageView
         //  UIImage を取得

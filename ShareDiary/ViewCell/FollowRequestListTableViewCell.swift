@@ -13,7 +13,6 @@ class FollowRequestListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var profileMessage: UITextView!
-    
     @IBOutlet weak var followRequestPermissionButton: UIButton!
     @IBOutlet weak var followRequestRejectionButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
@@ -21,7 +20,6 @@ class FollowRequestListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         //タップした瞬間の文字色変更
         followRequestPermissionButton.setTitleColor(UIColor.white ,for: .highlighted)
         followRequestPermissionButton.layer.cornerRadius = 15
@@ -31,8 +29,6 @@ class FollowRequestListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     func setUserPostData(_ userPostData:UserPostData){
         //userNameをセット

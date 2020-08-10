@@ -14,24 +14,18 @@ class UsersTableViewCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!        
     @IBOutlet weak var followRequestButton: UIButton!
     @IBOutlet weak var profileMessage: UITextView!
-    
     @IBOutlet weak var userImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         //タップした瞬間の文字色変更
         followRequestButton.setTitleColor(UIColor.white ,for: .highlighted)
         userImage.layer.cornerRadius = 30
         followRequestButton.layer.cornerRadius = 15
-
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setUserPostData(_ userPostData:UserPostData){
@@ -41,15 +35,11 @@ class UsersTableViewCell: UITableViewCell {
         self.profileMessage.isEditable = false//編集不可
         //ボタンのテキスト変更
         if let myid = Auth.auth().currentUser?.uid {
-
             self.followRequestButton.setTitle("フォロー申請", for: .normal)
             self.followRequestButton.isEnabled = true
             self.followRequestButton.isHidden =  false
-            
             // 写真の設定
             setImage(userImageName:userPostData.myImageName)
-    
-            
             if let followRequestArray = userPostData.followRequest {
                 for followRequest in followRequestArray{
                     //フォローリクエストに今ログインしている自分のuidがあったら
@@ -76,8 +66,6 @@ class UsersTableViewCell: UITableViewCell {
                 self.followRequestButton.isEnabled = false
                 self.followRequestButton.isHidden = true
             }
-            
-
         }
         
     }
@@ -86,14 +74,10 @@ class UsersTableViewCell: UITableViewCell {
         //画像の取得
         guard let userImageName = userImageName else {return}
         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
-
-
             //取得した画像の表示
             self.userImage.sd_imageIndicator =
                 SDWebImageActivityIndicator.gray
             self.userImage.sd_setImage(with: imageRef)
-
-
     }
     
 }

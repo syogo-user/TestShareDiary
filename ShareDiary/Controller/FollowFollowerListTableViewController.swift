@@ -13,26 +13,25 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     
     @IBOutlet weak var followOrFollowerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var backButton: UIButton!
     // ユーザデータを格納する配列
     var userPostArray: [UserPostData] = []
-    @IBOutlet weak var backButton: UIButton!
-    
     //遷移元を知るためのフラグ
     var fromButton :String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = Const.darkColor
+        self.tableView.backgroundColor = Const.darkColor
         tableView.delegate = self
         tableView.dataSource = self
-        
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "FollowFollowerListTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "FollowFollowerListCell")
         backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
-
     }
     override func viewWillAppear(_ animated: Bool) {
+        followOrFollowerLabel.textColor = .white
         if fromButton ==  Const.Follow {
             //フォローボタンから遷移した場合
             followOrFollowerLabel.text = "フォロー"
@@ -55,18 +54,14 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowFollowerListCell", for: indexPath) as! FollowFollowerListTableViewCell
         //Cell に値を設定する
         cell.setUserPostData(userPostArray[indexPath.row])
-        
         //セル内のボタンのアクションをソースコードで設定する
         cell.rejectedButton.addTarget(self,action:#selector(rejectButtonAction(_ : forEvent:)),for: .touchUpInside)
-        
-        
         return cell
     }
     //各セルを選択した時に実行されるメソッド
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath ){
         
     }
-    
     
     //セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
@@ -76,7 +71,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     //Deleteボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView:UITableView,commit editingStyle:UITableViewCell.EditingStyle,forRowAt indexPath:IndexPath){
     }
-
     
     //rejectButtonActionが押された時に呼ばれるメソッド
     @objc func rejectButtonAction (_ sender: UIButton,forEvent event:UIEvent){
@@ -93,8 +87,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         let dialog = UIAlertController(title: "\(userPostData.userName!)さんのフォローを解除しますか？", message: nil, preferredStyle: .actionSheet)
         //OKボタン
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            print("リジェクト")
-            
             //ログインしている自分（Aさん）のuidを取得する
             if let myUid = Auth.auth().currentUser?.uid {
                 let db = Firestore.firestore()
@@ -150,7 +142,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         
         //キャンセルボタン
         dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: { action in
-            print("キャンセル")
+            
         }))
         self.present(dialog,animated: true,completion: nil)
         
@@ -167,7 +159,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         postRef.getDocument{
             (document,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 //documentが存在しなかったらreturn
@@ -215,7 +207,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
             postRef2.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
                     return
                 } else {
                     querySnapshot!.documents.forEach{
@@ -223,7 +215,13 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                         self.userPostArray.append(UserPostData(document:document))
                         //ユーザの名前順(昇順)に並び替えの処理を入れる
                         self.userPostArray.sort(by: { (a,b) -> Bool in
-                            return a.userName ?? "" < b.userName ?? ""
+                            if a.userName ?? "" == b.userName ?? ""{
+                                //名前が同じ場合はuidで並び替える
+                                return a.uid ?? "" < b.uid ?? ""
+                            }else{
+                                //名前が異なる場合は名前で並び替える
+                                return a.userName ?? "" < b.userName ?? ""
+                            }
                         })
                         self.tableView.reloadData()
                     }
@@ -233,6 +231,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     }
     
     @objc func tabBackButton(_ sender :UIButton){
-         self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }

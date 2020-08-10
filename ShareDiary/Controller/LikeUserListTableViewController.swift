@@ -16,7 +16,8 @@ class LikeUserListTableViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = Const.darkColor
+        self.tableView.backgroundColor = Const.darkColor
         tableView.dataSource = self
         tableView.delegate  = self
         // カスタムセルを登録する
@@ -26,39 +27,23 @@ class LikeUserListTableViewController: UIViewController {
         tableView.tableFooterView = UIView()
         backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension LikeUserListTableViewController:UITableViewDataSource,UITableViewDelegate{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.likeUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"Cell", for: indexPath) as! LikeUserListTableViewCell
-
         cell.setUserPostData(likeUsers[indexPath.row])
-        
         return cell
     }
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
-    
+        
     @objc func tabBackButton(_ sender:UIButton){
         self.dismiss(animated: true, completion: nil)
     }

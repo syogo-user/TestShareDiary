@@ -10,17 +10,15 @@ import UIKit
 import Firebase
 
 class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet weak var tableView: UITableView!
     // 投稿データを格納する配列
     var postArray: [PostData] = []
-    
     let refreshCtl = UIRefreshControl()
     var previousUid = ""
-
     // Firestoreのリスナー
     var listener: ListenerRegistration!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -33,18 +31,15 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("DEBUG_PRINT: viewWillAppear")
-        
         if Auth.auth().currentUser != nil {
             guard let myUid = Auth.auth().currentUser?.uid else {return}
             //前にログインしていたuidと変わっていたら
             if  previousUid != myUid {
                 previousUid = myUid
                 //ログインユーザが変わっていたら
-//                userChangeFlg = true
                 if listener != nil{
                     listener.remove()
                     listener = nil
@@ -52,8 +47,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     self.tableView.reloadData()
                 }
             }
-
-
             // ログイン済み
             //listenerがnilでないとき return
             guard listener == nil  else{return}
@@ -61,7 +54,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
             listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
                 if let error = error {
-                    print("DEBUG_PRINT: snapshotの取得が失敗しました。 \(error)")
+                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
                     return
                 }
                 // ここでusersから自分がフォローしている人のuidを取得する
@@ -69,7 +62,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 postUserRef.addSnapshotListener() {
                     (querySnapshot2,error) in
                     if let error = error {
-                        print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
                         return
                     } else {
                         let document = querySnapshot2?.data()
@@ -80,7 +73,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
                             querySnapshot!.documents.forEach { documentA in
                                 let postData = PostData(document: documentA)
-                                print("DEBUG_PRINT: document取得 \(documentA.documentID)")
+                                print("DEBUG: document取得 \(documentA.documentID)")
                                 
                                 if followArray.count == 0 {
                                     //followArrayが0の場合
@@ -115,7 +108,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             // TableViewの表示を更新する
                             self.tableView.reloadData()
                         }
-
                     }
                 }
             }
@@ -129,13 +121,12 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 self.tableView.reloadData()
             }
         }
-        
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
@@ -144,7 +135,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.selectionStyle = .none
         
         cell.setPostData(postArray[indexPath.row])
-
+        
         // セル内のいいねボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
@@ -172,16 +163,16 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     // セル内のいいねボタンがタップされた時に呼ばれるメソッド
     @objc func likeButton(_ sender: UIButton, forEvent event: UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
-
+        print("DEBUG: likeボタンがタップされました。")
+        
         // タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
         let point = touch!.location(in: self.tableView)
         let indexPath = tableView.indexPathForRow(at: point)
-
+        
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath!.row]
-
+        
         // likesを更新する
         if let myid = Auth.auth().currentUser?.uid {
             // 更新データを作成する
@@ -209,10 +200,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         let touch = event.allTouches?.first
         let point = touch!.location(in: self.tableView)
         let indexPath = tableView.indexPathForRow(at: point)
-
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath!.row]
-        
         //詳細画面に遷移する
         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
         detailViewController.postData = postData

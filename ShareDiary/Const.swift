@@ -20,7 +20,7 @@ struct Const {
     static let FollowerShowButton = "followerShowButton"
     
     static let darkColor = UIColor(red:30/255,green:40/255,blue:54/255,alpha:1.0)
-
+    
     //辞書型[String:CGColor]の配列
     static let color  = [
         ["startColor":UIColor(red:255/255,green:255/255,blue:153/255,alpha:1.0).cgColor,
@@ -60,6 +60,6 @@ struct Const {
          "endColor":UIColor(red:173/255,green:255/255,blue:255/255,alpha:1.0).cgColor,
         ]
     ]
-
+    
     
 }

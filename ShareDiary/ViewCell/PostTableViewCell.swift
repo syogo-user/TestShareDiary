@@ -16,19 +16,14 @@ protocol PostTableViewCellDelegate {
 
 
 class PostTableViewCell: UITableViewCell {
-    
-    
+        
     @IBOutlet weak var postUserImageView: UIImageView!
     @IBOutlet weak var postUserLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeNumberLabel: UILabel!
-//    @IBOutlet weak var contetImageView: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
-    
-//    @IBOutlet weak var contentLabelBottomConstraint: UIView!
     @IBOutlet weak var contentLabel: UILabel!
-    //8/1
     @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
     //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
@@ -39,13 +34,8 @@ class PostTableViewCell: UITableViewCell {
     //デリゲート
     var postTableViewCellDelegate :PostTableViewCellDelegate?
     
-//    var screenWidth :CGFloat = 0
-//    var screenHeight :CGFloat = 0
-    //    var backgroundColorIndex :Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        //8/1
         self.contentView.layer.cornerRadius = 15
         self.layer.insertSublayer(gradientLayer, at: 0)
         postUserImageView.layer.cornerRadius = 20
@@ -53,27 +43,12 @@ class PostTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    //8/1
-    //    override func prepareForReuse() {
-    //        //再利用可能なセルを準備するときに呼ばれる
-    //        super.prepareForReuse()
-    //        if self.layer.sublayers![0] is CAGradientLayer {
-    //            self.layer.sublayers![0].removeFromSuperlayer()
-    //        }
-    //    }
-    override func layoutSubviews() {
 
+    }
+    override func layoutSubviews() {
         //描画されるときに呼び出される
         super.layoutSubviews()
         gradientLayer.frame = self.layer.bounds
-//        screenWidth = self.frame.size.width
-//        screenHeight = self.frame.size.height / 2
-//        print("★screenWidth layoutSub:",screenWidth)
-        //        print("★screenHeight layoutSub:",screenHeight)
-        
         //写真を削除
         self.removeUIImageSubviews(parentView: self)
         //投稿写真の枚数分ループする (1,2,3,4)
@@ -81,45 +56,21 @@ class PostTableViewCell: UITableViewCell {
         if imageMaxNumber > 0{
             for i in 1...imageMaxNumber{
                 let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postDocumentId + "\(i).jpg")
-                //        contetImageView.sd_setImage(with: imageRef2)
-                
-                //
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
-
             }
         }
-//        if imageMaxNumber == 2 {
-//            //写真の枚数が2枚のとき
-//            contentLabelBottomConstraint.constant = 200
-//        } else {
-//            contentLabelBottomConstraint.constant = 350
-//        }
-//
-        
-        //背景色を設定
-        //        setBackgroundColor(colorIndex: backgroundColorIndex)
-        //        if self.layer.sublayers![0] is CAGradientLayer {
-        //            self.layer.sublayers![0].frame = self.bounds
-        //        }
     }
     override func updateConstraints() {
-        //制約を設定？
-        
-        
         super.updateConstraints()
     }
-    
-    
+        
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(imageRef:StorageReference,index:Int,maxCount:Int){
-//        guard let image = image else{return}
-
         //imageViewの初期化
         let imageView = UIImageView()
         //タップイベント追加
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTransition(_:))))
-        
         //画像のアスペクト比　sacaleAspectFil：写真の比率は変わらない。imageViewの枠を超える。cliptToBounds をtrueにしているため枠は超えずに、比率も変わらない。
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -129,13 +80,8 @@ class PostTableViewCell: UITableViewCell {
         let screenHeight :CGFloat = self.frame.size.height / 2
         
         //画像の縦横サイズを取得
-        //        let imageWidth :CGFloat = image.size.width
-        //        let imageHeight :CGFloat = image.size.height
         let imageWidth :CGFloat = 828
         let imageHeight :CGFloat = 550
-        
-
-        
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
         case 1:
@@ -144,11 +90,9 @@ class PostTableViewCell: UITableViewCell {
         case 2:
             //画像２枚の場合
             imageCount2(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
-            
         case 3:
             //画像３枚の場合
             imageCount3(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
-        //            imageCount3(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
         case 4:
             //画像４枚の場合
             imageCount4(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
@@ -179,10 +123,7 @@ class PostTableViewCell: UITableViewCell {
         let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
-        //画像の中心を設定
-//        imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
         imageView.sd_setImage(with: imageRef)
-
         
         // UIImageViewのインスタンスをビューに追加
         self.addSubview(imageView)
@@ -203,8 +144,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -222,8 +161,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -265,8 +202,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-//            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -308,8 +243,6 @@ class PostTableViewCell: UITableViewCell {
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
             //AutoLayout
@@ -325,8 +258,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -343,8 +274,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -361,8 +290,6 @@ class PostTableViewCell: UITableViewCell {
             let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
@@ -373,18 +300,9 @@ class PostTableViewCell: UITableViewCell {
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
-            
-            print("★imageWidth:",imageWidth)
-            print("★imageHeight",imageHeight)
-            print("★screenWidth:",screenWidth)
-            print("★screenHeight:",screenHeight)
-            print("★height:",imageHeight * scale / 2)
-            print("★width:",(screenWidth / 2) - 15)
-            print("◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆")
         default:
             break
         }
-
     }
     
     
@@ -422,25 +340,9 @@ class PostTableViewCell: UITableViewCell {
             self.contentLabel.text! = content
         }
 
-        //文字入力不可設定
-//        self.contentLabel.isEditable = false
-        // 投稿画像の表示★★★
-        //        contetImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-       
         imageMaxNumber  = postData.contentImageMaxNumber
         postDocumentId = postData.id
-//        let imageMaxNumber  = postData.contentImageMaxNumber
-        
-        
-//        if imageMaxNumber > 0{
-//            for i in 1...imageMaxNumber{
-//                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postData.id + "\(i).jpg")
-//                //        contetImageView.sd_setImage(with: imageRef2)
-//
-//                //
-//                imageSet(imageRef:imageRef ,index: i, maxCount: postData.contentImageMaxNumber)
-//            }
-//        }
+
         if imageMaxNumber == 2 {
             //写真の枚数が2枚のとき
             contentLabelBottomConstraint.constant = 240
@@ -452,7 +354,6 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-//        self.backgroundColorIndex = postData.backgroundColorIndex
         setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
@@ -462,7 +363,7 @@ class PostTableViewCell: UITableViewCell {
         userRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 if let document = querySnapshot!.data(){
@@ -486,8 +387,6 @@ class PostTableViewCell: UITableViewCell {
     }
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = self.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
@@ -495,13 +394,6 @@ class PostTableViewCell: UITableViewCell {
         gradientLayer.colors = [color1,color2]
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-        
-//        if self.layer.sublayers![0] is CAGradientLayer {
-//            self.layer.sublayers![0].removeFromSuperlayer()
-//            self.layer.insertSublayer(gradientLayer, at: 0)
-//        } else {
-//            self.layer.insertSublayer(gradientLayer, at: 0)
-//        }
     }
 
 

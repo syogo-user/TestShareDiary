@@ -29,7 +29,6 @@ class InputTextView :UIView{
         super.init(frame:frame)
         nibinit()
         setView()
-
         //テキストの高さを可変にする
         autoresizingMask = .flexibleHeight
     }
@@ -45,7 +44,6 @@ class InputTextView :UIView{
         submitButton.contentHorizontalAlignment = .fill
         submitButton.contentVerticalAlignment = .fill
         submitButton.isEnabled = false
-        
         submitButton.addTarget(self, action: #selector(tapSubmitButton(_:)), for: .touchUpInside)
         
     }
@@ -73,8 +71,7 @@ class InputTextView :UIView{
     }
 }
 
-extension InputTextView:UITextViewDelegate{
-    
+extension InputTextView:UITextViewDelegate{    
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.isEmpty {
             submitButton.isEnabled = false

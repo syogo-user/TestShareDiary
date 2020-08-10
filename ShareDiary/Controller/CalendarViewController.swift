@@ -11,13 +11,12 @@ import FSCalendar
 import Firebase
 
 class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance {
-
+    
     @IBOutlet weak var calendar: FSCalendar!
     var dateArray :[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.calendar.dataSource = self
         self.calendar.delegate = self
         self.calendar.backgroundColor = Const.darkColor
@@ -30,6 +29,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.dateArray = []
@@ -40,7 +40,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         postRef.getDocuments(){
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG_PRINT: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 self.dateArray = []
@@ -57,7 +57,6 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "Post") as! PostViewController
         postViewController.modalPresentationStyle = .fullScreen
         self.present(postViewController, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(postViewController, animated: true)
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
@@ -66,8 +65,6 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         //選択した日の自分の投稿を表示
         let myDiaryViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyDiaryFromCalendar") as! MyDiaryFromCalendar
         myDiaryViewController.diaryDate = strDate
-//        myDiaryViewController.modalPresentationStyle = .fullScreen
-//        self.present(myDiaryViewController, animated: true, completion: nil)
         self.navigationController?.pushViewController(myDiaryViewController, animated: true)
         
     }
@@ -76,17 +73,12 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         var count = 0
         
         for i in self.dateArray {
-                if i == dateFormat(date:date) && i != "" {
-                    count = count+1
-                }
-
+            if i == dateFormat(date:date) && i != "" {
+                count = count+1
+            }
         }
-
         return count //ここに入る数字によって点の数が変わる
     }
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-//        return Const.darkColor
-//    }
     
     func getDay(_ date:Date) -> (Int,Int,Int){
         let tmpCalendar = Calendar(identifier: .gregorian)
@@ -109,5 +101,5 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         }
         return strDate
     }
-
+    
 }

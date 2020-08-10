@@ -10,8 +10,7 @@ import UIKit
 import FSCalendar
 class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource {
 
-    @IBOutlet weak var dateSelectCalendar: FSCalendar!
-    
+    @IBOutlet weak var dateSelectCalendar: FSCalendar!    
     @IBOutlet weak var cancelButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,22 +25,15 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         dateSelectCalendar.calendarWeekdayView.weekdayLabels[6].text = "土"
         
         cancelButton.addTarget(self, action: #selector(tabCancelButton(_:)), for: .touchUpInside)
-        // Do any additional setup after loading the view.
-
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         //選択した日付を取得
         let selectDay = date
-        print(getDay(selectDay))
-        
+        print("DEBUG:\(getDay(selectDay))")
         //ページを閉じる
         let preVC = self.presentingViewController as! PostViewController
-//        let preNC = self.navigationController?.presentingViewController  as! UINavigationController
-//        let preVC = preNC.viewControllers[preNC.viewControllers.count - 1] as! PostViewController
-        //        preVC.backgroundColor = .blue
         preVC.selectDate = selectDay
         self.dismiss(animated: true, completion:nil)
-        
     }
     //キャンセルボタン押下時
     @objc func tabCancelButton(_ sender :UIButton){
@@ -54,14 +46,4 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         let day = tmpCalendar.component(.day, from: date)
         return (year,month,day)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
