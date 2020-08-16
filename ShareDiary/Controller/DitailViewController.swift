@@ -43,6 +43,7 @@ class DitailViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         //いいねボタンのアクションを設定
         likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)

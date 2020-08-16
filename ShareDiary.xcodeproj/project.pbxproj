@@ -50,7 +50,7 @@
 		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
 		91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */; };
-		9110558624E9248600D1B796 /* AcountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110558524E9248600D1B796 /* AcountCreateViewController.swift */; };
+		9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110558524E9248600D1B796 /* AccountCreateViewController.swift */; };
 		9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */; };
 		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
 		919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */; };
@@ -103,7 +103,7 @@
 		3DE8129724B9981300E85957 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
 		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendar.swift; sourceTree = "<group>"; };
 		91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIDelegate.swift; sourceTree = "<group>"; };
-		9110558524E9248600D1B796 /* AcountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcountCreateViewController.swift; sourceTree = "<group>"; };
+		9110558524E9248600D1B796 /* AccountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreateViewController.swift; sourceTree = "<group>"; };
 		9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 				91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */,
 				3D7549D324A372A70062BEC8 /* DateSelectViewController.swift */,
 				3DA5F5F524038D6E00321D00 /* LoginViewController.swift */,
-				9110558524E9248600D1B796 /* AcountCreateViewController.swift */,
+				9110558524E9248600D1B796 /* AccountCreateViewController.swift */,
 				3D9BFE9623FEE8DB009893B1 /* CalendarViewController.swift */,
 				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
 				3D9BFE9A23FEE95C009893B1 /* FriendSearchViewController.swift */,
@@ -382,7 +382,7 @@
 				3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */,
 				3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */,
 				3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */,
-				9110558624E9248600D1B796 /* AcountCreateViewController.swift in Sources */,
+				9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */,
 				3DA5083524B1C61500FE1148 /* CommentData.swift in Sources */,
 				3D9BFE9B23FEE95C009893B1 /* FriendSearchViewController.swift in Sources */,
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,

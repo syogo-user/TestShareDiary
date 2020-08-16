@@ -15,13 +15,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
 //    @IBOutlet weak var nickNameTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var createAcountButton: UIButton!
+    @IBOutlet weak var createAccountButton: UIButton!
     
     @IBOutlet weak var backImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginButton.layer.cornerRadius = 15
-        self.createAcountButton.layer.cornerRadius = 15
+        self.createAccountButton.layer.cornerRadius = 15
         self.backImage.image = UIImage(named: "yozora")
         self.backImage.contentMode = .scaleAspectFill
         
@@ -35,6 +35,9 @@ class LoginViewController: UIViewController {
         self.passwordTextField.layer.borderWidth = 0.1
         self.passwordTextField.layer.borderColor = UIColor.white.cgColor
         self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "パスワード", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
     }
     @IBAction func handleLoginButton(_ sender: Any) {
         if let address = mailAddressTextField.text, let password = passwordTextField.text {
@@ -62,13 +65,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func handleCreateAccountButton(_ sender: Any) {
         //アカウント作成画面に遷移
-        let acountCreateViewController = self.storyboard?.instantiateViewController(withIdentifier: "AcountCreateViewController") as! AcountCreateViewController
+        let accountCreateViewController = self.storyboard?.instantiateViewController(withIdentifier: "AcountCreateViewController") as! AccountCreateViewController
 
-        acountCreateViewController.mailAddress = self.mailAddressTextField.text ?? ""
-        acountCreateViewController.password = self.passwordTextField.text ?? ""
-
-            
-
-        self.present(acountCreateViewController, animated: true, completion: nil)
+        accountCreateViewController.mailAddress = self.mailAddressTextField.text ?? ""
+        accountCreateViewController.password = self.passwordTextField.text ?? ""
+        accountCreateViewController.modalPresentationStyle = .fullScreen
+        self.present(accountCreateViewController, animated: true, completion: nil)
+    }
+    @objc private func dismissKeyboard(){
+        self.view.endEditing(true)
     }
 }

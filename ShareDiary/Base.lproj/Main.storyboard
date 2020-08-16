@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="-3599" y="1507"/>
         </scene>
-        <!--カレンダー-->
+        <!--Myダイアリー-->
         <scene sceneID="Unq-rT-jrf">
             <objects>
                 <viewController storyboardIdentifier="Calendar" id="umt-0P-3cM" customClass="CalendarViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
@@ -74,7 +74,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NQC-XV-lvh"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="カレンダー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
+                    <tabBarItem key="tabBarItem" title="Myダイアリー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
                     <connections>
                         <outlet property="calendar" destination="En2-qG-0Kn" id="ucS-Pb-tMK"/>
                     </connections>
@@ -1130,7 +1130,7 @@
                     </view>
                     <connections>
                         <outlet property="backImage" destination="gjl-Z4-Mjo" id="7ug-pg-ld3"/>
-                        <outlet property="createAcountButton" destination="BSN-9Z-U4H" id="t0m-2a-E7r"/>
+                        <outlet property="createAccountButton" destination="BSN-9Z-U4H" id="t0m-2a-E7r"/>
                         <outlet property="loginButton" destination="YUr-eT-Qcv" id="WAm-ph-xyB"/>
                         <outlet property="mailAddressTextField" destination="v3x-pz-YGg" id="GPj-Io-iH4"/>
                         <outlet property="passwordTextField" destination="orK-8T-YLK" id="Dp7-93-GOM"/>
@@ -1140,10 +1140,10 @@
             </objects>
             <point key="canvasLocation" x="927.536231884058" y="87.723214285714278"/>
         </scene>
-        <!--Acount Create View Controller-->
+        <!--Account Create View Controller-->
         <scene sceneID="O8M-lg-ESC">
             <objects>
-                <viewController storyboardIdentifier="AcountCreateViewController" id="Mnm-4e-aLs" customClass="AcountCreateViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AcountCreateViewController" id="Mnm-4e-aLs" customClass="AccountCreateViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pPq-wN-UiU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1176,8 +1176,8 @@
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLN-CP-4hh">
-                                <rect key="frame" x="57" y="416" width="77" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="57" y="416" width="82" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="キャンセル">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1200,11 +1200,11 @@
                             <constraint firstItem="9l5-Oi-dlS" firstAttribute="top" secondItem="pPq-wN-UiU" secondAttribute="top" id="FKh-H5-rZF"/>
                             <constraint firstItem="NGy-EL-Dkb" firstAttribute="trailing" secondItem="iJY-qD-8GA" secondAttribute="trailing" id="HHk-Kb-jWA"/>
                             <constraint firstAttribute="bottom" secondItem="9l5-Oi-dlS" secondAttribute="bottom" id="Mio-x4-aus"/>
-                            <constraint firstItem="nLN-CP-4hh" firstAttribute="top" secondItem="dfv-UY-IYK" secondAttribute="bottom" constant="30" id="Qza-gK-fIZ"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="leading" secondItem="iJY-qD-8GA" secondAttribute="leading" id="RZ7-Kj-3aK"/>
                             <constraint firstItem="5tg-LI-Fwt" firstAttribute="centerX" secondItem="pPq-wN-UiU" secondAttribute="centerX" id="YYb-f1-Ojh"/>
                             <constraint firstItem="iJY-qD-8GA" firstAttribute="centerX" secondItem="pPq-wN-UiU" secondAttribute="centerX" id="fBM-R9-Q1t"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="centerX" secondItem="pPq-wN-UiU" secondAttribute="centerX" id="g2g-bl-s0O"/>
+                            <constraint firstItem="NGy-EL-Dkb" firstAttribute="top" secondItem="nLN-CP-4hh" secondAttribute="top" id="pvx-2v-dgZ"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="top" secondItem="5tg-LI-Fwt" secondAttribute="bottom" constant="20" id="qJG-Rz-dKv"/>
                             <constraint firstItem="5tg-LI-Fwt" firstAttribute="leading" secondItem="iJY-qD-8GA" secondAttribute="leading" id="v4z-sZ-tCq"/>
                             <constraint firstItem="NGy-EL-Dkb" firstAttribute="top" secondItem="dfv-UY-IYK" secondAttribute="bottom" constant="30" id="xI7-fH-YF1"/>
@@ -1218,7 +1218,7 @@
                         <outlet property="backImage" destination="9l5-Oi-dlS" id="aX0-ph-rxZ"/>
                         <outlet property="cancelButton" destination="nLN-CP-4hh" id="iW4-yf-aly"/>
                         <outlet property="mailAddressTextField" destination="iJY-qD-8GA" id="6fY-DG-5Sl"/>
-                        <outlet property="newAcountCreateButton" destination="NGy-EL-Dkb" id="wq0-gQ-sr6"/>
+                        <outlet property="newAccountCreateButton" destination="NGy-EL-Dkb" id="wq0-gQ-sr6"/>
                         <outlet property="nickNameTextField" destination="dfv-UY-IYK" id="38i-We-jom"/>
                         <outlet property="passwordTextField" destination="5tg-LI-Fwt" id="tku-XN-Nyq"/>
                     </connections>
