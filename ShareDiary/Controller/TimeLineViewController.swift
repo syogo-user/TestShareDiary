@@ -15,7 +15,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     // 投稿データを格納する配列
     var postArray: [PostData] = []
     let refreshCtl = UIRefreshControl()
-    var previousUid = ""
     // Firestoreのリスナー
     var listener: ListenerRegistration!
     
@@ -36,17 +35,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         super.viewWillAppear(animated)
         if Auth.auth().currentUser != nil {
             guard let myUid = Auth.auth().currentUser?.uid else {return}
-            //前にログインしていたuidと変わっていたら
-            if  previousUid != myUid {
-                previousUid = myUid
-                //ログインユーザが変わっていたら
-                if listener != nil{
-                    listener.remove()
-                    listener = nil
-                    self.postArray = []
-                    self.tableView.reloadData()
-                }
-            }
             // ログイン済み
             //listenerがnilでないとき return
             guard listener == nil  else{return}

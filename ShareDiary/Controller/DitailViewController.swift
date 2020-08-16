@@ -37,6 +37,7 @@ class DitailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = Const.lightOrangeColor
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "CommentTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")

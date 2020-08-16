@@ -24,7 +24,7 @@ class CommentTableViewCell: UITableViewCell {
         partnerComment.layer.cornerRadius = 20
         userImageView.layer.cornerRadius = 25
         myComment.layer.cornerRadius = 20
-        self.backgroundColor = Const.darkColor
+        self.backgroundColor = Const.lightOrangeColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -97,7 +97,7 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     //画像の設定
-    private func setImage(userImageName:String?){        
+    private func setImage(userImageName:String?){
         if let userImageName = userImageName {
             let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
             //取得した画像の表示

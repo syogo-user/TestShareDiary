@@ -17,10 +17,24 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAcountButton: UIButton!
     
+    @IBOutlet weak var backImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.layer.cornerRadius = 15
         createAcountButton.layer.cornerRadius = 15
+        self.backImage.image = UIImage(named: "yozora")
+        self.backImage.contentMode = .scaleAspectFill
+        
+        //メールアドレス欄
+        mailAddressTextField.layer.cornerRadius = 15
+        mailAddressTextField.layer.borderWidth = 0.1
+        mailAddressTextField.layer.borderColor = UIColor.white.cgColor
+        mailAddressTextField.attributedPlaceholder = NSAttributedString(string: "メールアドレス", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        //パスワード欄
+        passwordTextField.layer.cornerRadius = 15
+        passwordTextField.layer.borderWidth = 0.1
+        passwordTextField.layer.borderColor = UIColor.white.cgColor
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "パスワード", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
     }
     @IBAction func handleLoginButton(_ sender: Any) {
         if let address = mailAddressTextField.text, let password = passwordTextField.text {

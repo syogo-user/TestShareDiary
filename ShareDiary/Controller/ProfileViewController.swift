@@ -186,7 +186,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
         loginViewController?.modalPresentationStyle = .fullScreen
         self.present(loginViewController!, animated: true, completion: nil)
-        // ログイン画面から戻ってきた時のためにホーム画面（index = 0）を選択している状態にしておく
+        // ログイン画面から戻ってきた時のためにタイムライン画面（index = 1）を選択している状態にしておく
+        tabBarController?.selectedIndex = 1
         tabBarController?.selectedIndex = 0
     }
     
