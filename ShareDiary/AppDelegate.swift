@@ -22,8 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let slideMenuController = SlideMenuController(mainViewController:tabBarController as UIViewController, leftMenuViewController: leftViewController)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
-        
         FirebaseApp.configure()
+        //スプラッシュ画面の時間を2秒に設定
+        sleep(2)
         return true
     }
     
