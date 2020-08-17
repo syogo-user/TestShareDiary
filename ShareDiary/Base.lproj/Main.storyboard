@@ -965,6 +965,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6z-9E-J0i">
+                                <rect key="frame" x="0.0" y="444" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Pnv-0L-GsT"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.15686274509803921" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -974,6 +984,8 @@
                             <constraint firstItem="LuK-iq-sh6" firstAttribute="trailing" secondItem="69l-Mc-ClK" secondAttribute="trailing" id="6mP-BC-vxw"/>
                             <constraint firstItem="LuK-iq-sh6" firstAttribute="trailing" secondItem="NTI-Eo-Doy" secondAttribute="trailing" id="At3-P7-w1P"/>
                             <constraint firstItem="dRb-3V-sBD" firstAttribute="leading" secondItem="i6S-qx-oCi" secondAttribute="trailing" constant="10" id="FwB-Cm-lu9"/>
+                            <constraint firstItem="i6z-9E-J0i" firstAttribute="top" secondItem="NTI-Eo-Doy" secondAttribute="bottom" id="Gn0-Qx-782"/>
+                            <constraint firstItem="i6z-9E-J0i" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="Hin-mq-wW8"/>
                             <constraint firstItem="K1B-OS-xly" firstAttribute="top" secondItem="NPp-qN-cBU" secondAttribute="bottom" constant="15" id="RnR-vB-Qz3"/>
                             <constraint firstItem="sPc-Nl-p0y" firstAttribute="top" secondItem="LuK-iq-sh6" secondAttribute="top" constant="250" id="htv-Xk-e2Y"/>
                             <constraint firstItem="69l-Mc-ClK" firstAttribute="top" secondItem="sPc-Nl-p0y" secondAttribute="bottom" id="jbY-IA-8Zn"/>
@@ -981,7 +993,9 @@
                             <constraint firstItem="i6S-qx-oCi" firstAttribute="leading" secondItem="K1B-OS-xly" secondAttribute="leading" id="m9K-Qe-kd9"/>
                             <constraint firstItem="sPc-Nl-p0y" firstAttribute="trailing" secondItem="LuK-iq-sh6" secondAttribute="trailing" id="n6a-KV-GdI"/>
                             <constraint firstItem="NTI-Eo-Doy" firstAttribute="top" secondItem="69l-Mc-ClK" secondAttribute="bottom" id="oUQ-xZ-B0a"/>
+                            <constraint firstItem="LuK-iq-sh6" firstAttribute="trailing" secondItem="i6z-9E-J0i" secondAttribute="trailing" id="pxc-43-Ti6"/>
                             <constraint firstItem="NTI-Eo-Doy" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="spA-gf-hqh"/>
+                            <constraint firstItem="i6z-9E-J0i" firstAttribute="centerX" secondItem="DZ6-WG-fRT" secondAttribute="centerX" id="tFf-sV-5Vq"/>
                             <constraint firstItem="NPp-qN-cBU" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" constant="40" id="vWO-A4-FDt"/>
                             <constraint firstItem="K1B-OS-xly" firstAttribute="leading" secondItem="NPp-qN-cBU" secondAttribute="leading" id="xkR-um-X9Z"/>
                             <constraint firstItem="sPc-Nl-p0y" firstAttribute="leading" secondItem="LuK-iq-sh6" secondAttribute="leading" id="zcy-9h-6IA"/>
@@ -992,6 +1006,7 @@
                         <outlet property="followLabel" destination="i6S-qx-oCi" id="vmM-aJ-P9h"/>
                         <outlet property="followerLabel" destination="dRb-3V-sBD" id="n4B-6t-8oZ"/>
                         <outlet property="imageView" destination="NPp-qN-cBU" id="pG3-Mm-9zF"/>
+                        <outlet property="logoutButton" destination="i6z-9E-J0i" id="e7G-cp-t7k"/>
                         <outlet property="userName" destination="K1B-OS-xly" id="a73-KH-F4Z"/>
                     </connections>
                 </viewController>

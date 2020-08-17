@@ -16,10 +16,12 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var followLabel: UILabel!
     @IBOutlet weak var followerLabel: UILabel!
 
+    @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.layer.cornerRadius  = 25
+        logoutButton.addTarget(self, action: #selector(tapLogoutButton(_:)), for: .touchUpInside)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -78,22 +80,22 @@ class LeftViewController: UIViewController {
         self.present(followRequestListTableViewController, animated: true, completion: nil)
     }
     
-//    @objc private func tapLogoutButton(_ sender :UIButton){
-////        //スライドメニューのクローズ
-////        closeLeft()
-////        // ログアウトする
-////        try! Auth.auth().signOut()
-////        // ログイン画面を表示する
-////        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-////        loginViewController?.modalPresentationStyle = .fullScreen
-////        self.present(loginViewController!, animated: true, completion: nil)
-////
-////        //listener削除用にタイムライン画面を一度選択する
-////        tabBarController?.selectedIndex = 1
-////        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
-////        tabBarController?.selectedIndex = 0
-//        
-//    }
+    @objc private func tapLogoutButton(_ sender :UIButton){
+        //スライドメニューのクローズ
+        closeLeft()
+        // ログアウトする
+        try! Auth.auth().signOut()
+        // ログイン画面を表示する
+        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+        loginViewController?.modalPresentationStyle = .fullScreen
+        self.present(loginViewController!, animated: true, completion: nil)
+
+        //listener削除用にタイムライン画面を一度選択する
+        tabBarController?.selectedIndex = 1
+        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
+        tabBarController?.selectedIndex = 0
+        
+    }
     
     
 }
