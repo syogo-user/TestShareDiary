@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var nickNameTextField: UILabel!
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var profileMessage: UITextView!
-    @IBOutlet weak var logoutButton: UIButton!
+//    @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var imageChoiceButton: UIButton!
     @IBOutlet weak var changeProfileButton: UIButton!
     @IBOutlet weak var follow: UILabel!
@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     override func viewDidLoad() {
         super.viewDidLoad()
         myImage.layer.cornerRadius = 125
-        logoutButton.layer.cornerRadius = 15
+//        logoutButton.layer.cornerRadius = 15
         profileMessage.layer.cornerRadius = 15
         changeProfileButton.addTarget(self, action: #selector(changeProfile), for: .touchUpInside)
         changeProfileButton.layer.cornerRadius = 15
