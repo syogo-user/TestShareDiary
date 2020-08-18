@@ -89,12 +89,18 @@ class LeftViewController: UIViewController {
         let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
         loginViewController?.modalPresentationStyle = .fullScreen
         self.present(loginViewController!, animated: true, completion: nil)
-
-        //listener削除用にタイムライン画面を一度選択する
-        tabBarController?.selectedIndex = 1
-        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
-        tabBarController?.selectedIndex = 0
         
+        
+        //タブバーを取得する
+        let slideViewController = parent as! SlideViewController
+        let navigationController = slideViewController.mainViewController as! UINavigationController
+        let tabBarController = navigationController.topViewController as! TabBarController
+        //listener削除用にタイムライン画面を一度選択する
+//        tabBarController?.selectedIndex = 1
+        tabBarController.selectedIndex = 1
+        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
+//        tabBarController?.selectedIndex = 0
+        tabBarController.selectedIndex = 0
     }
     
     

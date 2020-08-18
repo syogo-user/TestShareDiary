@@ -644,17 +644,6 @@
                                     <constraint firstAttribute="height" constant="250" id="gFW-S1-It3"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCn-79-QF6">
-                                <rect key="frame" x="57" y="639" width="300" height="34"/>
-                                <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="dHN-Z6-5Es"/>
-                                </constraints>
-                                <state key="normal" title="ログアウト"/>
-                                <connections>
-                                    <action selector="handleLogout:" destination="jnq-S4-WMj" eventType="touchUpInside" id="zYS-GI-OTv"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="ひとこと" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOW-fe-XUc">
                                 <rect key="frame" x="57" y="439" width="300" height="170"/>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.15686274509803921" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -712,8 +701,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1176470588" green="0.15686274510000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="DCn-79-QF6" firstAttribute="leading" secondItem="5IL-zW-5Ms" secondAttribute="leading" constant="57" id="2rW-GV-jJ5"/>
-                            <constraint firstItem="DCn-79-QF6" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="5QN-Pz-a2h"/>
                             <constraint firstItem="cOW-fe-XUc" firstAttribute="trailing" secondItem="OIc-w6-paP" secondAttribute="trailing" id="DmE-jI-KQI"/>
                             <constraint firstItem="y8l-EX-Yot" firstAttribute="bottom" secondItem="mNU-YC-5v4" secondAttribute="bottom" constant="-10" id="HTS-3x-aUe"/>
                             <constraint firstItem="mNU-YC-5v4" firstAttribute="top" secondItem="5IL-zW-5Ms" secondAttribute="top" id="HhS-ki-KCd"/>
@@ -726,7 +713,6 @@
                             <constraint firstItem="y8l-EX-Yot" firstAttribute="trailing" secondItem="mNU-YC-5v4" secondAttribute="trailing" constant="-10" id="eXq-1Q-vKu"/>
                             <constraint firstItem="hG0-5e-wNp" firstAttribute="top" secondItem="OIc-w6-paP" secondAttribute="bottom" constant="20" id="jAv-xi-kAH"/>
                             <constraint firstItem="9Kg-NE-nLa" firstAttribute="trailing" secondItem="cOW-fe-XUc" secondAttribute="trailing" id="oDt-DW-LEi"/>
-                            <constraint firstItem="DCn-79-QF6" firstAttribute="top" secondItem="cOW-fe-XUc" secondAttribute="bottom" constant="30" id="s6M-am-e39"/>
                             <constraint firstItem="9Kg-NE-nLa" firstAttribute="trailing" secondItem="rF0-AG-0MX" secondAttribute="trailing" id="sSx-zc-6Mh"/>
                             <constraint firstItem="mNU-YC-5v4" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="w4n-dm-ABj"/>
                             <constraint firstItem="OIc-w6-paP" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="z5F-Gz-qR4"/>
@@ -739,7 +725,6 @@
                         <outlet property="follow" destination="hG0-5e-wNp" id="FQV-Jt-pUT"/>
                         <outlet property="follower" destination="rF0-AG-0MX" id="2Yn-tc-5y6"/>
                         <outlet property="imageChoiceButton" destination="y8l-EX-Yot" id="Pdn-EO-1LZ"/>
-                        <outlet property="logoutButton" destination="DCn-79-QF6" id="zUN-GI-Ec0"/>
                         <outlet property="myImage" destination="mNU-YC-5v4" id="gIz-6T-PvS"/>
                         <outlet property="nickNameTextField" destination="OIc-w6-paP" id="cgg-PN-U9w"/>
                         <outlet property="profileMessage" destination="cOW-fe-XUc" id="TdL-At-EJx"/>
