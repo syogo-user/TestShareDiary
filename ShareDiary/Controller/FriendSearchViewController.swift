@@ -124,6 +124,8 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         // 配列からタップされたインデックスのデータを取り出す
         let userData = userPostArray[indexPath.row]
         profileViewController.userData = userData
+        //選択後の色をすぐにもとに戻す
+        tableView.deselectRow(at: indexPath, animated: true)
         self.navigationController?.pushViewController(profileViewController, animated: true)
         
     }

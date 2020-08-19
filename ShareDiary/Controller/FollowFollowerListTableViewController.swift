@@ -66,6 +66,9 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
         let userData = userPostArray[indexPath.row]
         profileViewController.userData = userData
         profileViewController.modalPresentationStyle = .fullScreen
+        //選択後の色をすぐにもとに戻す
+        tableView.deselectRow(at: indexPath, animated: true)
+        //画面遷移
         self.present(profileViewController, animated: true, completion: nil)
     }
     
