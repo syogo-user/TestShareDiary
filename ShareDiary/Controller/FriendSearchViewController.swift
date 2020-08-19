@@ -40,9 +40,14 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
-        
+                
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
-        self.view.addGestureRecognizer(tapGesture)
+        //recognizerによってCellの選択ができなくなってしまうのを防ぐためにcancelsTouchesInViewを設定
+        //falseでタップを認識するようになる
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture)
+
+
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +119,13 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     //各セルを選択した時に実行されるメソッド
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath ){
+        //プロフィール画面に遷移する
+        let profileViewController = self.storyboard?.instantiateViewController(identifier: "Profile") as! ProfileViewController
+        // 配列からタップされたインデックスのデータを取り出す
+        let userData = userPostArray[indexPath.row]
+        profileViewController.userData = userData
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+        
     }
     //セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {

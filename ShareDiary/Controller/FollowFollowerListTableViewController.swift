@@ -60,7 +60,13 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     }
     //各セルを選択した時に実行されるメソッド
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath ){
-        
+        //プロフィール画面に遷移する
+        let profileViewController = self.storyboard?.instantiateViewController(identifier: "Profile") as! ProfileViewController
+        // 配列からタップされたインデックスのデータを取り出す
+        let userData = userPostArray[indexPath.row]
+        profileViewController.userData = userData
+        profileViewController.modalPresentationStyle = .fullScreen
+        self.present(profileViewController, animated: true, completion: nil)
     }
     
     //セルが削除が可能なことを伝えるメソッド

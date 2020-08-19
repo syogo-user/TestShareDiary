@@ -21,6 +21,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var changeProfileButton: UIButton!
     @IBOutlet weak var follow: UILabel!
     @IBOutlet weak var follower: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    
+    //画面遷移によってプロフィール画面を表示した場合に使用する変数
+    var userData :UserPostData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +35,45 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         changeProfileButton.layer.cornerRadius = 15
         self.view.backgroundColor = Const.darkColor
         imageChoiceButton.layer.cornerRadius = 15
+        closeButton.addTarget(self, action: #selector(closeProfile), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //この画面にはフォロー・フォロワー画面、検索画面、プロフィールタブからの画面遷移がある
         super.viewWillAppear(animated)
         self.nickNameTextField.text = ""
         self.profileMessage.text = ""
         self.follow.text = "フォロー："
         self.follower.text = "フォロワー："
+                
+        //戻るボタンの戻るの文字を削除　クローズボタンの表示・非表示
+        if let nav = navigationController {
+            //検索画面からプッシュ遷移（ナビゲーションがある＝プッシュ遷移）
+            nav.navigationBar.topItem!.title = ""
+            closeButton.isHidden = true
+        } else {
+            //フォロー・フォロワーのリストからモーダル(ナビゲーションがnil=モーダル遷移)
+            closeButton.isHidden = false
+        }
         
         guard  let myUid = Auth.auth().currentUser?.uid else { return}
-        //firebaseから自分のユーザ情報の取得
-        let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+        var uid :String
+        if self.userData?.uid == myUid || self.userData == nil{
+            //自分のプロフィールを表示
+            //変更ボタンと写真の追加ボタンを表示にする
+            imageChoiceButton.isHidden = false
+            changeProfileButton.isHidden = false
+            uid = myUid
+        }else {
+            //自分以外のプロフィールを表示
+            //変更ボタンと写真の追加ボタンを非表示にする
+            imageChoiceButton.isHidden = true
+            changeProfileButton.isHidden = true
+            guard let otherUid  = self.userData?.uid else {return}
+            uid = otherUid
+        }
+        //自分もしくは自分以外の人のユーザ情報を取得
+        let postUserRef = Firestore.firestore().collection(Const.users).document(uid)
         postUserRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
@@ -70,6 +101,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                 }
             }
         }
+        
+
     }
     
     @IBAction func imageChoiceAction(_ sender: Any) {
@@ -188,6 +221,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    @objc func closeProfile(){
+        //画面を閉じる
+        dismiss(animated: true, completion: nil)
     }
     
     
