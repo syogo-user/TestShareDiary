@@ -58,6 +58,10 @@ class AccountCreateViewController: UIViewController {
         //キーボードを閉じるための処理
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
+        
+        //ボタンの押下時の文字色
+        newAccountCreateButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        cancelButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
     }
     //新規作成ボタン押下時
     @objc private func tapNewAccountCreateButton(_ sender:UIButton){

@@ -21,6 +21,32 @@ class FollowFollowerListTableViewCell: UITableViewCell {
         rejectedButton.setTitleColor(UIColor.white ,for: .highlighted)
         rejectedButton.layer.cornerRadius = 15
         userImage.layer.cornerRadius = 30
+        //セルをタップ時、ラベルが重なっているため、ラベルが反応しないように設定
+        profileMessage.isUserInteractionEnabled=false
+        
+        //ボタンの設定
+        buttonSet()
+    }
+    //ボタンの設定
+    private func buttonSet(){
+        //文字色
+        rejectedButton.setTitleColor(UIColor.white, for: .normal)
+        rejectedButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        // 角丸
+        rejectedButton.layer.cornerRadius = rejectedButton.bounds.midY
+        //影
+        rejectedButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        rejectedButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        rejectedButton.layer.shadowOpacity = 0.2
+        rejectedButton.layer.shadowRadius = 10
+        // グラデーション
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = rejectedButton.bounds
+        gradientLayer.cornerRadius = rejectedButton.bounds.midY
+        gradientLayer.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        rejectedButton.layer.insertSublayer(gradientLayer, at: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

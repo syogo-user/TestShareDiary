@@ -38,6 +38,10 @@ class LoginViewController: UIViewController {
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
+        
+        //ボタンの押下時の文字色
+        loginButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        createAccountButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
     }
     @IBAction func handleLoginButton(_ sender: Any) {
         if let address = mailAddressTextField.text, let password = passwordTextField.text {

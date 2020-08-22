@@ -21,13 +21,21 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.delegate = self
         self.calendar.backgroundColor = Const.darkColor
         self.view.backgroundColor = Const.darkColor
-        calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
-        calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
-        calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
-        calendar.calendarWeekdayView.weekdayLabels[3].text = "水"
-        calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
-        calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
-        calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        self.calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
+        self.calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
+        self.calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
+        self.calendar.calendarWeekdayView.weekdayLabels[3].text = "水"
+        self.calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
+        self.calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
+        self.calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        
+        self.calendar.calendarWeekdayView.weekdayLabels[0].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[1].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[2].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[3].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.orange
+        self.calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.orange
     }
     
     override func viewWillAppear(_ animated: Bool) {

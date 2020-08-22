@@ -18,10 +18,33 @@ class UsersTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //タップした瞬間の文字色変更
-        followRequestButton.setTitleColor(UIColor.white ,for: .highlighted)
         userImage.layer.cornerRadius = 30
-        followRequestButton.layer.cornerRadius = 15
+//        followRequestButton.layer.cornerRadius = 15
+        //セルをタップ時、ラベルが重なっているため、ラベルが反応しないように設定
+        profileMessage.isUserInteractionEnabled=false
+        //ボタンの設定
+        buttonSet()
+    }
+    
+    private func buttonSet(){
+        //文字色
+        followRequestButton.setTitleColor(UIColor.white, for: .normal)
+        followRequestButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        // 角丸
+        followRequestButton.layer.cornerRadius = followRequestButton.bounds.midY
+        //影
+        followRequestButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        followRequestButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        followRequestButton.layer.shadowOpacity = 0.2
+        followRequestButton.layer.shadowRadius = 10
+        // グラデーション
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = followRequestButton.bounds
+        gradientLayer.cornerRadius = followRequestButton.bounds.midY
+        gradientLayer.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        followRequestButton.layer.insertSublayer(gradientLayer, at: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

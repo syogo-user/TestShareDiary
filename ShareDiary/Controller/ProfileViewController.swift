@@ -36,7 +36,47 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         self.view.backgroundColor = Const.darkColor
         imageChoiceButton.layer.cornerRadius = 15
         closeButton.addTarget(self, action: #selector(closeProfile), for: .touchUpInside)
+        //ボタンの設定
+        buttonSet()
     }
+    
+    //ボタンの設定
+    private func buttonSet(){
+        //文字色
+        imageChoiceButton.setTitleColor(UIColor.white, for: .normal)
+        imageChoiceButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        changeProfileButton.setTitleColor(UIColor.white, for: .normal)
+        changeProfileButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        // 角丸
+        imageChoiceButton.layer.cornerRadius = changeProfileButton.bounds.midY
+        changeProfileButton.layer.cornerRadius = changeProfileButton.bounds.midY
+        //影
+        imageChoiceButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        imageChoiceButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        imageChoiceButton.layer.shadowOpacity = 0.2
+        imageChoiceButton.layer.shadowRadius = 10
+        changeProfileButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        changeProfileButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        changeProfileButton.layer.shadowOpacity = 0.2
+        changeProfileButton.layer.shadowRadius = 10
+        // グラデーション
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = imageChoiceButton.bounds
+        gradientLayer.cornerRadius = imageChoiceButton.bounds.midY
+        gradientLayer.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        imageChoiceButton.layer.insertSublayer(gradientLayer, at: 0)
+        
+        let gradientLayer2 = CAGradientLayer()
+        gradientLayer2.frame = changeProfileButton.bounds
+        gradientLayer2.cornerRadius = changeProfileButton.bounds.midY
+        gradientLayer2.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
+        gradientLayer2.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer2.endPoint = CGPoint(x: 1, y: 1)
+        changeProfileButton.layer.insertSublayer(gradientLayer2, at: 0)
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         //この画面にはフォロー・フォロワー画面、検索画面、プロフィールタブからの画面遷移がある
@@ -139,6 +179,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         var myImageName = ""
         //imageNumber取得
         let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+
         postUserRef.getDocument{(querySnapshot,error) in
             if let error = error {
                 print("imageNumberの取得に失敗しました。\(error)")
@@ -157,7 +198,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             
             //写真を保存し表示する
             self.saveImageFirebase(myImageNumber:myImageNumber, myImageName:myImageName, image:image, myUid:myUid,oldImageName:oldImageName)
-            
+ 
         }
         
     }
@@ -179,6 +220,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
+        //HUDで処理中を表示
+        SVProgressHUD.show()
         imageRef.putData(imageData,metadata: metadata){ (metadata,error) in
             if error != nil {
                 SVProgressHUD.showError(withStatus: "画像のアップロードが失敗しました")
@@ -194,6 +237,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                 SDWebImageActivityIndicator.gray
             self.myImage.sd_setImage(with: imageRef)
             
+            //HUDを消す
+             SVProgressHUD.dismiss()
             //変更前の写真データを削除する
             self.imageDelete(oldImageName:oldImageName)
         }
