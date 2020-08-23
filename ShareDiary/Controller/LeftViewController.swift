@@ -79,8 +79,22 @@ class LeftViewController: UIViewController {
         let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestList") as! FollowRequestListTableViewController
         self.present(followRequestListTableViewController, animated: true, completion: nil)
     }
-    
+    //ログアウトボタンが押された時
     @objc private func tapLogoutButton(_ sender :UIButton){
+        
+        //ダイアログ表示
+        let dialog = UIAlertController(title: "ログアウトしますか？", message: nil, preferredStyle: .alert)
+        //OKボタン
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.logout()
+        }))
+        //キャンセルボタン
+        dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: { action in
+        }))
+        self.present(dialog,animated: true,completion: nil)
+
+    }
+    private func logout(){
         //スライドメニューのクローズ
         closeLeft()
         // ログアウトする
@@ -96,10 +110,8 @@ class LeftViewController: UIViewController {
         let navigationController = slideViewController.mainViewController as! UINavigationController
         let tabBarController = navigationController.topViewController as! TabBarController
         //listener削除用にタイムライン画面を一度選択する
-//        tabBarController?.selectedIndex = 1
         tabBarController.selectedIndex = 1
         // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
-//        tabBarController?.selectedIndex = 0
         tabBarController.selectedIndex = 0
     }
     

@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcu-rY-IsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3599" y="1507"/>
+            <point key="canvasLocation" x="-3617" y="1507"/>
         </scene>
         <!--Myダイアリー-->
         <scene sceneID="Unq-rT-jrf">
@@ -34,40 +34,56 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="En2-qG-0Kn" customClass="FSCalendar">
                                 <rect key="frame" x="10" y="54" width="394" height="500"/>
                                 <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="B2h-bf-Zm1"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="yyyy年　MM月"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
                                         <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                         <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="headerTitleTextSize">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="eventDefaultColor">
+                                        <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTodayColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsSelection" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbK-ku-AtB">
-                                <rect key="frame" x="304" y="703.5" width="50" height="49"/>
+                                <rect key="frame" x="304" y="703" width="50" height="50"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ahN-sL-Gwh"/>
                                     <constraint firstAttribute="width" constant="50" id="hd9-hU-swb"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="wand.and.stars.inverse" catalog="system"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <state key="normal" title="+">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addButton:" destination="umt-0P-3cM" eventType="touchUpInside" id="zuD-rK-ngL"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -83,11 +99,12 @@
                     <tabBarItem key="tabBarItem" title="Myダイアリー" image="calendar.badge.plus" catalog="system" id="ygk-Su-Bfr"/>
                     <connections>
                         <outlet property="calendar" destination="En2-qG-0Kn" id="ucS-Pb-tMK"/>
+                        <outlet property="diaryAddButton" destination="bbK-ku-AtB" id="9sz-y4-Ek7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-Va-gB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-465.21739130434787" y="812.94642857142856"/>
+            <point key="canvasLocation" x="-577" y="813"/>
         </scene>
         <!--Fullsize Image View Controller-->
         <scene sceneID="3ml-Gb-Ogk">
@@ -119,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bh-pO-WxS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2751" y="1509"/>
+            <point key="canvasLocation" x="-2849" y="1507"/>
         </scene>
         <!--Date Select View Controller-->
         <scene sceneID="cx4-dt-sg1">
@@ -132,6 +149,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-hA-dRp" customClass="FSCalendar">
                                 <rect key="frame" x="40" y="194" width="334" height="518"/>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.15686274509803921" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="yyyy年　MM月"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
@@ -139,6 +157,22 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="eventDefaultColor">
+                                        <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsSelection" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -169,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fow-hb-ooz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2015" y="1510"/>
+            <point key="canvasLocation" x="-2087" y="1509"/>
         </scene>
         <!--My Diary From Calendar-->
         <scene sceneID="4dT-g1-rZh">
@@ -199,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HD5-g8-W27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1294" y="1507"/>
+            <point key="canvasLocation" x="-1320" y="1507"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="7OS-za-ftb">
@@ -286,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g5c-uz-za2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-462.31884057971018" y="1506.6964285714284"/>
+            <point key="canvasLocation" x="-578" y="1507"/>
         </scene>
         <!--Color Choice View Controller-->
         <scene sceneID="Tv3-9d-fwg">
@@ -344,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYn-pu-o7Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="1507"/>
+            <point key="canvasLocation" x="141" y="1507"/>
         </scene>
         <!--Ditail View Controller-->
         <scene sceneID="L4d-Aa-Fqd">
@@ -467,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ad9-al-wzi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="969.56521739130437" y="1508.7053571428571"/>
+            <point key="canvasLocation" x="886" y="1507"/>
         </scene>
         <!--Like User List Table View Controller-->
         <scene sceneID="bRg-jB-cMu">
@@ -523,7 +557,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ep4-gO-kyM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1777" y="1507"/>
+            <point key="canvasLocation" x="1599" y="1507"/>
         </scene>
         <!--Profile Edit View Controller-->
         <scene sceneID="hlQ-5g-bGH">
@@ -592,7 +626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uBi-71-2ed" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2444.9275362318845" y="1509.375"/>
+            <point key="canvasLocation" x="2364" y="1509"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="qxs-0r-5YK">
@@ -624,7 +658,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sk1-cU-VTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="813"/>
+            <point key="canvasLocation" x="142" y="813"/>
         </scene>
         <!--プロフィール-->
         <scene sceneID="s8C-zc-HKG">
@@ -650,12 +684,9 @@
                                     <constraint firstAttribute="height" constant="250" id="gFW-S1-It3"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="ひとこと" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOW-fe-XUc">
-                                <rect key="frame" x="57" y="439" width="300" height="170"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="ひとこと（公開用）" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOW-fe-XUc">
+                                <rect key="frame" x="57" y="439" width="300" height="354"/>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.15686274509803921" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="Spd-cb-Kwc"/>
-                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -727,6 +758,7 @@
                             <constraint firstItem="Y2q-AX-Xve" firstAttribute="leading" secondItem="5IL-zW-5Ms" secondAttribute="leading" constant="20" id="qhb-IW-ka9"/>
                             <constraint firstItem="9Kg-NE-nLa" firstAttribute="trailing" secondItem="rF0-AG-0MX" secondAttribute="trailing" id="sSx-zc-6Mh"/>
                             <constraint firstItem="mNU-YC-5v4" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="w4n-dm-ABj"/>
+                            <constraint firstItem="5IL-zW-5Ms" firstAttribute="bottom" secondItem="cOW-fe-XUc" secondAttribute="bottom" constant="20" id="wCz-iZ-smo"/>
                             <constraint firstItem="OIc-w6-paP" firstAttribute="centerX" secondItem="o77-xH-izw" secondAttribute="centerX" id="z5F-Gz-qR4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5IL-zW-5Ms"/>
@@ -745,7 +777,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pRe-UF-fhM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457.971014492754" y="812.94642857142856"/>
+            <point key="canvasLocation" x="1599" y="813"/>
         </scene>
         <!--Slide View Controller-->
         <scene sceneID="guw-kY-RR8">
@@ -760,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiH-zC-enk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3874" y="813"/>
+            <point key="canvasLocation" x="3133" y="813"/>
         </scene>
         <!--Follow Request List Table View Controller-->
         <scene sceneID="J71-LB-gov">
@@ -817,7 +849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEe-l7-aLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3190" y="1509"/>
+            <point key="canvasLocation" x="3132" y="1509"/>
         </scene>
         <!--Follow Follower List Table View Controller-->
         <scene sceneID="rOD-lG-XGB">
@@ -875,7 +907,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWN-td-6bS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3874" y="1509"/>
+            <point key="canvasLocation" x="3887" y="1509"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="W7m-hz-8Lj">
@@ -1010,7 +1042,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rd4-YS-gxk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3189.8550724637685" y="812.94642857142856"/>
+            <point key="canvasLocation" x="2365" y="813"/>
         </scene>
         <!--検索-->
         <scene sceneID="8Le-BH-ND5">
@@ -1042,7 +1074,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbb-Lm-wnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776.8115942028987" y="812.94642857142856"/>
+            <point key="canvasLocation" x="886" y="813"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aLt-q3-KS0">
@@ -1065,7 +1097,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41V-MT-7hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="87"/>
+            <point key="canvasLocation" x="141" y="92"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="ROU-CK-wE8">
@@ -1151,7 +1183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n5t-gz-CNl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="927.536231884058" y="87.723214285714278"/>
+            <point key="canvasLocation" x="868" y="92"/>
         </scene>
         <!--Account Create View Controller-->
         <scene sceneID="O8M-lg-ESC">
@@ -1238,7 +1270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRr-XE-qBH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1717.3913043478262" y="91.741071428571431"/>
+            <point key="canvasLocation" x="1599" y="92"/>
         </scene>
     </scenes>
     <resources>
@@ -1248,6 +1280,5 @@
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="paperplane" catalog="system" width="64" height="60"/>
         <image name="person" catalog="system" width="64" height="58"/>
-        <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>
     </resources>
 </document>

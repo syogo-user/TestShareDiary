@@ -5,6 +5,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - CalculateCalendarLogic (0.3.0)
   - CLImageEditor/AllTools (0.2.4):
     - CLImageEditor/Core
     - CLImageEditor/EmoticonTool
@@ -208,6 +209,7 @@ PODS:
   - SwiftyGif (5.3.0)
 
 DEPENDENCIES:
+  - CalculateCalendarLogic
   - CLImageEditor/AllTools (= 0.2.4)
   - CropViewController (= 2.5.3)
   - DKImagePickerController
@@ -224,6 +226,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - BoringSSL-GRPC
+    - CalculateCalendarLogic
     - CLImageEditor
     - CropViewController
     - DKCamera
@@ -259,6 +262,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  CalculateCalendarLogic: cd5b2c706a8628bb924c5ee9d05c4f61bdbaf390
   CLImageEditor: dc3e5358f641368da3a76fc1c744a4c2ceb270ad
   CropViewController: a5c143548a0fabcd6cc25f2d26e40460cfb8c78c
   DKCamera: a902b66921fca14b7a75266feb8c7568aa7caa71
@@ -292,6 +296,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
 
-PODFILE CHECKSUM: b63a8fe88c92030db04ba1ee910cc1f790cb25fb
+PODFILE CHECKSUM: 9030f5f5f8674a626a8335cc05f874d7831d967a
 
 COCOAPODS: 1.9.3

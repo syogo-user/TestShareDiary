@@ -18,6 +18,7 @@ target 'ShareDiary' do
   pod 'CLImageEditor/AllTools','0.2.4'
   pod 'CropViewController','2.5.3'
   pod 'DKImagePickerController'
+  pod 'CalculateCalendarLogic'
 end
 swift4 = ['SlideMenuControllerSwift']
 post_install do |installer|

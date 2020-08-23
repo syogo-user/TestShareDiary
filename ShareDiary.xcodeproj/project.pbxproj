@@ -49,6 +49,7 @@
 		3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8129724B9981300E85957 /* UIColorExtention.swift */; };
 		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
+		77BE8041803A71A746E1929D /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */; };
 		91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */; };
 		9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110558524E9248600D1B796 /* AccountCreateViewController.swift */; };
 		9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */; };
@@ -109,6 +110,7 @@
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
 		91F46CFB24E2E38000155CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60724E31802F5BBE9FF9228 /* Pods-ShareDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDiary.debug.xcconfig"; path = "Target Support Files/Pods-ShareDiary/Pods-ShareDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */,
+				77BE8041803A71A746E1929D /* Pods_ShareDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +142,7 @@
 				3D9BFE8123FEE75F009893B1 /* ShareDiary */,
 				3D9BFE8023FEE75F009893B1 /* Products */,
 				1F37A0A2487ACF5D8F3D0236 /* Pods */,
+				6F1739C2B3265CFC306A1E8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,6 +249,14 @@
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		6F1739C2B3265CFC306A1E8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
