@@ -21,6 +21,8 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
     //キャンセルボタン
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     var backgroundColorArrayIndex = 0
     //入力している文字の色
     var typeingColor = UIColor.black
@@ -31,6 +33,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         super.viewDidLoad()
         selectDate = Date()
         typeingColor = inputTextView.tintColor
+
         //キーボード表示
         self.inputTextView.becomeFirstResponder()
         //ツールバーのインスタンスを作成
@@ -58,6 +61,8 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             postButton.isEnabled = false
         }
         print("DEBUG:",backgroundColorArrayIndex)
+        //選択された日付をラベルに表示(初期表示は本日)
+        dateLabel.text = dateFormat(date:selectDate)
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         //遷移前の画面から受け取ったIndexで色を決定する
@@ -475,9 +480,10 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         var strDate:String = ""
         if let day = date {
             let format  = DateFormatter()
-            format.locale = Locale(identifier: "ja_JP")
-            format.dateStyle = .short
-            format.timeStyle = .none
+            format.dateFormat = "yyyy年MM月dd日"
+//            format.locale = Locale(identifier: "ja_JP")
+//            format.dateStyle = .short
+//            format.timeStyle = .none
             strDate = format.string(from:day)
         }
         return strDate

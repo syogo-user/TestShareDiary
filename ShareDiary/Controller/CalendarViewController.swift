@@ -171,9 +171,10 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         
         if let day = date {
             let format  = DateFormatter()
-            format.locale = Locale(identifier: "ja_JP")
-            format.dateStyle = .short
-            format.timeStyle = .none
+            format.dateFormat = "yyyy年MM月dd日"
+//            format.locale = Locale(identifier: "ja_JP")
+//            format.dateStyle = .short
+//            format.timeStyle = .none
             strDate = format.string(from:day)
         }
         return strDate

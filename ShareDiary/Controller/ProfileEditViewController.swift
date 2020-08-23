@@ -22,6 +22,10 @@ class ProfileEditViewController: UIViewController {
         navigationController!.navigationBar.topItem!.title = ""
         let rightFooBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveButtonTap))
         self.navigationItem.setRightBarButtonItems([rightFooBarButtonItem], animated: true)
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +100,8 @@ class ProfileEditViewController: UIViewController {
         //古いユーザ名のものをまとめて更新したい
 //        docRef.updateData(docData)
     }
-    
+    @objc private func dismissKeyboard(){
+        self.view.endEditing(true)
+    }
     
 }

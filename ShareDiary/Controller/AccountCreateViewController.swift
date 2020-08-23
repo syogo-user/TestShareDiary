@@ -49,7 +49,7 @@ class AccountCreateViewController: UIViewController {
         self.nickNameTextField.layer.cornerRadius = 15
         self.nickNameTextField.layer.borderWidth = 0.1
         self.nickNameTextField.layer.borderColor = UIColor.white.cgColor
-        self.nickNameTextField.attributedPlaceholder = NSAttributedString(string: "ニックネーム", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        self.nickNameTextField.attributedPlaceholder = NSAttributedString(string: "ニックネーム(10文字まで)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         //新規作成ボタン
         newAccountCreateButton.addTarget(self, action:#selector(tapNewAccountCreateButton(_ :)), for: .touchUpInside)
         //キャンセルボタン
