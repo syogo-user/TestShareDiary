@@ -211,6 +211,7 @@
 				3D9BFE9823FEE935009893B1 /* TimeLineViewController.swift */,
 				3D9BFE9A23FEE95C009893B1 /* FriendSearchViewController.swift */,
 				3D9BFE9C23FEE976009893B1 /* ProfileViewController.swift */,
+				3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */,
 				3D544A9524057470007793AC /* PostViewController.swift */,
 				3D46768D2462A52500C60EB1 /* SlideViewController.swift */,
 				3D46768F2462A6A500C60EB1 /* LeftViewController.swift */,
@@ -221,7 +222,6 @@
 				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
 				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
 				3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */,
-				3DB165DE24BB21BF00E9AC7A /* ProfileEditViewController.swift */,
 				919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */,
 				9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */,
 			);

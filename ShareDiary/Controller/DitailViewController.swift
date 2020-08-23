@@ -653,10 +653,10 @@ extension DitailViewController :InputTextViewDelegate{
         
         Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").document(messageId).setData(docData) {(err) in
             if let err = err {
-                print("メッセージ情報の保存に失敗しました。\(err)")
+                print("DEBUG: メッセージ情報の保存に失敗しました。\(err)")
                 return
             }
-            print("コメントメッセージの保存に成功しました")
+            print("DEBUG: コメントメッセージの保存に成功しました")
             
         }
         

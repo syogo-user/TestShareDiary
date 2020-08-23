@@ -43,9 +43,11 @@ class ProfileEditViewController: UIViewController {
             }
         }
     }
-    
+    //保存ボタン押下時
     @objc private func saveButtonTap(){
         guard let myUid = Auth.auth().currentUser?.uid else {return}
+        //変更前のユーザ名を保持しておく
+        guard let oldName = Auth.auth().currentUser?.displayName else {return}
         //名前が空の場合
         if self.userName.text ?? "" == "" {
             let dialog = UIAlertController(title: "名前が空です", message: nil, preferredStyle: .actionSheet)
@@ -76,12 +78,24 @@ class ProfileEditViewController: UIViewController {
                     return
                 }
                 print("DEBUG: [displayName = \(user.displayName!)]の設定に成功しました。")
+                //投稿データの名前も変更
+                self.documentUserNameUpdate(oldName:oldName ,newName:userName)
             }
         }
         //前の画面に戻る
         self.navigationController?.popViewController(animated: true)
     }
     
+    //投稿データの名前を変更
+    private func documentUserNameUpdate(oldName:String,newName:String){
+        let docData = [
+            "documentUserName":newName
+            ] as [String : Any]
+        //メッセージの保存
+        let docRef = Firestore.firestore().collection(Const.PostPath).whereField("documentUserName", isEqualTo: oldName)
+        //古いユーザ名のものをまとめて更新したい
+//        docRef.updateData(docData)
+    }
     
     
 }
