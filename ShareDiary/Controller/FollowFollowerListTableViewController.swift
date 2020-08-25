@@ -52,6 +52,8 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     func tableView(_ tableView : UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowFollowerListCell", for: indexPath) as! FollowFollowerListTableViewCell
+        print("テストindexPath:",indexPath.row)
+        print("テストuserPostArray:",userPostArray[indexPath.row])
         //Cell に値を設定する
         cell.setUserPostData(userPostArray[indexPath.row])
         //セル内のボタンのアクションをソースコードで設定する
@@ -180,10 +182,12 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     guard let followArray = document["follow"] as? [String] else {return}
                     
                     //初期化
-                    self.userPostArray = []
+//                    self.userPostArray = []
                     //countが0の時は配列を初期化し描画する
                     if followArray.count == 0 {
                         //followArrayに値がない場合
+                        //初期化
+                        self.userPostArray = []
                         self.tableView.reloadData()
                         return
                     }
@@ -194,10 +198,12 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     //フォロワーが存在しない場合はreturn
                     guard let followerArray = document["follower"] as? [String] else{return}
                     //初期化
-                    self.userPostArray = []
+//                    self.userPostArray = []
                     //countが0の時は配列を初期化し描画する
                     if followerArray.count == 0 {
                         //followArrayに値がない場合
+                        //初期化
+                        self.userPostArray = []
                         self.tableView.reloadData()
                         return
                     }
@@ -211,8 +217,9 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     
     //受け取った配列をuserPostArrayに追加してリロードする
     private func appendArray(array:[String]){
+        var userArray : [UserPostData] = []
         for uid in array {
-            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)
+            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)            
             postRef2.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
@@ -220,10 +227,11 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     return
                 } else {
                     querySnapshot!.documents.forEach{
-                        document in
-                        self.userPostArray.append(UserPostData(document:document))
+                        document in                        
+                        userArray.append(UserPostData(document:document))
+//                        self.userPostArray.append(UserPostData(document:document))
                         //ユーザの名前順(昇順)に並び替えの処理を入れる
-                        self.userPostArray.sort(by: { (a,b) -> Bool in
+                        userArray.sort(by: { (a,b) -> Bool in
                             if a.userName ?? "" == b.userName ?? ""{
                                 //名前が同じ場合はuidで並び替える
                                 return a.uid ?? "" < b.uid ?? ""
@@ -232,6 +240,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                                 return a.userName ?? "" < b.userName ?? ""
                             }
                         })
+                        self.userPostArray = userArray
                         self.tableView.reloadData()
                     }
                 }

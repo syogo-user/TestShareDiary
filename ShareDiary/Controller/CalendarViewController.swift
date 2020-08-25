@@ -40,13 +40,18 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.white
         self.calendar.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.white
         self.calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.blue
+
         //ボタンの設定
         buttonSet()
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //本日の日付のページに遷移
+        self.calendar.currentPage = Date()
+//        self.calendar.setCurrentPage(Date(), animated: true)
         self.dateArray = []
         self.calendar.reloadData()
         //投稿の中から自分のものだけを取得する
@@ -114,7 +119,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
                 count = count+1
             }
         }
-        return count //ここに入る数字によって点の数が変わる
+        return count //ここに入る数字によってカレンダーに表示される点の数が変わる
     }
     
     // 祝日判定を行い結果を返すメソッド(True:祝日)

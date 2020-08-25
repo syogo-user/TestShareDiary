@@ -66,10 +66,20 @@ class AccountCreateViewController: UIViewController {
     //新規作成ボタン押下時
     @objc private func tapNewAccountCreateButton(_ sender:UIButton){
         if let address = mailAddressTextField.text, let password = passwordTextField.text, let displayName = nickNameTextField.text {
+            //パスワードの桁数
+            if password.count < 6 {
+                SVProgressHUD.showError(withStatus: "パスワードは6桁以上で入力してください")
+                return
+            }
             // アドレスとパスワードと表示名のいずれかでも入力されていない時は何もしない
             if address.isEmpty || password.isEmpty || displayName.isEmpty {
                 print("DEBUG: 何かが空文字です。")
                 SVProgressHUD.showError(withStatus: "必要項目を入力してください")
+                return
+            }
+            //名前の文字数制限
+            if displayName.count > 10 {
+                SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
                 return
             }
             //HUDで処理中を表示

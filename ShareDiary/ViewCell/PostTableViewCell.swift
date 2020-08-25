@@ -328,11 +328,8 @@ class PostTableViewCell: UITableViewCell {
         likeNumberLabel.text = "\(likeNumber)"
         // 日時の表示
         self.dateLabel.text = ""
-        if let date = postData.date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let dateString = formatter.string(from: date)
-            self.dateLabel.text = dateString
+        if let selectDate = postData.selectDate {
+            self.dateLabel.text = selectDate
         }
         // コンテントの表示
         self.contentLabel.text = ""
