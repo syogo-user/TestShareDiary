@@ -182,7 +182,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
 
         postUserRef.getDocument{(querySnapshot,error) in
             if let error = error {
-                print("imageNumberの取得に失敗しました。\(error)")
+                print("DEBUG:imageNumberの取得に失敗しました。\(error)")
             }
             guard let data  = querySnapshot?.data() else { return}
             var oldImageName = ""
@@ -252,7 +252,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             if let  error = error {
                 print("DEBUG:\(error)")
             }else {
-                print("\(oldImageName)を削除しました")
+                print("DEBUG:\(oldImageName)を削除しました")
             }
         }
     }

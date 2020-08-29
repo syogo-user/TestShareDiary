@@ -22,7 +22,7 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var postDeleteButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    
+        
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
     private let contentInset :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
@@ -34,6 +34,15 @@ class DitailViewController: UIViewController {
         view.delegate = self
         return view
     }()
+    //写真の配置に使用する変数を定義
+    let xPosition :CGFloat  = 30.0 //x
+    let yPosition :CGFloat  = 500.0 //y
+    let pictureWidth :CGFloat = 828 //幅
+    let pictureHeight :CGFloat = 550 //高さ
+    let constantValue1 :CGFloat = 20.0 //制約
+    let constantValue2 :CGFloat = 50.0 //制約
+    let adjustmentValue :CGFloat = 15 //調整
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,8 +106,8 @@ class DitailViewController: UIViewController {
         let screenHeight :CGFloat = self.view.frame.height / 2
         
         //画像の縦横サイズを取得
-        let imageWidth :CGFloat = 828
-        let imageHeight :CGFloat = 550
+        let imageWidth :CGFloat = pictureWidth
+        let imageHeight :CGFloat = pictureHeight
         
         
         
@@ -113,11 +122,9 @@ class DitailViewController: UIViewController {
         case 3:
             //画像３枚の場合
             imageCount3(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
-        //            imageCount3(imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
         case 4:
             //画像４枚の場合
             imageCount4(imageRef:imageRef,imageView: imageView,screenWidth: screenWidth,screenHeight: screenHeight,imageWidth: imageWidth,imageHeight: imageHeight,index:index)
-            
         default: break
             
         }
@@ -150,7 +157,7 @@ class DitailViewController: UIViewController {
     private func imageCount1(imageRef:StorageReference,imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
         let scale:CGFloat = screenWidth/imageWidth
-        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+        let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
         imageView.sd_setImage(with: imageRef)
@@ -160,7 +167,7 @@ class DitailViewController: UIViewController {
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-        imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale  ).isActive = true
@@ -171,7 +178,7 @@ class DitailViewController: UIViewController {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -181,14 +188,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:50.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue2).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -197,9 +204,9 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:50.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue2).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
@@ -211,7 +218,7 @@ class DitailViewController: UIViewController {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -220,14 +227,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -236,14 +243,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -253,10 +260,9 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo:diaryText.bottomAnchor, constant:20.0 + (imageHeight * scale / 2) ).isActive = true
+            imageView.topAnchor.constraint(equalTo:diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
-            //            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 3 * 2  ).isActive = true
         default:
             break
@@ -267,7 +273,7 @@ class DitailViewController: UIViewController {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -276,14 +282,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -292,14 +298,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -308,14 +314,14 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 4:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -324,9 +330,9 @@ class DitailViewController: UIViewController {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
@@ -355,10 +361,10 @@ class DitailViewController: UIViewController {
         
     }
     @objc func keyboardWillShow(notification:NSNotification){
-        print("keyboardWillShow")
+        print("DEBUG:keyboardWillShow")
         guard let userInfo =  notification.userInfo else {return}
         if let keyboadFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue{
-            print("keyboadFrame:",keyboadFrame)
+            print("DEBUG:keyboadFrame:",keyboadFrame)
             let bottom = keyboadFrame.height
             //スクロールビューをキーボードの分高さを上にあげる
             let contentInset = UIEdgeInsets(top:0,left:0,bottom:bottom,right: 0)
@@ -369,7 +375,7 @@ class DitailViewController: UIViewController {
         
     }
     @objc func keyboardWillHide(){
-        print("keyboardWillHide")
+        print("DEBUG:keyboardWillHide")
         tableView.contentInset = contentInset
         tableView.scrollIndicatorInsets = indicateInset
     }
@@ -380,7 +386,7 @@ class DitailViewController: UIViewController {
         Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").addSnapshotListener { (snapshots, err) in
             
             if let err = err {
-                print("メッセージ情報の取得に失敗しました。\(err)")
+                print("DEBUG:メッセージ情報の取得に失敗しました。\(err)")
                 return
             }
             snapshots?.documentChanges.forEach({ (documentChange) in
@@ -397,7 +403,7 @@ class DitailViewController: UIViewController {
                     
                     self.tableView.reloadData()
                 case .modified, .removed:
-                    print("nothing to do")
+                    print("DEBUG:nothing to do")
                 }
             })
             
@@ -543,7 +549,7 @@ class DitailViewController: UIViewController {
         }
     }
     @objc func postDelete(_ sender:UIButton){
-        print("削除ボタンを押下")
+        print("DEBUG:削除ボタンを押下")
         guard let post = postData else {return}
         //確認メッセージ出力
         let alert : UIAlertController = UIAlertController(title: "この投稿を削除してもよろしいですか？", message :nil, preferredStyle: UIAlertController.Style.alert)

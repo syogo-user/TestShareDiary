@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDelegate{
+class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource,UITableViewDelegate{
     
     @IBOutlet weak var userTableView: UITableView!
     //投稿データを格納する配列
@@ -84,7 +84,7 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
          
      }
 }
-extension MyDiaryFromCalendar:PostTableViewCellDelegate{
+extension MyDiaryFromCalendarViewController:PostTableViewCellDelegate{
     //PostTablViewCellの投稿写真をタップしたときに呼ばれる
     func imageTransition(_ sender:UITapGestureRecognizer) {
         //タップしたUIImageViewを取得

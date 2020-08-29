@@ -144,7 +144,7 @@
         <!--Date Select View Controller-->
         <scene sceneID="cx4-dt-sg1">
             <objects>
-                <viewController storyboardIdentifier="DateSelect" id="riL-a4-E6h" customClass="DateSelectViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DateSelectViewController" id="riL-a4-E6h" customClass="DateSelectViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X2v-UZ-FvX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,10 +208,10 @@
             </objects>
             <point key="canvasLocation" x="-2087" y="1509"/>
         </scene>
-        <!--My Diary From Calendar-->
+        <!--My Diary From Calendar View Controller-->
         <scene sceneID="4dT-g1-rZh">
             <objects>
-                <viewController storyboardIdentifier="MyDiaryFromCalendar" id="Sac-tq-oNm" customClass="MyDiaryFromCalendar" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyDiaryFromCalendarViewController" id="Sac-tq-oNm" customClass="MyDiaryFromCalendarViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lYy-Qh-U6d">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -241,7 +241,7 @@
         <!--Post View Controller-->
         <scene sceneID="7OS-za-ftb">
             <objects>
-                <viewController storyboardIdentifier="Post" id="Y8g-Km-tVx" customClass="PostViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostViewController" id="Y8g-Km-tVx" customClass="PostViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D9a-oR-lvL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +263,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9et-8P-KgR">
-                                                <rect key="frame" x="87" y="0.0" width="200" height="50"/>
+                                                <rect key="frame" x="87" y="0.0" width="200" height="83"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="7Ge-yr-4Xf"/>
                                                 </constraints>
@@ -341,7 +341,7 @@
         <!--Color Choice View Controller-->
         <scene sceneID="Tv3-9d-fwg">
             <objects>
-                <viewController storyboardIdentifier="ColorChoice" id="bWU-cH-URD" customClass="ColorChoiceViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ColorChoiceViewController" id="bWU-cH-URD" customClass="ColorChoiceViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NBj-js-HCE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -813,7 +813,7 @@
         <!--Follow Request List Table View Controller-->
         <scene sceneID="J71-LB-gov">
             <objects>
-                <viewController storyboardIdentifier="FollowRequestList" id="Fle-mM-V3v" customClass="FollowRequestListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowRequestListTableViewController" id="Fle-mM-V3v" customClass="FollowRequestListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cyu-Eh-D56">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -870,7 +870,7 @@
         <!--Follow Follower List Table View Controller-->
         <scene sceneID="rOD-lG-XGB">
             <objects>
-                <viewController storyboardIdentifier="FollowFollowerList" id="U67-Ws-Ks1" customClass="FollowFollowerListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowFollowerListTableViewController" id="U67-Ws-Ks1" customClass="FollowFollowerListTableViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IM8-K6-HG9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -928,7 +928,7 @@
         <!--Left View Controller-->
         <scene sceneID="W7m-hz-8Lj">
             <objects>
-                <viewController storyboardIdentifier="Left" id="bg7-Pd-uiH" customClass="LeftViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftViewController" id="bg7-Pd-uiH" customClass="LeftViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DZ6-WG-fRT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1098,7 +1098,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="aLt-q3-KS0">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nM0-t1-pjN" customClass="TabBarController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nM0-t1-pjN" customClass="TabBarController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8fi-JL-JtZ">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1121,7 +1121,7 @@
         <!--Login View Controller-->
         <scene sceneID="ROU-CK-wE8">
             <objects>
-                <viewController storyboardIdentifier="Login" id="bk6-DO-39k" customClass="LoginViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="bk6-DO-39k" customClass="LoginViewController" customModule="ShareDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IF1-iH-Pw4" customClass="Login">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

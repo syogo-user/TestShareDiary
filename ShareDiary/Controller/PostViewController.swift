@@ -28,6 +28,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
     var typeingColor = UIColor.black
     //選択された日付（デフォルトは今日）
     var selectDate = Date()
+    //写真の配置に使用する変数を定義
+    let xPosition :CGFloat  = 30.0 //x
+    let yPosition :CGFloat  = 500.0 //y
+    let pictureWidth :CGFloat = 828 //幅
+    let pictureHeight :CGFloat = 550 //高さ
+    let constantValue1 :CGFloat = 20.0 //制約
+    let constantValue2 :CGFloat = 50.0 //制約
+    let adjustmentValue :CGFloat = 15 //調整
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,8 +145,8 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         let screenWidth :CGFloat = view.frame.size.width
         let screenHeight :CGFloat = view.frame.size.height / 2
         //画像の縦横サイズを取得
-        let imageWidth :CGFloat = 828
-        let imageHeight :CGFloat = 550
+        let imageWidth :CGFloat = pictureWidth
+        let imageHeight :CGFloat = pictureHeight
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
         case 1:
@@ -174,7 +182,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         //画像サイズをスクリーンサイズ幅に合わせる
         let scale:CGFloat = screenWidth/imageWidth
         // ImageView frame をCGRectで作った矩形に合わせる
-        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+        let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
         imageView.frame = rect
         //画像の中心を設定
         imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
@@ -183,7 +191,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-        imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale  ).isActive = true
@@ -194,7 +202,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -205,14 +213,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -222,9 +230,9 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
@@ -236,7 +244,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -246,14 +254,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -263,14 +271,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             // UIImageViewのインスタンスをビューに追加
@@ -279,10 +287,9 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo:inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2) ).isActive = true
+            imageView.topAnchor.constraint(equalTo:inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            //            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 3 * 2  ).isActive = true
         default:
             break
@@ -293,7 +300,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -303,14 +310,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -320,14 +327,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -337,14 +344,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 4:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             //画像の中心を設定
@@ -354,9 +361,9 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
@@ -366,14 +373,14 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
     
     @objc func tapColorButton(_ sender:UIButton){
         print("DEBUG:背景色選択ボタンがタップされました")
-        let colorChoiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ColorChoice")
+        let colorChoiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ColorChoiceViewController")
         colorChoiceViewController?.modalPresentationStyle = .fullScreen
         self.present(colorChoiceViewController!, animated: true, completion: nil)
     }
     
     @objc func tapDateButton(_ sender:UIButton){
         print("DEBUG:日付選択ボタンがタップされました")
-        let dateSelectViewController = self.storyboard?.instantiateViewController(withIdentifier:"DateSelect") 
+        let dateSelectViewController = self.storyboard?.instantiateViewController(withIdentifier:"DateSelectViewController")
         dateSelectViewController?.modalPresentationStyle = .fullScreen
         self.present(dateSelectViewController!,animated: true,completion:nil)
     }
@@ -426,7 +433,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
                     imageRef.putData(imageData, metadata: metadata) { (metadata, error) in
                         if error != nil {
                             // 画像のアップロード失敗
-                            print(error!)
+                            print("DEBUG:\(error!)")
                             SVProgressHUD.showError(withStatus: "画像のアップロードが失敗しました")
                             // 投稿処理をキャンセルし、先頭画面に戻る
                             UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)

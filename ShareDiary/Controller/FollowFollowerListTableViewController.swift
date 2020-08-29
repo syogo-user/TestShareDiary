@@ -52,8 +52,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     func tableView(_ tableView : UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "FollowFollowerListCell", for: indexPath) as! FollowFollowerListTableViewCell
-        print("テストindexPath:",indexPath.row)
-        print("テストuserPostArray:",userPostArray[indexPath.row])
         //Cell に値を設定する
         cell.setUserPostData(userPostArray[indexPath.row])
         //セル内のボタンのアクションをソースコードで設定する
@@ -141,9 +139,9 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                 //コミット
                 batch.commit() { err in
                     if let err = err {
-                        print("Error writing batch \(err)")
+                        print("DEBUG:Error writing batch \(err)")
                     } else {
-                        print("Batch write succeeded.")
+                        print("DEBUG:Batch write succeeded.")
                     }
                 }
                 //画面再描画のための検索

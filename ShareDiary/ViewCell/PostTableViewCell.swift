@@ -25,6 +25,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
+    
     //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
     //投稿写真の選択された枚数
@@ -33,6 +34,17 @@ class PostTableViewCell: UITableViewCell {
     var postDocumentId = ""
     //デリゲート
     var postTableViewCellDelegate :PostTableViewCellDelegate?
+    //写真の配置に使用する変数を定義
+    let xPosition :CGFloat  = 30.0 //x
+    let yPosition :CGFloat  = 500.0 //y
+    let pictureWidth :CGFloat = 828 //幅
+    let pictureHeight :CGFloat = 550 //高さ
+    let constantValue1 :CGFloat = 20.0 //制約
+    let constantValue2 :CGFloat = 50.0 //制約
+    let adjustmentValue :CGFloat = 15 //調整
+    let contentLabelBottomConstraint1:CGFloat = 240 //contentLabelから下の長さ
+    let contentLabelBottomConstraint2:CGFloat = 390 //contentLabelから下の長さ
+    let contentLabelBottomConstraint3:CGFloat = 350 //contentLabelから下の長さ
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,8 +92,9 @@ class PostTableViewCell: UITableViewCell {
         let screenHeight :CGFloat = self.frame.size.height / 2
         
         //画像の縦横サイズを取得
-        let imageWidth :CGFloat = 828
-        let imageHeight :CGFloat = 550
+        let imageWidth :CGFloat = pictureWidth
+        let imageHeight :CGFloat = pictureHeight
+        
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
         case 1:
@@ -120,7 +133,7 @@ class PostTableViewCell: UITableViewCell {
     private func imageCount1(imageRef:StorageReference,imageView:UIImageView,screenWidth :CGFloat,screenHeight :CGFloat,imageWidth :CGFloat,imageHeight :CGFloat){
         //画像サイズをスクリーンサイズ幅に合わせる
         let scale:CGFloat = screenWidth/imageWidth
-        let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+        let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
         imageView.sd_setImage(with: imageRef)
@@ -130,7 +143,7 @@ class PostTableViewCell: UITableViewCell {
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-        imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale  ).isActive = true
@@ -141,24 +154,23 @@ class PostTableViewCell: UITableViewCell {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
-            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:50.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue2).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -167,9 +179,9 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:50.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue2).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
@@ -181,25 +193,23 @@ class PostTableViewCell: UITableViewCell {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
-//            //画像の中心を設定
-//            imageView.center = CGPoint(x:screenWidth/2, y:screenHeight/3 * 2)
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -208,27 +218,25 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale / 2) ,width: imageWidth * scale  ,height : imageHeight * scale / 2)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.addSubview(imageView)
-            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo:contentLabel.bottomAnchor, constant:20.0 + (imageHeight * scale / 2) ).isActive = true
+            imageView.topAnchor.constraint(equalTo:contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
-            //            imageView.widthAnchor.constraint(equalToConstant: screenWidth / 2 ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 3 * 2  ).isActive = true
         default:
             break
@@ -239,7 +247,7 @@ class PostTableViewCell: UITableViewCell {
         case 1:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -248,14 +256,14 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 2:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -264,14 +272,14 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 3:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -280,14 +288,14 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         case 4:
             //画像サイズをスクリーンサイズ幅に合わせる
             let scale:CGFloat = screenWidth/imageWidth
-            let rect :CGRect = CGRect(x:30 + (imageWidth * scale) ,y:500 + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
+            let rect :CGRect = CGRect(x:xPosition + (imageWidth * scale) ,y:yPosition + (imageHeight * scale) ,width: imageWidth * scale ,height : imageHeight * scale)
             // ImageView frame をCGRectで作った矩形に合わせる
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
@@ -296,17 +304,15 @@ class PostTableViewCell: UITableViewCell {
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
             //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
-            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:20.0 + (imageHeight * scale / 2)).isActive = true
+            imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - 15 ).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageHeight * scale / 2 ).isActive = true
         default:
             break
         }
     }
-    
-    
-    
+        
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
         //投稿者の名前
@@ -342,11 +348,11 @@ class PostTableViewCell: UITableViewCell {
 
         if imageMaxNumber == 2 {
             //写真の枚数が2枚のとき
-            contentLabelBottomConstraint.constant = 240
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint1
         } else if imageMaxNumber == 3{
-            contentLabelBottomConstraint.constant = 390
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint2
         }else {
-            contentLabelBottomConstraint.constant = 350
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint3
         }
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)

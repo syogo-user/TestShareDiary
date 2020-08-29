@@ -47,7 +47,7 @@
 		3DE8129424B9906C00E85957 /* InputTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE8129324B9906C00E85957 /* InputTextView.xib */; };
 		3DE8129624B991B700E85957 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8129524B991B700E85957 /* InputTextView.swift */; };
 		3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8129724B9981300E85957 /* UIColorExtention.swift */; };
-		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */; };
+		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift */; };
 		64479EA1EEDDF1F2C9380C1E /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */; };
 		77BE8041803A71A746E1929D /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */; };
 		91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */; };
@@ -103,7 +103,7 @@
 		3DE8129324B9906C00E85957 /* InputTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputTextView.xib; sourceTree = "<group>"; };
 		3DE8129524B991B700E85957 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3DE8129724B9981300E85957 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
-		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendar.swift; sourceTree = "<group>"; };
+		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendarViewController.swift; sourceTree = "<group>"; };
 		91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIDelegate.swift; sourceTree = "<group>"; };
 		9110558524E9248600D1B796 /* AccountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreateViewController.swift; sourceTree = "<group>"; };
 		9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				3DD44DA12466438F0001E7A8 /* FollowRequestListTableViewController.swift */,
 				3D49C2852467EF7C008ACC25 /* FollowFollowerListTableViewController.swift */,
 				3DAC348A249626D300738A0C /* ColorChoiceViewController.swift */,
-				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendar.swift */,
+				3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift */,
 				3DB3ABA424AA0D3A0055E742 /* DitailViewController.swift */,
 				3DCBC98024AB65AD00E78626 /* LikeUserListTableViewController.swift */,
 				3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */,
@@ -402,7 +402,7 @@
 				3D9BFE9B23FEE95C009893B1 /* FriendSearchViewController.swift in Sources */,
 				3D9BFE8323FEE75F009893B1 /* AppDelegate.swift in Sources */,
 				3D9BFE9D23FEE976009893B1 /* ProfileViewController.swift in Sources */,
-				3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendar.swift in Sources */,
+				3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift in Sources */,
 				3DC3185F24ACBED4000D38F3 /* LikeUserListTableViewCell.swift in Sources */,
 				3DB165DF24BB21BF00E9AC7A /* ProfileEditViewController.swift in Sources */,
 				91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */,

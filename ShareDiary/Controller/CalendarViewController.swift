@@ -97,7 +97,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
     }
     //追加ボタン押下
     @objc private func tapDiaryAddButton(){
-        let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "Post") as! PostViewController
+        let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         postViewController.modalPresentationStyle = .fullScreen
         self.present(postViewController, animated: true, completion: nil)
     }
@@ -107,7 +107,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         //選択した日付を取得
         let strDate = CommonDate.dateFormat(date:date)
         //選択した日の自分の投稿を表示
-        let myDiaryViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyDiaryFromCalendar") as! MyDiaryFromCalendar
+        let myDiaryViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyDiaryFromCalendarViewController") as! MyDiaryFromCalendarViewController
         myDiaryViewController.diaryDate = strDate
         self.navigationController?.pushViewController(myDiaryViewController, animated: true)
     }

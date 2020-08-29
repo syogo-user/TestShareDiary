@@ -63,7 +63,7 @@ class LeftViewController: UIViewController {
     }
     //フォローボタンが押された時
     @IBAction func followButtonAction(_ sender: Any) {
-        let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerList") as! FollowFollowerListTableViewController
+        let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
         followFollowerListTableViewController.fromButton = Const.Follow
         followFollowerListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followFollowerListTableViewController, animated: true, completion: nil)
@@ -71,14 +71,14 @@ class LeftViewController: UIViewController {
     
     //フォロワーボタンが押された時
     @IBAction func followerButtonAction(_ sender: Any) {
-        let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerList") as! FollowFollowerListTableViewController
+        let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
         followFollowerListTableViewController.fromButton = Const.Follower
         followFollowerListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followFollowerListTableViewController, animated: true, completion: nil)
     }
     //フォロリクエストボタンが押された時
     @IBAction func followRequestAction(_ sender: Any) {
-        let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestList") as! FollowRequestListTableViewController
+        let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestListTableViewController") as! FollowRequestListTableViewController
         followRequestListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followRequestListTableViewController, animated: true, completion: nil)
     }
@@ -102,7 +102,7 @@ class LeftViewController: UIViewController {
         // ログアウトする
         try! Auth.auth().signOut()
         // ログイン画面を表示する
-        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         loginViewController?.modalPresentationStyle = .fullScreen
         self.present(loginViewController!, animated: true, completion: nil)
         

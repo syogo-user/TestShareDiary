@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //スライダー設定
-        let tabBarController = TabBarController.init(nibName: "tabBarController", bundle: nil)
-        let leftViewController = LeftViewController.init(nibName: "Left", bundle: nil)
+        let tabBarController = TabBarController.init(nibName: "TabBarController", bundle: nil)
+        let leftViewController = LeftViewController.init(nibName: "LeftViewController", bundle: nil)
         let slideMenuController = SlideMenuController(mainViewController:tabBarController as UIViewController, leftMenuViewController: leftViewController)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()

@@ -13,8 +13,8 @@ class SlideViewController: SlideMenuController {
     
     
     override func awakeFromNib() {
-        let mainVC = storyboard?.instantiateViewController(withIdentifier: "tabBarController")
-        let leftVC = storyboard?.instantiateViewController(withIdentifier: "Left")
+        let mainVC = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+        let leftVC = storyboard?.instantiateViewController(withIdentifier: "LeftViewController")
         //UIViewControllerにはNavigationBarは無いためUINavigationControllerを生成しています。 //NavigationBarを追加すことでtabBarControllerを呼び出す
         let navigationController = UINavigationController(rootViewController: mainVC!)
         //ライブラリ特有のプロパティにセット

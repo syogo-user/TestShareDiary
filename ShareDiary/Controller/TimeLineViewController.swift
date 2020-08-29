@@ -200,7 +200,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
 extension TimeLineViewController:PostTableViewCellDelegate{
     //PostTablViewCellの投稿写真をタップしたときに呼ばれる
     func imageTransition(_ sender:UITapGestureRecognizer) {
-        print("画像がタップされました")
         //タップしたUIImageViewを取得
         let tappedUIImageView = sender.view! as? UIImageView
         //  UIImage を取得

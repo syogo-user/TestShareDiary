@@ -127,9 +127,9 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             //コミット
             batch.commit() { err in
                 if let err = err {
-                    print("Error writing batch \(err)")
+                    print("DEBUG:Error writing batch \(err)")
                 } else {
-                    print("Batch write succeeded.")
+                    print("DEBUG:Batch write succeeded.")
                 }
             }
             
