@@ -84,37 +84,16 @@ class LeftViewController: UIViewController {
     }
     //ログアウトボタンが押された時
     @objc private func tapLogoutButton(_ sender :UIButton){
-        //スライドメニューのクローズ
-        closeLeft()
-        // ログアウトする
-        try! Auth.auth().signOut()
-        // ログイン画面を表示する
-        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-        loginViewController?.modalPresentationStyle = .fullScreen
-        self.present(loginViewController!, animated: true, completion: nil)
-        
-        
-        //タブバーを取得する
-        let slideViewController = parent as! SlideViewController
-        let navigationController = slideViewController.mainViewController as! UINavigationController
-        let tabBarController = navigationController.topViewController as! TabBarController
-        //listener削除用にタイムライン画面を一度選択する
-        tabBarController.selectedIndex = 2//自分が今タイムラインタブ（1）にいた場合用
-        tabBarController.selectedIndex = 1
-        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
-        tabBarController.selectedIndex = 0
-        
-
-//        //ダイアログ表示
-//        let dialog = UIAlertController(title: "ログアウトしますか？", message: nil, preferredStyle: .alert)
-//        //OKボタン
-//        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//            self.logout()
-//        }))
-//        //キャンセルボタン
-//        dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: { action in
-//        }))
-//        self.present(dialog,animated: true,completion: nil)
+        //ダイアログ表示
+        let dialog = UIAlertController(title: "ログアウトしますか？", message: nil, preferredStyle: .alert)
+        //OKボタン
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.logout()
+        }))
+        //キャンセルボタン
+        dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: { action in
+        }))
+        self.present(dialog,animated: true,completion: nil)
 
     }
     private func logout(){
@@ -133,6 +112,7 @@ class LeftViewController: UIViewController {
         let navigationController = slideViewController.mainViewController as! UINavigationController
         let tabBarController = navigationController.topViewController as! TabBarController
         //listener削除用にタイムライン画面を一度選択する
+        tabBarController.selectedIndex = 2//自分が今タイムラインタブ（1）にいた場合用
         tabBarController.selectedIndex = 1
         // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
         tabBarController.selectedIndex = 0

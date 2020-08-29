@@ -274,8 +274,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="UEt-fn-5K8" firstAttribute="top" secondItem="fSu-57-MuV" secondAttribute="top" constant="50" id="4qC-xA-mP7"/>
+                                            <constraint firstItem="9et-8P-KgR" firstAttribute="top" secondItem="fSu-57-MuV" secondAttribute="top" id="WSl-xs-Cns"/>
                                             <constraint firstItem="9et-8P-KgR" firstAttribute="centerX" secondItem="fSu-57-MuV" secondAttribute="centerX" id="Wyf-VT-olb"/>
-                                            <constraint firstItem="UEt-fn-5K8" firstAttribute="top" secondItem="9et-8P-KgR" secondAttribute="bottom" id="caO-iw-r9O"/>
                                             <constraint firstAttribute="height" constant="1100" id="ntE-Zq-Zt3"/>
                                             <constraint firstItem="UEt-fn-5K8" firstAttribute="leading" secondItem="fSu-57-MuV" secondAttribute="leading" constant="5" id="s9N-c9-jIJ"/>
                                             <constraint firstAttribute="trailing" secondItem="UEt-fn-5K8" secondAttribute="trailing" constant="5" id="uPq-Ic-q9P"/>
@@ -322,7 +323,6 @@
                             <constraint firstItem="7Lh-HW-IrX" firstAttribute="trailing" secondItem="HV0-EK-eKd" secondAttribute="trailing" constant="10" id="H7l-y6-Glb"/>
                             <constraint firstItem="fBm-Jw-wfl" firstAttribute="top" secondItem="D9a-oR-lvL" secondAttribute="topMargin" id="L67-IG-anm"/>
                             <constraint firstItem="HV0-EK-eKd" firstAttribute="top" secondItem="7Lh-HW-IrX" secondAttribute="top" id="byj-Ad-131"/>
-                            <constraint firstItem="9et-8P-KgR" firstAttribute="top" secondItem="uVh-zz-xSd" secondAttribute="top" id="hzR-1p-8Hb"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fBm-Jw-wfl" secondAttribute="bottom" id="wDM-dG-1cw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Lh-HW-IrX"/>

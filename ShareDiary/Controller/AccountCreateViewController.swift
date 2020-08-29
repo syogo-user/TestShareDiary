@@ -40,7 +40,7 @@ class AccountCreateViewController: UIViewController {
         self.passwordTextField.layer.cornerRadius = 15
         self.passwordTextField.layer.borderWidth = 0.1
         self.passwordTextField.layer.borderColor = UIColor.white.cgColor
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "パスワード", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "パスワード(6桁以上)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         //画面遷移時パスワードが入力されていたら
         if password != "" {
             self.passwordTextField.text = password
