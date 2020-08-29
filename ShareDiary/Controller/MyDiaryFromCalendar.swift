@@ -83,20 +83,6 @@ class MyDiaryFromCalendar: UIViewController ,UITableViewDataSource,UITableViewDe
          self.navigationController?.pushViewController(detailViewController, animated: true)
          
      }
-//    //Dateを時間なしの文字列に変換
-//    func dateFormat(date:Date?) -> String {
-//        var strDate:String = ""
-//
-//        if let day = date {
-//            let format  = DateFormatter()
-//            format.locale = Locale(identifier: "ja_JP")
-//            format.dateStyle = .short
-//            format.timeStyle = .none
-//            strDate = format.string(from:day)
-//        }
-//        return strDate
-//    }
-    
 }
 extension MyDiaryFromCalendar:PostTableViewCellDelegate{
     //PostTablViewCellの投稿写真をタップしたときに呼ばれる

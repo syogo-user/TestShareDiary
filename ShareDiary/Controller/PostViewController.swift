@@ -62,7 +62,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         }
         print("DEBUG:",backgroundColorArrayIndex)
         //選択された日付をラベルに表示(初期表示は本日)
-        dateLabel.text = dateFormat(date:selectDate)
+        dateLabel.text = CommonDate.dateFormat(date:selectDate)
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         //遷移前の画面から受け取ったIndexで色を決定する
@@ -397,7 +397,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             return
         }
         let documentUserName = Auth.auth().currentUser?.displayName
-        let strDate = dateFormat(date:selectDate)
+        let strDate = CommonDate.dateFormat(date:selectDate)
         
         //投稿するデータをまとめる
         let postDic = [
@@ -468,26 +468,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             postButton.isEnabled = true
         }
     }
-    func getDay(_ date:Date) -> (Int,Int,Int){
-        let tmpCalendar = Calendar(identifier: .gregorian)
-        let year = tmpCalendar.component(.year, from: date)
-        let month = tmpCalendar.component(.month, from: date)
-        let day = tmpCalendar.component(.day, from: date)
-        return (year,month,day)
-    }
-    //Dateを時間なしの文字列に変換
-    func dateFormat(date:Date?) -> String {
-        var strDate:String = ""
-        if let day = date {
-            let format  = DateFormatter()
-            format.dateFormat = "yyyy年MM月dd日"
-//            format.locale = Locale(identifier: "ja_JP")
-//            format.dateStyle = .short
-//            format.timeStyle = .none
-            strDate = format.string(from:day)
-        }
-        return strDate
-    }
+
 }
 
 
