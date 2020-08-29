@@ -15,13 +15,20 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var followLabel: UILabel!
     @IBOutlet weak var followerLabel: UILabel!
-
+    
+    @IBOutlet weak var followShowButton: UIButton!
+    @IBOutlet weak var followerShowButton: UIButton!
+    @IBOutlet weak var followRequestShowButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.layer.cornerRadius  = 25
         logoutButton.addTarget(self, action: #selector(tapLogoutButton(_:)), for: .touchUpInside)
+        followShowButton.addTarget(self, action: #selector(tapFollowShowButton(_:)), for: .touchUpInside)
+        followerShowButton.addTarget(self, action: #selector(tapFollowerShowButton(_:)), for: .touchUpInside)
+        followRequestShowButton.addTarget(self, action: #selector(tapFollowRequestShowShowButton(_:)), for: .touchUpInside)
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,23 +68,24 @@ class LeftViewController: UIViewController {
             }
         }
     }
+        
     //フォローボタンが押された時
-    @IBAction func followButtonAction(_ sender: Any) {
+    @objc private func tapFollowShowButton(_ sender :UIButton){
         let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
-        followFollowerListTableViewController.fromButton = Const.Follow
-        followFollowerListTableViewController.modalPresentationStyle = .fullScreen
-        self.present(followFollowerListTableViewController, animated: true, completion: nil)
+          followFollowerListTableViewController.fromButton = Const.Follow
+          followFollowerListTableViewController.modalPresentationStyle = .fullScreen
+          self.present(followFollowerListTableViewController, animated: true, completion: nil)
     }
-    
     //フォロワーボタンが押された時
-    @IBAction func followerButtonAction(_ sender: Any) {
+    @objc private func tapFollowerShowButton(_ sender :UIButton){
         let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
         followFollowerListTableViewController.fromButton = Const.Follower
         followFollowerListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followFollowerListTableViewController, animated: true, completion: nil)
     }
+    
     //フォロリクエストボタンが押された時
-    @IBAction func followRequestAction(_ sender: Any) {
+    @objc private func tapFollowRequestShowShowButton(_ sender :UIButton){
         let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestListTableViewController") as! FollowRequestListTableViewController
         followRequestListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followRequestListTableViewController, animated: true, completion: nil)

@@ -35,7 +35,7 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         
         self.dateSelectCalendar.reloadData()
         
-        cancelButton.addTarget(self, action: #selector(tabCancelButton(_:)), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         //選択した日付を取得
@@ -46,11 +46,6 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         preVC.selectDate = selectDay
         self.dismiss(animated: true, completion:nil)
     }
-    //キャンセルボタン押下時
-    @objc func tabCancelButton(_ sender :UIButton){
-        dismiss(animated: true, completion: nil)
-    }
-
 
     // 土日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -69,6 +64,9 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
 
         return nil
     }
-
+    //キャンセルボタン押下時
+    @objc func tapCancelButton(_ sender :UIButton){
+        dismiss(animated: true, completion: nil)
+    }
 
 }

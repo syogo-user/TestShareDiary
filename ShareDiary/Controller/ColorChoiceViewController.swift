@@ -48,8 +48,7 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
         let horizontalSpace : CGFloat = 20
         let cellSize : CGFloat = self.view.bounds.width / 3 - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
-    }
-    
+    }    
     // cell選択時に呼ばれる関数
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //前画面への値の受け渡し

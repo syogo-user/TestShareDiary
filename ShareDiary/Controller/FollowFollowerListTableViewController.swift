@@ -154,8 +154,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
             
         }))
         self.present(dialog,animated: true,completion: nil)
-        
-        
     }
     
     //データの描画
@@ -178,9 +176,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     //フォローボタンから遷移した場合
                     //フォローが存在しない場合はreturn
                     guard let followArray = document["follow"] as? [String] else {return}
-                    
                     //初期化
-//                    self.userPostArray = []
                     //countが0の時は配列を初期化し描画する
                     if followArray.count == 0 {
                         //followArrayに値がない場合
@@ -196,7 +192,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     //フォロワーが存在しない場合はreturn
                     guard let followerArray = document["follower"] as? [String] else{return}
                     //初期化
-//                    self.userPostArray = []
                     //countが0の時は配列を初期化し描画する
                     if followerArray.count == 0 {
                         //followArrayに値がない場合
@@ -227,7 +222,6 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     querySnapshot!.documents.forEach{
                         document in                        
                         userArray.append(UserPostData(document:document))
-//                        self.userPostArray.append(UserPostData(document:document))
                         //ユーザの名前順(昇順)に並び替えの処理を入れる
                         userArray.sort(by: { (a,b) -> Bool in
                             if a.userName ?? "" == b.userName ?? ""{

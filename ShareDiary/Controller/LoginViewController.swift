@@ -13,11 +13,10 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-//    @IBOutlet weak var nickNameTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
-    
     @IBOutlet weak var backImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginButton.layer.cornerRadius = 15
@@ -42,8 +41,12 @@ class LoginViewController: UIViewController {
         //ボタンの押下時の文字色
         loginButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
         createAccountButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        loginButton.addTarget(self, action: #selector(tapLoginButton(_:)), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(tapcreateAccountButton(_:)), for: .touchUpInside)
     }
-    @IBAction func handleLoginButton(_ sender: Any) {
+
+ 
+    @objc private func tapLoginButton(_ sender :UIButton){
         if let address = mailAddressTextField.text, let password = passwordTextField.text {
             
             // アドレスとパスワード名のいずれかでも入力されていない時は何もしない
@@ -66,8 +69,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction func handleCreateAccountButton(_ sender: Any) {
+
+    @objc private func tapcreateAccountButton(_ sender :UIButton){
         //アカウント作成画面に遷移
         let accountCreateViewController = self.storyboard?.instantiateViewController(withIdentifier: "AcountCreateViewController") as! AccountCreateViewController
 

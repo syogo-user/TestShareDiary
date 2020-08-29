@@ -31,8 +31,8 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         searchBar.placeholder = "ユーザ名で検索"
         self.searchbar = searchBar
-        
         self.view.addSubview(searchbar)
+        
         searchBar.disableBlur()
         searchBar.backgroundColor = Const.darkColor
         searchBar.searchBarStyle = .prominent
@@ -46,24 +46,17 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         //falseでタップを認識するようになる
         tapGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tapGesture)
-
-
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        tableView.rowHeight = UITableViewAutomaticDimension
-        //        tableView.estimatedRowHeight = 10000
         self.searchbar.text = ""
         self.userPostArray = []
         self.tableView.reloadData()
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
-        
     }
-    
-    
-    
+            
     //検索バーで文字編集中（文字をクリアしたときも実行される）
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)  {
         //文字が空の場合userPostArrayを空にする
@@ -114,7 +107,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         //Cell に値を設定する
         cell.setUserPostData(userPostArray[indexPath.row])
         //セル内のボタンのアクションをソースコードで設定する
-        cell.followRequestButton.addTarget(self,action:#selector(handleButton(_ : forEvent:)),for: .touchUpInside)
+        cell.followRequestButton.addTarget(self,action:#selector(tapFolloRequestwButton(_ : forEvent:)),for: .touchUpInside)
         return cell
     }
     //各セルを選択した時に実行されるメソッド
@@ -139,7 +132,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     //セル内の「フォロー申請」ボタンがタップされた時に呼ばれるメソッド
-    @objc func handleButton(_ sender: UIButton,forEvent event:UIEvent){
+    @objc func tapFolloRequestwButton(_ sender: UIButton,forEvent event:UIEvent){
         //タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
         //タッチした座標
@@ -187,9 +180,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
             }
             
-        }
-        
-        
+        }        
     }
     @objc func dismissKeyboard(){
         self.view.endEditing(true)

@@ -14,6 +14,7 @@ class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource
     //投稿データを格納する配列
     var postArray :[PostData] = []
     var diaryDate :String = ""
+    let cellHeight :CGFloat = 800
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,7 @@ class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        tableView.estimatedRowHeight = 800 //セルの高さ
+        tableView.estimatedRowHeight = cellHeight //セルの高さ
         return UITableView.automaticDimension
     }
     

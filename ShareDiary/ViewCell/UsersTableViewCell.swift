@@ -19,7 +19,6 @@ class UsersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userImage.layer.cornerRadius = 30
-//        followRequestButton.layer.cornerRadius = 15
         //セルをタップ時、ラベルが重なっているため、ラベルが反応しないように設定
         profileMessage.isUserInteractionEnabled=false
         //ボタンの設定

@@ -10,8 +10,7 @@
 import SlideMenuControllerSwift
 
 class SlideViewController: SlideMenuController {
-    
-    
+        
     override func awakeFromNib() {
         let mainVC = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
         let leftVC = storyboard?.instantiateViewController(withIdentifier: "LeftViewController")

@@ -142,7 +142,7 @@ class PostTableViewCell: UITableViewCell {
         self.addSubview(imageView)
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+        //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
         imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
@@ -162,7 +162,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue2).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue).isActive = true
@@ -178,7 +178,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue2).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -201,7 +201,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -217,7 +217,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -233,7 +233,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo:contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
@@ -255,7 +255,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -271,7 +271,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -287,7 +287,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -303,7 +303,7 @@ class PostTableViewCell: UITableViewCell {
             self.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true

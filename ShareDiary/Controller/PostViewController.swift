@@ -58,6 +58,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         //デリゲートを設定
         inputTextView.delegate = self
         inputTextView.inputAccessoryView = toolBar
+        postButton.addTarget(self, action: #selector(tapPostButton(_:)), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
     
@@ -107,14 +108,10 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
     @objc func tapImageButton(_ sender:UIButton){
         
         let pickerController = ImageSelectViewController()
-        //        pickerController.maxSelectableCount = 4
-        
         //imagePictureArray配列を初期化
         self.imagePictureArray = []
-        
         //写真がviewにある場合は削除
         removeUIImageSubviews(parentView:self.view)
-        
         pickerController.didSelectAssets = {
             [unowned self] (assets:[DKAsset])in
             var index = 1
@@ -124,8 +121,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
                     //画像を設定
                     self.imageSet(image: image,index: index,maxCount:assets.count)
                     index = index + 1
-                })
-                
+                })                
             }
         }
         self.present(pickerController, animated: true) {}
@@ -190,7 +186,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         self.view.addSubview(imageView)
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+        //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
         imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
@@ -212,7 +208,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -229,7 +225,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -253,7 +249,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -270,7 +266,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -286,7 +282,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo:inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
@@ -309,7 +305,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -326,7 +322,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -343,7 +339,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: inputTextView.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -360,7 +356,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: inputTextView.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -384,22 +380,17 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         dateSelectViewController?.modalPresentationStyle = .fullScreen
         self.present(dateSelectViewController!,animated: true,completion:nil)
     }
+    
     //投稿ボタン押下時
-    @IBAction func postButton(_ sender: Any) {
-        
+    @objc func tapPostButton(_ sender:UIButton){
         //連續タップ防止のために一度ボタンを非活性とする
         postButton.isEnabled = false
-        
         //テキストが空の時は投稿できないようにする
         guard self.inputTextView.text != "" else {return}
-        
         //HUD
         SVProgressHUD.show()
-        
         // 画像と投稿データの保存場所を定義する
         let postRef = Firestore.firestore().collection(Const.PostPath).document()
-        
-        
         guard let myUid = Auth.auth().currentUser?.uid else {
             return
         }
@@ -419,8 +410,6 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         // Storageに画像をアップロードする
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        
-        
         
         if imagePictureArray.count > 0 {
             var fileNumber = 1
@@ -451,7 +440,6 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
                                 UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
                             }
                         }
-                        
                     }
                 }
                 fileNumber  = fileNumber + 1
@@ -462,10 +450,11 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             postRef.setData(postDic)
             SVProgressHUD.dismiss()
             //先頭画面に戻る
-            UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
-            
+            UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)            
         }
     }
+    
+
     //テキストを入力すると呼び出される
     func textViewDidChange(_ textView: UITextView) {
         //テキストが空の時は投稿ボタンを非活性とする

@@ -16,7 +16,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var nickNameTextField: UILabel!
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var profileMessage: UITextView!
-//    @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var imageChoiceButton: UIButton!
     @IBOutlet weak var changeProfileButton: UIButton!
     @IBOutlet weak var follow: UILabel!
@@ -28,14 +27,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myImage.layer.cornerRadius = 125
-//        logoutButton.layer.cornerRadius = 15
-        profileMessage.layer.cornerRadius = 15
-        changeProfileButton.addTarget(self, action: #selector(changeProfile), for: .touchUpInside)
-        changeProfileButton.layer.cornerRadius = 15
         self.view.backgroundColor = Const.darkColor
+        myImage.layer.cornerRadius = 125
+        profileMessage.layer.cornerRadius = 15
+        changeProfileButton.layer.cornerRadius = 15
         imageChoiceButton.layer.cornerRadius = 15
-        closeButton.addTarget(self, action: #selector(closeProfile), for: .touchUpInside)
+        changeProfileButton.addTarget(self, action: #selector(changeProfile(_:)), for: .touchUpInside)
+        imageChoiceButton.addTarget(self, action: #selector(tapImageChoiceButton(_:)), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(closeProfile(_:)), for: .touchUpInside)
         //ボタンの設定
         buttonSet()
     }
@@ -143,9 +142,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         }
         
 
-    }
+    }    
+
     
-    @IBAction func imageChoiceAction(_ sender: Any) {
+
+    @objc private func tapImageChoiceButton(_ sender:UIButton){
         //写真選択
         // ライブラリ（カメラロール）を指定してピッカーを開く
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -259,7 +260,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
 
     
     //プロフィール変更画面に遷移
-    @objc private func changeProfile(){
+    @objc private func changeProfile(_ sender:UIButton){
         let profileEditViewController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEditViewController") as! ProfileEditViewController
         self.navigationController?.pushViewController(profileEditViewController, animated: true)
     }
@@ -267,7 +268,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    @objc func closeProfile(){
+    @objc func closeProfile(_ sender:UIButton){
         //画面を閉じる
         dismiss(animated: true, completion: nil)
     }

@@ -48,8 +48,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         cell.setUserPostData(userPostArray[indexPath.row])
         
         //セル内のボタンのアクションをソースコードで設定する
-        cell.followRequestPermissionButton.addTarget(self,action:#selector(handleButton(_ : forEvent:)),for: .touchUpInside)
-        cell.followRequestRejectionButton.addTarget(self,action:#selector(rejectionButton(_ : forEvent:)),for: .touchUpInside)
+        cell.followRequestPermissionButton.addTarget(self,action:#selector(tapPermissionButton(_: forEvent:)),for: .touchUpInside)
+        cell.followRequestRejectionButton.addTarget(self,action:#selector(tapRejectionButton(_ : forEvent:)),for: .touchUpInside)
         
         return cell
     }
@@ -78,7 +78,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     }
     
     //セル内の「承認」ボタンがタップされた時に呼ばれるメソッド
-    @objc func handleButton(_ sender: UIButton,forEvent event:UIEvent){
+    @objc func tapPermissionButton(_ sender: UIButton,forEvent event:UIEvent){
         
         //タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
@@ -141,7 +141,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     
     
     //セル内の拒否ボタンがタップされた時に呼ばれるメソッド
-    @objc func rejectionButton(_ sender: UIButton,forEvent event:UIEvent){
+    @objc func tapRejectionButton(_ sender: UIButton,forEvent event:UIEvent){
         //タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
         //タッチした座標

@@ -77,7 +77,7 @@
                                     <constraint firstAttribute="height" constant="50" id="ahN-sL-Gwh"/>
                                     <constraint firstAttribute="width" constant="50" id="hd9-hU-swb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="27"/>
                                 <state key="normal" title="+">
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -263,7 +263,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9et-8P-KgR">
-                                                <rect key="frame" x="87" y="0.0" width="200" height="83"/>
+                                                <rect key="frame" x="87" y="0.0" width="200" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="7Ge-yr-4Xf"/>
                                                 </constraints>
@@ -301,9 +301,6 @@
                                     <constraint firstAttribute="width" constant="50" id="A8h-uc-Fpa"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="paperplane" catalog="system"/>
-                                <connections>
-                                    <action selector="postButton:" destination="Y8g-Km-tVx" eventType="touchUpInside" id="afO-dV-8Mo"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVh-zz-xSd">
                                 <rect key="frame" x="10" y="44" width="77" height="50"/>
@@ -718,9 +715,6 @@
                                 <state key="normal" title="+">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="imageChoiceAction:" destination="jnq-S4-WMj" eventType="touchUpInside" id="Jia-dQ-NPF"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hG0-5e-wNp">
                                 <rect key="frame" x="57" y="388" width="120" height="21"/>
@@ -944,9 +938,6 @@
                                 <state key="normal" title="フォロー">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="followButtonAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="BDp-tt-jx2"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69l-Mc-ClK">
                                 <rect key="frame" x="40" y="284" width="374" height="50"/>
@@ -958,9 +949,6 @@
                                 <state key="normal" title="フォロワー">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="followerButtonAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="cW7-TV-tvI"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTI-Eo-Doy">
                                 <rect key="frame" x="40" y="334" width="374" height="50"/>
@@ -972,9 +960,6 @@
                                 <state key="normal" title="フォローリクエスト">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="followRequestAction:" destination="bg7-Pd-uiH" eventType="touchUpInside" id="5nI-C0-K8w"/>
-                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-qN-cBU">
                                 <rect key="frame" x="40" y="74" width="50" height="50"/>
@@ -1053,7 +1038,10 @@
                     </view>
                     <connections>
                         <outlet property="followLabel" destination="i6S-qx-oCi" id="vmM-aJ-P9h"/>
+                        <outlet property="followRequestShowButton" destination="NTI-Eo-Doy" id="IWT-4f-cqc"/>
+                        <outlet property="followShowButton" destination="sPc-Nl-p0y" id="JOK-si-Vdg"/>
                         <outlet property="followerLabel" destination="dRb-3V-sBD" id="n4B-6t-8oZ"/>
+                        <outlet property="followerShowButton" destination="69l-Mc-ClK" id="yMQ-RD-R8s"/>
                         <outlet property="imageView" destination="NPp-qN-cBU" id="pG3-Mm-9zF"/>
                         <outlet property="logoutButton" destination="i6z-9E-J0i" id="e7G-cp-t7k"/>
                         <outlet property="userName" destination="K1B-OS-xly" id="a73-KH-F4Z"/>
@@ -1147,9 +1135,6 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="6NP-Qx-Jxl"/>
                                 </constraints>
                                 <state key="normal" title="ログイン"/>
-                                <connections>
-                                    <action selector="handleLoginButton:" destination="bk6-DO-39k" eventType="touchUpInside" id="dA7-ca-SRE"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSN-9Z-U4H">
                                 <rect key="frame" x="57" y="406" width="300" height="34"/>
@@ -1160,9 +1145,6 @@
                                 <state key="normal" title="アカウント作成">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="handleCreateAccountButton:" destination="bk6-DO-39k" eventType="touchUpInside" id="G8E-4k-kZ5"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="orK-8T-YLK">
                                 <rect key="frame" x="57" y="298" width="300" height="34"/>

@@ -63,7 +63,6 @@ class FullsizeImageViewController: UIViewController {
     @objc private func tapCancelButton(_ sender :UIButton){
         //モーダルを閉じる
         print("DEBUG:モーダルを閉じる")
-//        self.dismiss(animated: true, completion: nil)
         closeView()
     }
     

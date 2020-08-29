@@ -27,6 +27,8 @@ class DitailViewController: UIViewController {
     var commentData : [CommentData] = [CommentData]()
     private let contentInset :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
     private let indicateInset:UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
+    //セルの高さ（最低基準）
+    private let cellHeight :CGFloat = 100
     
     private lazy var inputTextView : InputTextView = {
         let view = InputTextView()
@@ -142,7 +144,7 @@ class DitailViewController: UIViewController {
     }
     //フルサイズの写真をモーダルで表示
     @objc func imageTransition(_ sender:UITapGestureRecognizer){
-        //画面遷移TODO
+        //画面遷移
         //タップしたUIImageViewを取得
         let tappedImageView = sender.view! as! UIImageView
         //  UIImage を取得
@@ -161,12 +163,11 @@ class DitailViewController: UIViewController {
         // ImageView frame をCGRectで作った矩形に合わせる
         imageView.frame = rect
         imageView.sd_setImage(with: imageRef)
-        
         // UIImageViewのインスタンスをビューに追加
         self.view.addSubview(imageView)
         //AutoLayout
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+        //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
         imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
         imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
@@ -184,10 +185,9 @@ class DitailViewController: UIViewController {
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
             self.view.addSubview(imageView)
-            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue2).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -203,7 +203,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue2).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -226,7 +226,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -242,7 +242,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -255,11 +255,10 @@ class DitailViewController: UIViewController {
             imageView.frame = rect
             imageView.sd_setImage(with: imageRef)
             // UIImageViewのインスタンスをビューに追加
-            self.view.addSubview(imageView)
-            
+            self.view.addSubview(imageView)            
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo:diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2) ).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
@@ -281,7 +280,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -297,7 +296,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -313,7 +312,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.leadingAnchor.constraint(equalTo: diaryText.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -329,7 +328,7 @@ class DitailViewController: UIViewController {
             self.view.addSubview(imageView)
             //AutoLayout
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            //imageViewの最上部の位置はinputTextViewの最下部の位置から20pt下
+            //imageViewの最上部の位置はinputTextViewの最下部の位置から「constant」pt下
             imageView.topAnchor.constraint(equalTo: diaryText.bottomAnchor, constant:constantValue1 + (imageHeight * scale / 2)).isActive = true
             imageView.trailingAnchor.constraint(equalTo: diaryText.trailingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: (screenWidth / 2) - adjustmentValue ).isActive = true
@@ -449,9 +448,6 @@ class DitailViewController: UIViewController {
         if imageMaxNumber > 0{
             for i in 1...imageMaxNumber{
                 let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postDocumentId + "\(i).jpg")
-                //        contetImageView.sd_setImage(with: imageRef2)
-                
-                //
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
@@ -511,10 +507,8 @@ class DitailViewController: UIViewController {
             } else {
                 if let document = querySnapshot!.data(){
                     let imageName = document["myImageName"] as? String ?? ""
-                    
                     //画像の取得
                     let imageRef = Storage.storage().reference().child(Const.ImagePath).child(imageName + ".jpg")
-                    
                     //画像がなければデフォルトの画像表示
                     if imageName == "" {
                         self.imageView.image = UIImage(named: "unknown")
@@ -635,11 +629,6 @@ class DitailViewController: UIViewController {
         
         self.present(likeUserListTableViewController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
 }
 //作成したデリゲートを使用する
 extension DitailViewController :InputTextViewDelegate{
@@ -685,9 +674,10 @@ extension DitailViewController :InputTextViewDelegate{
 }
 
 extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //高さの最低基準
-        self.tableView.estimatedRowHeight = 100        
+        self.tableView.estimatedRowHeight = cellHeight
         //高さをコメントに合わせる
         return UITableView.automaticDimension
     }

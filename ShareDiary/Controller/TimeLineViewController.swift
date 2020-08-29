@@ -125,7 +125,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.setPostData(postArray[indexPath.row])
         
         // セル内のいいねボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
+        cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
         cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
         //自作のデリゲート
@@ -150,7 +150,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         
     }
     // セル内のいいねボタンがタップされた時に呼ばれるメソッド
-    @objc func likeButton(_ sender: UIButton, forEvent event: UIEvent) {
+    @objc func tapLikeButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG: likeボタンがタップされました。")
         
         // タップされたセルのインデックスを求める
