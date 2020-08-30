@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fg7-AJ-kTE" userLabel="ShadowView" customClass="ShadowUIView" customModule="ShareDiary" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="495"/>
+                        <rect key="frame" x="5" y="5" width="310" height="485"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-9e-LAJ">
@@ -90,13 +90,13 @@
                 <constraints>
                     <constraint firstItem="ga0-2s-bLv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5Sf-ao-hHj"/>
                     <constraint firstItem="KbI-9e-LAJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="5UP-m3-FT4"/>
-                    <constraint firstItem="fg7-AJ-kTE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6RB-bW-5sd"/>
+                    <constraint firstItem="fg7-AJ-kTE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="6RB-bW-5sd"/>
                     <constraint firstAttribute="bottom" secondItem="Uvo-XL-Yh4" secondAttribute="bottom" constant="350" id="6cV-RO-SwJ"/>
                     <constraint firstAttribute="bottom" secondItem="KbI-9e-LAJ" secondAttribute="bottom" constant="5" id="6i3-hd-qri"/>
-                    <constraint firstAttribute="bottom" secondItem="fg7-AJ-kTE" secondAttribute="bottom" id="A5A-WD-KbQ"/>
-                    <constraint firstItem="fg7-AJ-kTE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AlF-S8-9dQ"/>
+                    <constraint firstAttribute="bottom" secondItem="fg7-AJ-kTE" secondAttribute="bottom" constant="5" id="A5A-WD-KbQ"/>
+                    <constraint firstItem="fg7-AJ-kTE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="AlF-S8-9dQ"/>
                     <constraint firstItem="lNF-2p-zdQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="BMy-Jg-aog"/>
-                    <constraint firstAttribute="trailing" secondItem="fg7-AJ-kTE" secondAttribute="trailing" id="G9d-A4-2rf"/>
+                    <constraint firstAttribute="trailing" secondItem="fg7-AJ-kTE" secondAttribute="trailing" constant="5" id="G9d-A4-2rf"/>
                     <constraint firstItem="Uvo-XL-Yh4" firstAttribute="top" secondItem="5g6-z9-oAc" secondAttribute="bottom" constant="5" id="IoS-Ci-WzE"/>
                     <constraint firstItem="5g6-z9-oAc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="KKt-F9-yRQ"/>
                     <constraint firstItem="Ooc-bI-76m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Ka5-c9-axG"/>
