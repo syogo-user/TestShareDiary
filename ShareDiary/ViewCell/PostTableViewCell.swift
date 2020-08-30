@@ -26,6 +26,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentsView: UIView!
+    @IBOutlet weak var shadowView: UIView!
     
     //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
@@ -46,18 +47,22 @@ class PostTableViewCell: UITableViewCell {
     let contentLabelBottomConstraint1:CGFloat = 240 //contentLabelから下の長さ
     let contentLabelBottomConstraint2:CGFloat = 390 //contentLabelから下の長さ
     let contentLabelBottomConstraint3:CGFloat = 350 //contentLabelから下の長さ
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)//
-        postUserImageView.layer.cornerRadius = 20
-        self.contentsView.layer.cornerRadius = 25 //
-        contentsView.layer.masksToBounds = true
+        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)
+        self.postUserImageView.layer.cornerRadius = 20
+        self.contentsView.layer.cornerRadius = 25
+        self.contentsView.layer.masksToBounds = true
         //影
-        contentsView.layer.shadowColor = UIColor.black.cgColor
-        contentsView.layer.shadowOffset = CGSize(width: 0, height: 10) // 影の方向(ここでは右下)
-        contentsView.layer.shadowOpacity = 0.5 // 影の濃さ
-        contentsView.layer.shadowRadius = 10 // 影のぼかし量
+        self.shadowView.backgroundColor = .clear 
+//        self.shadowView.layer.masksToBounds = false
+//        self.shadowView.layer.shadowColor = UIColor.black.cgColor
+//        self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 10) // 影の方向(ここでは右下)
+//        self.shadowView.layer.shadowOpacity = 0.5 // 影の濃さ
+//        self.shadowView.layer.shadowRadius = 10 // 影のぼかし量
+//        self.shadowView.layer.shadowPath = UIBezierPath(roundedRect: self.shadowView.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+//        self.shadowView.layer.shouldRasterize = true
+//        shadowView.layer.rasterizationScale = UIScreen.main.scale
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

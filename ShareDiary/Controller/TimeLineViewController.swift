@@ -124,7 +124,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.selectionStyle = .none
         
         cell.setPostData(postArray[indexPath.row])
-        
         // セル内のいいねボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時

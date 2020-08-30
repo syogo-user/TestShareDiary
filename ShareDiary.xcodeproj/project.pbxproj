@@ -52,6 +52,7 @@
 		77BE8041803A71A746E1929D /* Pods_ShareDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */; };
 		91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */; };
 		9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110558524E9248600D1B796 /* AccountCreateViewController.swift */; };
+		911FB07A24FB880000744B34 /* ShadowUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FB07924FB880000744B34 /* ShadowUIView.swift */; };
 		9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */; };
 		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
 		917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A8A6024FA391900F159E5 /* CommonDate.swift */; };
@@ -106,6 +107,7 @@
 		3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryFromCalendarViewController.swift; sourceTree = "<group>"; };
 		91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIDelegate.swift; sourceTree = "<group>"; };
 		9110558524E9248600D1B796 /* AccountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreateViewController.swift; sourceTree = "<group>"; };
+		911FB07924FB880000744B34 /* ShadowUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowUIView.swift; sourceTree = "<group>"; };
 		9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		917A8A6024FA391900F159E5 /* CommonDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				3DE733E82483C25000241528 /* ViewCell */,
 				3DE733E72483C1DE00241528 /* Controller */,
 				3D9BFE8223FEE75F009893B1 /* AppDelegate.swift */,
+				911FB07924FB880000744B34 /* ShadowUIView.swift */,
 				917A8A6024FA391900F159E5 /* CommonDate.swift */,
 				91F46CFB24E2E38000155CF5 /* Assets.xcassets */,
 				3DE8129724B9981300E85957 /* UIColorExtention.swift */,
@@ -419,6 +422,7 @@
 				917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */,
 				3D7549D424A372A80062BEC8 /* DateSelectViewController.swift in Sources */,
 				3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */,
+				911FB07A24FB880000744B34 /* ShadowUIView.swift in Sources */,
 				3DD44DA22466438F0001E7A8 /* FollowRequestListTableViewController.swift in Sources */,
 				3D87199A240A500800D4064E /* Const.swift in Sources */,
 				3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */,
