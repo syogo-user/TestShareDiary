@@ -25,6 +25,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentsView: UIView!
     
     //グラデーションレイヤー
     var gradientLayer = CAGradientLayer()
@@ -48,9 +49,15 @@ class PostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.layer.cornerRadius = 15
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)//
         postUserImageView.layer.cornerRadius = 20
+        self.contentsView.layer.cornerRadius = 25 //
+        contentsView.layer.masksToBounds = true
+        //影
+        contentsView.layer.shadowColor = UIColor.black.cgColor
+        contentsView.layer.shadowOffset = CGSize(width: 0, height: 10) // 影の方向(ここでは右下)
+        contentsView.layer.shadowOpacity = 0.5 // 影の濃さ
+        contentsView.layer.shadowRadius = 10 // 影のぼかし量
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -60,7 +67,7 @@ class PostTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         //描画されるときに呼び出される
         super.layoutSubviews()
-        gradientLayer.frame = self.layer.bounds
+        gradientLayer.frame = self.contentsView.layer.bounds
         //写真を削除
         self.removeUIImageSubviews(parentView: self)
         //投稿写真の枚数分ループする (1,2,3,4)

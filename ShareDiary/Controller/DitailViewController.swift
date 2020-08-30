@@ -10,9 +10,7 @@ import UIKit
 import FirebaseUI
 import Firebase
 class DitailViewController: UIViewController {
-    
-    
-    
+        
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var userName: UILabel!

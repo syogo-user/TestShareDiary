@@ -27,8 +27,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
-        //画面下部の境界線を消す
-        tableView.tableFooterView = UIView()
+        //tableViewの境界線を消す
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
