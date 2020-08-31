@@ -96,6 +96,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             }
                             // TableViewの表示を更新する
                             self.tableView.reloadData()
+
                         }
                     }
                 }

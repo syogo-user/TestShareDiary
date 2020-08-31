@@ -48,11 +48,29 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         let toolBar = UIToolbar()
         //ツールバーに配置するアイテムのインスタンスを作成
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let imageButton:UIBarButtonItem = UIBarButtonItem(title:"画像", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapImageButton(_:)))
-        let colorButton:UIBarButtonItem = UIBarButtonItem(title:"背景色", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapColorButton(_:)))
-        let dateButton:UIBarButtonItem = UIBarButtonItem(title:"日付",style: UIBarButtonItem.Style.plain,target:self,action:#selector(tapDateButton(_:)))
+        // ボタンのサイズ
+        let buttonSize: CGFloat = 24
+        
+        //写真選択ボタン
+        let imageButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
+        imageButton.setBackgroundImage(UIImage(named: "gallery"), for: UIControl.State())
+        imageButton.addTarget(self, action: #selector(tapImageButton(_:)), for: .touchUpInside)
+        let imageButtonItem = UIBarButtonItem(customView: imageButton)
+        //カラー選択ボタン
+        let colorButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
+        colorButton.setBackgroundImage(UIImage(named: "color"), for: UIControl.State())
+        colorButton.addTarget(self, action: #selector(tapColorButton(_:)), for: .touchUpInside)
+        let colorButtonItem = UIBarButtonItem(customView: colorButton)
+        //日付選択ボタン
+        let dateButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
+        dateButton.setBackgroundImage(UIImage(named: "calendar"), for: UIControl.State())
+        dateButton.addTarget(self, action: #selector(tapDateButton(_:)), for: .touchUpInside)
+        let dateButtonItem = UIBarButtonItem(customView: dateButton)
+//        let imageButton:UIBarButtonItem = UIBarButtonItem(title:"画像", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapImageButton(_:)))
+//        let colorButton:UIBarButtonItem = UIBarButtonItem(title:"背景色", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapColorButton(_:)))
+//        let dateButton:UIBarButtonItem = UIBarButtonItem(title:"日付",style: UIBarButtonItem.Style.plain,target:self,action:#selector(tapDateButton(_:)))
         //アイテムを配置
-        toolBar.setItems([imageButton,flexibleItem,dateButton,flexibleItem,colorButton],animated: true)
+        toolBar.setItems([imageButtonItem,flexibleItem,dateButtonItem,flexibleItem,colorButtonItem],animated: true)
         //ツールバーのサイズを指定
         toolBar.sizeToFit()
         //デリゲートを設定

@@ -72,6 +72,7 @@ class PostTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         //描画されるときに呼び出される
         super.layoutSubviews()
+        contentsView.frame = self.bounds
         gradientLayer.frame = self.contentsView.layer.bounds
         //写真を削除
         self.removeUIImageSubviews(parentView: self)
