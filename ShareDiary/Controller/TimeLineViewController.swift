@@ -194,6 +194,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         //詳細画面に遷移する
         let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
         detailViewController.postData = postData
+        detailViewController.scrollFlg = true //画面遷移後すぐに下にスクロールを行う
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

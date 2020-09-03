@@ -53,6 +53,8 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         self.searchbar.text = ""
         self.userPostArray = []
         self.tableView.reloadData()
+        //検索欄にフォーカスをあてる
+        searchbar.becomeFirstResponder()
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
     }

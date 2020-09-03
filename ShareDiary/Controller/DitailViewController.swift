@@ -20,7 +20,8 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var postDeleteButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-        
+    
+    var scrollFlg :Bool = false //下部（コメントエリア）にスクロールさせるかの判定
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
     private let contentInset :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
@@ -57,6 +58,7 @@ class DitailViewController: UIViewController {
         //いいねボタンのアクションを設定
         likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
         
+
         //戻るボタンの戻るの文字を削除
         navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
@@ -79,9 +81,12 @@ class DitailViewController: UIViewController {
         likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
         //テーブルビューの表示
         tableViewSet()
+
         //スクロールでキーボードをしまう
         self.tableView.keyboardDismissMode = .interactive
         setupNotification()
+        
+
         
     }
     
@@ -397,13 +402,18 @@ class DitailViewController: UIViewController {
                         let m2Date = m2.createdAt.dateValue()
                         return m1Date < m2Date
                     }
-                    
                     self.tableView.reloadData()
+                    print("DEBUG:\(self.commentData.count - 1)")
+                    if self.scrollFlg {//通常の画面遷移からの初期表示時はスクロールしない
+                        self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
+                    }
+                    
                 case .modified, .removed:
                     print("DEBUG:nothing to do")
                 }
             })
-            
+            //初期表示後はスクロールをtrueとする
+            self.scrollFlg = true
         }
     }
     
