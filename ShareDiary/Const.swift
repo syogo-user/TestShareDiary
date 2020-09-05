@@ -22,11 +22,11 @@ struct Const {
     static let darkColor = UIColor(red:30/255,green:40/255,blue:54/255,alpha:1.0)
     static let lightOrangeColor = UIColor(red:255/255,green:245/255,blue:229/255,alpha:1.0)
     //各ボタンのグラデーション
-//    static let buttonStartColor = UIColor(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-//    static let buttonEndColor = UIColor(red: 0.2852321628, green: 0.938419044, blue: 0.9285692306, alpha: 1)
     static let buttonStartColor = UIColor(red:254/255,green:225/255,blue:64/255,alpha:1.0)
     static let buttonEndColor = UIColor(red:250/255,green:112/255,blue:154/255,alpha:1.0)
     
+    //ユーザセルの高さ
+    static let  cellHeight :CGFloat = 110
     //辞書型[String:CGColor]の配列
     static let color  = [
         ["startColor":UIColor(red:255/255,green:255/255,blue:153/255,alpha:1.0).cgColor,

@@ -17,9 +17,7 @@ class UserPostData: NSObject {
     var follower:[String]?
     var followRequest:[String]?
     
-    
-    
-    
+
     init(document:QueryDocumentSnapshot){
         let postDic = document.data()
         self.uid = postDic["uid"] as? String
@@ -42,19 +40,5 @@ class UserPostData: NSObject {
         self.followRequest = postDic["followRequest"] as? [String]
 
     }
-
-    
-    
-    //    init(document:QueryDocumentSnapshot,followArray:[String],followRequestArray:[String]){
-    //        let postDic = document.data()
-    //        self.uid = postDic["uid"] as? String
-    //        self.userName = postDic["userName"] as? String
-    //
-    ////        //フォローの中にあったらtrue(申請済み)
-    ////        if followArray.firstIndex(of: uid!) != nil {
-    ////            self.followRequestFlg = true
-    ////        }
-    //
-    //    }
     
 }

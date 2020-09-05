@@ -16,13 +16,13 @@ class ColorChoiceViewController: UIViewController ,UICollectionViewDataSource, U
     
     override func  viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
         //CollectionViewのサイズ調整
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:15,left:15,bottom:15,right:15)
-        collectionView.collectionViewLayout = layout
-        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
+        self.collectionView.collectionViewLayout = layout
+        self.cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
     
     

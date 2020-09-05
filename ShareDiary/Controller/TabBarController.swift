@@ -9,6 +9,10 @@
 import UIKit
 import Firebase
 import SDWebImage
+protocol TabBarDelegate{
+    func didSelectTab(tabBarController:TabBarController)
+}
+
 class TabBarController: UITabBarController, UITabBarControllerDelegate  {
 
     override func viewDidLoad() {
@@ -20,7 +24,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         // UITabBarControllerDelegateプロトコルのメソッドをこのクラスで処理する。
         self.delegate = self
         //NavigationBarが半透明かどうか
-        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isTranslucent = false
         //ヘッダーの文字（バッテリーマークなども）白くなる
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.barTintColor = Const.darkColor
@@ -72,6 +76,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         //タブ切り替え時は全て遷移する
         return true
+    }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController is TabBarDelegate {
+            let v = viewController as! TabBarDelegate
+            v.didSelectTab(tabBarController: self)
+        }
     }
     @objc func addTapped(){
         //スライドを開く

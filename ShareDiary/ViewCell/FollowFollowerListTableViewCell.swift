@@ -12,7 +12,7 @@ import SDWebImage
 class FollowFollowerListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var profileMessage: UITextView!
+    @IBOutlet weak var profileMessage: UILabel!
     @IBOutlet weak var rejectedButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
     override func awakeFromNib() {
@@ -22,8 +22,7 @@ class FollowFollowerListTableViewCell: UITableViewCell {
         rejectedButton.layer.cornerRadius = 15
         userImage.layer.cornerRadius = 30
         //セルをタップ時、ラベルが重なっているため、ラベルが反応しないように設定
-        profileMessage.isUserInteractionEnabled=false
-        
+        profileMessage.isUserInteractionEnabled = false        
         //ボタンの設定
         buttonSet()
     }
@@ -56,7 +55,7 @@ class FollowFollowerListTableViewCell: UITableViewCell {
         //userNameをセット
         self.userName.text = userPostData.userName
         self.profileMessage.text = userPostData.profileMessage
-        self.profileMessage.isEditable = false//編集不可
+        self.profileMessage.isEnabled = false//編集不可
         //写真を設定
         setImage(userImageName:userPostData.myImageName)
         

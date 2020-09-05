@@ -19,19 +19,22 @@ class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userTableView.backgroundColor = Const.lightOrangeColor        
-        userTableView.delegate = self
-        userTableView.dataSource = self
+        self.userTableView.delegate = self
+        self.userTableView.dataSource = self
         //戻るボタンの戻るの文字を削除
-        navigationController!.navigationBar.topItem!.title = ""
+        self.navigationController!.navigationBar.topItem!.title = ""
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
-        userTableView.register(nib, forCellReuseIdentifier: "tableCell")
-        //画面下部の境界線を消す
-        userTableView.tableFooterView = UIView()
+        self.userTableView.register(nib, forCellReuseIdentifier: "tableCell")
+        //画面の境界線を消す
+        self.userTableView.separatorStyle = .none
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 投稿の取得
+        //投稿の取得し描画
+        reload()
+    }
+    private func reload(){
         guard let myUid = Auth.auth().currentUser?.uid else {return}
         let postRef =  Firestore.firestore().collection(Const.PostPath)
             .whereField("selectDate", isEqualTo: diaryDate).whereField("uid", isEqualTo: myUid)
@@ -70,6 +73,11 @@ class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath) as! PostTableViewCell
         cell.setPostData(postArray[indexPath.row])
         cell.postTableViewCellDelegate = self
+        //いいねボタンのアクションをソースコードで設定する
+        cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
+
+        //コメントボタンを押下時
+        cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
         return cell
     }
     
@@ -84,6 +92,51 @@ class MyDiaryFromCalendarViewController: UIViewController ,UITableViewDataSource
          self.navigationController?.pushViewController(detailViewController, animated: true)
          
      }
+    //コメントボタン押下時
+    @objc func tapCommnetButton(_ sender: UIButton, forEvent event: UIEvent){
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.userTableView)
+        let indexPath = userTableView.indexPathForRow(at: point)
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        //詳細画面に遷移する
+        let detailViewController = self.storyboard?.instantiateViewController(identifier: "DitailViewController") as! DitailViewController
+        detailViewController.postData = postData
+        detailViewController.scrollFlg = true //画面遷移後すぐに下にスクロールを行う
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+
+    }
+    //いいねボタンがタップされた時に呼ばれるメソッド
+    @objc func tapLikeButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG: likeボタンがタップされました。")
+        
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.userTableView)
+        let indexPath = userTableView.indexPathForRow(at: point)
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        
+        // likesを更新する
+        if let myid = Auth.auth().currentUser?.uid {
+            // 更新データを作成する
+            var updateValue: FieldValue
+            if postData.isLiked {
+                // すでにいいねをしている場合は、いいね解除のためmyidを取り除く更新データを作成
+                updateValue = FieldValue.arrayRemove([myid])
+            } else {
+                // 今回新たにいいねを押した場合は、myidを追加する更新データを作成
+                updateValue = FieldValue.arrayUnion([myid])
+            }
+            // likesに更新データを書き込む
+            let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
+            postRef.updateData(["likes": updateValue])
+        }
+        //再描画
+        reload()
+    }
 }
 extension MyDiaryFromCalendarViewController:PostTableViewCellDelegate{
     //PostTablViewCellの投稿写真をタップしたときに呼ばれる

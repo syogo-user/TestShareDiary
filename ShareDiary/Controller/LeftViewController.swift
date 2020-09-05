@@ -24,10 +24,10 @@ class LeftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.layer.cornerRadius  = 25
-        logoutButton.addTarget(self, action: #selector(tapLogoutButton(_:)), for: .touchUpInside)
-        followShowButton.addTarget(self, action: #selector(tapFollowShowButton(_:)), for: .touchUpInside)
-        followerShowButton.addTarget(self, action: #selector(tapFollowerShowButton(_:)), for: .touchUpInside)
-        followRequestShowButton.addTarget(self, action: #selector(tapFollowRequestShowShowButton(_:)), for: .touchUpInside)
+        self.logoutButton.addTarget(self, action: #selector(tapLogoutButton(_:)), for: .touchUpInside)
+        self.followShowButton.addTarget(self, action: #selector(tapFollowShowButton(_:)), for: .touchUpInside)
+        self.followerShowButton.addTarget(self, action: #selector(tapFollowerShowButton(_:)), for: .touchUpInside)
+        self.followRequestShowButton.addTarget(self, action: #selector(tapFollowRequestShowShowButton(_:)), for: .touchUpInside)
         
     }
     override func viewWillAppear(_ animated: Bool) {

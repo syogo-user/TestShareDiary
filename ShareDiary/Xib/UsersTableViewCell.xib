@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqM-HG-Haj">
-                        <rect key="frame" x="80" y="20" width="110" height="20.5"/>
+                        <rect key="frame" x="80" y="25" width="110" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06U-HJ-1hr">
-                        <rect key="frame" x="210" y="15" width="100" height="30"/>
+                        <rect key="frame" x="210" y="40" width="100" height="30"/>
                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="DPv-wU-iib"/>
@@ -34,43 +34,42 @@
                         </state>
                     </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1pD-Vq-bCT">
-                        <rect key="frame" x="10" y="20" width="60" height="60"/>
+                        <rect key="frame" x="10" y="25" width="60" height="60"/>
                         <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="UXL-Zn-YHe"/>
                             <constraint firstAttribute="width" constant="60" id="a9Q-NF-smk"/>
                         </constraints>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dUp-rD-Mkr">
-                        <rect key="frame" x="80" y="55.5" width="230" height="44.5"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCv-2d-0Lb">
+                        <rect key="frame" x="80" y="55.5" width="110" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="qI5-Km-pKH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="dUp-rD-Mkr" firstAttribute="top" secondItem="yqM-HG-Haj" secondAttribute="bottom" constant="15" id="JQC-yS-Tay"/>
+                    <constraint firstItem="yqM-HG-Haj" firstAttribute="top" secondItem="1pD-Vq-bCT" secondAttribute="top" id="0G2-Rc-75H"/>
+                    <constraint firstItem="cCv-2d-0Lb" firstAttribute="top" secondItem="yqM-HG-Haj" secondAttribute="bottom" constant="10" id="APT-4X-iDo"/>
+                    <constraint firstItem="cCv-2d-0Lb" firstAttribute="leading" secondItem="1pD-Vq-bCT" secondAttribute="trailing" constant="10" id="IMS-3z-1vv"/>
+                    <constraint firstItem="06U-HJ-1hr" firstAttribute="leading" secondItem="cCv-2d-0Lb" secondAttribute="trailing" constant="20" id="KlP-ml-W7s"/>
                     <constraint firstItem="1pD-Vq-bCT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LN2-80-aiA"/>
-                    <constraint firstItem="06U-HJ-1hr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="LTx-gv-J6Q"/>
-                    <constraint firstItem="06U-HJ-1hr" firstAttribute="trailing" secondItem="dUp-rD-Mkr" secondAttribute="trailing" id="Sbs-c6-KOD"/>
-                    <constraint firstItem="dUp-rD-Mkr" firstAttribute="top" secondItem="yqM-HG-Haj" secondAttribute="bottom" constant="15" id="dEh-aU-qTb"/>
-                    <constraint firstItem="yqM-HG-Haj" firstAttribute="leading" secondItem="1pD-Vq-bCT" secondAttribute="trailing" constant="10" id="drs-rB-gpW"/>
-                    <constraint firstItem="dUp-rD-Mkr" firstAttribute="leading" secondItem="1pD-Vq-bCT" secondAttribute="trailing" constant="10" id="eUS-lr-ihV"/>
-                    <constraint firstItem="dUp-rD-Mkr" firstAttribute="leading" secondItem="1pD-Vq-bCT" secondAttribute="trailing" constant="10" id="f4t-KZ-r85"/>
-                    <constraint firstItem="yqM-HG-Haj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="jBg-sZ-hx2"/>
-                    <constraint firstItem="1pD-Vq-bCT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="kcx-Ux-dCM"/>
+                    <constraint firstItem="yqM-HG-Haj" firstAttribute="leading" secondItem="1pD-Vq-bCT" secondAttribute="trailing" constant="10" id="NYQ-ez-lo4"/>
+                    <constraint firstItem="1pD-Vq-bCT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TWi-Yj-kQQ"/>
+                    <constraint firstItem="06U-HJ-1hr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eKF-L8-htR"/>
                     <constraint firstItem="06U-HJ-1hr" firstAttribute="leading" secondItem="yqM-HG-Haj" secondAttribute="trailing" constant="20" id="t6h-Zp-JDQ"/>
                     <constraint firstAttribute="trailing" secondItem="06U-HJ-1hr" secondAttribute="trailing" constant="10" id="uyh-ZZ-OJG"/>
-                    <constraint firstAttribute="bottom" secondItem="dUp-rD-Mkr" secondAttribute="bottom" constant="10" id="xS1-Fd-N5r"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="followRequestButton" destination="06U-HJ-1hr" id="wt2-5c-s4G"/>
-                <outlet property="profileMessage" destination="dUp-rD-Mkr" id="xXB-mX-CPY"/>
+                <outlet property="profileMessage" destination="cCv-2d-0Lb" id="vCb-qg-4Iz"/>
                 <outlet property="userImage" destination="1pD-Vq-bCT" id="IEp-W3-jn9"/>
                 <outlet property="userName" destination="yqM-HG-Haj" id="xyR-oW-t2R"/>
             </connections>

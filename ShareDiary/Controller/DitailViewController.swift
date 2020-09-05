@@ -47,20 +47,18 @@ class DitailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = Const.lightOrangeColor
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "CommentTableViewCell", bundle:nil)
-        tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
+        self.tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
+        self.tableView.backgroundColor = Const.lightOrangeColor
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.separatorStyle = .none
+        self.tableView.tableFooterView = UIView()
         //いいねボタンのアクションを設定
-        likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
-        
-
+        self.likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
         //戻るボタンの戻るの文字を削除
-        navigationController!.navigationBar.topItem!.title = ""
+        self.navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
         
         guard let post = postData else {return}
@@ -76,18 +74,14 @@ class DitailViewController: UIViewController {
             self.postDeleteButton.isEnabled = true//活性
         }
         //削除ボタン押下時
-        postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
+        self.postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
         //likeUserButton押下時
-        likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
+        self.likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
         //テーブルビューの表示
         tableViewSet()
-
         //スクロールでキーボードをしまう
         self.tableView.keyboardDismissMode = .interactive
         setupNotification()
-        
-
-        
     }
     
     
@@ -437,11 +431,8 @@ class DitailViewController: UIViewController {
         
         // 日時の表示
         self.diaryDate.text = ""
-        if let date = post.date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let dateString = formatter.string(from: date)
-            self.diaryDate.text = dateString
+        if let selectDate = post.selectDate {
+            self.diaryDate.text = selectDate
         }
         // コンテントの表示
         self.diaryText.text = ""
@@ -696,7 +687,8 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
-        
+
+
         cell.translatesAutoresizingMaskIntoConstraints = false
         //Cell に値を設定する
         cell.setCommentData(commentData[indexPath.row])

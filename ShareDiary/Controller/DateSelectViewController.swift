@@ -35,7 +35,7 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
         
         self.dateSelectCalendar.reloadData()
         
-        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
+        self.cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         //選択した日付を取得

@@ -39,8 +39,8 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectDate = Date()
-        typeingColor = inputTextView.tintColor
+        self.selectDate = Date()
+        self.typeingColor = inputTextView.tintColor
 
         //キーボード表示
         self.inputTextView.becomeFirstResponder()
@@ -66,18 +66,15 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         dateButton.setBackgroundImage(UIImage(named: "calendar"), for: UIControl.State())
         dateButton.addTarget(self, action: #selector(tapDateButton(_:)), for: .touchUpInside)
         let dateButtonItem = UIBarButtonItem(customView: dateButton)
-//        let imageButton:UIBarButtonItem = UIBarButtonItem(title:"画像", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapImageButton(_:)))
-//        let colorButton:UIBarButtonItem = UIBarButtonItem(title:"背景色", style: UIBarButtonItem.Style.plain ,target: self, action: #selector(tapColorButton(_:)))
-//        let dateButton:UIBarButtonItem = UIBarButtonItem(title:"日付",style: UIBarButtonItem.Style.plain,target:self,action:#selector(tapDateButton(_:)))
         //アイテムを配置
         toolBar.setItems([imageButtonItem,flexibleItem,dateButtonItem,flexibleItem,colorButtonItem],animated: true)
         //ツールバーのサイズを指定
         toolBar.sizeToFit()
         //デリゲートを設定
-        inputTextView.delegate = self
-        inputTextView.inputAccessoryView = toolBar
-        postButton.addTarget(self, action: #selector(tapPostButton(_:)), for: .touchUpInside)
-        cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
+        self.inputTextView.delegate = self
+        self.inputTextView.inputAccessoryView = toolBar
+        self.postButton.addTarget(self, action: #selector(tapPostButton(_:)), for: .touchUpInside)
+        self.cancelButton.addTarget(self, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
     
     
@@ -89,7 +86,7 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
         }
         print("DEBUG:",backgroundColorArrayIndex)
         //選択された日付をラベルに表示(初期表示は本日)
-        dateLabel.text = CommonDate.dateFormat(date:selectDate)
+        self.dateLabel.text = CommonDate.dateFormat(date:selectDate)
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         //遷移前の画面から受け取ったIndexで色を決定する
@@ -108,10 +105,10 @@ class PostViewController: UIViewController,UITextViewDelegate,UIImagePickerContr
             self.view.layer.insertSublayer(gradientLayer, at:0)
         }        
         //文字の色変化
-        typeingColor  = UIColor.gray
-        inputTextView.textColor = typeingColor
+        self.typeingColor  = UIColor.black
+        self.inputTextView.textColor = typeingColor
         //テキストにフォーカスを当てる
-        inputTextView.becomeFirstResponder()
+        self.inputTextView.becomeFirstResponder()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

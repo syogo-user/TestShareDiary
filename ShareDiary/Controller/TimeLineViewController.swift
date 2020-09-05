@@ -8,28 +8,30 @@
 
 import UIKit
 import Firebase
-
-class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate {
-    
+import SVProgressHUD
+class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate ,TabBarDelegate{
+        
     @IBOutlet weak var tableView: UITableView!
     // 投稿データを格納する配列
     var postArray: [PostData] = []
     let refreshCtl = UIRefreshControl()
     // Firestoreのリスナー
     var listener: ListenerRegistration!
-    
+    //初回表示フラグ
+    var initialDisplayFlg :Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.refreshControl = refreshCtl
-        refreshCtl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         // カスタムセルを登録する
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         //tableViewの境界線を消す
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
+        //リフレッシュ
+        tableView.refreshControl = refreshCtl
+        refreshCtl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +43,19 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             guard listener == nil  else{return}
             // listener未登録なら、登録してスナップショットを受信する
             let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
+            //HUD表示用
+            initialDisplayFlg = true //初期表示のみtrue
             listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
+                //HUDで処理中を表示
+                if self.initialDisplayFlg  {
+                    //初期表示は件数が多いためHUDを表示
+                    SVProgressHUD.show()
+                }
                 if let error = error {
                     print("DEBUG: snapshotの取得が失敗しました。 \(error)")
+                    if self.initialDisplayFlg {
+                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+                    }
                     return
                 }
                 // ここでusersから自分がフォローしている人のuidを取得する
@@ -52,6 +64,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     (querySnapshot2,error) in
                     if let error = error {
                         print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                        if self.initialDisplayFlg {
+                            SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+                        }
                         return
                     } else {
                         let document = querySnapshot2?.data()
@@ -82,6 +97,13 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             }
                             // TableViewの表示を更新する
                             self.tableView.reloadData()
+
+                            if self.initialDisplayFlg {
+                                //HUDを消す
+                                SVProgressHUD.dismiss()
+                                self.initialDisplayFlg = false//初期表示以外はfalse
+                            }
+                            
                         }else{
                             //followがnil
                             self.postArray = []
@@ -96,7 +118,11 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                             }
                             // TableViewの表示を更新する
                             self.tableView.reloadData()
-
+                            if self.initialDisplayFlg {
+                                //HUDを消す
+                                SVProgressHUD.dismiss()
+                                self.initialDisplayFlg = false//初期表示以外はfalse
+                            }
                         }
                     }
                 }
@@ -125,7 +151,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.selectionStyle = .none
         
         cell.setPostData(postArray[indexPath.row])
-        // セル内のいいねボタンのアクションをソースコードで設定する
+        //いいねボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
         cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
@@ -150,7 +176,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(detailViewController, animated: true)
         
     }
-    // セル内のいいねボタンがタップされた時に呼ばれるメソッド
+    //いいねボタンがタップされた時に呼ばれるメソッド
     @objc func tapLikeButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG: likeボタンがタップされました。")
         
@@ -196,6 +222,12 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         detailViewController.postData = postData
         detailViewController.scrollFlg = true //画面遷移後すぐに下にスクロールを行う
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    //タブボタンがタップされた場合
+    func didSelectTab(tabBarController: TabBarController) {
+        print("DEBUG:タイムラインタブがタップされました。")
+        //最上部にスクロール
+        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
     }
 }
 

@@ -20,12 +20,12 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
         self.tableView.backgroundColor = Const.darkColor
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "FollowRequestListTableViewCell", bundle:nil)
-        tableView.register(nib, forCellReuseIdentifier: "FollowRequestListCell")
-        backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
+        self.tableView.register(nib, forCellReuseIdentifier: "FollowRequestListCell")
+        self.backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +39,10 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     //データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView , numberOfRowsInSection section:Int ) -> Int{
         return userPostArray.count
+    }
+    //高さ調整
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Const.cellHeight
     }
     //各セルの内容を返すメソッド
     func tableView(_ tableView : UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{

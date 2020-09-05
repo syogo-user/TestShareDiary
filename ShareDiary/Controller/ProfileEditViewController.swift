@@ -16,10 +16,10 @@ class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
-        userName.layer.cornerRadius = 15
-        profileMessage.layer.cornerRadius = 15
+        self.userName.layer.cornerRadius = 15
+        self.profileMessage.layer.cornerRadius = 15
         //戻るボタンの戻るの文字を削除
-        navigationController!.navigationBar.topItem!.title = ""
+        self.navigationController!.navigationBar.topItem!.title = ""
         let rightFooBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveButtonTap))
         self.navigationItem.setRightBarButtonItems([rightFooBarButtonItem], animated: true)
         
@@ -102,7 +102,6 @@ class ProfileEditViewController: UIViewController {
 
         //メッセージの保存
         let docRef = Firestore.firestore().collection(Const.PostPath).whereField("documentUserName", isEqualTo: oldName)
-//        var docIdArray :[String] = []
         //古いユーザ名の投稿のIDを取得する
         docRef.getDocuments(){
             (querySnapshot,error) in
@@ -112,7 +111,6 @@ class ProfileEditViewController: UIViewController {
             } else {
                 querySnapshot!.documents.forEach{
                     document in
-//                    docIdArray.append(PostData(document: document).id )
                     //投稿データのユーザ名を更新
                     self.documentUserNameUpdate(docId: PostData(document: document).id, oldName: oldName, newName: newName)
                 }

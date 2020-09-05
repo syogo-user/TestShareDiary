@@ -17,14 +17,14 @@ class LikeUserListTableViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
         self.tableView.backgroundColor = Const.darkColor
-        tableView.dataSource = self
-        tableView.delegate  = self
+        self.tableView.dataSource = self
+        self.tableView.delegate  = self
         // カスタムセルを登録する
         let nib = UINib(nibName: "LikeUserListTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "Cell")
+        self.tableView.register(nib, forCellReuseIdentifier: "Cell")
         //画面下部の境界線を消す
-        tableView.tableFooterView = UIView()
-        backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
+        self.tableView.tableFooterView = UIView()
+        self.backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
     }
 }
 

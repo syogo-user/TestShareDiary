@@ -12,7 +12,7 @@ import SDWebImage
 class FollowRequestListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var profileMessage: UITextView!
+    @IBOutlet weak var profileMessage: UILabel!
     @IBOutlet weak var followRequestPermissionButton: UIButton!
     @IBOutlet weak var followRequestRejectionButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
@@ -73,7 +73,7 @@ class FollowRequestListTableViewCell: UITableViewCell {
         //userNameをセット
         self.userName.text = userPostData.userName
         self.profileMessage.text = userPostData.profileMessage
-        self.profileMessage.isEditable = false//編集不可
+        self.profileMessage.isEnabled = false//編集不可
         //写真を設定
         setImage(userImageName:userPostData.myImageName)
                 

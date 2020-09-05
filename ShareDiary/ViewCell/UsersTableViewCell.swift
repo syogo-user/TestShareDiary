@@ -13,7 +13,7 @@ class UsersTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!        
     @IBOutlet weak var followRequestButton: UIButton!
-    @IBOutlet weak var profileMessage: UITextView!
+    @IBOutlet weak var profileMessage: UILabel!
     @IBOutlet weak var userImage: UIImageView!
     
     override func awakeFromNib() {
@@ -54,7 +54,7 @@ class UsersTableViewCell: UITableViewCell {
         //userNameをセット
         self.userName.text = userPostData.userName
         self.profileMessage.text = userPostData.profileMessage
-        self.profileMessage.isEditable = false//編集不可
+        self.profileMessage.isEnabled = false//編集不可
         //ボタンのテキスト変更
         if let myid = Auth.auth().currentUser?.uid {
             self.followRequestButton.setTitle("フォロー申請", for: .normal)

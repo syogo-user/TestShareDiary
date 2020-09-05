@@ -23,29 +23,21 @@ class PostData: NSObject {
 
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
-
         let postDic = document.data()
-        
         self.uid = ""
         if let postUid = postDic["uid"] {
             self.uid = postUid as! String
         }
-        
         self.documentUserName = postDic["documentUserName"] as? String
         self.backgroundColorIndex = postDic["backgroundColorIndex"] as? Int ?? 0
-        
         self.content = postDic["content"] as? String
-
         let timestamp = postDic["date"] as? Timestamp
         self.date = timestamp?.dateValue()
         if let likes = postDic["likes"] as? [String] {
             self.likes = likes
         }
         //投稿写真の枚数
-        self.contentImageMaxNumber = postDic["contentImageMaxNumber"] as? Int ?? 0
-        
-//        let timestamp2 = postDic["selectDate"] as? Timestamp
-//        self.selectDate = timestamp2?.dateValue()
+        self.contentImageMaxNumber = postDic["contentImageMaxNumber"] as? Int ?? 0        
         self.selectDate =  postDic["selectDate"] as? String 
         if let myid = Auth.auth().currentUser?.uid {
             // likesの配列の中にmyidが含まれているかチェックすることで、自分がいいねを押しているかを判断

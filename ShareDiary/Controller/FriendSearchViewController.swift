@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SlideMenuControllerSwift
+import SVProgressHUD
 
 class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate{
     
@@ -21,22 +22,21 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = Const.darkColor
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.backgroundColor = Const.darkColor
         
         //検索バーのインスタンスを取得する
         let searchBar: UISearchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
-        searchBar.placeholder = "ユーザ名で検索"
-        self.searchbar = searchBar
-        self.view.addSubview(searchbar)
-        
+        searchBar.placeholder = "ユーザ名で検索"        
         searchBar.disableBlur()
         searchBar.backgroundColor = Const.darkColor
         searchBar.searchBarStyle = .prominent
         searchBar.barTintColor = .white
+        self.searchbar = searchBar
+        self.view.addSubview(searchbar)
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "UsersTableViewCell", bundle:nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -54,9 +54,9 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         self.userPostArray = []
         self.tableView.reloadData()
         //検索欄にフォーカスをあてる
-        searchbar.becomeFirstResponder()
+        self.searchbar.becomeFirstResponder()
         //画面下部の境界線を消す
-        tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()
     }
             
     //検索バーで文字編集中（文字をクリアしたときも実行される）
@@ -74,6 +74,8 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         inputText =  searchBar.text!
         inputText = inputText.trimmingCharacters(in: .whitespaces)
         self.userPostArray  = []
+        //HUDで処理中を表示
+        SVProgressHUD.show()
         //自分のuid取得
         if (Auth.auth().currentUser?.uid) != nil {
             //ユーザからデータを取得
@@ -81,6 +83,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
             postRef.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
+                    SVProgressHUD.showError(withStatus: "検索に失敗しました")
                     print("DEBUG: snapshotの取得が失敗しました。\(error)")
                     return
                 } else {
@@ -90,7 +93,10 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
                         return userPostData
                     }
                     searchBar.endEditing(true)
+                    //HUDを消す
+                     SVProgressHUD.dismiss()
                     self.tableView.reloadData()
+
                 }
             }
         }
@@ -101,7 +107,10 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
     func tableView(_ tableView: UITableView , numberOfRowsInSection section:Int ) -> Int{
         return userPostArray.count
     }
-    
+    //高さ調整
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Const.cellHeight
+    }
     //各セルの内容を返すメソッド
     func tableView(_ tableView : UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         //再利用可能なcellを得る

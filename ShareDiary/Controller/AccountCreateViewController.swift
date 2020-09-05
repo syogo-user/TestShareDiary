@@ -51,17 +51,17 @@ class AccountCreateViewController: UIViewController {
         self.nickNameTextField.layer.borderColor = UIColor.white.cgColor
         self.nickNameTextField.attributedPlaceholder = NSAttributedString(string: "ニックネーム(10文字まで)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         //新規作成ボタン
-        newAccountCreateButton.addTarget(self, action:#selector(tapNewAccountCreateButton(_ :)), for: .touchUpInside)
+        self.newAccountCreateButton.addTarget(self, action:#selector(tapNewAccountCreateButton(_ :)), for: .touchUpInside)
         //キャンセルボタン
-        cancelButton.addTarget(self, action:#selector(tapCancellButton(_ :)), for: .touchUpInside)
+        self.cancelButton.addTarget(self, action:#selector(tapCancellButton(_ :)), for: .touchUpInside)
         
         //キーボードを閉じるための処理
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
         
         //ボタンの押下時の文字色
-        newAccountCreateButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
-        cancelButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        self.newAccountCreateButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        self.cancelButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
     }
     //新規作成ボタン押下時
     @objc private func tapNewAccountCreateButton(_ sender:UIButton){

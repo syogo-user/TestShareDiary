@@ -24,7 +24,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.backgroundColor = Const.darkColor
         self.view.backgroundColor = Const.darkColor
         
-        diaryAddButton.addTarget(self, action: #selector(tapDiaryAddButton), for:.touchUpInside)
+        self.diaryAddButton.addTarget(self, action: #selector(tapDiaryAddButton), for:.touchUpInside)
         //カレンダー設定
         self.calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         self.calendar.calendarWeekdayView.weekdayLabels[1].text = "月"

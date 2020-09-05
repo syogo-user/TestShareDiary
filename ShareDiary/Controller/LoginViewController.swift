@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
         self.createAccountButton.layer.cornerRadius = 15
         self.backImage.image = UIImage(named: "yozora")
         self.backImage.contentMode = .scaleAspectFill
-        
         //メールアドレス欄
         self.mailAddressTextField.layer.cornerRadius = 15
         self.mailAddressTextField.layer.borderWidth = 0.1   
@@ -39,10 +38,10 @@ class LoginViewController: UIViewController {
         self.view.addGestureRecognizer(tapGesture)
         
         //ボタンの押下時の文字色
-        loginButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
-        createAccountButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
-        loginButton.addTarget(self, action: #selector(tapLoginButton(_:)), for: .touchUpInside)
-        createAccountButton.addTarget(self, action: #selector(tapcreateAccountButton(_:)), for: .touchUpInside)
+        self.loginButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        self.createAccountButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
+        self.loginButton.addTarget(self, action: #selector(tapLoginButton(_:)), for: .touchUpInside)
+        self.createAccountButton.addTarget(self, action: #selector(tapcreateAccountButton(_:)), for: .touchUpInside)
     }
 
  

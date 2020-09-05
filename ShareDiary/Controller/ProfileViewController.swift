@@ -28,13 +28,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
-        myImage.layer.cornerRadius = 125
-        profileMessage.layer.cornerRadius = 15
-        changeProfileButton.layer.cornerRadius = 15
-        imageChoiceButton.layer.cornerRadius = 15
-        changeProfileButton.addTarget(self, action: #selector(changeProfile(_:)), for: .touchUpInside)
-        imageChoiceButton.addTarget(self, action: #selector(tapImageChoiceButton(_:)), for: .touchUpInside)
-        closeButton.addTarget(self, action: #selector(closeProfile(_:)), for: .touchUpInside)
+        self.myImage.layer.cornerRadius = 125
+        self.profileMessage.layer.cornerRadius = 15
+        self.changeProfileButton.layer.cornerRadius = 15
+        self.imageChoiceButton.layer.cornerRadius = 15
+        self.changeProfileButton.addTarget(self, action: #selector(changeProfile(_:)), for: .touchUpInside)
+        self.imageChoiceButton.addTarget(self, action: #selector(tapImageChoiceButton(_:)), for: .touchUpInside)
+        self.closeButton.addTarget(self, action: #selector(closeProfile(_:)), for: .touchUpInside)
         //ボタンの設定
         buttonSet()
     }
@@ -42,22 +42,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     //ボタンの設定
     private func buttonSet(){
         //文字色
-        imageChoiceButton.setTitleColor(UIColor.white, for: .normal)
-        imageChoiceButton.setTitleColor(UIColor.lightGray, for: .highlighted)
-        changeProfileButton.setTitleColor(UIColor.white, for: .normal)
-        changeProfileButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        self.imageChoiceButton.setTitleColor(UIColor.white, for: .normal)
+        self.imageChoiceButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        self.changeProfileButton.setTitleColor(UIColor.white, for: .normal)
+        self.changeProfileButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         // 角丸
-        imageChoiceButton.layer.cornerRadius = changeProfileButton.bounds.midY
-        changeProfileButton.layer.cornerRadius = changeProfileButton.bounds.midY
+        self.imageChoiceButton.layer.cornerRadius = changeProfileButton.bounds.midY
+        self.changeProfileButton.layer.cornerRadius = changeProfileButton.bounds.midY
         //影
-        imageChoiceButton.layer.shadowColor = Const.buttonStartColor.cgColor
-        imageChoiceButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        imageChoiceButton.layer.shadowOpacity = 0.2
-        imageChoiceButton.layer.shadowRadius = 10
-        changeProfileButton.layer.shadowColor = Const.buttonStartColor.cgColor
-        changeProfileButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        changeProfileButton.layer.shadowOpacity = 0.2
-        changeProfileButton.layer.shadowRadius = 10
+        self.imageChoiceButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        self.imageChoiceButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.imageChoiceButton.layer.shadowOpacity = 0.2
+        self.imageChoiceButton.layer.shadowRadius = 10
+        self.changeProfileButton.layer.shadowColor = Const.buttonStartColor.cgColor
+        self.changeProfileButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.changeProfileButton.layer.shadowOpacity = 0.2
+        self.changeProfileButton.layer.shadowRadius = 10
         // グラデーション
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = imageChoiceButton.bounds
@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         gradientLayer.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        imageChoiceButton.layer.insertSublayer(gradientLayer, at: 0)
+        self.imageChoiceButton.layer.insertSublayer(gradientLayer, at: 0)
         
         let gradientLayer2 = CAGradientLayer()
         gradientLayer2.frame = changeProfileButton.bounds
@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         gradientLayer2.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
         gradientLayer2.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer2.endPoint = CGPoint(x: 1, y: 1)
-        changeProfileButton.layer.insertSublayer(gradientLayer2, at: 0)
+        self.changeProfileButton.layer.insertSublayer(gradientLayer2, at: 0)
     }
 
     

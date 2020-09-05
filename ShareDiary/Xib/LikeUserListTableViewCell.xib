@@ -25,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyr-cn-zcL">
-                        <rect key="frame" x="120" y="49.5" width="100" height="21"/>
+                        <rect key="frame" x="120" y="50" width="100" height="20.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="Ps8-03-IP2"/>
                         </constraints>

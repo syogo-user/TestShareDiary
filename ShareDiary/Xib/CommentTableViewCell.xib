@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2U-x4-hav">
-                        <rect key="frame" x="10" y="35" width="50" height="50"/>
+                        <rect key="frame" x="10" y="20" width="50" height="50"/>
                         <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="QV3-Ib-JY4"/>
@@ -30,7 +30,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="Ed5-Ow-GAF"/>
                         </constraints>
-                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -46,7 +46,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="aGn-Tx-Oey"/>
                         </constraints>
-                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -70,7 +70,7 @@
                     <constraint firstAttribute="bottom" secondItem="2Ln-gh-hgy" secondAttribute="bottom" constant="20" id="f4d-nv-sPr"/>
                     <constraint firstAttribute="trailing" secondItem="2Ln-gh-hgy" secondAttribute="trailing" constant="20" id="iic-Dg-HtR"/>
                     <constraint firstAttribute="bottom" secondItem="haF-cX-jrS" secondAttribute="bottom" constant="20" id="sYg-Up-BDG"/>
-                    <constraint firstItem="D2U-x4-hav" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="udK-XJ-xLe"/>
+                    <constraint firstItem="D2U-x4-hav" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="uCG-UZ-DEg"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
