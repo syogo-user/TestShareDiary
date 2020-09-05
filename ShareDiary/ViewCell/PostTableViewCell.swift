@@ -25,11 +25,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var contentLabelBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var contentsView: UIView!
+    @IBOutlet weak var contentsView: GradationView!
     @IBOutlet weak var shadowView: UIView!
     
     //グラデーションレイヤー
-    var gradientLayer = CAGradientLayer()
+//    var gradientLayer = CAGradientLayer()
     //投稿写真の選択された枚数
     var imageMaxNumber = 0
     //ドキュメントID
@@ -49,7 +49,7 @@ class PostTableViewCell: UITableViewCell {
     let contentLabelBottomConstraint3:CGFloat = 350 //contentLabelから下の長さ
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)
+//        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)
         self.postUserImageView.layer.cornerRadius = 20
         self.contentsView.layer.cornerRadius = 25
         self.contentsView.layer.masksToBounds = true
@@ -73,7 +73,7 @@ class PostTableViewCell: UITableViewCell {
         //描画されるときに呼び出される
         super.layoutSubviews()
         contentsView.frame = self.bounds
-        gradientLayer.frame = self.contentsView.layer.bounds
+//        gradientLayer.frame = self.contentsView.layer.bounds
         //写真を削除
         self.removeUIImageSubviews(parentView: self)
         //投稿写真の枚数分ループする (1,2,3,4)
@@ -370,7 +370,7 @@ class PostTableViewCell: UITableViewCell {
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
-        setBackgroundColor(colorIndex:postData.backgroundColorIndex)
+        contentsView.setBackgroundColor(colorIndex:postData.backgroundColorIndex)
     }
     
     private func setPostImage(uid:String){
@@ -401,16 +401,16 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
-    private func setBackgroundColor(colorIndex:Int){
-        //背景色を変更する
-        let color = Const.color[colorIndex]
-        let color1 = color["startColor"] ?? UIColor.white.cgColor
-        let color2 = color["endColor"] ?? UIColor.white.cgColor
-        //CAGradientLayerにグラデーションさせるカラーをセット
-        gradientLayer.colors = [color1,color2]
-        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
-        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-    }
+//    private func setBackgroundColor(colorIndex:Int){
+//        //背景色を変更する
+//        let color = Const.color[colorIndex]
+//        let color1 = color["startColor"] ?? UIColor.white.cgColor
+//        let color2 = color["endColor"] ?? UIColor.white.cgColor
+//        //CAGradientLayerにグラデーションさせるカラーをセット
+//        gradientLayer.colors = [color1,color2]
+//        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
+//        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
+//    }
 
 
 }

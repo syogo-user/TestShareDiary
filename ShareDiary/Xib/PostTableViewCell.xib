@@ -20,7 +20,7 @@
                         <rect key="frame" x="5" y="5" width="310" height="485"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-9e-LAJ">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-9e-LAJ" customClass="GradationView" customModule="ShareDiary" customModuleProvider="target">
                         <rect key="frame" x="5" y="5" width="310" height="485"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>

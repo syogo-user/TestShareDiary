@@ -57,6 +57,7 @@
 		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
 		917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A8A6024FA391900F159E5 /* CommonDate.swift */; };
 		919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */; };
+		91F2974425032C1A00C59DBA /* GradationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F2974325032C1A00C59DBA /* GradationView.swift */; };
 		91F46CFC24E2E38100155CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F46CFB24E2E38000155CF5 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		917A8A6024FA391900F159E5 /* CommonDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDate.swift; sourceTree = "<group>"; };
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
+		91F2974325032C1A00C59DBA /* GradationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradationView.swift; sourceTree = "<group>"; };
 		91F46CFB24E2E38000155CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26F795D8D5D0D0C07C87642 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				3DE733E82483C25000241528 /* ViewCell */,
 				3DE733E72483C1DE00241528 /* Controller */,
 				3D9BFE8223FEE75F009893B1 /* AppDelegate.swift */,
+				91F2974325032C1A00C59DBA /* GradationView.swift */,
 				911FB07924FB880000744B34 /* ShadowUIView.swift */,
 				917A8A6024FA391900F159E5 /* CommonDate.swift */,
 				91F46CFB24E2E38000155CF5 /* Assets.xcassets */,
@@ -416,6 +419,7 @@
 				3DA5083824B1D0FA00FE1148 /* CommentTableViewCell.swift in Sources */,
 				3DCBC98124AB65AD00E78626 /* LikeUserListTableViewController.swift in Sources */,
 				919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */,
+				91F2974425032C1A00C59DBA /* GradationView.swift in Sources */,
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
