@@ -46,7 +46,7 @@ class LikeUserListTableViewCell: UITableViewCell {
         } else {
             //画像が設定されていない場合
             //デフォルトの写真を表示
-            self.userImageView.image = UIImage(named: "unknown")            
+            self.userImageView.image = UIImage(named: "unknown")
         }
     }
 
