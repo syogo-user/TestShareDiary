@@ -19,6 +19,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var partnerCreatedAt: UILabel!
     @IBOutlet weak var myCreatedAt: UILabel!
     
+    var message = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.partnerComment.layer.cornerRadius = 20
@@ -26,7 +28,16 @@ class CommentTableViewCell: UITableViewCell {
         self.myComment.layer.cornerRadius = 20
         self.backgroundColor = Const.lightOrangeColor
     }
+    override func layoutSubviews() {
+        //描画されるときに呼び出される
+        print("DEBUG layoutSub:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
+        super.layoutSubviews()
+        print("DEBUG layoutSub:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
 
+        
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -51,6 +62,7 @@ class CommentTableViewCell: UITableViewCell {
             }
         }
     }
+    //コメントの設定
     private func setComment(userName:String,commentData:CommentData){
         guard let myUid = Auth.auth().currentUser?.uid else {return}
         //ユーザ名
@@ -68,7 +80,7 @@ class CommentTableViewCell: UITableViewCell {
         let mutableAttributedString = NSMutableAttributedString()
         mutableAttributedString.append(stringUserName)
         mutableAttributedString.append(stringMessage)
-        
+
         if myUid == commentData.uid{
 
             //自分の場合
@@ -79,11 +91,13 @@ class CommentTableViewCell: UITableViewCell {
             self.myCreatedAt.isHidden = false
                         
             self.myComment.attributedText = mutableAttributedString
+//            self.myComment.text = commentData.message
             self.myCreatedAt.text = dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
             //コメントの横幅調整
-            let width = frameWidthTextView(text:myComment.text!).width + 10
+            let width = frameWidthTextView(text:commentData.message).width + 10
+//            let width = frameWidthTextView(text:myComment.text!).width + 10
             self.myCommentWidthConstraint.constant = width
-                                
+            print("DEBUG setComment:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
         } else {
             //相手の場合
 
@@ -96,13 +110,14 @@ class CommentTableViewCell: UITableViewCell {
             self.partnerComment.attributedText = mutableAttributedString
             self.partnerCreatedAt.text =  dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
             //コメントの横幅調整
-            var width = frameWidthTextView(text:partnerComment.text!).width + 10
+            let width = frameWidthTextView(text:userName + commentData.message).width + 10
             //ユーザ名だけの横幅よりも小さかった場合（名前が2行に分割されて計算されたことがあったため追記）
-            if width <= frameWidthTextView(text: userName).width {
-                //幅をユーザ名の横幅にする
-                width = frameWidthTextView(text: userName).width
-            }
+//            if width <= frameWidthTextView(text: userName).width {
+//                //幅をユーザ名文字分の横幅にする
+//                width = frameWidthTextView(text: userName).width
+//            }
             self.partnerCommentWidthConstraint.constant = width
+
             //画像の表示
             setImageShow(userUid:commentData.uid)
         }
@@ -116,9 +131,9 @@ class CommentTableViewCell: UITableViewCell {
     }
     //横幅計算
     private func frameWidthTextView(text: String) -> CGRect {
-        let size = CGSize(width: 200, height: 1000)
+        let size = CGSize(width: 200, height: 1000)//最大値
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
     
     private func setImageShow(userUid:String){

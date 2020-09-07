@@ -650,8 +650,7 @@ extension DitailViewController :InputTextViewDelegate{
                 print("DEBUG: メッセージ情報の保存に失敗しました。\(err)")
                 return
             }
-            print("DEBUG: コメントメッセージの保存に成功しました")
-            
+            print("DEBUG: コメントメッセージの保存に成功しました")            
         }
         
         
@@ -677,6 +676,7 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //高さの最低基準
         self.tableView.estimatedRowHeight = cellHeight
+        print("DEBUG:tableView heightRowAt")
         //高さをコメントに合わせる
         return UITableView.automaticDimension
     }
@@ -687,8 +687,8 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
-
-
+        print("DEBUG:tableView cellForRowAt")
+//        cell.layoutIfNeeded()
         cell.translatesAutoresizingMaskIntoConstraints = false
         //Cell に値を設定する
         cell.setCommentData(commentData[indexPath.row])
