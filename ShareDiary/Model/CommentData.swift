@@ -12,6 +12,7 @@ class CommentData :NSObject{
     var uid :String = ""
     var message :String = ""
     var createdAt :Timestamp
+    var userName = ""
     
     init(document: [String: Any]){
         self.uid = document["uid"] as?  String ?? ""

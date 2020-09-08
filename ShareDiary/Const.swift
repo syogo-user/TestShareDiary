@@ -24,6 +24,8 @@ struct Const {
     //各ボタンのグラデーション
     static let buttonStartColor = UIColor(red:254/255,green:225/255,blue:64/255,alpha:1.0)
     static let buttonEndColor = UIColor(red:250/255,green:112/255,blue:154/255,alpha:1.0)
+    //ナビゲーションのボタンの色
+    static let navigationButtonColor = UIColor(red:255/255,green:175/255,blue:38/255,alpha:1.0)
     
     //ユーザセルの高さ
     static let  cellHeight :CGFloat = 110

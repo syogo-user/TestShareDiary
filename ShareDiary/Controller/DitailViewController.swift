@@ -30,7 +30,7 @@ class DitailViewController: UIViewController {
     private let cellHeight :CGFloat = 100
     
     private lazy var inputTextView : InputTextView = {
-        let view = InputTextView()
+        let view = InputTextView()      
         view.frame = .init(x: 0, y: 0, width: view.frame.width, height: 100)
         view.delegate = self
         return view
@@ -54,7 +54,6 @@ class DitailViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
-        self.tableView.tableFooterView = UIView()
         //いいねボタンのアクションを設定
         self.likeButton.addTarget(self, action:#selector(likeButton(_:forEvent:)), for: .touchUpInside)
         //戻るボタンの戻るの文字を削除
@@ -84,6 +83,12 @@ class DitailViewController: UIViewController {
         setupNotification()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        //描画語
+        //初期表示後はスクロールをtrueとする
+        self.scrollFlg = true
+    }
     
     
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
@@ -107,9 +112,7 @@ class DitailViewController: UIViewController {
         //画像の縦横サイズを取得
         let imageWidth :CGFloat = pictureWidth
         let imageHeight :CGFloat = pictureHeight
-        
-        
-        
+                    
         //画像の枚数によってサイズと配置場所を設定する
         switch maxCount {
         case 1:
@@ -333,7 +336,6 @@ class DitailViewController: UIViewController {
         default:
             break
         }
-        
     }
     
     
@@ -390,24 +392,44 @@ class DitailViewController: UIViewController {
                 case .added:
                     let dic = documentChange.document.data()
                     let comment = CommentData(document:dic)
-                    self.commentData.append(comment)
-                    self.commentData.sort { (m1, m2) -> Bool in
-                        let m1Date = m1.createdAt.dateValue()
-                        let m2Date = m2.createdAt.dateValue()
-                        return m1Date < m2Date
-                    }
-                    self.tableView.reloadData()
-                    print("DEBUG:\(self.commentData.count - 1)")
-                    if self.scrollFlg {//通常の画面遷移からの初期表示時はスクロールしない
-                        self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
+                    
+                    //ユーザ名を取得
+                    let commentUserRef = Firestore.firestore().collection(Const.users).document(comment.uid)
+                    commentUserRef.getDocument{
+                        (querySnapshot,error) in
+                        if let error  = error {
+                            print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                            return
+                        }else {
+                            guard let document = querySnapshot!.data() else {return}
+                            //ユーザ名取得
+                            let userName = document["userName"] as? String ?? ""
+                            //ユーザ名をcommentDataに追加
+                            comment.userName =  userName
+                            //配列に追加
+                            self.commentData.append(comment)
+                            //ソート
+                            self.commentData.sort { (m1, m2) -> Bool in
+                                let m1Date = m1.createdAt.dateValue()
+                                let m2Date = m2.createdAt.dateValue()
+                                return m1Date < m2Date
+                            }
+                            //画面更新
+                            self.tableView.reloadData()
+                            print("DEBUG:\(self.commentData.count - 1)")
+                            if self.scrollFlg {//scrollFlg がtrue（コメントボタン押下時の遷移）
+                                //コメント時に
+                                self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
+                            }
+
+                        }
                     }
                     
                 case .modified, .removed:
                     print("DEBUG:nothing to do")
                 }
             })
-            //初期表示後はスクロールをtrueとする
-            self.scrollFlg = true
+
         }
     }
     

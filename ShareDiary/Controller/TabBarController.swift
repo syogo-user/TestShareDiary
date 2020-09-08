@@ -28,6 +28,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
         //ヘッダーの文字（バッテリーマークなども）白くなる
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.barTintColor = Const.darkColor
+        self.navigationController?.navigationBar.tintColor = Const.navigationButtonColor
     }
     // CAGradienstLayerから画像を作成
     func  getImageFromGradientLayer(gradientLayer: CAGradientLayer) -> UIImage? {
