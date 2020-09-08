@@ -22,7 +22,8 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
+        self.view.backgroundColor = Const.slideColor
         self.imageView.layer.cornerRadius  = 25
         self.logoutButton.addTarget(self, action: #selector(tapLogoutButton(_:)), for: .touchUpInside)
         self.followShowButton.addTarget(self, action: #selector(tapFollowShowButton(_:)), for: .touchUpInside)

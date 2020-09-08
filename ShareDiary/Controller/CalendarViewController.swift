@@ -21,7 +21,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         super.viewDidLoad()
         self.calendar.dataSource = self
         self.calendar.delegate = self
-        self.calendar.backgroundColor = Const.darkColor
+        self.calendar.backgroundColor = .clear
         self.view.backgroundColor = Const.darkColor
         
         self.diaryAddButton.addTarget(self, action: #selector(tapDiaryAddButton), for:.touchUpInside)

@@ -15,6 +15,7 @@ class DateSelectViewController: UIViewController,FSCalendarDelegate,FSCalendarDa
     @IBOutlet weak var cancelButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = Const.darkColor
         self.dateSelectCalendar.backgroundColor = Const.darkColor
         self.dateSelectCalendar.delegate = self
         self.dateSelectCalendar.dataSource = self

@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
+        self.profileMessage.backgroundColor = Const.darkColor
         self.myImage.layer.cornerRadius = 125
         self.profileMessage.layer.cornerRadius = 15
         self.changeProfileButton.layer.cornerRadius = 15

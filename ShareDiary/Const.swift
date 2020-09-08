@@ -19,14 +19,16 @@ struct Const {
     static let FollowShowButton = "followShowButton"
     static let FollowerShowButton = "followerShowButton"
     
-    static let darkColor = UIColor(red:30/255,green:40/255,blue:54/255,alpha:1.0)
+//    static let darkColor = UIColor(red:30/255,green:40/255,blue:54/255,alpha:1.0)
+    static let darkColor = UIColor(red:0/255,green:0/255,blue:32/255,alpha:1.0)
+    static let slideColor = UIColor(red:0/255,green:0/255,blue:40/255,alpha:1.0)
     static let lightOrangeColor = UIColor(red:255/255,green:245/255,blue:229/255,alpha:1.0)
     //各ボタンのグラデーション
     static let buttonStartColor = UIColor(red:254/255,green:225/255,blue:64/255,alpha:1.0)
     static let buttonEndColor = UIColor(red:250/255,green:112/255,blue:154/255,alpha:1.0)
     //ナビゲーションのボタンの色
     static let navigationButtonColor = UIColor(red:255/255,green:175/255,blue:38/255,alpha:1.0)
-    
+
     //ユーザセルの高さ
     static let  cellHeight :CGFloat = 110
     //辞書型[String:CGColor]の配列
