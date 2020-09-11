@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var follow: UILabel!
     @IBOutlet weak var follower: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var line: UIView!
     
     //画面遷移によってプロフィール画面を表示した場合に使用する変数
     var userData :UserPostData?
@@ -29,7 +30,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
         self.profileMessage.backgroundColor = Const.darkColor
-        self.myImage.layer.cornerRadius = 125
+        self.line.backgroundColor = Const.navigationButtonColor        
+        self.myImage.layer.cornerRadius = 100
         self.profileMessage.layer.cornerRadius = 15
         self.changeProfileButton.layer.cornerRadius = 15
         self.imageChoiceButton.layer.cornerRadius = 15

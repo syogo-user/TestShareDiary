@@ -81,7 +81,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate  {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController is TabBarDelegate {
             let v = viewController as! TabBarDelegate
-            v.didSelectTab(tabBarController: self)
+            v.didSelectTab(tabBarController: self)  
         }
     }
     @objc func addTapped(){

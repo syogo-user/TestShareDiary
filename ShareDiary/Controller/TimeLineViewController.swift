@@ -227,7 +227,8 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     func didSelectTab(tabBarController: TabBarController) {
         print("DEBUG:タイムラインタブがタップされました。")
         //最上部にスクロール
-        self.tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
+        let contentOffset = CGPoint(x: 0.0, y: 0.0)
+        self.tableView.setContentOffset(contentOffset, animated: true)
     }
 }
 
@@ -238,7 +239,8 @@ extension TimeLineViewController:PostTableViewCellDelegate{
         let tappedUIImageView = sender.view! as? UIImageView
         //  UIImage を取得
         guard let tappedImageView = tappedUIImageView  else {return}
-        let tappedImage = tappedImageView.image!
+        guard let tappedImageviewImage = tappedImageView.image else {return}
+        let tappedImage = tappedImageviewImage
         
         let fullsizeImageViewController = self.storyboard?.instantiateViewController(withIdentifier: "FullsizeImageViewController") as! FullsizeImageViewController
         fullsizeImageViewController.modalPresentationStyle = .fullScreen
