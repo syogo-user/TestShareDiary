@@ -30,7 +30,7 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         let searchBar: UISearchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
-        searchBar.placeholder = "ユーザ名で検索"        
+        searchBar.placeholder = "ニックネームで検索"
         searchBar.disableBlur()
         searchBar.backgroundColor = Const.darkColor
         searchBar.searchBarStyle = .prominent

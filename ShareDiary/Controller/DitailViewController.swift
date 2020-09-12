@@ -17,10 +17,11 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeUserButton: UIButton!
     @IBOutlet weak var diaryDate: UILabel!
-    @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var postDeleteButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView1: UIView!
+    @IBOutlet weak var diaryText: UILabel!
+
     
         
     var scrollFlg :Bool = false //下部（コメントエリア）にスクロールさせるかの判定
@@ -47,12 +48,17 @@ class DitailViewController: UIViewController {
     let adjustmentValue :CGFloat = 15 //調整
 
     //Viewの高さ設定
-    let headerViewHeight0:CGFloat = 400 //写真0枚のとき
-    let headerViewHeight1:CGFloat = 750 //写真1枚のとき
-    let headerViewHeight2:CGFloat = 650 //写真2枚のとき
-    let headerViewHeight3:CGFloat = 800 //写真3枚のとき
-    let headerViewHeight4:CGFloat = 750 //写真4枚のとき
- 
+    let headerViewHeight0:CGFloat = 250 //写真0枚のとき
+    let headerViewHeight1:CGFloat = 500 //写真1枚のとき
+    let headerViewHeight2:CGFloat = 400 //写真2枚のとき
+    let headerViewHeight3:CGFloat = 550 //写真3枚のとき
+    let headerViewHeight4:CGFloat = 500 //写真4枚のとき
+//    let diaryLabelBottomConstraint0:CGFloat = 50  //contentLabelから下の長さ
+//    let diaryLabelBottomConstraint1:CGFloat = 350 //contentLabelから下の長さ
+//    let diaryLabelBottomConstraint2:CGFloat = 240 //contentLabelから下の長さ
+//    let diaryLabelBottomConstraint3:CGFloat = 390 //contentLabelから下の長さ
+//    let diaryLabelBottomConstraint4:CGFloat = 350 //contentLabelから下の長さ
+//
     //元々持っている；プロパティ
     override var inputAccessoryView: UIView?{
         //inputAccessoryViewにInputTextViewを設定する
@@ -63,6 +69,47 @@ class DitailViewController: UIViewController {
     
     override  var canBecomeFirstResponder: Bool{
         return true
+    }
+    //描画が終わったあとに呼び出される
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let post = postData else {return}
+        //選択された写真の枚数
+        let imageMaxNumber  = post.contentImageMaxNumber
+        switch imageMaxNumber {
+        case 0:
+            //写真の枚数が0枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0 + diaryText.frame.height)
+            print("☆",diaryText.frame.height)
+            
+            //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint0
+            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight0 + diaryText.frame.height)
+        case 1:
+            //写真の枚数が1枚の場合
+            //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint1
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1 + diaryText.frame.height)
+             self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight1 + diaryText.frame.height)
+        case 2:
+            //写真の枚数が2枚の場合
+            //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint2
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2 + diaryText.frame.height)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight2 + diaryText.frame.height)
+
+        case 3:
+            //写真の枚数が3枚の場合
+            //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint3
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3 + diaryText.frame.height)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight3 + diaryText.frame.height)
+        case 4:
+            //写真の枚数が4枚の場合
+            //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint4
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4 + diaryText.frame.height)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight4 + diaryText.frame.height)
+
+            
+        default: break
+            
+        }
     }
     
     override func viewDidLoad() {
@@ -486,31 +533,37 @@ class DitailViewController: UIViewController {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
-        switch imageMaxNumber {
-        case 0:
-            //写真の枚数が0枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0)
-            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0)
-        case 1:
-            //写真の枚数が1枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1)
-            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1)
-        case 2:
-            //写真の枚数が2枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
-            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
-        case 3:
-            //写真の枚数が3枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
-            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
-        case 4:
-            //写真の枚数が4枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
-            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
-
-        default: break
-
-        }
+//        switch imageMaxNumber {
+//        case 0:
+//            //写真の枚数が0枚の場合
+//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0 + diaryText.frame.height)
+//            print("☆",diaryText.frame.height)
+////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint0
+//            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight0 + diaryText.frame.height)
+//        case 1:
+//            //写真の枚数が1枚の場合
+////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint1
+//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1 + diaryText.frame.height)
+////            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight1 + diaryDate.frame.height)
+//        case 2:
+//            //写真の枚数が2枚の場合
+////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint2
+//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2 + diaryText.frame.height)
+////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
+//        case 3:
+//            //写真の枚数が3枚の場合
+////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint3
+//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3 + diaryText.frame.height)
+////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
+//        case 4:
+//            //写真の枚数が4枚の場合
+////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint4
+//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4 + diaryText.frame.height)
+////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
+//
+//        default: break
+//
+//        }
         
         //プロフィール写真を設定
         setPostImage(uid:post.uid)

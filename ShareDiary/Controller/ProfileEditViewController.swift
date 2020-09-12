@@ -12,6 +12,7 @@ class ProfileEditViewController: UIViewController {
     
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var profileMessage: UITextView!
+    @IBOutlet weak var keyAccountFlg: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,7 @@ class ProfileEditViewController: UIViewController {
                 guard let document = querySnapshot!.data() else {return}
                 self.userName.text = document["userName"] as? String ?? ""
                 self.profileMessage.text = document["profileMessage"] as? String ?? ""
+                self.keyAccountFlg.isOn = document["keyAccountFlg"] as? Bool ?? true
             }
         }
     }
@@ -70,9 +72,11 @@ class ProfileEditViewController: UIViewController {
         
         let userName = self.userName.text!
         let message = self.profileMessage.text ?? ""
+        let keyFlg = self.keyAccountFlg.isOn //鍵アカ
         let docData = [
             "userName":userName,
-            "profileMessage": message
+            "profileMessage":message,
+            "keyAccountFlg":keyFlg
             ] as [String : Any]
         //メッセージの保存        
         let userRef = Firestore.firestore().collection(Const.users).document(myUid)

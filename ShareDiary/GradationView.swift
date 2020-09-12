@@ -10,6 +10,7 @@ import UIKit
 //グラデーションクラス
 class GradationView:UIView{
     //クラスプロパティ(サブクラスでオーバーライド可)
+    //ビューの作成の初期に一度だけ呼ばれる
     override class var layerClass: AnyClass{
         return CAGradientLayer.self// CAGradientLayerクラスのインスタンスを取得
     }

@@ -16,6 +16,7 @@ class UserPostData: NSObject {
     var follow :[String]?
     var follower:[String]?
     var followRequest:[String]?
+    var keyAccountFlg :Bool?
     
 
     init(document:QueryDocumentSnapshot){
@@ -27,6 +28,7 @@ class UserPostData: NSObject {
         self.follow  = postDic["follow"] as? [String]
         self.follower  = postDic["follower"] as? [String]
         self.followRequest = postDic["followRequest"] as? [String]
+        self.keyAccountFlg = postDic["keyAccountFlg"] as? Bool
     }
     
     init(document:DocumentSnapshot?){
@@ -38,7 +40,7 @@ class UserPostData: NSObject {
         self.follow  = postDic["follow"] as? [String]
         self.follower  = postDic["follower"] as? [String]
         self.followRequest = postDic["followRequest"] as? [String]
-
+        self.keyAccountFlg = postDic["keyAccountFlg"] as? Bool
     }
     
 }

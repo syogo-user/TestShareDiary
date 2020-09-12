@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var follower: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var line: UIView!
+    @IBOutlet weak var lockImage: UIImageView!
     
     //画面遷移によってプロフィール画面を表示した場合に使用する変数
     var userData :UserPostData?
@@ -124,12 +125,53 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             } else {
                 guard let document = querySnapshot!.data() else {return}
                 self.nickNameTextField.text = document["userName"] as? String ?? ""
-                self.profileMessage.text = document["profileMessage"] as? String ?? ""
+
                 let myImageName = document["myImageName"] as? String ?? ""
                 let myFollow = document["follow"] as? [String] ?? []
                 let myFollower = document["follower"] as? [String] ?? []
+                let keyAccountFlg = document["keyAccountFlg"] as? Bool ?? true
                 self.follow.text = "フォロー： \(myFollow.count)"
                 self.follower.text = "フォロワー：\(myFollower.count)"
+                //鍵画像の表示・非表示
+
+                if keyAccountFlg {
+                    //鍵画像表示　鍵アカウント
+                    self.lockImage.isHidden = false//表示
+                    //自分の表示の場合は表示するそれ以外は非公開と表示する
+                    if self.userData?.uid == myUid || self.userData == nil{
+                        self.profileMessage.text = document["profileMessage"] as? String ?? ""
+                    }else {
+                        //自分以外の人を表示する場合
+                        //プロフィールメッセージを変数に保持
+                        let profileMessage = document["profileMessage"] as? String ?? ""
+                        //ログインしている自分のフォローしている人を取得
+                        let postMyUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+                        postMyUserRef.getDocument() {
+                            (querySnapshot,error) in
+                            if let error = error {
+                                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                                return
+                            } else {
+                                guard let document = querySnapshot!.data() else {return}
+                                //自分がフォローしている人の中に表示しようとしているuidがあるかを判定
+                                let myFollow = document["follow"] as? [String] ?? []
+                                if myFollow.firstIndex(of: uid) != nil{
+                                    //フォローしている場合プロフィールを表示
+                                    self.profileMessage.text = profileMessage
+                                }else{
+                                    //フォローしていない場合 非公開
+                                    self.profileMessage.text = "【非公開】"
+                                }
+                            }
+                        }
+
+                    }
+                }else{
+                    //鍵画像非表示　鍵アカウントではない
+                    self.lockImage.isHidden = true//非表示
+                    self.profileMessage.text = document["profileMessage"] as? String ?? ""
+                }
+                
                 //画像の取得
                 let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
                 //画像がなければデフォルトの画像表示
