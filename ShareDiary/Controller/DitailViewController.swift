@@ -20,7 +20,9 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var diaryText: UITextView!
     @IBOutlet weak var postDeleteButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var containerView1: UIView!
     
+        
     var scrollFlg :Bool = false //下部（コメントエリア）にスクロールさせるかの判定
     var postData :PostData?
     var commentData : [CommentData] = [CommentData]()
@@ -44,9 +46,28 @@ class DitailViewController: UIViewController {
     let constantValue2 :CGFloat = 50.0 //制約
     let adjustmentValue :CGFloat = 15 //調整
 
+    //Viewの高さ設定
+    let headerViewHeight0:CGFloat = 400 //写真0枚のとき
+    let headerViewHeight1:CGFloat = 750 //写真1枚のとき
+    let headerViewHeight2:CGFloat = 650 //写真2枚のとき
+    let headerViewHeight3:CGFloat = 800 //写真3枚のとき
+    let headerViewHeight4:CGFloat = 750 //写真4枚のとき
+ 
+    //元々持っている；プロパティ
+    override var inputAccessoryView: UIView?{
+        //inputAccessoryViewにInputTextViewを設定する
+        get {
+            return inputTextView
+        }
+    }
+    
+    override  var canBecomeFirstResponder: Bool{
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "CommentTableViewCell", bundle:nil)
         self.tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")
@@ -63,7 +84,7 @@ class DitailViewController: UIViewController {
         guard let post = postData else {return}
         //画面項目を設定
         contentSet(post:post)
-        
+         
         //自分のuidではなかった時は削除ボタンを非表示
         if post.uid != Auth.auth().currentUser?.uid {
             self.postDeleteButton.isHidden = true//非表示
@@ -81,6 +102,13 @@ class DitailViewController: UIViewController {
         //スクロールでキーボードをしまう
         self.tableView.keyboardDismissMode = .interactive
         setupNotification()
+                
+        self.containerView1.layer.cornerRadius = 25
+        self.containerView1.clipsToBounds = true
+        self.viewHeader.clipsToBounds = true
+        self.viewHeader.layer.cornerRadius   = 25
+        self.viewHeader.backgroundColor = .clear
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +117,7 @@ class DitailViewController: UIViewController {
         //初期表示後はスクロールをtrueとする
         self.scrollFlg = true
     }
-    
+
     
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(imageRef:StorageReference,index:Int,maxCount:Int){
@@ -337,19 +365,7 @@ class DitailViewController: UIViewController {
             break
         }
     }
-    
-    
-    //元々持っている；プロパティ
-    override var inputAccessoryView: UIView?{
-        //inputAccessoryViewにInputTextViewを設定する
-        get {
-            return inputTextView
-        }
-    }
-    
-    override  var canBecomeFirstResponder: Bool{
-        return true
-    }
+
     
     private func setupNotification() {
         //キーボードが出てくる時の通知
@@ -369,8 +385,6 @@ class DitailViewController: UIViewController {
             tableView.contentInset = contentInset
             tableView.scrollIndicatorInsets = contentInset
         }
-        
-        
     }
     @objc func keyboardWillHide(){
         print("DEBUG:keyboardWillHide")
@@ -418,7 +432,7 @@ class DitailViewController: UIViewController {
                             self.tableView.reloadData()
                             print("DEBUG:\(self.commentData.count - 1)")
                             if self.scrollFlg {//scrollFlg がtrue（コメントボタン押下時の遷移）
-                                //コメント時に
+                                //コメントボタンを押下し、遷移した場合
                                 self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
                             }
 
@@ -472,11 +486,36 @@ class DitailViewController: UIViewController {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
+        switch imageMaxNumber {
+        case 0:
+            //写真の枚数が0枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0)
+        case 1:
+            //写真の枚数が1枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1)
+        case 2:
+            //写真の枚数が2枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
+        case 3:
+            //写真の枚数が3枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
+        case 4:
+            //写真の枚数が4枚の場合
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
+            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
+
+        default: break
+
+        }
+        
         //プロフィール写真を設定
         setPostImage(uid:post.uid)
         //背景色を設定
         setBackgroundColor(colorIndex:post.backgroundColorIndex)
-        
     }
     private func reloadLikeShow(postId:String){
         let postRef = Firestore.firestore().collection(Const.PostPath).document(postId)
@@ -513,7 +552,6 @@ class DitailViewController: UIViewController {
                 self.likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
                 self.likeUserButton.setTitleColor(.black, for: .normal)
                 
-                
             }
         }
     }
@@ -547,7 +585,7 @@ class DitailViewController: UIViewController {
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.viewHeader.layer.bounds
+        gradientLayer.frame = self.containerView1.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
@@ -556,11 +594,11 @@ class DitailViewController: UIViewController {
         gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
         gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
         
-        if self.viewHeader.layer.sublayers![0] is CAGradientLayer {
-            self.viewHeader.layer.sublayers![0].removeFromSuperlayer()
-            self.viewHeader.layer.insertSublayer(gradientLayer, at: 0)
+        if self.containerView1.layer.sublayers![0] is CAGradientLayer {
+            self.containerView1.layer.sublayers![0].removeFromSuperlayer()
+            self.containerView1.layer.insertSublayer(gradientLayer, at: 0)
         } else {
-            self.viewHeader.layer.insertSublayer(gradientLayer, at: 0)
+            self.containerView1.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
     @objc func postDelete(_ sender:UIButton){
@@ -639,8 +677,6 @@ class DitailViewController: UIViewController {
     @objc func likeUserShow(_:UIButton) {
         //画面遷移
         let likeUserListTableViewController = storyboard?.instantiateViewController(withIdentifier: "LikeUserListTableViewController") as! LikeUserListTableViewController
-        //        guard let myUid = self.postData?.uid else { return}
-        //        likeUserListTableViewController.uid = myUid
         let likeUsers :[String] = self.postData?.likes ?? []
         //likeUsersからユーザ情報を取得
         //        let userPostData = getUsersData(likeUsers)
@@ -698,7 +734,6 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //高さの最低基準
         self.tableView.estimatedRowHeight = cellHeight
-        print("DEBUG:tableView heightRowAt")
         //高さをコメントに合わせる
         return UITableView.automaticDimension
     }
@@ -709,8 +744,6 @@ extension DitailViewController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
-        print("DEBUG:tableView cellForRowAt")
-//        cell.layoutIfNeeded()
         cell.translatesAutoresizingMaskIntoConstraints = false
         //Cell に値を設定する
         cell.setCommentData(commentData[indexPath.row])

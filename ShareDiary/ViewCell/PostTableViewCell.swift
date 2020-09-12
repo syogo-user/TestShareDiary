@@ -44,9 +44,15 @@ class PostTableViewCell: UITableViewCell {
     let constantValue1 :CGFloat = 20.0 //制約
     let constantValue2 :CGFloat = 50.0 //制約
     let adjustmentValue :CGFloat = 15 //調整
-    let contentLabelBottomConstraint1:CGFloat = 240 //contentLabelから下の長さ
-    let contentLabelBottomConstraint2:CGFloat = 390 //contentLabelから下の長さ
-    let contentLabelBottomConstraint3:CGFloat = 350 //contentLabelから下の長さ
+    
+    let contentLabelBottomConstraint0:CGFloat = 50  //contentLabelから下の長さ
+    let contentLabelBottomConstraint1:CGFloat = 350 //contentLabelから下の長さ
+    let contentLabelBottomConstraint2:CGFloat = 240 //contentLabelから下の長さ
+    let contentLabelBottomConstraint3:CGFloat = 390 //contentLabelから下の長さ
+    let contentLabelBottomConstraint4:CGFloat = 350 //contentLabelから下の長さ
+
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 //        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)
@@ -351,14 +357,28 @@ class PostTableViewCell: UITableViewCell {
         imageMaxNumber  = postData.contentImageMaxNumber
         postDocumentId = postData.id
 
-        if imageMaxNumber == 2 {
-            //写真の枚数が2枚のとき
+        switch imageMaxNumber {
+        case 0:
+            //写真の枚数が0枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint0
+        case 1:
+            //写真の枚数が1枚の場合
             contentLabelBottomConstraint.constant = contentLabelBottomConstraint1
-        } else if imageMaxNumber == 3{
+        case 2:
+            //写真の枚数が2枚の場合
             contentLabelBottomConstraint.constant = contentLabelBottomConstraint2
-        }else {
+        case 3:
+            //写真の枚数が3枚の場合
             contentLabelBottomConstraint.constant = contentLabelBottomConstraint3
+        case 4:
+            //写真の枚数が4枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint4
+
+        default: break
+
         }
+        
+        
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
