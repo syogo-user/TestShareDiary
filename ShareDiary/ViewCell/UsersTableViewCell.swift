@@ -90,7 +90,7 @@ class UsersTableViewCell: UITableViewCell {
             }
             
             //プロフィール表示処理
-            profileShow(myid:myid,userPostData:userPostData)            
+            profileShow(myid:myid,userPostData:userPostData)
         }
     }
     //鍵アカウントか判定しプロフィールメッセージを表示

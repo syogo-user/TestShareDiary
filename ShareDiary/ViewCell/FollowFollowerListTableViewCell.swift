@@ -55,7 +55,6 @@ class FollowFollowerListTableViewCell: UITableViewCell {
         guard let myid = Auth.auth().currentUser?.uid else{return}
         //userNameをセット
         self.userName.text = userPostData.userName
-        self.profileMessage.text = userPostData.profileMessage
         self.profileMessage.isEnabled = false//編集不可
         //写真を設定
         setImage(userImageName:userPostData.myImageName)

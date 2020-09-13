@@ -761,8 +761,26 @@ extension DitailViewController :InputTextViewDelegate{
                 print("DEBUG: メッセージ情報の保存に失敗しました。\(err)")
                 return
             }
-            print("DEBUG: コメントメッセージの保存に成功しました")            
+            print("DEBUG: コメントメッセージの保存に成功しました")
+                                    
+            //postDataにもコメントデータを追加
+            let postRef = Firestore.firestore().collection(Const.PostPath).document(postDataId)
+            //コメントしたユーザのuidを追加する
+            var updateValueUid: FieldValue
+            updateValueUid = FieldValue.arrayUnion([myUid])
+            postRef.updateData(["comments":updateValueUid])
+            //コメントのIDを追加する
+            var updateValueId:FieldValue
+            updateValueId = FieldValue.arrayUnion([messageId])
+            postRef.updateData(["commentsId":updateValueId])
+            
         }
+        
+
+
+         
+         
+        
         
         
     }

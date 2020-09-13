@@ -58,7 +58,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     }
                     return
                 }
-                // ここでusersから自分がフォローしている人のuidを取得する
+                // usersから自分がフォローしている人のuidを取得する
                 let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
                 postUserRef.addSnapshotListener() {
                     (querySnapshot2,error) in
@@ -102,8 +102,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                 //HUDを消す
                                 SVProgressHUD.dismiss()
                                 self.initialDisplayFlg = false//初期表示以外はfalse
-                            }
-                            
+                            }                            
                         }else{
                             //followがnil
                             self.postArray = []
@@ -113,8 +112,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                 //フォローしているuidまたは自分のuidの場合postArrayに設定
                                 if  postData.uid == myUid {
                                     self.postArray.append(postData)
-                                }
-                                
+                                }                                
                             }
                             // TableViewの表示を更新する
                             self.tableView.reloadData()
