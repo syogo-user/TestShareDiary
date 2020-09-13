@@ -61,7 +61,7 @@ class PostTableViewCell: UITableViewCell {
         self.contentsView.layer.cornerRadius = 25
         self.contentsView.layer.masksToBounds = true
         //影
-        self.shadowView.backgroundColor = .clear 
+        self.shadowView.backgroundColor = .clear
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -83,6 +83,13 @@ class PostTableViewCell: UITableViewCell {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
+        
+//        //テキストビューの最大設定
+//        if self.contentLabel.frame.height > 100 {
+//            self.contentLabel.frame = CGRect(x: contentLabel.frame.origin.x, y: contentLabel.frame.origin.y, width: contentLabel.frame.width, height: 100.0)
+//        }
+        
+        
     }
     override func updateConstraints() {
         super.updateConstraints()

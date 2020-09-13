@@ -12,7 +12,8 @@ class LikeUserListTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
-    var likeUsers :[String] = []
+//    var likeUsers :[String] = []
+    var userPostArray :[UserPostData] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
@@ -30,13 +31,26 @@ class LikeUserListTableViewController: UIViewController {
 
 extension LikeUserListTableViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.likeUsers.count
+        return self.userPostArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"Cell", for: indexPath) as! LikeUserListTableViewCell
-        cell.setUserPostData(likeUsers[indexPath.row])
+        cell.setUserPostData(userPostArray[indexPath.row])
         return cell
+    }
+    //各セルを選択した時に実行されるメソッド
+    func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath ){
+        //プロフィール画面に遷移する
+        let profileViewController = self.storyboard?.instantiateViewController(identifier: "Profile") as! ProfileViewController
+        // 配列からタップされたインデックスのデータを取り出す
+        let userData = userPostArray[indexPath.row]
+        profileViewController.userData = userData
+        profileViewController.modalPresentationStyle = .fullScreen
+        //選択後の色をすぐにもとに戻す
+        tableView.deselectRow(at: indexPath, animated: true)
+        //画面遷移
+        self.present(profileViewController, animated: true, completion: nil)
     }
     //高さ調整
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

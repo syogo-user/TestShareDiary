@@ -176,6 +176,12 @@ class DitailViewController: UIViewController {
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTransition(_:))))
         
+        let swipeUp = UISwipeGestureRecognizer(target:self,action:nil)
+        swipeUp.direction = .up
+        imageView.addGestureRecognizer(swipeUp)
+
+        
+        
         //画像のアスペクト比　sacaleAspectFil：写真の比率は変わらない。imageViewの枠を超える。cliptToBounds をtrueにしているため枠は超えずに、比率も変わらない。
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -730,14 +736,38 @@ class DitailViewController: UIViewController {
     @objc func likeUserShow(_:UIButton) {
         //画面遷移
         let likeUserListTableViewController = storyboard?.instantiateViewController(withIdentifier: "LikeUserListTableViewController") as! LikeUserListTableViewController
-        let likeUsers :[String] = self.postData?.likes ?? []
+        let likeUserArray :[String] = self.postData?.likes ?? []
+        var userPostArray :[UserPostData] = []
+        var index = 0
+        //likeUserArrayからuserPostArrayを作成
+        for likeUserUid in likeUserArray{
+            let postRef = Firestore.firestore().collection(Const.users).document(likeUserUid)
+            postRef.getDocument{
+                (document ,error) in
+                if error != nil {
+                    print("DEBUG: snapshotの取得が失敗しました。")
+                    return
+                }
+                //userNameとuserImageViewを設定
+                guard let document = document else {return}
+                userPostArray.append(UserPostData(document:document))
+                
+                index = index + 1
+                //
+                if index == likeUserArray.count {
+                    likeUserListTableViewController.userPostArray = userPostArray
+                    self.present(likeUserListTableViewController, animated: true, completion: nil)
+                }                
+            }
+        }
+
+        
+        
         //likeUsersからユーザ情報を取得
         //        let userPostData = getUsersData(likeUsers)
         
         //        likeUserListTableViewController.userPostData = userPostData
-        likeUserListTableViewController.likeUsers = likeUsers
-        
-        self.present(likeUserListTableViewController, animated: true, completion: nil)
+
     }
 }
 //作成したデリゲートを使用する
@@ -775,13 +805,7 @@ extension DitailViewController :InputTextViewDelegate{
             postRef.updateData(["commentsId":updateValueId])
             
         }
-        
-
-
-         
-         
-        
-        
+  
         
     }
     func randomString(length: Int) -> String {
