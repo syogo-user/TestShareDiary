@@ -85,7 +85,7 @@ class LeftViewController: UIViewController {
         self.present(followFollowerListTableViewController, animated: true, completion: nil)
     }
     
-    //フォロリクエストボタンが押された時
+    //フォローリクエストボタンが押された時
     @objc private func tapFollowRequestShowShowButton(_ sender :UIButton){
         let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestListTableViewController") as! FollowRequestListTableViewController
         followRequestListTableViewController.modalPresentationStyle = .fullScreen

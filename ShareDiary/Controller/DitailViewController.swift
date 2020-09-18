@@ -21,7 +21,8 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView1: UIView!
     @IBOutlet weak var diaryText: UILabel!
-
+    @IBOutlet weak var shadowView: UIView!
+    
     
         
     var scrollFlg :Bool = false //下部（コメントエリア）にスクロールさせるかの判定
@@ -70,10 +71,14 @@ class DitailViewController: UIViewController {
     override  var canBecomeFirstResponder: Bool{
         return true
     }
+
+    
+    
     //描画が終わったあとに呼び出される
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         guard let post = postData else {return}
+        
         //選択された写真の枚数
         let imageMaxNumber  = post.contentImageMaxNumber
         switch imageMaxNumber {
@@ -114,7 +119,6 @@ class DitailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "CommentTableViewCell", bundle:nil)
         self.tableView.register(nib, forCellReuseIdentifier: "CommentTableViewCell")

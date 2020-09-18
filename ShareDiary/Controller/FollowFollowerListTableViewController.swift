@@ -18,6 +18,8 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     var userPostArray: [UserPostData] = []
     //遷移元を知るためのフラグ
     var fromButton :String = ""
+    //遷移元の画面がプロフィール画面からの場合uidが渡される
+    var fromProfileUid = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,10 +164,21 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     
     //データの描画
     func reloadView(){
-        guard let myUid = Auth.auth().currentUser?.uid else {return}
+        var uid = ""
+        if fromProfileUid == ""{
+            //空の場合 スライドメニューからの遷移
+            //自分のuidを使用する
+            guard let myUid = Auth.auth().currentUser?.uid else {return}
+            uid = myUid
+        } else {
+            //値がある場合 プロフィール画面からの遷移
+            //渡されたuidを使用する
+            uid = fromProfileUid
+        }
+
         //ログイン済み
         var postRef : DocumentReference
-        postRef = Firestore.firestore().collection(Const.users).document(myUid)
+        postRef = Firestore.firestore().collection(Const.users).document(uid)
         //自分のユーザ情報の取得
         postRef.getDocument{
             (document,error) in
@@ -191,6 +204,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     }
                     //userPostArrayにappendしてリロードする
                     self.appendArray(array:followArray)
+
                 } else if self.fromButton == Const.Follower{
                     //フォロワーボタンから遷移した場合
                     //フォロワーが存在しない場合はreturn
@@ -206,7 +220,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     }
                     //userPostArrayにappendしてリロードする
                     self.appendArray(array: followerArray)
-                    
+
                 }              
             }
         }
