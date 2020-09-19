@@ -23,7 +23,7 @@ class DitailViewController: UIViewController {
     @IBOutlet weak var diaryText: UILabel!
     @IBOutlet weak var shadowView: UIView!
     
-    
+    let gradientLayer = CAGradientLayer()
         
     var scrollFlg :Bool = false //下部（コメントエリア）にスクロールさせるかの判定
     var postData :PostData?
@@ -59,7 +59,8 @@ class DitailViewController: UIViewController {
 //    let diaryLabelBottomConstraint2:CGFloat = 240 //contentLabelから下の長さ
 //    let diaryLabelBottomConstraint3:CGFloat = 390 //contentLabelから下の長さ
 //    let diaryLabelBottomConstraint4:CGFloat = 350 //contentLabelから下の長さ
-//
+//あと削除↓
+    private let contentInset2 :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
     //元々持っている；プロパティ
     override var inputAccessoryView: UIView?{
         //inputAccessoryViewにInputTextViewを設定する
@@ -71,14 +72,20 @@ class DitailViewController: UIViewController {
     override  var canBecomeFirstResponder: Bool{
         return true
     }
-
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        //長い文章の投稿時にスクロールできるようにcontentSize設定
+        self.tableView.contentSize = CGSize(width:self.containerView1.frame.width, height:self.containerView1.frame.height)
+        //グラーデションのフレームの大きさを設定
+        gradientLayer.frame = self.containerView1.layer.bounds
+    }
     
     
     //描画が終わったあとに呼び出される
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         guard let post = postData else {return}
-        
+
         //選択された写真の枚数
         let imageMaxNumber  = post.contentImageMaxNumber
         switch imageMaxNumber {
@@ -647,8 +654,6 @@ class DitailViewController: UIViewController {
     //背景色設定
     private func setBackgroundColor(colorIndex:Int){
         //背景色を変更する
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.containerView1.layer.bounds
         let color = Const.color[colorIndex]
         let color1 = color["startColor"] ?? UIColor.white.cgColor
         let color2 = color["endColor"] ?? UIColor.white.cgColor
