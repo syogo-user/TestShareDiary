@@ -196,13 +196,13 @@ class DitailViewController: UIViewController {
           //プラスだったら
             print("self.tableView.contentOffset☆:\(self.tableView.contentOffset)")
             //テーブルビューをスクロールさせる
-            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y + dy)
+            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: -self.tableView.contentOffset.y + dy)
 
         } else{
             //マイナスだったら
             print("self.tableView.contentOffset★:\(self.tableView.contentOffset)")
             //テーブルビューをスクロールさせる
-            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: -self.tableView.contentOffset.y + dy)
+            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y + dy)
         }
 
 
