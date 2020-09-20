@@ -175,7 +175,39 @@ class DitailViewController: UIViewController {
         //初期表示後はスクロールをtrueとする
         self.scrollFlg = true
     }
+    
+    //ドラッグ時に呼ばれる
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // タッチイベントを取得
+        let touchEvent = touches.first!
+        //ドラッグ前の座標取得
+//        let preDx = touchEvent.previousLocation(in: self.view).x
+        let preDy = touchEvent.previousLocation(in: self.view).y
+        
+        // ドラッグ後の座標取得
+//        let newDx = touchEvent.location(in: self.view).x
+        let newDy = touchEvent.location(in: self.view).y
+                
+        // ドラッグしたy座標の移動距離
+        let dy = newDy - preDy
+        print("dy:\(dy)")
 
+        if dy > 0{
+          //プラスだったら
+            print("self.tableView.contentOffset☆:\(self.tableView.contentOffset)")
+            //テーブルビューをスクロールさせる
+            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y + dy)
+
+        } else{
+            //マイナスだったら
+            print("self.tableView.contentOffset★:\(self.tableView.contentOffset)")
+            //テーブルビューをスクロールさせる
+            self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: -self.tableView.contentOffset.y + dy)
+        }
+
+
+        
+    }
     
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(imageRef:StorageReference,index:Int,maxCount:Int){
@@ -184,7 +216,7 @@ class DitailViewController: UIViewController {
         //imageViewの初期化
         let imageView = UIImageView()
         //タップイベント追加
-        imageView.isUserInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true //画像のタップを有効化。
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTransition(_:))))
         
         let swipeUp = UISwipeGestureRecognizer(target:self,action:nil)
