@@ -230,7 +230,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     private func appendArray(array:[String]){
         var userArray : [UserPostData] = []
         for uid in array {
-            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)            
+            let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)
             postRef2.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
@@ -238,7 +238,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     return
                 } else {
                     querySnapshot!.documents.forEach{
-                        document in                        
+                        document in
                         userArray.append(UserPostData(document:document))
                         //ユーザの名前順(昇順)に並び替えの処理を入れる
                         userArray.sort(by: { (a,b) -> Bool in
@@ -253,6 +253,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                         self.userPostArray = userArray
                         self.tableView.reloadData()
                     }
+
                 }
             }
         }

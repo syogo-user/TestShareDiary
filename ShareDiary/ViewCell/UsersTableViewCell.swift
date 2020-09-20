@@ -96,7 +96,7 @@ class UsersTableViewCell: UITableViewCell {
     //鍵アカウントか判定しプロフィールメッセージを表示
     private func profileShow(myid :String,userPostData:UserPostData){
         //鍵アカウント判定用変数
-        let keyAccountFlg = userPostData.keyAccountFlg ?? true
+//        let keyAccountFlg = userPostData.keyAccountFlg ?? true
         //相手のuidを取得
         guard let uid = userPostData.uid else {return}
         //uidが自分か相手かを判定
@@ -105,17 +105,17 @@ class UsersTableViewCell: UITableViewCell {
             self.profileMessage.text = userPostData.profileMessage //プロフィールメッセージを表示
         } else {
             //相手のuidの場合
-            //相手が鍵アカウントかどうか
-            if keyAccountFlg {
-                //鍵アカウント
-                //自分のフォローしている人を取得
-                let postMyUserRef = Firestore.firestore().collection(Const.users).document(myid)
-                postMyUserRef.getDocument() {
-                    (querySnapshot,error) in
-                    if let error = error {
-                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
-                        return
-                    } else {
+            
+            //自分のフォローしている人を取得
+            let postMyUserRef = Firestore.firestore().collection(Const.users).document(myid)
+            postMyUserRef.getDocument() {
+                (querySnapshot,error) in
+                if let error = error {
+                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                    return
+                } else {
+                    if userPostData.keyAccountFlg ?? true{
+                        //鍵アカウント
                         guard let document = querySnapshot!.data() else {return}
                         //自分がフォローしている人の中に表示しようとしている相手のuidがあるかを判定
                         let myFollow = document["follow"] as? [String] ?? []
@@ -126,12 +126,41 @@ class UsersTableViewCell: UITableViewCell {
                             //フォローしていない場合 非公開
                             self.profileMessage.text = "【非公開】"
                         }
+                    } else {
+                        //鍵アカウントではない
+                        self.profileMessage.text = userPostData.profileMessage //プロフィールメッセージを表示
                     }
+                    
                 }
-            } else {
-                //鍵アカウントではない
-                self.profileMessage.text = userPostData.profileMessage //プロフィールメッセージを表示
             }
+
+//            //相手が鍵アカウントかどうか
+//            if keyAccountFlg {
+//                //鍵アカウント
+//                //自分のフォローしている人を取得
+//                let postMyUserRef = Firestore.firestore().collection(Const.users).document(myid)
+//                postMyUserRef.getDocument() {
+//                    (querySnapshot,error) in
+//                    if let error = error {
+//                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
+//                        return
+//                    } else {
+//                        guard let document = querySnapshot!.data() else {return}
+//                        //自分がフォローしている人の中に表示しようとしている相手のuidがあるかを判定
+//                        let myFollow = document["follow"] as? [String] ?? []
+//                        if myFollow.firstIndex(of: uid) != nil{
+//                            //フォローしている場合プロフィールを表示
+//                            self.profileMessage.text = userPostData.profileMessage
+//                        }else{
+//                            //フォローしていない場合 非公開
+//                            self.profileMessage.text = "【非公開】"
+//                        }
+//                    }
+//                }
+//            } else {
+//                //鍵アカウントではない
+//                self.profileMessage.text = userPostData.profileMessage //プロフィールメッセージを表示
+//            }
         }
     }
     
