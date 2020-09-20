@@ -18,6 +18,14 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var myCommentWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var partnerCreatedAt: UILabel!
     @IBOutlet weak var myCreatedAt: UILabel!
+    //影
+    
+    @IBOutlet weak var userImageShadowView: UIView!
+    @IBOutlet weak var partnerCommentShadowView: UIView!
+    @IBOutlet weak var partnerCommentShadowWidthConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var myCommentShadowView: UIView!
+    @IBOutlet weak var myCommentShadowWidthConstraint: NSLayoutConstraint!
     
     var message = ""
     
@@ -33,8 +41,9 @@ class CommentTableViewCell: UITableViewCell {
         print("DEBUG layoutSub:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
         super.layoutSubviews()
         print("DEBUG layoutSub:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
-
-        
+        //写真の影
+        self.userImageShadowView.bounds = self.userImageView.bounds
+        self.userImageShadowView.layer.cornerRadius = 25
     }
     
     
@@ -91,6 +100,11 @@ class CommentTableViewCell: UITableViewCell {
             self.myComment.isHidden = false
             self.myCreatedAt.isHidden = false
                         
+            //影
+            self.partnerCommentShadowView.isHidden = true
+            self.userImageShadowView.isHidden = true
+            self.myCommentShadowView.isHidden = false
+            
             self.myComment.attributedText = mutableAttributedString
 //            self.myComment.text = commentData.message
             self.myCreatedAt.text = dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
@@ -103,6 +117,10 @@ class CommentTableViewCell: UITableViewCell {
             }
             self.myCommentWidthConstraint.constant = width
             print("DEBUG setComment:\(myComment.text!) :height:\(myComment.frame.height), width:\(myComment.frame.width)")
+            
+            //影
+            self.myCommentShadowView.bounds = self.myComment.bounds
+            self.myCommentShadowWidthConstraint.constant = width
         } else {
             //相手の場合
 
@@ -111,6 +129,10 @@ class CommentTableViewCell: UITableViewCell {
             self.userImageView.isHidden = false
             self.myComment.isHidden = true
             self.myCreatedAt.isHidden = true
+            //影
+            self.partnerCommentShadowView.isHidden = false
+            self.userImageShadowView.isHidden = false
+            self.myCommentShadowView.isHidden = true
             
             self.partnerComment.attributedText = mutableAttributedString
             self.partnerCreatedAt.text =  dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
@@ -125,6 +147,10 @@ class CommentTableViewCell: UITableViewCell {
 
             //画像の表示
             setImageShow(userUid:commentData.uid)
+            
+            //影
+            self.partnerCommentShadowView.bounds = self.partnerComment.bounds
+            self.partnerCommentShadowWidthConstraint.constant = width
         }
 
     }

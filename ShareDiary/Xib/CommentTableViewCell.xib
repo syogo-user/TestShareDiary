@@ -16,6 +16,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="380" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3T-ld-Ym8" customClass="ShadowUIView" customModule="ShareDiary" customModuleProvider="target">
+                        <rect key="frame" x="160" y="20" width="200" height="80"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="JdB-9a-eS5"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ed4-NE-Lzs" customClass="ShadowUIView" customModule="ShareDiary" customModuleProvider="target">
+                        <rect key="frame" x="10" y="20" width="50" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="F5e-rZ-mwh"/>
+                            <constraint firstAttribute="width" constant="50" id="swv-4V-NSI"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rzV-Bt-osa" customClass="ShadowUIView" customModule="ShareDiary" customModuleProvider="target">
+                        <rect key="frame" x="75" y="20" width="200" height="80"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="nXn-vl-Wdv"/>
+                        </constraints>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2U-x4-hav">
                         <rect key="frame" x="10" y="20" width="50" height="50"/>
                         <color key="backgroundColor" red="0.96620899439999997" green="0.81067361520000003" blue="0.86979790960000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -60,28 +82,41 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="haF-cX-jrS" firstAttribute="leading" secondItem="D2U-x4-hav" secondAttribute="trailing" constant="15" id="2hg-bA-A25"/>
+                    <constraint firstItem="ed4-NE-Lzs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3zR-Br-MDg"/>
+                    <constraint firstItem="rzV-Bt-osa" firstAttribute="leading" secondItem="ed4-NE-Lzs" secondAttribute="trailing" constant="15" id="6fg-2F-tdD"/>
                     <constraint firstAttribute="bottomMargin" secondItem="yeu-dI-dkh" secondAttribute="bottom" constant="10" id="Dtv-qI-Urr"/>
+                    <constraint firstAttribute="bottom" secondItem="E3T-ld-Ym8" secondAttribute="bottom" constant="20" id="F79-x2-Z1b"/>
                     <constraint firstItem="2Ln-gh-hgy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="IWH-f3-vDr"/>
                     <constraint firstItem="D2U-x4-hav" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="IlN-5k-iO0"/>
+                    <constraint firstAttribute="bottom" secondItem="rzV-Bt-osa" secondAttribute="bottom" constant="20" id="M8a-2C-giS"/>
+                    <constraint firstItem="ed4-NE-Lzs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MAQ-Qd-aS5"/>
                     <constraint firstItem="yeu-dI-dkh" firstAttribute="leading" secondItem="haF-cX-jrS" secondAttribute="trailing" constant="5" id="Q7b-Lk-L9s"/>
                     <constraint firstItem="2Ln-gh-hgy" firstAttribute="bottomMargin" secondItem="fNI-Vg-711" secondAttribute="bottom" constant="3" id="Qdr-O5-hBV"/>
                     <constraint firstItem="2Ln-gh-hgy" firstAttribute="leading" secondItem="fNI-Vg-711" secondAttribute="trailing" constant="5" id="Utq-jN-QxP"/>
+                    <constraint firstItem="E3T-ld-Ym8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YeT-uF-cmJ"/>
                     <constraint firstItem="haF-cX-jrS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YqR-81-xHy"/>
                     <constraint firstAttribute="bottom" secondItem="2Ln-gh-hgy" secondAttribute="bottom" constant="20" id="f4d-nv-sPr"/>
                     <constraint firstAttribute="trailing" secondItem="2Ln-gh-hgy" secondAttribute="trailing" constant="20" id="iic-Dg-HtR"/>
                     <constraint firstAttribute="bottom" secondItem="haF-cX-jrS" secondAttribute="bottom" constant="20" id="sYg-Up-BDG"/>
+                    <constraint firstItem="rzV-Bt-osa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="tvn-P4-OCO"/>
                     <constraint firstItem="D2U-x4-hav" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="uCG-UZ-DEg"/>
+                    <constraint firstAttribute="trailing" secondItem="E3T-ld-Ym8" secondAttribute="trailing" constant="20" id="ypo-M2-XeM"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="myComment" destination="2Ln-gh-hgy" id="ThW-Xp-MPF"/>
+                <outlet property="myCommentShadowView" destination="E3T-ld-Ym8" id="MCd-IV-2uL"/>
+                <outlet property="myCommentShadowWidthConstraint" destination="JdB-9a-eS5" id="ICu-jM-7cd"/>
                 <outlet property="myCommentWidthConstraint" destination="aGn-Tx-Oey" id="eLL-md-dLM"/>
                 <outlet property="myCreatedAt" destination="fNI-Vg-711" id="3TA-1R-KQd"/>
                 <outlet property="partnerComment" destination="haF-cX-jrS" id="Zbd-Dm-A9Z"/>
+                <outlet property="partnerCommentShadowView" destination="rzV-Bt-osa" id="eJA-GX-7Go"/>
+                <outlet property="partnerCommentShadowWidthConstraint" destination="nXn-vl-Wdv" id="9K3-ZO-bEn"/>
                 <outlet property="partnerCommentWidthConstraint" destination="Ed5-Ow-GAF" id="Gey-rZ-YH7"/>
                 <outlet property="partnerCreatedAt" destination="yeu-dI-dkh" id="8iu-rM-s0t"/>
+                <outlet property="userImageShadowView" destination="ed4-NE-Lzs" id="Dg1-S4-O2Y"/>
                 <outlet property="userImageView" destination="D2U-x4-hav" id="A9b-eW-dA1"/>
             </connections>
             <point key="canvasLocation" x="178.2608695652174" y="105.80357142857143"/>
