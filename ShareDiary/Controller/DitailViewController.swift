@@ -91,9 +91,7 @@ class DitailViewController: UIViewController {
         switch imageMaxNumber {
         case 0:
             //写真の枚数が0枚の場合
-            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0 + diaryText.frame.height)
-            print("☆",diaryText.frame.height)
-            
+            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0 + diaryText.frame.height)            
             //            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint0
             self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight0 + diaryText.frame.height)
         case 1:
