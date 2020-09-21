@@ -13,6 +13,7 @@ class ProfileEditViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var profileMessage: UITextView!
     @IBOutlet weak var keyAccountFlg: UISwitch!
+    private var oldName = ""//変更前ユーザ名
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,8 @@ class ProfileEditViewController: UIViewController {
                 self.userName.text = document["userName"] as? String ?? ""
                 self.profileMessage.text = document["profileMessage"] as? String ?? ""
                 self.keyAccountFlg.isOn = document["keyAccountFlg"] as? Bool ?? true
+                //oldName変数に変更前のユーザ名を保持しておく
+                self.oldName = document["userName"] as? String ?? ""
             }
         }
     }
@@ -53,8 +56,7 @@ class ProfileEditViewController: UIViewController {
     @objc private func saveButtonTap(){
 
         guard let myUid = Auth.auth().currentUser?.uid else {return}
-        //変更前のユーザ名を保持しておく
-        guard let oldName = Auth.auth().currentUser?.displayName else {return}
+        
         //名前が空の場合
         if self.userName.text ?? "" == "" {
             let dialog = UIAlertController(title: "名前が空です", message: nil, preferredStyle: .actionSheet)
@@ -94,7 +96,7 @@ class ProfileEditViewController: UIViewController {
                 }
                 print("DEBUG: [displayName = \(user.displayName!)]の設定に成功しました。")
                 //投稿データの名前も変更
-                self.getDocumentUserName(oldName:oldName ,newName:userName)
+                self.getDocumentUserName(oldName:self.oldName ,newName:userName)
             }
         }
         //前の画面に戻る

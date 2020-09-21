@@ -429,38 +429,6 @@ class PostTableViewCell: UITableViewCell {
 //            self.contentLabel.frame = CGRect(x: contentLabel.frame.origin.x, y: contentLabel.frame.origin.y, width: contentLabel.frame.width, height: 100.0)
 //        }
     }
-//    //コメントボタンの色を設定
-//    private func setCommentButton(myUid:String,postData:PostData){
-//        let messageRef = Firestore.firestore().collection(Const.PostPath).document(postData.id).collection("messages")
-//        messageRef.getDocuments() {
-//            (querySnapshot,error) in
-//            if let error = error {
-//                print("DEBUG: snapshotの取得が失敗しました。\(error)")
-//                return
-//            } else {
-//                var uidArray :[String] = []
-//                querySnapshot!.documents.forEach{
-//                    document in
-//                    let documents = document.data()
-//                    uidArray.append(CommentData(document: documents).uid)
-//                }
-//                //コメントの中に自分のuidがあったら、変身ボタンを赤色にする
-//                if uidArray.firstIndex(of:myUid) != nil{
-//                    //赤
-//                    let buttonImage = UIImage(named: "reply_color")
-//                    self.commentButton.setImage(buttonImage, for: .normal)
-//                }else {
-//                    //色なし
-//                    let buttonImage = UIImage(named: "reply")
-//                    self.commentButton.setImage(buttonImage, for: .normal)
-//                }
-//            }
-//        }
-//    }
-    
-//    private func setNumberOfComment(){
-//        //TODO
-//    }
     
     private func setPostImage(uid:String){
         let userRef = Firestore.firestore().collection(Const.users).document(uid)
