@@ -83,14 +83,14 @@ class PostTableViewCell: UITableViewCell {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
-        //高さ　調整①
-        //コンテンツ（contetnLabel）の最大値
-        print("DEBUG:contentLabel.frame",contentLabel.frame)
-        let maxSize = CGSize(width: self.frame.width - 30, height:100.0)
-        let size = contentLabel.sizeThatFits(maxSize)
-        print("DEBUG:size",size)
-        contentLabel.frame = CGRect(origin: CGPoint(x:contentLabel.frame.origin.x, y:contentLabel.frame.origin.y ), size: size)
-        print("DEBUG☆:contentLabel.frame",contentLabel.frame)
+//        //高さ　調整①
+//        //コンテンツ（contetnLabel）の最大値
+//        print("DEBUG:contentLabel.frame",contentLabel.frame)
+//        let maxSize = CGSize(width: self.frame.width - 30, height:100.0)
+//        let size = contentLabel.sizeThatFits(maxSize)
+//        print("DEBUG:size",size)
+//        contentLabel.frame = CGRect(origin: CGPoint(x:contentLabel.frame.origin.x, y:contentLabel.frame.origin.y ), size: size)
+//        print("DEBUG☆:contentLabel.frame",contentLabel.frame)
         
         
         //高さ　調整②

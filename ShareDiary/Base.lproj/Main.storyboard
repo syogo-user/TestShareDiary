@@ -95,6 +95,7 @@
                             <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="En2-qG-0Kn" secondAttribute="trailing" constant="10" id="OxI-uZ-2yo"/>
                             <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="bbK-ku-AtB" secondAttribute="trailing" constant="60" id="Rh3-By-UXe"/>
                             <constraint firstItem="En2-qG-0Kn" firstAttribute="top" secondItem="NQC-XV-lvh" secondAttribute="top" constant="10" id="Usd-Xi-5F3"/>
+                            <constraint firstItem="bbK-ku-AtB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="En2-qG-0Kn" secondAttribute="bottom" constant="5" id="YHZ-xI-Nll"/>
                             <constraint firstItem="NQC-XV-lvh" firstAttribute="bottom" secondItem="bbK-ku-AtB" secondAttribute="bottom" constant="60" id="qba-eY-SmA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NQC-XV-lvh"/>
