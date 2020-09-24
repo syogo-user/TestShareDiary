@@ -44,6 +44,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         self.follower.addTarget(self, action: #selector(tapFollower(_:)), for: .touchUpInside)
         //ボタンの設定
         buttonSet()
+        //文字サイズをラベルの大きさに合わせて調整
+        nickNameTextField.adjustsFontSizeToFitWidth = true
     }
     
     //ボタンの設定
