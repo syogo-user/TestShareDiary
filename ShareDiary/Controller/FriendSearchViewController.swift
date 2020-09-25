@@ -79,7 +79,13 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         //自分のuid取得
         if (Auth.auth().currentUser?.uid) != nil {
             //ユーザからデータを取得
-            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
+//            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
+            //前方一致検索を行いたい
+            let postRef = Firestore.firestore().collection(Const.users)
+            postRef.whereField("userName", isGreaterThanOrEqualTo: inputText).whereField("userName", isLessThanOrEqualTo: "IN")
+//            postRef.whereField("userName", isEqualTo:inputText)
+//            postRef.order(by: "userName").start(at: [String]).end(at: [inputText + "¥uf8ff"])
+            
             postRef.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
