@@ -257,19 +257,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         }
 
     }
-//    private func publicJudg() -> Bool{
-//        //自分のフォローしている人を配列で取得
-//        
-//        
-//        //相手が鍵でない場合　->true
-//        //相手が鍵の場合
-//             //フォローしている人の場合 -> true
-//             //フォローしている人でない場合
-//                    //自分のUIDの場合　-> true
-//                    //自分のUIDではない場合　->false
-//        
-//        return
-//    }
 
     @objc private func tapImageChoiceButton(_ sender:UIButton){
         //写真選択

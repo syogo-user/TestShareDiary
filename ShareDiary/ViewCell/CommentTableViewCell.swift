@@ -52,25 +52,7 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func setCommentData(_ commentData:CommentData){
-        //ユーザ名を取得しコメントを設定
-//        getUserName(commentData:commentData)
         setComment(commentData:commentData)
-    }
-    private func getUserName(commentData:CommentData){
-        //自分もしくは自分以外の人のユーザ名を取得
-//        let postUserRef = Firestore.firestore().collection(Const.users).document(commentData.uid)
-//        postUserRef.getDocument() {
-//            (querySnapshot,error) in
-//            if let error = error {
-//                print("DEBUG: snapshotの取得が失敗しました。\(error)")
-//                return
-//            } else {
-//                guard let document = querySnapshot!.data() else {return}
-//                let userName = document["userName"] as? String ?? ""
-//                //コメントの設定
-//                self.setComment(userName:userName,commentData:commentData)
-//            }
-//        }
     }
     //コメントの設定
     private func setComment(commentData:CommentData){

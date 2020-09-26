@@ -56,7 +56,6 @@ class PostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.contentsView.layer.insertSublayer(gradientLayer, at: 0)
         self.postUserImageView.layer.cornerRadius = 20
         self.contentsView.layer.cornerRadius = 25
         self.contentsView.layer.masksToBounds = true
@@ -72,7 +71,6 @@ class PostTableViewCell: UITableViewCell {
         //描画されるときに呼び出される
         super.layoutSubviews()
         contentsView.frame = self.bounds
-//        gradientLayer.frame = self.contentsView.layer.bounds
         //写真を削除
         self.removeUIImageSubviews(parentView: self)
         //投稿写真の枚数分ループする (1,2,3,4)
@@ -83,22 +81,6 @@ class PostTableViewCell: UITableViewCell {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
-//        //高さ　調整①
-//        //コンテンツ（contetnLabel）の最大値
-//        print("DEBUG:contentLabel.frame",contentLabel.frame)
-//        let maxSize = CGSize(width: self.frame.width - 30, height:100.0)
-//        let size = contentLabel.sizeThatFits(maxSize)
-//        print("DEBUG:size",size)
-//        contentLabel.frame = CGRect(origin: CGPoint(x:contentLabel.frame.origin.x, y:contentLabel.frame.origin.y ), size: size)
-//        print("DEBUG☆:contentLabel.frame",contentLabel.frame)
-        
-        
-        //高さ　調整②
-//        //テキストビューの最大設定
-//        if self.contentLabel.frame.height > 100 {
-//            self.contentLabel.frame = CGRect(x: contentLabel.frame.origin.x, y: contentLabel.frame.origin.y, width: contentLabel.frame.width, height: 100.0)
-//        }
-        
         
     }
     override func updateConstraints() {
@@ -384,11 +366,6 @@ class PostTableViewCell: UITableViewCell {
         self.contentLabel.text = ""
         if let content = postData.content{
             self.contentLabel.text! = content
-//            //最大値
-//            let maxSize = CGSize(width: self.frame.width - 30, height:100)
-//            let size = contentLabel.sizeThatFits(maxSize)
-//            contentLabel.frame = CGRect(origin: CGPoint(x:contentLabel.frame.origin.x, y:contentLabel.frame.origin.y ), size: size)
-//            contentLabel.center = self.center
         }
 
         imageMaxNumber  = postData.contentImageMaxNumber
@@ -414,20 +391,11 @@ class PostTableViewCell: UITableViewCell {
         default: break
 
         }
-        //コメントボタンの表示
-//        setCommentButton(myUid:myUid,postData:postData)
-        //コメント数の表示
-//        setNumberOfComment()
-        
         //プロフィール写真を設定
         setPostImage(uid:postData.uid)
         //背景色を設定
         contentsView.setBackgroundColor(colorIndex:postData.backgroundColorIndex)
-        
-//        //テキストビューの最大設定
-//        if self.contentLabel.frame.height > 100 {
-//            self.contentLabel.frame = CGRect(x: contentLabel.frame.origin.x, y: contentLabel.frame.origin.y, width: contentLabel.frame.width, height: 100.0)
-//        }
+
     }
     
     private func setPostImage(uid:String){
@@ -458,16 +426,5 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
-    //    private func setBackgroundColor(colorIndex:Int){
-    //        //背景色を変更する
-    //        let color = Const.color[colorIndex]
-    //        let color1 = color["startColor"] ?? UIColor.white.cgColor
-    //        let color2 = color["endColor"] ?? UIColor.white.cgColor
-    //        //CAGradientLayerにグラデーションさせるカラーをセット
-    //        gradientLayer.colors = [color1,color2]
-    //        gradientLayer.startPoint = CGPoint.init(x:0.1,y:0.1)
-    //        gradientLayer.endPoint = CGPoint.init(x:0.9,y:0.9)
-    //    }
-    
     
 }

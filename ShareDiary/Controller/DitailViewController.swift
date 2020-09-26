@@ -54,13 +54,7 @@ class DitailViewController: UIViewController {
     let headerViewHeight2:CGFloat = 400 //写真2枚のとき
     let headerViewHeight3:CGFloat = 550 //写真3枚のとき
     let headerViewHeight4:CGFloat = 500 //写真4枚のとき
-//    let diaryLabelBottomConstraint0:CGFloat = 50  //contentLabelから下の長さ
-//    let diaryLabelBottomConstraint1:CGFloat = 350 //contentLabelから下の長さ
-//    let diaryLabelBottomConstraint2:CGFloat = 240 //contentLabelから下の長さ
-//    let diaryLabelBottomConstraint3:CGFloat = 390 //contentLabelから下の長さ
-//    let diaryLabelBottomConstraint4:CGFloat = 350 //contentLabelから下の長さ
-//あと削除↓
-    private let contentInset2 :UIEdgeInsets = .init(top: 0, left: 0, bottom: 100, right: 0)
+
     //元々持っている；プロパティ
     override var inputAccessoryView: UIView?{
         //inputAccessoryViewにInputTextViewを設定する

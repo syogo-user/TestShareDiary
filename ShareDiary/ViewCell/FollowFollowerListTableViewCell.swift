@@ -65,8 +65,6 @@ class FollowFollowerListTableViewCell: UITableViewCell {
     }
     //鍵アカウントか判定しプロフィールメッセージを表示
     private func profileShow(myid :String,userPostData:UserPostData){
-        //鍵アカウント判定用変数
-//        let keyAccountFlg = userPostData.keyAccountFlg ?? true
         //相手のuidを取得
         guard let uid = userPostData.uid else {return}
         //uidが自分か相手かを判定

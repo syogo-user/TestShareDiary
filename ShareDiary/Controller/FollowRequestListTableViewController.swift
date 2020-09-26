@@ -125,7 +125,6 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             var followRequestUpdateValue: FieldValue
             followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
             batch.updateData(["followRequest":followRequestUpdateValue],forDocument: followRequestPostRef)
-            //followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
             //★★★★★★★★★★★★★★★★★★★★★            
             //トランザクション終了
             //コミット

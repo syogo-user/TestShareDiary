@@ -20,21 +20,6 @@ class LikeUserListTableViewCell: UITableViewCell {
     }
 
     func setUserPostData(_ userPostData:UserPostData){
-//        let postRef = Firestore.firestore().collection(Const.users).document(likeUserUid)
-//        postRef.getDocument{
-//            (document ,error) in
-//            if error != nil {
-//                print("DEBUG: snapshotの取得が失敗しました。")
-//                return
-//            }
-//            //userNameとuserImageViewを設定
-//            guard let document = document else {return}
-//            if let userData = document.data() {
-//                self.userName.text = userData["userName"] as? String ?? ""
-//                let myImageName = userData["myImageName"] as? String ?? ""
-//                self.setImage(userImageName:myImageName)
-//            }
-//        }
         self.userName.text = userPostData.userName ?? ""
         let myImageName = userPostData.myImageName ?? ""
         self.setImage(userImageName: myImageName)
