@@ -78,15 +78,11 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         SVProgressHUD.show()
         //自分のuid取得
         if (Auth.auth().currentUser?.uid) != nil {
-            //ユーザからデータを取得
-//            let postRef = Firestore.firestore().collection(Const.users).whereField("userName", isEqualTo:inputText)
-            //前方一致検索を行いたい
-            let postRef = Firestore.firestore().collection(Const.users)
-            postRef.whereField("userName", isGreaterThanOrEqualTo: inputText).whereField("userName", isLessThanOrEqualTo: "IN")
-//            postRef.whereField("userName", isEqualTo:inputText)
-//            postRef.order(by: "userName").start(at: [String]).end(at: [inputText + "¥uf8ff"])
-            
-            postRef.getDocuments() {
+            //ユーザからデータを取
+            //前方一致検索
+            let userRef = Firestore.firestore().collection(Const.users)
+            let ref = userRef.order(by: "userName").start(at: [inputText]).end(at: [inputText + "\u{f8ff}"])
+            ref.getDocuments() {
                 (querySnapshot,error) in
                 if let error = error {
                     SVProgressHUD.showError(withStatus: "検索に失敗しました")

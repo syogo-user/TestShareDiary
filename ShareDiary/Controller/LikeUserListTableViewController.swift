@@ -12,8 +12,8 @@ class LikeUserListTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
-//    var likeUsers :[String] = []
     var userPostArray :[UserPostData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
