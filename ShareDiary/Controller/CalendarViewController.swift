@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.delegate = self
         self.calendar.backgroundColor = .clear
         self.view.backgroundColor = Const.darkColor
-        
+
         self.diaryAddButton.addTarget(self, action: #selector(tapDiaryAddButton), for:.touchUpInside)
         //カレンダー設定
         self.calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -42,6 +42,8 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.blue
         //ボタンの設定
         buttonSet()
+//        let addImage = UIImage(named:"add")!
+//        self.diaryAddButton.setImage(addImage, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +89,8 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         gradientLayer.colors = [Const.buttonStartColor.cgColor, Const.buttonEndColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.contents = UIImage(named:"add")?.cgImage
+        gradientLayer.contentsGravity = CALayerContentsGravity.resizeAspect
         diaryAddButton.layer.insertSublayer(gradientLayer, at: 0)
     }
     //追加ボタン押下
