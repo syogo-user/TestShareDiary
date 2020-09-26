@@ -18,8 +18,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     @IBOutlet weak var profileMessage: UITextView!
     @IBOutlet weak var imageChoiceButton: UIButton!
     @IBOutlet weak var changeProfileButton: UIButton!
-    @IBOutlet weak var follow: UIButton!
-    @IBOutlet weak var follower: UIButton!
+    @IBOutlet weak var followLabel: UILabel!
+    @IBOutlet weak var followerLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var line: UIView!
     @IBOutlet weak var lockImage: UIImageView!
@@ -27,7 +27,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
     //画面遷移によってプロフィール画面を表示した場合に使用する変数 //nilのときはタブ遷移時
     var userData :UserPostData?
 
-    var publicFlg = false //true:公開 false:非公開
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Const.darkColor
@@ -40,8 +39,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         self.changeProfileButton.addTarget(self, action: #selector(changeProfile(_:)), for: .touchUpInside)
         self.imageChoiceButton.addTarget(self, action: #selector(tapImageChoiceButton(_:)), for: .touchUpInside)
         self.closeButton.addTarget(self, action: #selector(closeProfile(_:)), for: .touchUpInside)
-        self.follow.addTarget(self, action: #selector(tapFollow(_:)), for: .touchUpInside)
-        self.follower.addTarget(self, action: #selector(tapFollower(_:)), for: .touchUpInside)
         //ボタンの設定
         buttonSet()
         //文字サイズをラベルの大きさに合わせて調整
@@ -91,8 +88,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         super.viewWillAppear(animated)
         self.nickNameTextField.text = ""
         self.profileMessage.text = ""
-        self.follow.setTitle("フォロー：", for: .normal)
-        self.follower.setTitle("フォロワー：", for: .normal)
+        self.followLabel.text = "フォロー："
+        self.followerLabel.text = "フォロワー："
                 
         //戻るボタンの戻るの文字を削除　クローズボタンの表示・非表示
         if let nav = navigationController {
@@ -135,8 +132,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                 let myFollow = document["follow"] as? [String] ?? []
                 let myFollower = document["follower"] as? [String] ?? []
                 let keyAccountFlg = document["keyAccountFlg"] as? Bool ?? true
-                self.follow.setTitle("フォロー： \(myFollow.count)", for: .normal)
-                self.follower.setTitle("フォロワー：\(myFollower.count)", for: .normal)
+                self.followLabel.text = "フォロー： \(myFollow.count)"
+                self.followerLabel.text = "フォロワー：\(myFollower.count)"
                 //鍵画像の表示・非表示
 
                 if keyAccountFlg {
@@ -144,8 +141,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                     self.lockImage.isHidden = false//表示
                     //自分の表示の場合は表示するそれ以外は非公開と表示する
                     if self.userData?.uid == myUid || self.userData == nil{
+                        //公開
                         self.profileMessage.text = document["profileMessage"] as? String ?? ""
-                        self.publicFlg = true //公開
                     }else {
                         //自分以外の人を表示する場合
                         //プロフィールメッセージを変数に保持
@@ -156,30 +153,30 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                             (querySnapshot,error) in
                             if let error = error {
                                 print("DEBUG: snapshotの取得が失敗しました。\(error)")
-                                self.publicFlg = false //非公開
                                 return
                             } else {
                                 guard let document = querySnapshot!.data() else {return}
                                 //自分がフォローしている人の中に表示しようとしているuidがあるかを判定
                                 let myFollow = document["follow"] as? [String] ?? []
                                 if myFollow.firstIndex(of: uid) != nil{
+                                    //公開
                                     //フォローしている場合プロフィールを表示
                                     self.profileMessage.text = profileMessage
-                                    self.publicFlg = true //公開
                                 }else{
+                                    //非公開
                                     //フォローしていない場合 非公開
                                     self.profileMessage.text = "【非公開】"
-                                    self.publicFlg = false //非公開
+                                    
                                 }
                             }
                         }
 
                     }
                 }else{
+                    //公開
                     //鍵画像非表示　鍵アカウントではない
                     self.lockImage.isHidden = true//非表示
                     self.profileMessage.text = document["profileMessage"] as? String ?? ""
-                    self.publicFlg = true //公開
                 }
                 
                 //画像の取得
@@ -196,65 +193,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             }
         }
         
-
-    }
-    //フォローボタン押下時
-    @objc private func tapFollow(_ sender:UIButton){
-        //公開・非公開
-        if publicFlg{
-            //公開
-            var uid = ""
-            if let userDataUid = self.userData?.uid {
-                //nilでない場合 userDataのuidを渡す
-                uid = userDataUid
-            }else{
-                //nilの場合 自分のユーザIDを渡す
-                guard let myUid = Auth.auth().currentUser?.uid else {return}
-                uid = myUid
-            }
-            
-            let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
-            followFollowerListTableViewController.fromButton = Const.Follow
-            followFollowerListTableViewController.fromProfileUid = uid //uidを渡す
-            followFollowerListTableViewController.modalPresentationStyle = .fullScreen
-            self.present(followFollowerListTableViewController, animated: true, completion: nil)
-        }else{
-            //非公開
-            let dialog = UIAlertController(title: "【非公開】です", message: nil, preferredStyle: .actionSheet)
-            //OKボタン
-            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-            self.present(dialog, animated: true, completion: nil)
-        }
-        
-        
-        
-    }
-    //フォローボタン押下時
-    @objc private func tapFollower(_ sender:UIButton){
-        //公開・非公開
-        if publicFlg{
-            //公開
-            var uid = ""
-            if let userDataUid = self.userData?.uid {
-                //nilでない場合 userDataのuidを渡す
-                uid = userDataUid
-            }else{
-                //nilの場合 自分のユーザIDを渡す
-                guard let myUid = Auth.auth().currentUser?.uid else {return}
-                uid = myUid
-            }
-            let followFollowerListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowFollowerListTableViewController") as! FollowFollowerListTableViewController
-            followFollowerListTableViewController.fromButton = Const.Follower
-            followFollowerListTableViewController.fromProfileUid = uid//uidを渡すb
-            followFollowerListTableViewController.modalPresentationStyle = .fullScreen
-            self.present(followFollowerListTableViewController, animated: true, completion: nil)
-        }else{
-            //非公開
-            let dialog = UIAlertController(title: "【非公開】です", message: nil, preferredStyle: .actionSheet)
-            //OKボタン
-            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-            self.present(dialog, animated: true, completion: nil)
-        }
 
     }
 
