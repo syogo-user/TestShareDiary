@@ -22,6 +22,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
         self.tableView.backgroundColor = Const.darkColor
         self.tableView.delegate = self
         self.tableView.dataSource = self
+
         //カスタムセルを登録する(Cellで登録)xib
         let nib = UINib(nibName: "FollowRequestListTableViewCell", bundle:nil)
         self.tableView.register(nib, forCellReuseIdentifier: "FollowRequestListCell")

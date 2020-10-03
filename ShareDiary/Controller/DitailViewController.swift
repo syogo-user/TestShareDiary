@@ -68,8 +68,7 @@ class DitailViewController: UIViewController {
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        //長い文章の投稿時にスクロールできるようにcontentSize設定
-        self.tableView.contentSize = CGSize(width:self.containerView1.frame.width, height:self.containerView1.frame.height)
+
         //グラーデションのフレームの大きさを設定
         gradientLayer.frame = self.containerView1.layer.bounds
     }
@@ -132,6 +131,9 @@ class DitailViewController: UIViewController {
         self.imageView.layer.cornerRadius = 30
         
         guard let post = postData else {return}
+        //長い文章の投稿時にスクロールできるようにcontentSize設定
+        self.tableView.contentSize = CGSize(width:self.containerView1.frame.width, height:self.containerView1.frame.height)
+        print("DEBUG contentSize",tableView.contentSize)
         //画面項目を設定
         contentSet(post:post)
          
@@ -162,16 +164,15 @@ class DitailViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        //レイアウト終了（viewDidLayoutSubviews()）の後
         super.viewDidAppear(true)
-        //描画語
+        //描画後
         //初期表示後はスクロールをtrueとする
         self.scrollFlg = true
     }
     
     //image:選択した写真,index：選択した何枚目,maxCount：選択した全枚数
     private func imageSet(imageRef:StorageReference,index:Int,maxCount:Int){
-        //        guard let image = image else{return}
-        
         //imageViewの初期化
         let imageView = UIImageView()
         //タップイベント追加
@@ -181,9 +182,7 @@ class DitailViewController: UIViewController {
         let swipeUp = UISwipeGestureRecognizer(target:self,action:nil)
         swipeUp.direction = .up
         imageView.addGestureRecognizer(swipeUp)
-
-        
-        
+            
         //画像のアスペクト比　sacaleAspectFil：写真の比率は変わらない。imageViewの枠を超える。cliptToBounds をtrueにしているため枠は超えずに、比率も変わらない。
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -488,8 +487,12 @@ class DitailViewController: UIViewController {
                             print("DEBUG:\(self.commentData.count - 1)")
                             if self.scrollFlg {//scrollFlg がtrue（コメントボタン押下時の遷移）
                                 //コメントボタンを押下し、遷移した場合
+                                print("DEBUG contentSize:\(self.tableView.contentSize)")
                                 self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
                             }
+
+
+
 
                         }
                     }
@@ -541,37 +544,6 @@ class DitailViewController: UIViewController {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
-//        switch imageMaxNumber {
-//        case 0:
-//            //写真の枚数が0枚の場合
-//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight0 + diaryText.frame.height)
-//            print("☆",diaryText.frame.height)
-////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint0
-//            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight0 + diaryText.frame.height)
-//        case 1:
-//            //写真の枚数が1枚の場合
-////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint1
-//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight1 + diaryText.frame.height)
-////            self.viewHeader.frame = CGRect (x:0,y:0,width: viewHeader.frame.width,height: headerViewHeight1 + diaryDate.frame.height)
-//        case 2:
-//            //写真の枚数が2枚の場合
-////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint2
-//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2 + diaryText.frame.height)
-////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight2)
-//        case 3:
-//            //写真の枚数が3枚の場合
-////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint3
-//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3 + diaryText.frame.height)
-////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight3)
-//        case 4:
-//            //写真の枚数が4枚の場合
-////            diaryLabelBottomConstraint.constant = diaryLabelBottomConstraint4
-//            self.containerView1.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4 + diaryText.frame.height)
-////            self.viewHeader.frame = CGRect (x:0,y:0,width: containerView1.frame.width,height: headerViewHeight4)
-//
-//        default: break
-//
-//        }
         
         //プロフィール写真を設定
         setPostImage(uid:post.uid)
@@ -760,13 +732,6 @@ class DitailViewController: UIViewController {
                 }                
             }
         }
-
-        
-        
-        //likeUsersからユーザ情報を取得
-        //        let userPostData = getUsersData(likeUsers)
-        
-        //        likeUserListTableViewController.userPostData = userPostData
 
     }
 }

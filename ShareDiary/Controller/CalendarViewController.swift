@@ -42,8 +42,6 @@ class CalendarViewController: UIViewController,FSCalendarDelegate,FSCalendarData
         self.calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.blue
         //ボタンの設定
         buttonSet()
-//        let addImage = UIImage(named:"add")!
-//        self.diaryAddButton.setImage(addImage, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -137,12 +137,21 @@ class UsersTableViewCell: UITableViewCell {
     
     private func setImage(userImageName:String?){
         //画像の取得
-        guard let userImageName = userImageName else {return}
+        if let userImageName = userImageName {
         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
             //取得した画像の表示
             self.userImage.sd_imageIndicator =
                 SDWebImageActivityIndicator.gray
             self.userImage.sd_setImage(with: imageRef)
+        } else {
+            //画像がない場合　デフォルトの画像を表示
+            self.userImage.image = UIImage(named: "unknown")
+            
+        }
+
+
+
+
     }
     
 }

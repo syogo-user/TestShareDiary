@@ -88,7 +88,6 @@ class CommentTableViewCell: UITableViewCell {
             self.myCommentShadowView.isHidden = false
             
             self.myComment.attributedText = mutableAttributedString
-//            self.myComment.text = commentData.message
             self.myCreatedAt.text = dateFormatterForDateLabel(date: commentData.createdAt.dateValue())
             //コメントの横幅調整
             var width = frameWidthTextView(text:commentData.message).width + 10

@@ -19,7 +19,6 @@ struct Const {
     static let FollowShowButton = "followShowButton"
     static let FollowerShowButton = "followerShowButton"
     
-//    static let darkColor = UIColor(red:30/255,green:40/255,blue:54/255,alpha:1.0)
     static let darkColor = UIColor(red:0/255,green:0/255,blue:32/255,alpha:1.0)
     static let slideColor = UIColor(red:0/255,green:0/255,blue:40/255,alpha:1.0)
     static let lightOrangeColor = UIColor(red:255/255,green:245/255,blue:229/255,alpha:1.0)
