@@ -14,6 +14,7 @@ class AccountCreateViewController: UIViewController {
 
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordCheckTextField: UITextField!
     @IBOutlet weak var nickNameTextField: UITextField!
     @IBOutlet weak var newAccountCreateButton: UIButton!
     @IBOutlet weak var backImage: UIImageView!
@@ -45,6 +46,11 @@ class AccountCreateViewController: UIViewController {
         if password != "" {
             self.passwordTextField.text = password
         }
+        //パスワード（確認用）欄
+        self.passwordCheckTextField.layer.cornerRadius = 15
+        self.passwordCheckTextField.layer.borderWidth = 0.1
+        self.passwordCheckTextField.layer.borderColor = UIColor.white.cgColor
+        self.passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "パスワード(確認用)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         //ニックネーム欄
         self.nickNameTextField.layer.cornerRadius = 15
         self.nickNameTextField.layer.borderWidth = 0.1
@@ -65,14 +71,14 @@ class AccountCreateViewController: UIViewController {
     }
     //新規作成ボタン押下時
     @objc private func tapNewAccountCreateButton(_ sender:UIButton){
-        if let address = mailAddressTextField.text, let password = passwordTextField.text, let displayName = nickNameTextField.text {
+        if let address = mailAddressTextField.text, let password = passwordTextField.text, let passwordCheck = passwordCheckTextField.text,let displayName = nickNameTextField.text {
             //パスワードの桁数
             if password.count < 6 {
                 SVProgressHUD.showError(withStatus: "パスワードは6桁以上で入力してください")
                 return
             }
             // アドレスとパスワードと表示名のいずれかでも入力されていない時は何もしない
-            if address.isEmpty || password.isEmpty || displayName.isEmpty {
+            if address.isEmpty || password.isEmpty || passwordCheck.isEmpty || displayName.isEmpty {
                 print("DEBUG: 何かが空文字です。")
                 SVProgressHUD.showError(withStatus: "必要項目を入力してください")
                 return
@@ -80,6 +86,11 @@ class AccountCreateViewController: UIViewController {
             //名前の文字数制限
             if displayName.count > 10 {
                 SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
+                return
+            }
+            //パスワードが２つとも同じか判定
+            if password != passwordCheck {
+                SVProgressHUD.showError(withStatus: "パスワードは同じものを入力してください")
                 return
             }
             //HUDで処理中を表示
