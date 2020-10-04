@@ -133,7 +133,12 @@ class AccountCreateViewController: UIViewController {
                             let postRef = Firestore.firestore().collection(Const.users).document(myid)
                             let postDic = [
                                 "uid":myid,
-                                "userName":trimDisplayName
+                                "userName":trimDisplayName,
+                                "follow":[],
+                                "follower":[],
+                                "followRequest":[],
+                                "profileMessage":"",
+                                "keyAccountFlg":false
                                 ] as [String :Any]
                             postRef.setData(postDic)
                         }
