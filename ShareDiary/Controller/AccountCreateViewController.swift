@@ -83,14 +83,24 @@ class AccountCreateViewController: UIViewController {
                 SVProgressHUD.showError(withStatus: "必要項目を入力してください")
                 return
             }
-            //名前の文字数制限
-            if displayName.count > 10 {
-                SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
+            if !Validation.isValidEmail(address){
+                SVProgressHUD.showError(withStatus: "メールアドレスの書式で入力してください")
+                return
+            }
+
+            //パスワード桁数
+            if password.count < 6 {
+                SVProgressHUD.showError(withStatus: "パスワードは6桁以上で入力してください")
                 return
             }
             //パスワードが２つとも同じか判定
             if password != passwordCheck {
                 SVProgressHUD.showError(withStatus: "パスワードは同じものを入力してください")
+                return
+            }
+            //名前の文字数制限
+            if displayName.count > 10 {
+                SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
                 return
             }
             //HUDで処理中を表示

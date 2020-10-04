@@ -15,10 +15,10 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var followLabel: UILabel!
     @IBOutlet weak var followerLabel: UILabel!
-    
     @IBOutlet weak var followShowButton: UIButton!
     @IBOutlet weak var followerShowButton: UIButton!
     @IBOutlet weak var followRequestShowButton: UIButton!
+    @IBOutlet weak var settingButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class LeftViewController: UIViewController {
         self.followShowButton.addTarget(self, action: #selector(tapFollowShowButton(_:)), for: .touchUpInside)
         self.followerShowButton.addTarget(self, action: #selector(tapFollowerShowButton(_:)), for: .touchUpInside)
         self.followRequestShowButton.addTarget(self, action: #selector(tapFollowRequestShowShowButton(_:)), for: .touchUpInside)
-        
+        self.settingButton.addTarget(self,action:#selector(tapSettingButton(_:)),for:.touchUpInside)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -90,6 +90,18 @@ class LeftViewController: UIViewController {
         let followRequestListTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "FollowRequestListTableViewController") as! FollowRequestListTableViewController
         followRequestListTableViewController.modalPresentationStyle = .fullScreen
         self.present(followRequestListTableViewController, animated: true, completion: nil)
+    }
+    
+    //設定ボタンが押された時
+    @objc private func tapSettingButton(_ sender :UIButton){
+        //ナビゲーションコントローラを取得
+        let slideViewController = parent as! SlideViewController
+        let navigationController = slideViewController.mainViewController as! UINavigationController
+        //画面遷移        
+        let settingViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        navigationController.pushViewController(settingViewController, animated: true)
+        //スライドメニューを閉じる
+        closeLeft()
     }
     //ログアウトボタンが押された時
     @objc private func tapLogoutButton(_ sender :UIButton){

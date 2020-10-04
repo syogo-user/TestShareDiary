@@ -160,7 +160,8 @@ class DitailViewController: UIViewController {
         self.viewHeader.clipsToBounds = true
         self.viewHeader.layer.cornerRadius   = 25
         self.viewHeader.backgroundColor = .clear
-
+        //文字サイズをボタンの大きさに合わせて調整
+        self.likeUserButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     override func viewDidAppear(_ animated: Bool) {

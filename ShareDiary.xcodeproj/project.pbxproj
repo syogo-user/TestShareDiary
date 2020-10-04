@@ -57,6 +57,10 @@
 		9131F08924C974E80055F925 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9131F08824C974E80055F925 /* GoogleService-Info.plist */; };
 		917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A8A6024FA391900F159E5 /* CommonDate.swift */; };
 		919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */; };
+		919ED0D625298511002344DF /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919ED0D525298511002344DF /* Validation.swift */; };
+		91EAE0F825287F8B00CC8638 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0F725287F8B00CC8638 /* SettingViewController.swift */; };
+		91EAE0FA25288B2900CC8638 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0F925288B2900CC8638 /* PasswordChangeViewController.swift */; };
+		91EAE0FC25288FB100CC8638 /* MailAddressChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0FB25288FB100CC8638 /* MailAddressChangeViewController.swift */; };
 		91F2974425032C1A00C59DBA /* GradationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F2974325032C1A00C59DBA /* GradationView.swift */; };
 		91F46CFC24E2E38100155CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F46CFB24E2E38000155CF5 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -113,6 +117,10 @@
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		917A8A6024FA391900F159E5 /* CommonDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDate.swift; sourceTree = "<group>"; };
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
+		919ED0D525298511002344DF /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		91EAE0F725287F8B00CC8638 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		91EAE0F925288B2900CC8638 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
+		91EAE0FB25288FB100CC8638 /* MailAddressChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailAddressChangeViewController.swift; sourceTree = "<group>"; };
 		91F2974325032C1A00C59DBA /* GradationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradationView.swift; sourceTree = "<group>"; };
 		91F46CFB24E2E38000155CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDF3F7F5767B8238D0E6CBF6 /* Pods_ShareDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +182,7 @@
 				91F46CFB24E2E38000155CF5 /* Assets.xcassets */,
 				3DE8129724B9981300E85957 /* UIColorExtention.swift */,
 				3D9BFE8423FEE75F009893B1 /* SceneDelegate.swift */,
+				919ED0D525298511002344DF /* Validation.swift */,
 				3D871999240A500700D4064E /* Const.swift */,
 				3D9BFE8823FEE75F009893B1 /* Main.storyboard */,
 				3D9BFE8D23FEE760009893B1 /* LaunchScreen.storyboard */,
@@ -233,6 +242,9 @@
 				3D82A78424BDECBC00494A4A /* UISearchBarExtention.swift */,
 				919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */,
 				9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */,
+				91EAE0F725287F8B00CC8638 /* SettingViewController.swift */,
+				91EAE0F925288B2900CC8638 /* PasswordChangeViewController.swift */,
+				91EAE0FB25288FB100CC8638 /* MailAddressChangeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -403,6 +415,7 @@
 				3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */,
 				3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */,
 				3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */,
+				919ED0D625298511002344DF /* Validation.swift in Sources */,
 				9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */,
 				3DA5083524B1C61500FE1148 /* CommentData.swift in Sources */,
 				3D9BFE9B23FEE95C009893B1 /* FriendSearchViewController.swift in Sources */,
@@ -423,12 +436,15 @@
 				3D46768E2462A52500C60EB1 /* SlideViewController.swift in Sources */,
 				9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */,
 				3D9BFE8523FEE75F009893B1 /* SceneDelegate.swift in Sources */,
+				91EAE0FC25288FB100CC8638 /* MailAddressChangeViewController.swift in Sources */,
 				917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */,
 				3D7549D424A372A80062BEC8 /* DateSelectViewController.swift in Sources */,
 				3D4676902462A6A500C60EB1 /* LeftViewController.swift in Sources */,
+				91EAE0F825287F8B00CC8638 /* SettingViewController.swift in Sources */,
 				911FB07A24FB880000744B34 /* ShadowUIView.swift in Sources */,
 				3DD44DA22466438F0001E7A8 /* FollowRequestListTableViewController.swift in Sources */,
 				3D87199A240A500800D4064E /* Const.swift in Sources */,
+				91EAE0FA25288B2900CC8638 /* PasswordChangeViewController.swift in Sources */,
 				3D42D71E240A8F9900133261 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

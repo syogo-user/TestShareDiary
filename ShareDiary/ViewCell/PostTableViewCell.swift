@@ -59,6 +59,9 @@ class PostTableViewCell: UITableViewCell {
         self.contentsView.layer.masksToBounds = true
         //影
         self.shadowView.backgroundColor = .clear
+        //文字サイズをラベルの大きさに合わせて調整
+        self.commentNumberLabel.adjustsFontSizeToFitWidth = true
+        self.likeNumberLabel.adjustsFontSizeToFitWidth = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
