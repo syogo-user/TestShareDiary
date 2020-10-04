@@ -159,7 +159,7 @@ class CommentTableViewCell: UITableViewCell {
             //userNameとuserImageViewを設定
             guard let document = document else {return}
             if let userData = document.data() {
-                let myImageName = userData["myImageName"] as? String ?? ""
+                let myImageName = userData["myImageName"] as? String
                 self.setImage(userImageName:myImageName)
             }
         }

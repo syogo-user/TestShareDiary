@@ -21,7 +21,7 @@ class LikeUserListTableViewCell: UITableViewCell {
 
     func setUserPostData(_ userPostData:UserPostData){
         self.userName.text = userPostData.userName ?? ""
-        let myImageName = userPostData.myImageName ?? ""
+        let myImageName = userPostData.myImageName 
         self.setImage(userImageName: myImageName)
     }
     private func setImage(userImageName:String?){
