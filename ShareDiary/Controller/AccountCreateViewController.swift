@@ -138,7 +138,7 @@ class AccountCreateViewController: UIViewController {
                                 "follower":[],
                                 "followRequest":[],
                                 "profileMessage":"",
-                                "keyAccountFlg":false
+                                "keyAccountFlg":true
                                 ] as [String :Any]
                             postRef.setData(postDic)
                         }
