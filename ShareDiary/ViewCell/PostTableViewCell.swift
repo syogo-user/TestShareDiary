@@ -60,6 +60,7 @@ class PostTableViewCell: UITableViewCell {
         //影
         self.shadowView.backgroundColor = .clear
         //文字サイズをラベルの大きさに合わせて調整
+        self.postUserLabel.adjustsFontSizeToFitWidth = true
         self.commentNumberLabel.adjustsFontSizeToFitWidth = true
         self.likeNumberLabel.adjustsFontSizeToFitWidth = true
     }
@@ -341,7 +342,7 @@ class PostTableViewCell: UITableViewCell {
             self.likeButton.setImage(buttonImage, for: .normal)
         }
         // いいね数の表示
-        let likeNumber = postData.likes.count
+        let likeNumber = postData.likes.count        
         likeNumberLabel.text = ""
         likeNumberLabel.text = "\(likeNumber)"
                 

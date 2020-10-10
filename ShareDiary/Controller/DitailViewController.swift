@@ -162,6 +162,8 @@ class DitailViewController: UIViewController {
         self.viewHeader.backgroundColor = .clear
         //文字サイズをボタンの大きさに合わせて調整
         self.likeUserButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        //文字サイズをラベルの大きさに合わせて調整
+        self.userName.adjustsFontSizeToFitWidth = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
