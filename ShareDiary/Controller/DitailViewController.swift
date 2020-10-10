@@ -68,7 +68,11 @@ class DitailViewController: UIViewController {
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
+        
+        print("★DEBUG:\(self.tableView.contentSize):\(self.tableView.frame.height)")
+        //長い文章の投稿時にスクロールできるようにcontentSize設定
+        self.tableView.contentSize = CGSize(width:self.tableView.frame.width,height: self.tableView.frame.height)
+        print("★DEBUG:\(self.tableView.contentSize):\(self.tableView.frame.height)")
         //グラーデションのフレームの大きさを設定
         gradientLayer.frame = self.containerView1.layer.bounds
     }
@@ -131,8 +135,6 @@ class DitailViewController: UIViewController {
         self.imageView.layer.cornerRadius = 30
         
         guard let post = postData else {return}
-        //長い文章の投稿時にスクロールできるようにcontentSize設定
-        self.tableView.contentSize = CGSize(width:self.containerView1.frame.width, height:self.containerView1.frame.height)
         print("DEBUG contentSize",tableView.contentSize)
         //画面項目を設定
         contentSet(post:post)
@@ -488,10 +490,12 @@ class DitailViewController: UIViewController {
                             //画面更新
                             self.tableView.reloadData()
                             print("DEBUG:\(self.commentData.count - 1)")
+                            print("★DEBUG contentSize:\(self.tableView.contentSize):\(self.tableView.frame.height)")
                             if self.scrollFlg {//scrollFlg がtrue（コメントボタン押下時の遷移）
                                 //コメントボタンを押下し、遷移した場合
-                                print("DEBUG contentSize:\(self.tableView.contentSize)")
+                                print("★DEBUG contentSize:\(self.tableView.contentSize)")
                                 self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
+                                print("★DEBUG contentSize:\(self.tableView.contentSize)")
                             }
 
 

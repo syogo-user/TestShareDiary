@@ -31,10 +31,10 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         searchBar.delegate = self
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         searchBar.placeholder = "ニックネームで検索"
-        searchBar.disableBlur()
         searchBar.backgroundColor = Const.darkColor
         searchBar.searchBarStyle = .prominent
         searchBar.barTintColor = .white
+        searchBar.disableBlur()
         self.searchbar = searchBar
         self.view.addSubview(searchbar)
         //カスタムセルを登録する(Cellで登録)xib
