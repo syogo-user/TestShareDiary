@@ -70,9 +70,6 @@ class DitailViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         print("★DEBUG:\(self.tableView.contentSize):\(self.tableView.frame.height)")
-        //長い文章の投稿時にスクロールできるようにcontentSize設定
-        self.tableView.contentSize = CGSize(width:self.tableView.frame.width,height: self.tableView.frame.height)
-        print("★DEBUG:\(self.tableView.contentSize):\(self.tableView.frame.height)")
         //グラーデションのフレームの大きさを設定
         gradientLayer.frame = self.containerView1.layer.bounds
     }
@@ -117,6 +114,8 @@ class DitailViewController: UIViewController {
         default: break
             
         }
+        //テーブルの高さが確定したあとにテーブルの再更新をかけてtableViewのcontentSizeを再設定する
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
