@@ -71,7 +71,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbK-ku-AtB">
-                                <rect key="frame" x="304" y="703" width="50" height="50"/>
+                                <rect key="frame" x="339" y="703" width="50" height="50"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ahN-sL-Gwh"/>
@@ -93,7 +93,7 @@
                         <constraints>
                             <constraint firstItem="En2-qG-0Kn" firstAttribute="leading" secondItem="NQC-XV-lvh" secondAttribute="leading" constant="10" id="9HW-1x-ew9"/>
                             <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="En2-qG-0Kn" secondAttribute="trailing" constant="10" id="OxI-uZ-2yo"/>
-                            <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="bbK-ku-AtB" secondAttribute="trailing" constant="60" id="Rh3-By-UXe"/>
+                            <constraint firstItem="NQC-XV-lvh" firstAttribute="trailing" secondItem="bbK-ku-AtB" secondAttribute="trailing" constant="25" id="Rh3-By-UXe"/>
                             <constraint firstItem="En2-qG-0Kn" firstAttribute="top" secondItem="NQC-XV-lvh" secondAttribute="top" constant="10" id="Usd-Xi-5F3"/>
                             <constraint firstItem="bbK-ku-AtB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="En2-qG-0Kn" secondAttribute="bottom" constant="5" id="YHZ-xI-Nll"/>
                             <constraint firstItem="NQC-XV-lvh" firstAttribute="bottom" secondItem="bbK-ku-AtB" secondAttribute="bottom" constant="60" id="qba-eY-SmA"/>

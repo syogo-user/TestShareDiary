@@ -116,6 +116,7 @@
 		9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
 		9131F08824C974E80055F925 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		917A8A6024FA391900F159E5 /* CommonDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDate.swift; sourceTree = "<group>"; };
+		918CBF83253C5A1F0072B45B /* ShareDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareDiary.entitlements; sourceTree = "<group>"; };
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
 		919ED0D525298511002344DF /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		91EAE0F725287F8B00CC8638 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 		3D9BFE8123FEE75F009893B1 /* ShareDiary */ = {
 			isa = PBXGroup;
 			children = (
+				918CBF83253C5A1F0072B45B /* ShareDiary.entitlements */,
 				3DE733E52483C15C00241528 /* Model */,
 				3DE733E62483C19000241528 /* Xib */,
 				3DE733E82483C25000241528 /* ViewCell */,
@@ -590,6 +592,7 @@
 			baseConfigurationReference = F60724E31802F5BBE9FF9228 /* Pods-ShareDiary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShareDiary/ShareDiary.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
@@ -612,6 +615,7 @@
 			baseConfigurationReference = 283C5F3601AA315FC5B9B827 /* Pods-ShareDiary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShareDiary/ShareDiary.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
