@@ -18,7 +18,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     // Firestoreのリスナー
     var listener: ListenerRegistration!
     //初回表示フラグ
-    var initialDisplayFlg :Bool = false
+//    var initialDisplayFlg :Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -40,91 +40,140 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             guard let myUid = Auth.auth().currentUser?.uid else {return}
             // ログイン済み
             //listenerがnilでないとき return
-            guard listener == nil  else{return}
-            // listener未登録なら、登録してスナップショットを受信する
-            let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
-            //HUD表示用
-            initialDisplayFlg = true //初期表示のみtrue
-            listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
-                //HUDで処理中を表示
-                if self.initialDisplayFlg  {
-                    //初期表示は件数が多いためHUDを表示
-                    SVProgressHUD.show()
-                }
+//            guard listener == nil  else{return}
+            
+            //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+            let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+            postUserRef.addSnapshotListener() {
+                (querySnapshot2,error) in
                 if let error = error {
-                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
-                    if self.initialDisplayFlg {
-                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
-                    }
+                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
+//                    if self.initialDisplayFlg {
+//                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+//                    }
                     return
-                }
-                // usersから自分がフォローしている人のuidを取得する
-                let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-                postUserRef.addSnapshotListener() {
-                    (querySnapshot2,error) in
-                    if let error = error {
-                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
-                        if self.initialDisplayFlg {
-                            SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+                } else {
+                    let document = querySnapshot2?.data()
+                    guard let doc = document else{return}
+                    if let docFollow = doc["follow"] {
+                        var followAndMyUidArray = docFollow as! [String]
+                        //自分のuidも追加
+                        followAndMyUidArray.append(myUid)
+                        //初期化
+                        self.postArray = []
+                        //orderの項目がwhereにないためきかないかも//TODO
+                        let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:myUid)//.order(by: "date", descending: true)
+                        //★OR条件でフォローしているuidを条件に追加したい
+                        for array in followAndMyUidArray{
+                            postsRef.whereField("uid", isEqualTo: array)
                         }
-                        return
-                    } else {
-                        let document = querySnapshot2?.data()
-                        guard let doc = document else{return}
-                        if let docFollow = doc["follow"] {
-                            let followArray = docFollow as! [String]
-                            self.postArray = []
-                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                            querySnapshot!.documents.forEach { documentA in
-                                let postData = PostData(document: documentA)
-                                print("DEBUG: document取得 \(documentA.documentID)")
-                                
-                                if followArray.count == 0 {
-                                    //followArrayが0の場合
-                                    if postData.uid == myUid {
-                                        self.postArray.append(postData)
-                                    }
-                                }else {
-                                    //followArrayに値がある場合
-                                    for followUid in followArray{
-                                        //フォローしているuidまたは自分のuidの場合postArrayに設定
-                                        if postData.uid == followUid || postData.uid == myUid {
-                                            self.postArray.append(postData)
-                                            break
-                                        }
-                                    }
+                            self.listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
+                                if let error = error {
+                                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
+                                    return
                                 }
+                                
+                                self.postArray = querySnapshot!.documents.map {
+                                    document in
+                                    //PostData作成
+                                    let postData = PostData(document:document)
+                                    return postData
+                                }
+//                                let postData = PostData(document: querySnapshot!.documents)
+//                                self.postArray.append(postData)
+                                // TableViewの表示を更新する
+                                self.tableView.reloadData()
                             }
-                            // TableViewの表示を更新する
-                            self.tableView.reloadData()
-
-                            if self.initialDisplayFlg {
-                                //HUDを消す
-                                SVProgressHUD.dismiss()
-                                self.initialDisplayFlg = false//初期表示以外はfalse
-                            }                            
-                        }else{
-                            //followがnil
-                            self.postArray = []
-                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-                            querySnapshot!.documents.forEach { documentA in
-                                let postData = PostData(document: documentA)
-                                //フォローしているuidまたは自分のuidの場合postArrayに設定
-                                if  postData.uid == myUid {
-                                    self.postArray.append(postData)
-                                }                                
-                            }
-                            // TableViewの表示を更新する
-                            self.tableView.reloadData()
-                            if self.initialDisplayFlg {
-                                //HUDを消す
-                                SVProgressHUD.dismiss()
-                                self.initialDisplayFlg = false//初期表示以外はfalse
-                            }
-                        }
+                            
+                        
                     }
                 }
             }
+                //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+//            // listener未登録なら、登録してスナップショットを受信する
+//            let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
+//            //HUD表示用
+////            initialDisplayFlg = true //初期表示のみtrue
+//            listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
+//                //HUDで処理中を表示
+////                if self.initialDisplayFlg  {
+////                    //初期表示は件数が多いためHUDを表示
+////                    SVProgressHUD.show()
+////                }
+//                if let error = error {
+//                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
+////                    if self.initialDisplayFlg {
+////                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+////                    }
+//                    return
+//                }
+//                // usersから自分がフォローしている人のuidを取得する
+//                let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+//                postUserRef.addSnapshotListener() {
+//                    (querySnapshot2,error) in
+//                    if let error = error {
+//                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
+////                        if self.initialDisplayFlg {
+////                            SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+////                        }
+//                        return
+//                    } else {
+//                        let document = querySnapshot2?.data()
+//                        guard let doc = document else{return}
+//                        if let docFollow = doc["follow"] {
+//                            let followArray = docFollow as! [String]
+//                            self.postArray = []
+//                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+//                            querySnapshot!.documents.forEach { documentA in
+//                                let postData = PostData(document: documentA)
+//                                print("DEBUG: document取得 \(documentA.documentID)")
+//
+//                                if followArray.count == 0 {
+//                                    //followArrayが0の場合
+//                                    if postData.uid == myUid {
+//                                        self.postArray.append(postData)
+//                                    }
+//                                }else {
+//                                    //followArrayに値がある場合
+//                                    for followUid in followArray{
+//                                        //フォローしているuidまたは自分のuidの場合postArrayに設定
+//                                        if postData.uid == followUid || postData.uid == myUid {
+//                                            self.postArray.append(postData)
+//                                            break
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            // TableViewの表示を更新する
+//                            self.tableView.reloadData()
+////
+////                            if self.initialDisplayFlg {
+////                                //HUDを消す
+////                                SVProgressHUD.dismiss()
+////                                self.initialDisplayFlg = false//初期表示以外はfalse
+////                            }
+//                        }else{
+//                            //followがnil
+//                            self.postArray = []
+//                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
+//                            querySnapshot!.documents.forEach { documentA in
+//                                let postData = PostData(document: documentA)
+//                                //フォローしているuidまたは自分のuidの場合postArrayに設定
+//                                if  postData.uid == myUid {
+//                                    self.postArray.append(postData)
+//                                }
+//                            }
+//                            // TableViewの表示を更新する
+//                            self.tableView.reloadData()
+////                            if self.initialDisplayFlg {
+////                                //HUDを消す
+////                                SVProgressHUD.dismiss()
+////                                self.initialDisplayFlg = false//初期表示以外はfalse
+////                            }
+//                        }
+//                    }
+//                }
+//            }
         } else {
             // ログイン未(またはログアウト済み)
             if listener != nil {
