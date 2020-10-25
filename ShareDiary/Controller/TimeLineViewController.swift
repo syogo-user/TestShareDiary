@@ -61,31 +61,46 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                         followAndMyUidArray.append(myUid)
                         //初期化
                         self.postArray = []
-                        //orderの項目がwhereにないためきかないかも//TODO
-                        let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:myUid)//.order(by: "date", descending: true)
-                        //★OR条件でフォローしているuidを条件に追加したい
-                        for array in followAndMyUidArray{
-                            postsRef.whereField("uid", isEqualTo: array)
-                        }
-                            self.listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
-                                if let error = error {
-                                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
-                                    return
-                                }
-                                
-                                self.postArray = querySnapshot!.documents.map {
+                        // TableViewの表示を更新する
+//                        self.tableView.reloadData()
+                        //フォローしている人の配列でループ（自分含み）
+                        for uid in followAndMyUidArray{
+                            let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
+                            //スナップショットリスナーを追加
+                            postsRef.addSnapshotListener(){ (querySnapshot, error) in
+                                //nillの場合は処理を飛ばす
+                                guard querySnapshot != nil  else{return}
+                                //trueの場合は以降の処理を行わない
+                                guard !(querySnapshot!.metadata.hasPendingWrites) else{return}
+                                querySnapshot!.documents.forEach{
                                     document in
-                                    //PostData作成
-                                    let postData = PostData(document:document)
-                                    return postData
+                                    let postData = PostData(document: document)
+                                    //配列に存在するかどうか
+                                    if self.postArray.firstIndex(where: {post -> Bool in return post.id == postData.id}) == nil {
+                                        //存在しない場合
+                                        //そのまま追加
+                                        self.postArray.append(postData)
+                                    }else{
+                                        //存在する場合
+                                        for (index,post) in self.postArray.enumerated(){
+                                            print("index:\(index)")
+                                            if post.id == postData.id {
+                                                //存在するデータを削除してから追加
+                                                self.postArray.remove(at: index)
+                                                self.postArray.append(postData)
+                                            }
+                                        }
+                                    }
+                                    //日付順に入れ替える
+                                    self.postArray.sort{ (d0 ,d1) -> Bool in
+                                        return d0.date! > d1.date!
+                                    }
+                                    // TableViewの表示を更新する
+                                    self.tableView.reloadData()
                                 }
-//                                let postData = PostData(document: querySnapshot!.documents)
-//                                self.postArray.append(postData)
-                                // TableViewの表示を更新する
-                                self.tableView.reloadData()
+    
                             }
-                            
-                        
+                        }
                     }
                 }
             }
@@ -174,16 +189,18 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
 //                    }
 //                }
 //            }
-        } else {
-            // ログイン未(またはログアウト済み)
-            if listener != nil {
-                // listener登録済みなら削除してpostArrayをクリアする
-                listener.remove()
-                listener = nil
-                self.postArray = []
-                self.tableView.reloadData()
-            }
         }
+        //★★★★★
+//        else {
+//            // ログイン未(またはログアウト済み)
+//            if listener != nil {
+//                // listener登録済みなら削除してpostArrayをクリアする
+//                listener.remove()
+//                listener = nil
+//                self.postArray = []
+//                self.tableView.reloadData()
+//            }
+//        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
