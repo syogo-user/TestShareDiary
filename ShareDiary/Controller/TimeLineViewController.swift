@@ -111,12 +111,15 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         }
     }
 //    override func viewWillDisappear(_ animated: Bool) {
-//
+//        super.viewWillDisappear(animated)
 //        if postListener != nil {
-//            postListener.remove()
-//            postListener = nil
-//            postArray = []
-//            tableView.reloadData()
+//            for i in 0 ..< self.postListener.count{
+//                self.postListener[i].remove()
+//                self.postListener[i] = nil
+//                postArray = []
+//                tableView.reloadData()
+//            }
+//
 //        }
 //
 //        if userListener != nil{
