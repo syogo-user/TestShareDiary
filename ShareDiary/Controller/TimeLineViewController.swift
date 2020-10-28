@@ -16,7 +16,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     var postArray: [PostData] = []
     let refreshCtl = UIRefreshControl()
     // Firestoreのリスナー
-    var listener: ListenerRegistration!
+    var userListener: ListenerRegistration!
+    var postListener: ListenerRegistration!
+    //フォローと自分のuid配列
+    var followAndMyUidArray : [String] = []
     //初回表示フラグ
 //    var initialDisplayFlg :Bool = false
     override func viewDidLoad() {
@@ -44,7 +47,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             
             //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
             let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-            postUserRef.addSnapshotListener() {
+            userListener = postUserRef.addSnapshotListener() {
                 (querySnapshot2,error) in
                 if let error = error {
                     print("DEBUG: snapshotの取得が失敗しました。\(error)")
@@ -56,18 +59,19 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     let document = querySnapshot2?.data()
                     guard let doc = document else{return}
                     if let docFollow = doc["follow"] {
-                        var followAndMyUidArray = docFollow as! [String]
+                        self.followAndMyUidArray = []
+                        self.followAndMyUidArray = docFollow as! [String]
                         //自分のuidも追加
-                        followAndMyUidArray.append(myUid)
+                        self.followAndMyUidArray.append(myUid)
                         //初期化
                         self.postArray = []
                         // TableViewの表示を更新する
-//                        self.tableView.reloadData()
+                        self.tableView.reloadData()
                         //フォローしている人の配列でループ（自分含み）
-                        for uid in followAndMyUidArray{
+                        for uid in self.followAndMyUidArray{
                             let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
                             //スナップショットリスナーを追加
-                            postsRef.addSnapshotListener(){ (querySnapshot, error) in
+                            self.postListener = postsRef.addSnapshotListener(){ (querySnapshot, error) in
                                 //nillの場合は処理を飛ばす
                                 guard querySnapshot != nil  else{return}
                                 //trueの場合は以降の処理を行わない
@@ -104,104 +108,26 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                     }
                 }
             }
-                //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-//            // listener未登録なら、登録してスナップショットを受信する
-//            let postsRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
-//            //HUD表示用
-////            initialDisplayFlg = true //初期表示のみtrue
-//            listener = postsRef.addSnapshotListener() { (querySnapshot, error) in
-//                //HUDで処理中を表示
-////                if self.initialDisplayFlg  {
-////                    //初期表示は件数が多いためHUDを表示
-////                    SVProgressHUD.show()
-////                }
-//                if let error = error {
-//                    print("DEBUG: snapshotの取得が失敗しました。 \(error)")
-////                    if self.initialDisplayFlg {
-////                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
-////                    }
-//                    return
-//                }
-//                // usersから自分がフォローしている人のuidを取得する
-//                let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-//                postUserRef.addSnapshotListener() {
-//                    (querySnapshot2,error) in
-//                    if let error = error {
-//                        print("DEBUG: snapshotの取得が失敗しました。\(error)")
-////                        if self.initialDisplayFlg {
-////                            SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
-////                        }
-//                        return
-//                    } else {
-//                        let document = querySnapshot2?.data()
-//                        guard let doc = document else{return}
-//                        if let docFollow = doc["follow"] {
-//                            let followArray = docFollow as! [String]
-//                            self.postArray = []
-//                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-//                            querySnapshot!.documents.forEach { documentA in
-//                                let postData = PostData(document: documentA)
-//                                print("DEBUG: document取得 \(documentA.documentID)")
-//
-//                                if followArray.count == 0 {
-//                                    //followArrayが0の場合
-//                                    if postData.uid == myUid {
-//                                        self.postArray.append(postData)
-//                                    }
-//                                }else {
-//                                    //followArrayに値がある場合
-//                                    for followUid in followArray{
-//                                        //フォローしているuidまたは自分のuidの場合postArrayに設定
-//                                        if postData.uid == followUid || postData.uid == myUid {
-//                                            self.postArray.append(postData)
-//                                            break
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            // TableViewの表示を更新する
-//                            self.tableView.reloadData()
-////
-////                            if self.initialDisplayFlg {
-////                                //HUDを消す
-////                                SVProgressHUD.dismiss()
-////                                self.initialDisplayFlg = false//初期表示以外はfalse
-////                            }
-//                        }else{
-//                            //followがnil
-//                            self.postArray = []
-//                            // 取得したdocumentをもとにPostDataを作成し、postArrayの配列にする。
-//                            querySnapshot!.documents.forEach { documentA in
-//                                let postData = PostData(document: documentA)
-//                                //フォローしているuidまたは自分のuidの場合postArrayに設定
-//                                if  postData.uid == myUid {
-//                                    self.postArray.append(postData)
-//                                }
-//                            }
-//                            // TableViewの表示を更新する
-//                            self.tableView.reloadData()
-////                            if self.initialDisplayFlg {
-////                                //HUDを消す
-////                                SVProgressHUD.dismiss()
-////                                self.initialDisplayFlg = false//初期表示以外はfalse
-////                            }
-//                        }
-//                    }
-//                }
-//            }
         }
-        //★★★★★
-//        else {
-//            // ログイン未(またはログアウト済み)
-//            if listener != nil {
-//                // listener登録済みなら削除してpostArrayをクリアする
-//                listener.remove()
-//                listener = nil
-//                self.postArray = []
-//                self.tableView.reloadData()
-//            }
-//        }
     }
+//    override func viewWillDisappear(_ animated: Bool) {
+//
+//        if postListener != nil {
+//            postListener.remove()
+//            postListener = nil
+//            postArray = []
+//            tableView.reloadData()
+//        }
+//
+//        if userListener != nil{
+//            userListener.remove()
+//            userListener = nil
+//            postArray = []
+//            tableView.reloadData()
+//        }
+//    }
+        
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
