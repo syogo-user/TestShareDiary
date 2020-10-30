@@ -17,7 +17,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     let refreshCtl = UIRefreshControl()
     // Firestoreのリスナー
     var userListener: ListenerRegistration!
-    var postListener: ListenerRegistration!
+    var postListenerArray: [ListenerRegistration] = []
     //フォローと自分のuid配列
     var followAndMyUidArray : [String] = []
     //初回表示フラグ
@@ -71,11 +71,11 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                         for uid in self.followAndMyUidArray{
                             let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
                             //スナップショットリスナーを追加
-                            self.postListener = postsRef.addSnapshotListener(){ (querySnapshot, error) in
+                            self.postListenerArray.append(  postsRef.addSnapshotListener(){ (querySnapshot, error) in
                                 //nillの場合は処理を飛ばす
                                 guard querySnapshot != nil  else{return}
                                 //trueの場合は以降の処理を行わない
-                                guard !(querySnapshot!.metadata.hasPendingWrites) else{return}
+//                                guard !(querySnapshot!.metadata.hasPendingWrites) else{return}
                                 querySnapshot!.documents.forEach{
                                     document in
                                     let postData = PostData(document: document)
@@ -95,15 +95,26 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                             }
                                         }
                                     }
+                                    
                                     //日付順に入れ替える
                                     self.postArray.sort{ (d0 ,d1) -> Bool in
-                                        return d0.date! > d1.date!
+                                        if let date0 = d0.date, let date1 = d1.date{
+                                            //２つの日付が両方ともnilでないとき
+                                            return date0  > date1
+                                        }else{
+                                            return false
+                                        }
+                                        
+
                                     }
+                                    
+
+                                    
                                     // TableViewの表示を更新する
                                     self.tableView.reloadData()
                                 }
     
-                            }
+                            })
                         }
                     }
                 }
@@ -112,12 +123,12 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if postListener != nil {
-            self.postListener.remove()
-            self.postListener = nil
-            postArray = []
-            tableView.reloadData()        
+        for postListener in postListenerArray{
+            postListener.remove()
         }
+        postListenerArray = []
+        postArray = []
+        tableView.reloadData()
 
         if userListener != nil{
             userListener.remove()
