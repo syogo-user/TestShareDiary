@@ -170,7 +170,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                                 }
                             }
                         }
-
                     }
                 }else{
                     //公開
@@ -178,7 +177,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                     self.lockImage.isHidden = true//非表示
                     self.profileMessage.text = document["profileMessage"] as? String ?? ""
                 }
-                
                 //画像の取得
                 let imageRef = Storage.storage().reference().child(Const.ImagePath).child(myImageName + ".jpg")
                 //画像がなければデフォルトの画像表示

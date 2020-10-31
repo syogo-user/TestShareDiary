@@ -71,11 +71,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                         for uid in self.followAndMyUidArray{
                             let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
                             //スナップショットリスナーを追加
-                            self.postListenerArray.append(  postsRef.addSnapshotListener(){ (querySnapshot, error) in
+                            self.postListenerArray.append(postsRef.addSnapshotListener(){ (querySnapshot, error) in
                                 //nillの場合は処理を飛ばす
                                 guard querySnapshot != nil  else{return}
-                                //trueの場合は以降の処理を行わない
-//                                guard !(querySnapshot!.metadata.hasPendingWrites) else{return}
                                 querySnapshot!.documents.forEach{
                                     document in
                                     let postData = PostData(document: document)
@@ -87,7 +85,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                     }else{
                                         //存在する場合
                                         for (index,post) in self.postArray.enumerated(){
-                                            print("index:\(index)")
                                             if post.id == postData.id {
                                                 //存在するデータを削除してから追加
                                                 self.postArray.remove(at: index)
@@ -104,12 +101,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                         }else{
                                             return false
                                         }
-                                        
-
                                     }
-                                    
-
-                                    
                                     // TableViewの表示を更新する
                                     self.tableView.reloadData()
                                 }
