@@ -28,7 +28,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var myCommentShadowWidthConstraint: NSLayoutConstraint!
     
     var message = ""
-    
+    //プロフィール写真取得用Uid
+    var commentDataUid = ""
     override func awakeFromNib() {
         super.awakeFromNib()
         self.partnerComment.layer.cornerRadius = 20
@@ -44,6 +45,9 @@ class CommentTableViewCell: UITableViewCell {
         //写真の影
         self.userImageShadowView.bounds = self.userImageView.bounds
         self.userImageShadowView.layer.cornerRadius = 25
+        
+        //プロフィール写真の表示
+        self.setImageShow(userUid:self.commentDataUid)
     }
     
     
@@ -126,8 +130,9 @@ class CommentTableViewCell: UITableViewCell {
             }
             self.partnerCommentWidthConstraint.constant = width
 
-            //画像の表示
-            setImageShow(userUid:commentData.uid)
+            //プロフィール画像表示用のUIDを設定
+            self.commentDataUid = commentData.uid
+//            setImageShow(userUid:commentData.uid)
             
             //影
             self.partnerCommentShadowView.bounds = self.partnerComment.bounds
