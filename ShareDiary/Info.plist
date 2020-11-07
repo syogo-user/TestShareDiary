@@ -17,13 +17,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>写真の許可を求めます。</string>
 	<key>NSCameraUsageDescription</key>
 	<string>カメラの許可を求めます。</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>位置情報の許可を求めます。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>写真の許可を求めます。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -66,7 +68,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>位置情報の許可を求めます。</string>
 </dict>
 </plist>

@@ -595,6 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareDiary/ShareDiary.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
 				INFOPLIST_FILE = ShareDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
@@ -618,6 +619,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareDiary/ShareDiary.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = 6522YLS3GH;
 				INFOPLIST_FILE = ShareDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;

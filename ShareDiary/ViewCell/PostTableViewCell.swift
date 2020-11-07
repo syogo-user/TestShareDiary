@@ -33,6 +33,8 @@ class PostTableViewCell: UITableViewCell {
     var imageMaxNumber = 0
     //ドキュメントID
     var postDocumentId = ""
+    //uid（プロフィール写真取得用）
+    var postDataUid = ""
     //デリゲート
     var postTableViewCellDelegate :PostTableViewCellDelegate?
     //写真の配置に使用する変数を定義
@@ -83,7 +85,8 @@ class PostTableViewCell: UITableViewCell {
                 imageSet(imageRef:imageRef ,index: i, maxCount: imageMaxNumber)
             }
         }
-        
+        //プロフィール写真の設定
+        self.setPostImage(uid:self.postDataUid)
     }
     override func updateConstraints() {
         super.updateConstraints()
@@ -372,7 +375,9 @@ class PostTableViewCell: UITableViewCell {
 
         imageMaxNumber  = postData.contentImageMaxNumber
         postDocumentId = postData.id
-
+        
+       
+        
         switch imageMaxNumber {
         case 0:
             //写真の枚数が0枚の場合
@@ -393,8 +398,9 @@ class PostTableViewCell: UITableViewCell {
         default: break
 
         }
-        //プロフィール写真を設定
-        setPostImage(uid:postData.uid)
+        //UIDを変数に設定（プロフィール写真を取得するため）
+        self.postDataUid = postData.uid
+//        self.setPostImage(uid:self.postDataUid)//この処理をlayoutSubviewsに変更
         //背景色を設定
         contentsView.setBackgroundColor(colorIndex:postData.backgroundColorIndex)
 
@@ -402,7 +408,6 @@ class PostTableViewCell: UITableViewCell {
     
     private func setPostImage(uid:String){
         let userRef = Firestore.firestore().collection(Const.users).document(uid)
-        
         userRef.getDocument() {
             (querySnapshot,error) in
             if let error = error {
@@ -411,22 +416,25 @@ class PostTableViewCell: UITableViewCell {
             } else {
                 if let document = querySnapshot!.data(){
                     let imageName = document["myImageName"] as? String ?? ""
-                    
-                    //画像の取得
-                    let imageRef = Storage.storage().reference().child(Const.ImagePath).child(imageName + ".jpg")
-                    
-                    //画像がなければデフォルトの画像表示
-                    if imageName == "" {
-                        self.postUserImageView.image = UIImage(named: "unknown")
-                    }else{
-                        //取得した画像の表示
-                        self.postUserImageView.sd_imageIndicator =
-                            SDWebImageActivityIndicator.gray
-                        self.postUserImageView.sd_setImage(with: imageRef)
-                    }
+                    self.setMyImage(imageName:imageName)
                 }
             }
         }
+    }
+    
+    private func setMyImage(imageName:String){
+        //画像の取得
+         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(imageName + ".jpg")
+         
+         //画像がなければデフォルトの画像表示
+         if imageName == "" {
+             self.postUserImageView.image = UIImage(named: "unknown")
+         }else{
+             //取得した画像の表示
+             self.postUserImageView.sd_imageIndicator =
+                 SDWebImageActivityIndicator.gray
+             self.postUserImageView.sd_setImage(with: imageRef)
+         }
     }
     
 }
