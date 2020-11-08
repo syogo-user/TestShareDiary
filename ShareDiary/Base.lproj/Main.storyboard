@@ -1020,7 +1020,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vhS-Sa-gg0">
-                                <rect key="frame" x="20" y="64" width="374" height="104.5"/>
+                                <rect key="frame" x="20" y="64" width="374" height="146.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="アカウント設定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slf-pe-ft5">
                                         <rect key="frame" x="0.0" y="0.0" width="121.5" height="20.5"/>
@@ -1036,6 +1036,10 @@
                                         <rect key="frame" x="0.0" y="74.5" width="77" height="30"/>
                                         <state key="normal" title="パスワード"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddq-sa-Zy3">
+                                        <rect key="frame" x="0.0" y="116.5" width="108" height="30"/>
+                                        <state key="normal" title="アカウント削除"/>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -1048,6 +1052,7 @@
                         <viewLayoutGuide key="safeArea" id="sQo-8b-wHZ"/>
                     </view>
                     <connections>
+                        <outlet property="accountDeleteButton" destination="ddq-sa-Zy3" id="kov-Zm-8ZX"/>
                         <outlet property="mailAddressButton" destination="tso-DC-5o2" id="ZI2-Wc-nEs"/>
                         <outlet property="passwordButton" destination="STn-3z-fjN" id="sSU-ZD-Dlw"/>
                         <outlet property="titleLabel" destination="slf-pe-ft5" id="OXX-tt-ABk"/>
