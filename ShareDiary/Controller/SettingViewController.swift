@@ -59,8 +59,8 @@ class SettingViewController: UIViewController {
     //アカウント削除処理
     private func myDocImageDelete(){
         /*
-         ①自分の投稿写真を削除 OK
-         ②自分の投稿を削除 OK
+         ①自分の投稿写真を削除
+         ②自分の投稿を削除
          ③他ユーザの投稿にあるいいねを削除
          ④自分のプロフィール写真を削除
          ⑤ユーザのフォロー、フォロワー、フォローリクエストから削除
