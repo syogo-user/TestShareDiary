@@ -27,6 +27,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         // カスタムセルを登録する
+
+
+
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         //tableViewの境界線を消す
@@ -102,6 +105,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                             return false
                                         }
                                     }
+                                    
+                                    //TODO　ブロックユーザを除外する
+                                    
                                     // TableViewの表示を更新する
                                     self.tableView.reloadData()
                                 }

@@ -644,7 +644,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="u7r-h0-fEM"/>
                                 </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1130,7 +1130,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="pw6-z6-1Md">
-                                <rect key="frame" x="30" y="64" width="354" height="163"/>
+                                <rect key="frame" x="30" y="64" width="354" height="211"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="メールアドレス" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VM1-TH-ua5">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="20.5"/>
@@ -1154,6 +1154,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmE-cI-l4N">
+                                        <rect key="frame" x="0.0" y="181" width="354" height="30"/>
+                                        <state key="normal" title=" アカウント削除">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -1166,6 +1172,7 @@
                         <viewLayoutGuide key="safeArea" id="2UP-pa-Bsm"/>
                     </view>
                     <connections>
+                        <outlet property="accountDelete" destination="UmE-cI-l4N" id="WWz-Ei-kff"/>
                         <outlet property="mailAddress" destination="2wi-9e-F7o" id="fJF-Jd-0Aa"/>
                         <outlet property="password" destination="JUd-tO-Xcv" id="JYd-bN-qRE"/>
                     </connections>

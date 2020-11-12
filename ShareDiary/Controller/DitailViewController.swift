@@ -464,7 +464,8 @@ class DitailViewController: UIViewController {
                 case .added:
                     let dic = documentChange.document.data()
                     let comment = CommentData(document:dic)
-                    
+                    //ユーザが削除されていた場合の対応としてユーザ名が取得できないものはunknowと表示する
+                    comment.userName = "unknow"
                     //ユーザ名を取得
                     let commentUserRef = Firestore.firestore().collection(Const.users).document(comment.uid)
                     commentUserRef.getDocument{

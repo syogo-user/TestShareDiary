@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 class UserPostData: NSObject {
+    var id :String
     var uid:String?
     var userName:String?
     var myImageName :String?
@@ -20,6 +21,7 @@ class UserPostData: NSObject {
     
 
     init(document:QueryDocumentSnapshot){
+        self.id = document.documentID
         let postDic = document.data()
         self.uid = postDic["uid"] as? String
         self.userName = postDic["userName"] as? String
@@ -32,6 +34,7 @@ class UserPostData: NSObject {
     }
     
     init(document:DocumentSnapshot?){
+        self.id = document?.documentID ?? ""
         let postDic = document?.data() ?? [:]
         self.uid = postDic["uid"] as? String
         self.userName = postDic["userName"] as? String
