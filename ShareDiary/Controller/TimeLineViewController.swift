@@ -20,7 +20,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     var postListenerArray: [ListenerRegistration] = []
     //フォローと自分のuid配列
     var followAndMyUidArray : [String] = []
-    //初回表示フラグ
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
