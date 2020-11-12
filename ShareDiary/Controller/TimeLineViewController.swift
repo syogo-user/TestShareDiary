@@ -21,7 +21,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     //フォローと自分のuid配列
     var followAndMyUidArray : [String] = []
     //初回表示フラグ
-//    var initialDisplayFlg :Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
