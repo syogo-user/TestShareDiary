@@ -106,8 +106,6 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                                         }
                                     }
                                     
-                                    //TODO　ブロックユーザを除外する
-                                    
                                     // TableViewの表示を更新する
                                     self.tableView.reloadData()
                                 }
@@ -154,6 +152,10 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
         cell.commentButton.addTarget(self, action:#selector(tapCommnetButton(_:forEvent:)), for: .touchUpInside)
+        
+        //variousボタン押下時
+        cell.variousButton.addTarget(self, action:#selector(tapVariousButtion(_:forEvent:)), for: .touchUpInside)
+        
         //自作のデリゲート
         cell.postTableViewCellDelegate = self
         
@@ -222,12 +224,109 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         detailViewController.scrollFlg = true //画面遷移後すぐに下にスクロールを行う
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
+    
+    //ブロックor通報
+    @objc func tapVariousButtion(_ sender : UIButton,forEvent event:UIEvent){
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        
+        let dialog = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
+        dialog.addAction(UIAlertAction(title: "このユーザをブロックします", style: .default, handler: { action in
+            //ブロック
+            self.userBlock(postData:postData)
+        }))
+        dialog.addAction(UIAlertAction(title: "このユーザを通報します", style: .default, handler: { action in
+            //通報
+            self.userReport(postData:postData)
+        }))
+        dialog.addAction(UIAlertAction(title: "キャンセル", style: .default, handler: { action in
+            print("DEBUG:キャンセル")
+        }))
+        self.present(dialog,animated: true,completion: nil)
+        
+    }
+    
     //タブボタンがタップされた場合
     func didSelectTab(tabBarController: TabBarController) {
         print("DEBUG:タイムラインタブがタップされました。")
         //最上部にスクロール
         let contentOffset = CGPoint(x: 0.0, y: 0.0)
         self.tableView.setContentOffset(contentOffset, animated: true)
+    }
+    
+    //ブロック処理
+    private func userBlock(postData:PostData){
+        let userName = postData.documentUserName ?? ""
+        let dialog = UIAlertController(title: "\(userName)をブロックしてもよろしいですか？", message: nil, preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            guard let myUid = Auth.auth().currentUser?.uid else{return}
+            print("DEBUG: myUid\(myUid)")
+            print("DEBUG: postData.uid\(postData.uid)")
+            let db = Firestore.firestore()
+            //トランザクション開始
+            let batch = db.batch()
+            
+            let userRef = db.collection(Const.users).document(myUid)
+            var updateValue: FieldValue
+            updateValue = FieldValue.arrayUnion([postData.uid])
+            //自分のblockListにブロックしたいユーザのuidを書き込む
+            batch.updateData(["blockList": updateValue],forDocument: userRef)
+            
+            
+            //自分のフォローのリストから相手のuidを削除
+            updateValue = FieldValue.arrayRemove([postData.uid])
+            batch.updateData(["follow":updateValue], forDocument: userRef)
+            
+            //相手のフォロワーのリストからmyUidを削除
+            let userRef2 = db.collection(Const.users).document(postData.uid)
+            updateValue = FieldValue.arrayRemove([myUid])
+            batch.updateData(["follower":updateValue], forDocument: userRef2)
+            //トランザクション終了
+            //コミット
+            batch.commit(){ error in
+                if let err = error {
+                    print("DEBUG:Error writing batch \(err)")
+                }else{
+                    print("DEBUG:Batch write succeeded.")
+                }
+            }
+        }))
+        dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: nil))
+        self.present(dialog,animated: true,completion: nil)
+    }
+    //通報処理
+    private func userReport(postData:PostData){
+        let userName = postData.documentUserName ?? ""
+        let dialog = UIAlertController(title: "\(userName)を通報してもよろしいですか？", message: nil, preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            guard let myUid = Auth.auth().currentUser?.uid else{return}
+            //データをまとめる
+            /*reportUid 通報された人のuid
+              reportDocumentId 通報された投稿のID
+              senderUid 通報した人のuid
+              date 通報の日時
+            */
+            let reportRef = Firestore.firestore().collection(Const.report).document()
+            let reportDic = [
+                "reportUid":postData.uid,
+                "reportDocumentId":postData.id,
+                "senderUid":myUid,
+                "date": FieldValue.serverTimestamp(),
+                ] as [String : Any]
+            //データを登録
+            reportRef.setData(reportDic)
+            print("DEBUG:通報データを登録")
+            //ご連絡ありがとうございます
+            let dialog2 = UIAlertController(title: "ご連絡ありがとうございます。確認が取れ次第対応を行います。", message: nil, preferredStyle: .alert)
+            dialog2.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(dialog2,animated:true,completion: nil)            
+        }))
+        dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: nil))
+        self.present(dialog,animated: true,completion: nil)
     }
 }
 

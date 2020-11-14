@@ -112,7 +112,6 @@ class AccountCreateViewController: UIViewController {
                     SVProgressHUD.showError(withStatus: "ユーザ作成に失敗しました。")
                     return
                 }
-                print("DEBUG: ユーザー作成に成功しました。")
                 
                 // 表示名を設定する
                 let user = Auth.auth().currentUser
@@ -137,6 +136,7 @@ class AccountCreateViewController: UIViewController {
                                 "follow":[],
                                 "follower":[],
                                 "followRequest":[],
+                                "blockList":[],
                                 "profileMessage":"",
                                 "keyAccountFlg":true
                                 ] as [String :Any]

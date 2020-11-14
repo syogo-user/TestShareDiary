@@ -12,6 +12,7 @@ struct Const {
     static let ImagePath = "images"
     static let PostPath = "posts"
     static let users = "users"//ユーザ
+    static let report = "report"//レポート（通報リスト）
     static let Follow = "follow" //フォロー
     static let Follower = "follower"//フォロワー
     static let FollowRequest = "followRequest"//フォローリクエスト

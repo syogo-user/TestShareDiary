@@ -28,7 +28,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var contentsView: GradationView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var commentNumberLabel: UILabel!
-
+    @IBOutlet weak var variousButton: UIButton!
+    
     //投稿写真の選択された枚数
     var imageMaxNumber = 0
     //ドキュメントID
