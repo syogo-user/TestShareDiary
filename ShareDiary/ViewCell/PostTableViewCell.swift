@@ -349,7 +349,6 @@ class PostTableViewCell: UITableViewCell {
         let likeNumber = postData.likes.count        
         likeNumberLabel.text = ""
         likeNumberLabel.text = "\(likeNumber)"
-                
         //コメント数の表示
         let commentNumber = postData.commentsId.count
         commentNumberLabel.text = ""

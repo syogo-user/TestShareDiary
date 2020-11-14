@@ -138,7 +138,8 @@ class AccountCreateViewController: UIViewController {
                                 "followRequest":[],
                                 "blockList":[],
                                 "profileMessage":"",
-                                "keyAccountFlg":true
+                                "keyAccountFlg":true,
+                                "administratorFlg":false
                                 ] as [String :Any]
                             postRef.setData(postDic)
                         }

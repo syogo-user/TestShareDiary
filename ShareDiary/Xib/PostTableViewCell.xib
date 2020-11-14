@@ -25,22 +25,22 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ga0-2s-bLv">
-                        <rect key="frame" x="125" y="15" width="40" height="40"/>
+                        <rect key="frame" x="126" y="15" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="OtJ-Dt-xG2"/>
                             <constraint firstAttribute="height" constant="40" id="aY5-oz-59W"/>
                         </constraints>
                         <state key="normal" image="reply_none"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekt-Pc-oyp">
-                        <rect key="frame" x="285" y="15" width="30" height="40"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekt-Pc-oyp">
+                        <rect key="frame" x="276" y="15" width="39" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="UPX-RK-j4y"/>
                         </constraints>
-                        <state key="normal" title="◯"/>
+                        <state key="normal" image="report_block"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooc-bI-76m">
-                        <rect key="frame" x="200" y="15" width="45" height="40"/>
+                        <rect key="frame" x="201" y="15" width="45" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="5jh-5f-bfq"/>
                             <constraint firstAttribute="width" constant="45" id="neZ-NJ-WAo"/>
@@ -77,10 +77,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN6-Fi-Azo">
-                        <rect key="frame" x="245" y="15" width="35" height="40"/>
+                        <rect key="frame" x="246" y="15" width="30" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="GgD-T8-sj0"/>
-                            <constraint firstAttribute="width" constant="35" id="fn8-dQ-yOP"/>
+                            <constraint firstAttribute="width" constant="30" id="fn8-dQ-yOP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -96,7 +96,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpQ-fR-zFJ">
-                        <rect key="frame" x="165" y="15" width="35" height="40"/>
+                        <rect key="frame" x="166" y="15" width="35" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="GV5-Sd-XO6"/>
                             <constraint firstAttribute="width" constant="35" id="VSY-z0-52q"/>
@@ -115,7 +115,7 @@
                     <constraint firstAttribute="bottom" secondItem="fg7-AJ-kTE" secondAttribute="bottom" constant="5" id="A5A-WD-KbQ"/>
                     <constraint firstItem="fg7-AJ-kTE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="AlF-S8-9dQ"/>
                     <constraint firstItem="lNF-2p-zdQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="BMy-Jg-aog"/>
-                    <constraint firstItem="ekt-Pc-oyp" firstAttribute="leading" secondItem="JN6-Fi-Azo" secondAttribute="trailing" constant="5" id="CEr-i6-Dbr"/>
+                    <constraint firstItem="ekt-Pc-oyp" firstAttribute="leading" secondItem="JN6-Fi-Azo" secondAttribute="trailing" id="CEr-i6-Dbr"/>
                     <constraint firstItem="ga0-2s-bLv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="31F-Mi-oZ9" secondAttribute="trailing" constant="1" id="EV4-yZ-BjY"/>
                     <constraint firstAttribute="trailing" secondItem="fg7-AJ-kTE" secondAttribute="trailing" constant="5" id="G9d-A4-2rf"/>
                     <constraint firstItem="ekt-Pc-oyp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="HGZ-Od-h5V"/>
@@ -1920,5 +1920,6 @@ AAAAAAAAAAAAAAABmaY
 </mutableData>
         </image>
         <image name="reply_none" width="34" height="34"/>
+        <image name="report_block" width="39" height="40"/>
     </resources>
 </document>
