@@ -13,6 +13,7 @@ struct Const {
     static let PostPath = "posts"
     static let users = "users"//ユーザ
     static let report = "report"//レポート（通報リスト）
+    static let termsOfServiceURL = "https://sharediary.sakura.ne.jp/ShareDiary/terms_of_service.html"//利用規約URL
     static let Follow = "follow" //フォロー
     static let Follower = "follower"//フォロワー
     static let FollowRequest = "followRequest"//フォローリクエスト

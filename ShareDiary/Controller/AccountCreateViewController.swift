@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SafariServices
 
-class AccountCreateViewController: UIViewController {
+class AccountCreateViewController: UIViewController,SFSafariViewControllerDelegate{
 
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -19,9 +20,13 @@ class AccountCreateViewController: UIViewController {
     @IBOutlet weak var newAccountCreateButton: UIButton!
     @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var checkBox: CheckBox!
+    @IBOutlet weak var termsOfServiceButton: UIButton!//利用規約
     
     var mailAddress = ""
     var password = ""
+    var checkBoxCheck = false //true：チェックあり　false：チェックなし
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backImage.image = UIImage(named: "yozora")
@@ -60,7 +65,10 @@ class AccountCreateViewController: UIViewController {
         self.newAccountCreateButton.addTarget(self, action:#selector(tapNewAccountCreateButton(_ :)), for: .touchUpInside)
         //キャンセルボタン
         self.cancelButton.addTarget(self, action:#selector(tapCancellButton(_ :)), for: .touchUpInside)
-        
+        //チェックボックス
+        self.checkBox.addTarget(self, action: #selector(changeChackBox(_ :)), for: .touchUpInside)
+        //利用規約ボタン
+        self.termsOfServiceButton.addTarget(self, action: #selector(tapTermsOfServiceButton(_:)), for: .touchUpInside)
         //キーボードを閉じるための処理
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
@@ -101,6 +109,11 @@ class AccountCreateViewController: UIViewController {
             //名前の文字数制限
             if displayName.count > 10 {
                 SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
+                return
+            }
+            //利用規約の同意
+            if checkBoxCheck == false{
+                SVProgressHUD.showError(withStatus: "利用規約をお読みの上、同意をお願いします")
                 return
             }
             //HUDで処理中を表示
@@ -153,11 +166,28 @@ class AccountCreateViewController: UIViewController {
             
         }
     }
-    
+        
     @objc private func tapCancellButton(_ sender :UIButton ){
         self.dismiss(animated: true, completion: nil)
     }
     @objc private func dismissKeyboard(){
         self.view.endEditing(true)
+    }
+    //チェックボックス
+    @objc private func changeChackBox(_ sender:CheckBox){
+        //チェックのありかなしを設定
+        self.checkBoxCheck = sender.isChecked
+        print("DEBUG:\(checkBoxCheck)")
+    }
+    //利用規約ボタン押下時
+    @objc private func tapTermsOfServiceButton(_ sender :UIButton){
+        //Safariで利用規約を表示
+        let webPage = Const.termsOfServiceURL
+        let safariVC = SFSafariViewController(url: NSURL(string: webPage)! as URL)
+        safariVC.delegate = self
+        present(safariVC, animated: true, completion: nil)
+    }
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

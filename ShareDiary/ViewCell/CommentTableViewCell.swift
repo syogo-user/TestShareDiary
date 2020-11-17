@@ -47,7 +47,9 @@ class CommentTableViewCell: UITableViewCell {
         self.userImageShadowView.layer.cornerRadius = 25
         
         //プロフィール写真の表示
-        self.setImageShow(userUid:self.commentDataUid)
+        if self.commentDataUid != ""{
+            self.setImageShow(userUid:self.commentDataUid)
+        }
     }
     
     

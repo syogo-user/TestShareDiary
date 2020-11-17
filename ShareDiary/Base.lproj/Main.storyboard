@@ -1511,14 +1511,14 @@
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLN-CP-4hh">
-                                <rect key="frame" x="55" y="390" width="82" height="32"/>
+                                <rect key="frame" x="55" y="420" width="82" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="キャンセル">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGy-EL-Dkb">
-                                <rect key="frame" x="279" y="390" width="80" height="34"/>
+                                <rect key="frame" x="279" y="420" width="80" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="3pC-Nx-a1h"/>
@@ -1535,13 +1535,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7c8-td-kJi" customClass="CheckBox" customModule="ShareDiary" customModuleProvider="target">
+                                <rect key="frame" x="55" y="385" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="7Ew-EE-Rp4"/>
+                                    <constraint firstAttribute="height" constant="30" id="Uef-yH-PWm"/>
+                                </constraints>
+                                <state key="normal" image="ico_check_off"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6Q-DH-IRe">
+                                <rect key="frame" x="100" y="385" width="153" height="30"/>
+                                <state key="normal" title="利用規約に同意します"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="iJY-qD-8GA" firstAttribute="top" secondItem="qKX-lI-SWb" secondAttribute="top" constant="140" id="093-DW-XKK"/>
                             <constraint firstItem="9l5-Oi-dlS" firstAttribute="leading" secondItem="qKX-lI-SWb" secondAttribute="leading" id="6Ck-yX-Jej"/>
+                            <constraint firstItem="W6Q-DH-IRe" firstAttribute="top" secondItem="7c8-td-kJi" secondAttribute="top" id="6uw-dx-Px2"/>
                             <constraint firstItem="qKX-lI-SWb" firstAttribute="trailing" secondItem="9l5-Oi-dlS" secondAttribute="trailing" id="7Y0-gA-KUJ"/>
-                            <constraint firstItem="nLN-CP-4hh" firstAttribute="top" secondItem="dfv-UY-IYK" secondAttribute="bottom" constant="10" id="Au8-au-v59"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="trailing" secondItem="iJY-qD-8GA" secondAttribute="trailing" id="Avz-bi-QLQ"/>
                             <constraint firstItem="9l5-Oi-dlS" firstAttribute="top" secondItem="pPq-wN-UiU" secondAttribute="top" id="FKh-H5-rZF"/>
                             <constraint firstItem="NGy-EL-Dkb" firstAttribute="trailing" secondItem="iJY-qD-8GA" secondAttribute="trailing" id="HHk-Kb-jWA"/>
@@ -1551,8 +1563,12 @@
                             <constraint firstAttribute="bottom" secondItem="9l5-Oi-dlS" secondAttribute="bottom" id="Mio-x4-aus"/>
                             <constraint firstItem="6Sl-bP-6uK" firstAttribute="trailing" secondItem="iJY-qD-8GA" secondAttribute="trailing" id="Ol0-J9-BMq"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="leading" secondItem="iJY-qD-8GA" secondAttribute="leading" id="RZ7-Kj-3aK"/>
+                            <constraint firstItem="nLN-CP-4hh" firstAttribute="top" secondItem="W6Q-DH-IRe" secondAttribute="bottom" constant="5" id="UvZ-1v-FyW"/>
                             <constraint firstItem="dfv-UY-IYK" firstAttribute="top" secondItem="6Sl-bP-6uK" secondAttribute="bottom" constant="20" id="bAX-sa-9Ik"/>
+                            <constraint firstItem="W6Q-DH-IRe" firstAttribute="leading" secondItem="7c8-td-kJi" secondAttribute="trailing" constant="15" id="c7F-Dx-Ig3"/>
+                            <constraint firstItem="7c8-td-kJi" firstAttribute="top" secondItem="dfv-UY-IYK" secondAttribute="bottom" constant="5" id="lWp-z4-Sdn"/>
                             <constraint firstItem="6Sl-bP-6uK" firstAttribute="top" secondItem="5tg-LI-Fwt" secondAttribute="bottom" constant="20" id="mZW-KE-cMa"/>
+                            <constraint firstItem="7c8-td-kJi" firstAttribute="leading" secondItem="iJY-qD-8GA" secondAttribute="leading" id="o6z-FA-JXc"/>
                             <constraint firstItem="NGy-EL-Dkb" firstAttribute="top" secondItem="nLN-CP-4hh" secondAttribute="top" id="pvx-2v-dgZ"/>
                             <constraint firstItem="5tg-LI-Fwt" firstAttribute="leading" secondItem="iJY-qD-8GA" secondAttribute="leading" id="v4z-sZ-tCq"/>
                             <constraint firstItem="5tg-LI-Fwt" firstAttribute="trailing" secondItem="iJY-qD-8GA" secondAttribute="trailing" id="xhq-nE-a2o"/>
@@ -1565,21 +1581,24 @@
                     <connections>
                         <outlet property="backImage" destination="9l5-Oi-dlS" id="aX0-ph-rxZ"/>
                         <outlet property="cancelButton" destination="nLN-CP-4hh" id="iW4-yf-aly"/>
+                        <outlet property="checkBox" destination="7c8-td-kJi" id="Rwq-tf-EFO"/>
                         <outlet property="mailAddressTextField" destination="iJY-qD-8GA" id="6fY-DG-5Sl"/>
                         <outlet property="newAccountCreateButton" destination="NGy-EL-Dkb" id="wq0-gQ-sr6"/>
                         <outlet property="nickNameTextField" destination="dfv-UY-IYK" id="38i-We-jom"/>
                         <outlet property="passwordCheckTextField" destination="6Sl-bP-6uK" id="LT1-20-5dC"/>
                         <outlet property="passwordTextField" destination="5tg-LI-Fwt" id="tku-XN-Nyq"/>
+                        <outlet property="termsOfServiceButton" destination="W6Q-DH-IRe" id="U43-nA-5vF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRr-XE-qBH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1599" y="92"/>
+            <point key="canvasLocation" x="1598.5507246376812" y="91.741071428571431"/>
         </scene>
     </scenes>
     <resources>
         <image name="calendar.badge.plus" catalog="system" width="64" height="50"/>
         <image name="doc.plaintext" catalog="system" width="56" height="64"/>
+        <image name="ico_check_off" width="17" height="17"/>
         <image name="like_none" width="40" height="40"/>
         <image name="lock" width="29" height="30"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>

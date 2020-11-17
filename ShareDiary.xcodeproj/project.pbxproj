@@ -58,6 +58,7 @@
 		917A8A6124FA391900F159E5 /* CommonDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A8A6024FA391900F159E5 /* CommonDate.swift */; };
 		919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */; };
 		919ED0D625298511002344DF /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919ED0D525298511002344DF /* Validation.swift */; };
+		91C912A72560D56000074A46 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C912A62560D56000074A46 /* CheckBox.swift */; };
 		91EAE0F825287F8B00CC8638 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0F725287F8B00CC8638 /* SettingViewController.swift */; };
 		91EAE0FA25288B2900CC8638 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0F925288B2900CC8638 /* PasswordChangeViewController.swift */; };
 		91EAE0FC25288FB100CC8638 /* MailAddressChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EAE0FB25288FB100CC8638 /* MailAddressChangeViewController.swift */; };
@@ -119,6 +120,7 @@
 		918CBF83253C5A1F0072B45B /* ShareDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareDiary.entitlements; sourceTree = "<group>"; };
 		919A071824DBF2C8004D07AE /* FullsizeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullsizeImageViewController.swift; sourceTree = "<group>"; };
 		919ED0D525298511002344DF /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		91C912A62560D56000074A46 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		91EAE0F725287F8B00CC8638 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		91EAE0F925288B2900CC8638 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
 		91EAE0FB25288FB100CC8638 /* MailAddressChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailAddressChangeViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				917A8A6024FA391900F159E5 /* CommonDate.swift */,
 				91F46CFB24E2E38000155CF5 /* Assets.xcassets */,
 				3DE8129724B9981300E85957 /* UIColorExtention.swift */,
+				91C912A62560D56000074A46 /* CheckBox.swift */,
 				3D9BFE8423FEE75F009893B1 /* SceneDelegate.swift */,
 				919ED0D525298511002344DF /* Validation.swift */,
 				3D871999240A500700D4064E /* Const.swift */,
@@ -414,6 +417,7 @@
 				3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */,
 				3DA5F5F624038D6E00321D00 /* LoginViewController.swift in Sources */,
 				3DE8129624B991B700E85957 /* InputTextView.swift in Sources */,
+				91C912A72560D56000074A46 /* CheckBox.swift in Sources */,
 				3D031C352461198A00A845C1 /* UsersTableViewCell.swift in Sources */,
 				3DA5F5FA2403906500321D00 /* TabBarController.swift in Sources */,
 				3D9BFE9723FEE8DB009893B1 /* CalendarViewController.swift in Sources */,

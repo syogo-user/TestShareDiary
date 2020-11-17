@@ -233,15 +233,24 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         let indexPath = tableView.indexPathForRow(at: point)
         // 配列からタップされたインデックスのデータを取り出す
         let postData = postArray[indexPath!.row]
-        
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+
         let dialog = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
         dialog.addAction(UIAlertAction(title: "このユーザをブロックします", style: .default, handler: { action in
+            if myUid == postData.uid{
+                self.myAlert()
+                return
+            }
             //ブロック
             self.userBlock(postData:postData)
         }))
         dialog.addAction(UIAlertAction(title: "このユーザを通報します", style: .default, handler: { action in
+            if myUid == postData.uid{
+                self.myAlert()
+                return
+            }
             //通報
-            self.userReport(postData:postData)
+            self.userReportQuestion(postData:postData)
         }))
         dialog.addAction(UIAlertAction(title: "キャンセル", style: .default, handler: { action in
             print("DEBUG:キャンセル")
@@ -299,7 +308,21 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         self.present(dialog,animated: true,completion: nil)
     }
     //通報処理
-    private func userReport(postData:PostData){
+    private func userReportQuestion(postData:PostData){
+        let dialog = UIAlertController(title: "通報の詳細をお知らせ願います。", message: nil, preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "不審な内容またはスパムです", style: .default, handler:{ action in
+            self.userReport(postData: postData, reportKind: 1)
+        }))
+        dialog.addAction(UIAlertAction(title: "不適切な内容を含んでいる", style: .default, handler: { action in
+            self.userReport(postData: postData, reportKind: 2)
+        }))
+        dialog.addAction(UIAlertAction(title: "攻撃的な内容を含んでいる", style: .default, handler: { action in
+            self.userReport(postData: postData, reportKind: 3)
+        }))
+        self.present(dialog,animated: true,completion:nil)
+    }
+    //通報処理
+    private func userReport(postData :PostData,reportKind:Int){
         let userName = postData.documentUserName ?? ""
         let dialog = UIAlertController(title: "\(userName)を通報してもよろしいですか？", message: nil, preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -307,6 +330,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             //データをまとめる
             /*reportUid 通報された人のuid
               reportDocumentId 通報された投稿のID
+              reportKind 通報の種類 1:不審な内容またはスパムです 2:不適切な内容を含んでいる 3:攻撃的な内容を含んでいる
               senderUid 通報した人のuid
               date 通報の日時
             */
@@ -314,6 +338,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             let reportDic = [
                 "reportUid":postData.uid,
                 "reportDocumentId":postData.id,
+                "reportKind":reportKind,
                 "senderUid":myUid,
                 "date": FieldValue.serverTimestamp(),
                 ] as [String : Any]
@@ -323,9 +348,17 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
             //ご連絡ありがとうございます
             let dialog2 = UIAlertController(title: "ご連絡ありがとうございます。確認が取れ次第対応を行います。", message: nil, preferredStyle: .alert)
             dialog2.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(dialog2,animated:true,completion: nil)            
+            self.present(dialog2,animated:true,completion: nil)
         }))
         dialog.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: nil))
+        self.present(dialog,animated: true,completion: nil)
+    }
+    
+    
+    //自分だった場合
+    private func myAlert(){
+        let dialog = UIAlertController(title: "自分の投稿です", message: nil, preferredStyle: .actionSheet)
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(dialog,animated: true,completion: nil)
     }
 }
