@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
   platform :ios, '13.1'
 
-target 'ShareDiary' do
+target 'TestShareDiary' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for ShareDiary
+  # Pods for TestShareDiary
   pod 'Firebase','6.11.0'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
