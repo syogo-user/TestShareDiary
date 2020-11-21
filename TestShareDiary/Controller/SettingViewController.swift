@@ -1,6 +1,6 @@
 //
 //  SettingViewController.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/10/03.
 //  Copyright © 2020 syogo-user. All rights reserved.
@@ -79,9 +79,9 @@ class SettingViewController: UIViewController {
     //アカウント削除ボタン押下時
     @objc private func tapAccountDeleteButton(_ sender:UIButton){
         //TODO　後で以下のコメントをもとに戻す
-//        let mailAddressChangeViewController = self.storyboard?.instantiateViewController(withIdentifier: "MailAddressChangeViewController") as! MailAddressChangeViewController
-//        mailAddressChangeViewController.accountDeleteFlg = true //アカウント削除からの場合はtrue
-//        self.navigationController?.pushViewController(mailAddressChangeViewController, animated: true)
+        let mailAddressChangeViewController = self.storyboard?.instantiateViewController(withIdentifier: "MailAddressChangeViewController") as! MailAddressChangeViewController
+        mailAddressChangeViewController.accountDeleteFlg = true //アカウント削除からの場合はtrue
+        self.navigationController?.pushViewController(mailAddressChangeViewController, animated: true)
     }
     
 }

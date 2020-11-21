@@ -1,7 +1,7 @@
 
 //
 //  PasswordChangeViewController.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/10/03.
 //  Copyright © 2020 syogo-user. All rights reserved.

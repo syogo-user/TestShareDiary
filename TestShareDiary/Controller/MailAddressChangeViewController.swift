@@ -1,7 +1,7 @@
 
 //
 //  MailAddressChangeViewController.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/10/03.
 //  Copyright © 2020 syogo-user. All rights reserved.
@@ -206,7 +206,7 @@ class MailAddressChangeViewController: UIViewController {
                     //投稿の数繰り返す
                     for doc in docArray {
                         //投稿した写真の枚数で繰り返す
-                        for i in 0 ..< doc.contentImageMaxNumber{
+                        for i in 1 ... doc.contentImageMaxNumber{
                             //投稿した写真を削除(文字列に変換したファイル名を渡す)
                             //①自分の投稿写真を削除
                             self.deleteImage(imageName:doc.id + i.description)
@@ -220,20 +220,21 @@ class MailAddressChangeViewController: UIViewController {
                     }
                 }
             }
-            //自分がいいねした投稿を検索
-            self.searchLike(myUid:myUid)
-            //自分のプロフィール写真を検索
-            self.searchMyImage(myUid:myUid)
-            //他のフォロー・フォロワー・フォローリクエストを検索
-            self.searchFollowFollowerRequest(myUid:myUid,key:"follow")
-            self.searchFollowFollowerRequest(myUid:myUid,key:"follower")
-            self.searchFollowFollowerRequest(myUid:myUid,key:"followRequest")
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                // 1.0秒後に実行したい処理
-                //⑦自分のuid、メールアドレス、パスワード情報などを削除
-                self.deleteAccountInfo()
-            }
+            //TODO　テストのため一旦コメントアウト
+//            //自分がいいねした投稿を検索
+//            self.searchLike(myUid:myUid)
+//            //自分のプロフィール写真を検索
+//            self.searchMyImage(myUid:myUid)
+//            //他のフォロー・フォロワー・フォローリクエストを検索
+//            self.searchFollowFollowerRequest(myUid:myUid,key:"follow")
+//            self.searchFollowFollowerRequest(myUid:myUid,key:"follower")
+//            self.searchFollowFollowerRequest(myUid:myUid,key:"followRequest")
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                // 1.0秒後に実行したい処理
+//                //⑦自分のuid、メールアドレス、パスワード情報などを削除
+//                self.deleteAccountInfo()
+//            }
             
         }
     }

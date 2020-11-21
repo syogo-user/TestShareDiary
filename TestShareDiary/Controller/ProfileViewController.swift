@@ -1,6 +1,6 @@
 //
 //  ProfileViewController.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/02/21.
 //  Copyright © 2020 syogo-user. All rights reserved.
@@ -273,7 +273,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
         SVProgressHUD.show()
         imageRef.putData(imageData,metadata: metadata){ (metadata,error) in
             if error != nil {
-                SVProgressHUD.showError(withStatus: "画像のアップロードが失敗しました")
+                SVProgressHUD.showError(withStatus: "画像のアップロードが\n失敗しました")
             }
             //写真のファイル名をusersに保存する
             let data = [

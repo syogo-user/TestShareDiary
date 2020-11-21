@@ -1,6 +1,6 @@
 //
 //  AcountCreateViewController.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/08/16.
 //  Copyright © 2020 syogo-user. All rights reserved.
@@ -80,11 +80,6 @@ class AccountCreateViewController: UIViewController,SFSafariViewControllerDelega
     //新規作成ボタン押下時
     @objc private func tapNewAccountCreateButton(_ sender:UIButton){
         if let address = mailAddressTextField.text, let password = passwordTextField.text, let passwordCheck = passwordCheckTextField.text,let displayName = nickNameTextField.text {
-            //パスワードの桁数
-            if password.count < 6 {
-                SVProgressHUD.showError(withStatus: "パスワードは6桁以上で入力してください")
-                return
-            }
             // アドレスとパスワードと表示名のいずれかでも入力されていない時は何もしない
             if address.isEmpty || password.isEmpty || passwordCheck.isEmpty || displayName.isEmpty {
                 print("DEBUG: 何かが空文字です。")
@@ -92,28 +87,28 @@ class AccountCreateViewController: UIViewController,SFSafariViewControllerDelega
                 return
             }
             if !Validation.isValidEmail(address){
-                SVProgressHUD.showError(withStatus: "メールアドレスの書式で入力してください")
+                SVProgressHUD.showError(withStatus: "メールアドレスの書式で\n入力してください")
                 return
             }
 
             //パスワード桁数
             if password.count < 6 {
-                SVProgressHUD.showError(withStatus: "パスワードは6桁以上で入力してください")
+                SVProgressHUD.showError(withStatus: "パスワードは6桁以上で\n入力してください")
                 return
             }
             //パスワードが２つとも同じか判定
             if password != passwordCheck {
-                SVProgressHUD.showError(withStatus: "パスワードは同じものを入力してください")
+                SVProgressHUD.showError(withStatus: "パスワードは同じものを\n入力してください")
                 return
             }
             //名前の文字数制限
             if displayName.count > 10 {
-                SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で入力してください")
+                SVProgressHUD.showError(withStatus: "ニックネームは10文字以内で\n入力してください")
                 return
             }
             //利用規約の同意
             if checkBoxCheck == false{
-                SVProgressHUD.showError(withStatus: "利用規約をお読みの上、同意をお願いします")
+                SVProgressHUD.showError(withStatus: "利用規約をお読みの上、\n同意をお願いします")
                 return
             }
             //HUDで処理中を表示

@@ -1,6 +1,6 @@
 //
 //  Const.swift
-//  ShareDiary
+// ShareDiary
 //
 //  Created by 小野寺祥吾 on 2020/02/29.
 //  Copyright © 2020 syogo-user. All rights reserved.
@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 struct Const {
-    static let ImagePath = "images"
-    static let PostPath = "posts"
-    static let users = "users"//ユーザ
-    static let report = "report"//レポート（通報リスト）
+    static let ImagePath = "test_images"
+    static let PostPath = "test_posts"
+    static let users = "test_users"//ユーザ
+    static let report = "test_report"//レポート（通報リスト）
     static let termsOfServiceURL = "https://sharediary.sakura.ne.jp/ShareDiary/terms_of_service.html"//利用規約URL
     static let Follow = "follow" //フォロー
     static let Follower = "follower"//フォロワー
