@@ -178,6 +178,7 @@ class MailAddressChangeViewController: UIViewController {
     }
     //アカウント削除処理
     private func myDocImageDelete(){
+        
         /*
          ①自分の投稿写真を削除
          ②自分の投稿を削除
@@ -189,22 +190,66 @@ class MailAddressChangeViewController: UIViewController {
          */
         //ログインしている自分のuidを取得する
         if let myUid = Auth.auth().currentUser?.uid {
+            let db = Firestore.firestore()
+            //トランザクション開始
+            let batch = db.batch()
+            
+            
             //自分の投稿を検索
-            let myDocRef = Firestore.firestore().collection(Const.PostPath).whereField("uid", isEqualTo: myUid)
-            myDocRef.getDocuments(){
-                (querySnapshot,error) in
-                if let error = error {
-                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    var docArray  :[PostData] = []
-                    docArray = querySnapshot!.documents.map {
-                        document -> PostData in
-                        let postData = PostData(document:document)
-                        return postData
+            self.searchMyDoc(myUid:myUid,db:db,batch:batch)
+            //自分がいいねした投稿を検索
+            self.searchLike(myUid:myUid,db:db,batch:batch)
+            //自分のプロフィール写真を検索
+            self.searchMyImage(myUid:myUid,db:db,batch:batch)
+            //他のフォロー・フォロワー・フォローリクエストを検索
+            self.searchFollowFollowerRequest(myUid:myUid,key:"follow",db:db,batch:batch)
+            self.searchFollowFollowerRequest(myUid:myUid,key:"follower",db:db,batch:batch)
+            self.searchFollowFollowerRequest(myUid:myUid,key:"followRequest",db:db,batch:batch)
+
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                // 10.0秒後に実行したい処理
+                //コミット
+                batch.commit() { err in
+                    if let err = err {
+                        print("DEBUG:Error writing batch \(err)")
+                    } else {
+                        print("DEBUG:Batch write succeeded.")
+                        //⑦自分のuid、メールアドレス、パスワード情報などを削除
+                        self.deleteAccountInfo()
                     }
-                    //投稿の数繰り返す
-                    for doc in docArray {
+                }
+            }
+
+
+            
+        }
+    }
+    //自分のドキュメントを検索
+    private func searchMyDoc(myUid:String,db:Firestore,batch:WriteBatch){
+        //自分の投稿を検索
+        let myDocRef = Firestore.firestore().collection(Const.PostPath).whereField("uid", isEqualTo: myUid)
+        myDocRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var docArray  :[PostData] = []
+                docArray = querySnapshot!.documents.map {
+                    document -> PostData in
+                    let postData = PostData(document:document)
+                    return postData
+                }
+                //投稿の数繰り返す
+                for doc in docArray {
+                    //doc.contentImageMaxNumberが0の場合写真はないため、そのまま自分の投稿を削除する
+                    if(doc.contentImageMaxNumber == 0){
+                        //写真がない場合
+                        //②自分の投稿を削除
+                        self.deleteDoc(documentId:doc.id,path:Const.PostPath,db:db,batch: batch)
+                    }else{
+                        //写真がある場合
                         //投稿した写真の枚数で繰り返す
                         for i in 1 ... doc.contentImageMaxNumber{
                             //投稿した写真を削除(文字列に変換したファイル名を渡す)
@@ -212,33 +257,16 @@ class MailAddressChangeViewController: UIViewController {
                             self.deleteImage(imageName:doc.id + i.description)
                             
                             //最後の写真を削除したら
-                            if (i == doc.contentImageMaxNumber - 1){
+                            if (i == doc.contentImageMaxNumber){
                                 //②自分の投稿を削除
-                                self.deleteDoc(documentId:doc.id,path:Const.PostPath)
+                                self.deleteDoc(documentId:doc.id,path:Const.PostPath,db:db,batch: batch)
                             }
                         }
                     }
                 }
             }
-            //TODO　テストのため一旦コメントアウト
-//            //自分がいいねした投稿を検索
-//            self.searchLike(myUid:myUid)
-//            //自分のプロフィール写真を検索
-//            self.searchMyImage(myUid:myUid)
-//            //他のフォロー・フォロワー・フォローリクエストを検索
-//            self.searchFollowFollowerRequest(myUid:myUid,key:"follow")
-//            self.searchFollowFollowerRequest(myUid:myUid,key:"follower")
-//            self.searchFollowFollowerRequest(myUid:myUid,key:"followRequest")
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                // 1.0秒後に実行したい処理
-//                //⑦自分のuid、メールアドレス、パスワード情報などを削除
-//                self.deleteAccountInfo()
-//            }
-            
         }
     }
-    
     //写真を削除
     private func deleteImage(imageName:String){
         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(imageName + ".jpg")
@@ -247,19 +275,20 @@ class MailAddressChangeViewController: UIViewController {
             if let  error = error {
                 print("DEBUG:\(error)")
             }else {
-                print("DEBUG:\(imageName)を削除しました")
+                print("DEBUG:写真\(imageName)を削除しました")
             }
         }
     }
     
     //ドキュメントの削除
-    private func deleteDoc(documentId:String,path:String){
-        let postsRef = Firestore.firestore().collection(path).document(documentId)
-        postsRef.delete()
+    private func deleteDoc(documentId:String,path:String,db:Firestore,batch:WriteBatch){
+        let postsRef = db.collection(path).document(documentId)
+        batch.deleteDocument(postsRef)
+        print("DEBUG:\(documentId)のドキュメントを削除しました")
     }
     
     //いいねしたドキュメントを検索
-    private func searchLike(myUid:String){
+    private func searchLike(myUid:String,db:Firestore,batch:WriteBatch){
         let myDocRef = Firestore.firestore().collection(Const.PostPath).whereField("likes", arrayContains:myUid)
         myDocRef.getDocuments(){
             (querySnapshot,error) in
@@ -274,34 +303,24 @@ class MailAddressChangeViewController: UIViewController {
                     return postData
                 }
                 //③他ユーザの投稿にあるいいねを削除
-                self.deleteLike(docArray:docArray,myUid:myUid)
+                self.deleteLike(docArray:docArray,myUid:myUid,db:db,batch:batch)
                 
             }
         }
     }
     //いいねを削除
-    private func deleteLike(docArray:[PostData],myUid:String){
-        let db = Firestore.firestore()
-        //トランザクション開始
-        let batch = db.batch()
+    private func deleteLike(docArray:[PostData],myUid:String,db:Firestore,batch:WriteBatch){
         for doc in docArray{
             let likeRef = db.collection(Const.PostPath).document(doc.id)
             var deleteLikeValue :FieldValue
             deleteLikeValue = FieldValue.arrayRemove([myUid])
             //いいねを削除
             batch.updateData(["likes":deleteLikeValue], forDocument: likeRef)
-        }
-        //コミット
-        batch.commit() { err in
-            if let err = err {
-                print("DEBUG:Error writing batch \(err)")
-            } else {
-                print("DEBUG:Batch write succeeded.")
-            }
+            print("DEBUG:\(doc.id)の「いいね」から\(myUid)を削除しました")
         }
     }
     //自分のプロフィール写真を検索
-    private func searchMyImage(myUid:String){
+    private func searchMyImage(myUid:String,db:Firestore,batch:WriteBatch){
         let myUserRef = Firestore.firestore().collection(Const.users).document(myUid)
         myUserRef.getDocument{(querySnapshot,error) in
             if let error = error {
@@ -313,13 +332,13 @@ class MailAddressChangeViewController: UIViewController {
                 self.deleteImage(imageName: myImageName)
             }
             //⑥自分のユーザ情報を削除
-            self.deleteDoc(documentId: myUid, path: Const.users)
+            self.deleteDoc(documentId: myUid, path: Const.users,db:db,batch:batch)
         }
         
     }
     
     //フォロー・フォロワー・フォローリクエストを検索
-    private func searchFollowFollowerRequest(myUid:String,key:String){
+    private func searchFollowFollowerRequest(myUid:String,key:String,db:Firestore,batch:WriteBatch){
         let userRef = Firestore.firestore().collection(Const.users).whereField(key, arrayContains:myUid)
         userRef.getDocuments(){
             (querySnapshot,error) in
@@ -334,29 +353,18 @@ class MailAddressChangeViewController: UIViewController {
                     return userPostData
                 }
                 //⑤ユーザのフォロー、フォロワー、フォローリクエストから削除
-                self.deleteFFR(fArray:docArray,myUid:myUid,key:key)
+                self.deleteFFR(fArray:docArray,myUid:myUid,key:key,db:db,batch:batch)
             }
         }
     }
     //フォロー・フォロワー・フォローリクエストを削除
-    private func deleteFFR(fArray:[UserPostData],myUid:String,key:String){
-        let db = Firestore.firestore()
-        //トランザクション開始
-        let batch = db.batch()
+    private func deleteFFR(fArray:[UserPostData],myUid:String,key:String,db:Firestore,batch:WriteBatch){
         for f in fArray{
             let userRef = db.collection(Const.users).document(f.id)
             var deleteLikeValue :FieldValue
             deleteLikeValue = FieldValue.arrayRemove([myUid])
             //いいねを削除
             batch.updateData([key:deleteLikeValue], forDocument: userRef)
-        }
-        //コミット
-        batch.commit() { err in
-            if let err = err {
-                print("DEBUG:Error writing batch \(err)")
-            } else {
-                print("DEBUG:Batch write succeeded.")
-            }
         }
     }
     
@@ -371,6 +379,12 @@ class MailAddressChangeViewController: UIViewController {
             } else {
                 // Account deleted.
                 print("DEBUG:アカウント削除完了")
+                let dialog = UIAlertController(title: "アカウントの削除が正常に行われました。", message: nil, preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    //ログアウト
+                    self.logout()
+                }))
+                self.present(dialog,animated: true,completion: nil)
             }
         }
     }
@@ -399,6 +413,26 @@ class MailAddressChangeViewController: UIViewController {
             }
         }
     }
-    
+    private func logout(){
+        //スライドメニューのクローズ
+        closeLeft()
+        // ログアウトする
+        try! Auth.auth().signOut()
+        // ログイン画面を表示する
+        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        loginViewController?.modalPresentationStyle = .fullScreen
+        self.present(loginViewController!, animated: true, completion: nil)
+        
+        //TODO
+        //タブバーを取得する
+        let slideViewController = parent as! SlideViewController
+        let navigationController = slideViewController.mainViewController as! UINavigationController
+        let tabBarController = navigationController.topViewController as! TabBarController
+        //listener削除用にタイムライン画面を一度選択する
+        tabBarController.selectedIndex = 2//自分が今タイムラインタブ（1）にいた場合用
+        tabBarController.selectedIndex = 1
+        // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
+        tabBarController.selectedIndex = 0
+    }
     
 }
