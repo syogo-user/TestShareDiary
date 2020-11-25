@@ -101,6 +101,41 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
             closeButton.isHidden = false
         }
         
+
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        //削除済みのユーザ出ないかを判断する　自分自身のviewContorllerを渡す
+        CommonUser.JudgDeleteUid(myUid: myUid,viewController:self)
+        //削除ステータスのユーザを除外して画面表示
+        accountDeleteStateGet(myUid: myUid)
+
+
+    }
+    
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                
+                //画面描画
+                self.displaySet(accountDeleteArray:accountDeleteArray)
+            }
+        }
+        
+    }
+    //画面描画
+    private func displaySet(accountDeleteArray:[String]){
         guard  let myUid = Auth.auth().currentUser?.uid else { return}
         var uid :String
         if self.userData?.uid == myUid || self.userData == nil{
@@ -129,9 +164,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                 self.nickNameTextField.text = document["userName"] as? String ?? ""
 
                 let myImageName = document["myImageName"] as? String ?? ""
-                let myFollow = document["follow"] as? [String] ?? []
-                let myFollower = document["follower"] as? [String] ?? []
+                var myFollow = document["follow"] as? [String] ?? []
+                var myFollower = document["follower"] as? [String] ?? []
                 let keyAccountFlg = document["keyAccountFlg"] as? Bool ?? true
+                
+                //削除ステータスが立っているものは除外する
+                myFollow = self.deleteArray(array: myFollow, accountDeleteArray: accountDeleteArray)
+                myFollower  = self.deleteArray(array: myFollower, accountDeleteArray: accountDeleteArray)
+                
                 self.followLabel.text = "フォロー： \(myFollow.count)"
                 self.followerLabel.text = "フォロワー：\(myFollower.count)"
                 //鍵画像の表示・非表示
@@ -190,8 +230,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,U
                 }
             }
         }
-        
-
+    }
+    private func deleteArray(array :[String],accountDeleteArray:[String]) -> [String]{
+        var arrayUid = array
+        //削除ステータスが0より大きいユーザは除外する
+        for (index,uid) in arrayUid.enumerated(){
+            if accountDeleteArray.firstIndex(of: uid ) != nil{
+                arrayUid.remove(at:index)
+            }
+        }
+        return arrayUid
     }
 
     @objc private func tapImageChoiceButton(_ sender:UIButton){

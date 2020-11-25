@@ -29,7 +29,7 @@ class CommentTableViewCell: UITableViewCell {
     
     var message = ""
     //プロフィール写真取得用Uid
-    var commentDataUid = ""
+    var commentData :CommentData?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.partnerComment.layer.cornerRadius = 20
@@ -47,8 +47,8 @@ class CommentTableViewCell: UITableViewCell {
         self.userImageShadowView.layer.cornerRadius = 25
         
         //プロフィール写真の表示
-        if self.commentDataUid != ""{
-            self.setImageShow(userUid:self.commentDataUid)
+        if let comment  = self.commentData{
+            self.setImageShow(commentData:comment)
         }
     }
     
@@ -132,8 +132,8 @@ class CommentTableViewCell: UITableViewCell {
             }
             self.partnerCommentWidthConstraint.constant = width
 
-            //プロフィール画像表示用のUIDを設定
-            self.commentDataUid = commentData.uid
+            //プロフィール画像表示用のcommentDataを設定する
+            self.commentData = commentData
 //            setImageShow(userUid:commentData.uid)
             
             //影
@@ -155,8 +155,8 @@ class CommentTableViewCell: UITableViewCell {
         return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
     
-    private func setImageShow(userUid:String){
-        let postRef = Firestore.firestore().collection(Const.users).document(userUid)
+    private func setImageShow(commentData:CommentData){
+        let postRef = Firestore.firestore().collection(Const.users).document(commentData.uid)
         postRef.getDocument{
             (document ,error) in
             if error != nil {
@@ -167,23 +167,31 @@ class CommentTableViewCell: UITableViewCell {
             guard let document = document else {return}
             if let userData = document.data() {
                 let myImageName = userData["myImageName"] as? String
-                self.setImage(userImageName:myImageName)
+                self.setImage(userImageName:myImageName,commentData:commentData)
             }
         }
     }
     
     //画像の設定
-    private func setImage(userImageName:String?){
+    private func setImage(userImageName:String?,commentData:CommentData){
         if let userImageName = userImageName {
-            let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
-            //取得した画像の表示
-            self.userImageView.sd_imageIndicator =
-                SDWebImageActivityIndicator.gray
-            self.userImageView.sd_setImage(with: imageRef)
+            //画像が設定されている場合
+            if commentData.userName == Const.unknown {
+                //ユーザ名がunknownの場合
+                //デフォルトの写真を表示
+                self.userImageView.image = UIImage(named: Const.unknown)
+            }else{
+                //ユーザ名がunknown以外の場合
+                let imageRef = Storage.storage().reference().child(Const.ImagePath).child(userImageName + ".jpg")
+                //取得した画像の表示
+                self.userImageView.sd_imageIndicator =
+                    SDWebImageActivityIndicator.gray
+                self.userImageView.sd_setImage(with: imageRef)
+            }
         } else {
             //画像が設定されていない場合
             //デフォルトの写真を表示
-            self.userImageView.image = UIImage(named: "unknown")
+            self.userImageView.image = UIImage(named: Const.unknown)
         }
     }
 }

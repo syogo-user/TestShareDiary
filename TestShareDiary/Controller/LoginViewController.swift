@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
     @IBOutlet weak var backImage: UIImageView!
-    
+    var message = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginButton.layer.cornerRadius = 15
@@ -42,6 +42,10 @@ class LoginViewController: UIViewController {
         self.createAccountButton.setTitleColor(UIColor.lightGray ,for: .highlighted)
         self.loginButton.addTarget(self, action: #selector(tapLoginButton(_:)), for: .touchUpInside)
         self.createAccountButton.addTarget(self, action: #selector(tapcreateAccountButton(_:)), for: .touchUpInside)
+        //強制ログアウトだった場合はメッセージを表示
+        if message == Const.noAccount{
+            SVProgressHUD.showError(withStatus: "アカウントが使用できません")
+        }
     }
 
  

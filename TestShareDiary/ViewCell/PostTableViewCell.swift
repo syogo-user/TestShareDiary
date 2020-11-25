@@ -87,7 +87,9 @@ class PostTableViewCell: UITableViewCell {
             }
         }
         //プロフィール写真の設定
-        self.setPostImage(uid:self.postDataUid)
+        if self.postDataUid != ""{
+            self.setPostImage(uid:self.postDataUid)
+        }
     }
     override func updateConstraints() {
         super.updateConstraints()
@@ -329,9 +331,62 @@ class PostTableViewCell: UITableViewCell {
             break
         }
     }
-        
+    
     // PostDataの内容をセルに表示
     func setPostData(_ postData: PostData) {
+        guard let myUid = Auth.auth().currentUser?.uid else { return}
+        //UIDを変数に設定（プロフィール写真を取得するため）
+        self.postDataUid = postData.uid
+        
+        self.imageMaxNumber  = postData.contentImageMaxNumber
+        self.postDocumentId = postData.id
+        switch imageMaxNumber {
+        case 0:
+            //写真の枚数が0枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint0
+        case 1:
+            //写真の枚数が1枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint1
+        case 2:
+            //写真の枚数が2枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint2
+        case 3:
+            //写真の枚数が3枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint3
+        case 4:
+            //写真の枚数が4枚の場合
+            contentLabelBottomConstraint.constant = contentLabelBottomConstraint4
+            
+        default: break
+        }
+        //削除ステータスのユーザを除外して画面表示
+        self.accountDeleteStateGet(myUid:myUid,postData:postData)
+        
+    }
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String,postData:PostData){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                
+                //画面描画
+                self.displaySet(accountDeleteArray:accountDeleteArray,postData:postData)
+            }
+        }
+    }
+    //画面描画
+    private func displaySet(accountDeleteArray:[String],postData:PostData){
         //投稿者の名前
         self.postUserLabel.text = ""
         if let documentUserName = postData.documentUserName {
@@ -345,10 +400,16 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        //いいねの配列に値を代入
+        var likeArray = postData.likes
+        //削除ステータスが立っているものは除外する
+        likeArray = self.deleteArray(array: likeArray, accountDeleteArray: accountDeleteArray)
+        
         // いいね数の表示
-        let likeNumber = postData.likes.count        
+        let likeNumber = likeArray.count
         likeNumberLabel.text = ""
         likeNumberLabel.text = "\(likeNumber)"
+        
         //コメント数の表示
         let commentNumber = postData.commentsId.count
         commentNumberLabel.text = ""
@@ -372,38 +433,28 @@ class PostTableViewCell: UITableViewCell {
         if let content = postData.content{
             self.contentLabel.text! = content
         }
-
-        imageMaxNumber  = postData.contentImageMaxNumber
-        postDocumentId = postData.id
         
-       
+
         
-        switch imageMaxNumber {
-        case 0:
-            //写真の枚数が0枚の場合
-            contentLabelBottomConstraint.constant = contentLabelBottomConstraint0
-        case 1:
-            //写真の枚数が1枚の場合
-            contentLabelBottomConstraint.constant = contentLabelBottomConstraint1
-        case 2:
-            //写真の枚数が2枚の場合
-            contentLabelBottomConstraint.constant = contentLabelBottomConstraint2
-        case 3:
-            //写真の枚数が3枚の場合
-            contentLabelBottomConstraint.constant = contentLabelBottomConstraint3
-        case 4:
-            //写真の枚数が4枚の場合
-            contentLabelBottomConstraint.constant = contentLabelBottomConstraint4
+        
+        
 
-        default: break
+            
 
-        }
-        //UIDを変数に設定（プロフィール写真を取得するため）
-        self.postDataUid = postData.uid
-//        self.setPostImage(uid:self.postDataUid)//この処理をlayoutSubviewsに変更
+
+        //        self.setPostImage(uid:self.postDataUid)//この処理をlayoutSubviewsに変更
         //背景色を設定
         contentsView.setBackgroundColor(colorIndex:postData.backgroundColorIndex)
-
+    }
+    private func deleteArray(array :[String],accountDeleteArray:[String]) -> [String]{
+        var arrayUid = array
+        //削除ステータスが0より大きいユーザは除外する
+        for (index,uid) in arrayUid.enumerated(){
+            if accountDeleteArray.firstIndex(of: uid ) != nil{
+                arrayUid.remove(at:index)
+            }
+        }
+        return arrayUid
     }
     
     private func setPostImage(uid:String){

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class LikeUserListTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -16,6 +16,7 @@ class LikeUserListTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
         self.view.backgroundColor = Const.darkColor
         self.tableView.backgroundColor = Const.darkColor
         self.tableView.dataSource = self
@@ -26,6 +27,10 @@ class LikeUserListTableViewController: UIViewController {
         //画面下部の境界線を消す
         self.tableView.tableFooterView = UIView()
         self.backButton.addTarget(self, action: #selector(tabBackButton(_:)), for: .touchUpInside)
+        //削除ステートのユーザを除外し表示する
+        self.accountDeleteStateGet(myUid:myUid)
+        
+        
     }
 }
 
@@ -60,6 +65,38 @@ extension LikeUserListTableViewController:UITableViewDataSource,UITableViewDeleg
     @objc func tabBackButton(_ sender:UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                            
+                //描画
+                self.reload(accountDeleteArray: accountDeleteArray)
+            }
+        }
+        
+    }
+    //描画
+    private func reload(accountDeleteArray :[String]){
+        //削除ステータスが0より大きいユーザは除外する
+        for (index,userPost) in self.userPostArray.enumerated(){
+            if accountDeleteArray.firstIndex(of: userPost.uid ?? "") != nil{
+                self.userPostArray.remove(at:index)
+            }
+        }
+        self.tableView.reloadData()
+    }
     
 }

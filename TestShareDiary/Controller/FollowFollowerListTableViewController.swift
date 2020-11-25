@@ -41,8 +41,9 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
             //フォロワーボタンから遷移した場合
             followOrFollowerLabel.text = "フォロワー"
         }
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
         //画面描画
-        reloadView()
+        accountDeleteStateGet(myUid: myUid)
         //画面下部の境界線を消す
         self.tableView.tableFooterView = UIView()
     }
@@ -151,7 +152,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                     }
                 }
                 //画面再描画のための検索
-                self.reloadView()
+                self.accountDeleteStateGet(myUid: myUid)
             }
         }))
         
@@ -163,7 +164,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
     }
     
     //データの描画
-    func reloadView(){
+    func reloadView(accountDeleteArray:[String]){
         var uid = ""
         if fromProfileUid == ""{
             //空の場合 スライドメニューからの遷移
@@ -203,7 +204,7 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                         return
                     }
                     //userPostArrayにappendしてリロードする
-                    self.appendArray(array:followArray)
+                    self.appendArray(array:followArray,accountDeleteArray:accountDeleteArray)
 
                 } else if self.fromButton == Const.Follower{
                     //フォロワーボタンから遷移した場合
@@ -219,15 +220,37 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                         return
                     }
                     //userPostArrayにappendしてリロードする
-                    self.appendArray(array: followerArray)
+                    self.appendArray(array: followerArray,accountDeleteArray:accountDeleteArray)
 
                 }              
             }
         }
     }
-    
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                            
+                //描画
+                self.reloadView(accountDeleteArray:accountDeleteArray)
+            }
+        }
+        
+    }
     //受け取った配列をuserPostArrayに追加してリロードする
-    private func appendArray(array:[String]){
+    private func appendArray(array:[String],accountDeleteArray:[String]){
         var userArray : [UserPostData] = []
         for uid in array {
             let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:uid)
@@ -251,6 +274,12 @@ class FollowFollowerListTableViewController: UIViewController ,UITableViewDelega
                             }
                         })
                         self.userPostArray = userArray
+                        //削除ステータスが0より大きいユーザは除外する
+                        for (index,userPost) in self.userPostArray.enumerated(){
+                            if accountDeleteArray.firstIndex(of: userPost.uid ?? "") != nil{
+                                self.userPostArray.remove(at:index)
+                            }
+                        }
                         self.tableView.reloadData()
                     }
 

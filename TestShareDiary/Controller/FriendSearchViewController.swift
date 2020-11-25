@@ -57,6 +57,9 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         self.searchbar.becomeFirstResponder()
         //画面下部の境界線を消す
         self.tableView.tableFooterView = UIView()
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        //削除済みのユーザ出ないかを判断する　自分自身のviewContorllerを渡す
+        CommonUser.JudgDeleteUid(myUid: myUid,viewController:self)
     }
             
     //検索バーで文字編集中（文字をクリアしたときも実行される）
@@ -77,31 +80,68 @@ class FriendSearchViewController: UIViewController,UITableViewDelegate,UITableVi
         //HUDで処理中を表示
         SVProgressHUD.show()
         //自分のuid取得
-        if (Auth.auth().currentUser?.uid) != nil {
-            //ユーザからデータを取
-            //前方一致検索
-            let userRef = Firestore.firestore().collection(Const.users)
-            let ref = userRef.order(by: "userName").start(at: [inputText]).end(at: [inputText + "\u{f8ff}"])
-            ref.getDocuments() {
-                (querySnapshot,error) in
-                if let error = error {
-                    SVProgressHUD.showError(withStatus: "検索に失敗しました")
-                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
-                    return
-                } else {
-                    self.userPostArray = querySnapshot!.documents.map {
-                        document in
-                        let userPostData = UserPostData(document:document)
-                        return userPostData
-                    }
-                    searchBar.endEditing(true)
-                    //HUDを消す
-                     SVProgressHUD.dismiss()
-                    self.tableView.reloadData()
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        //削除ステータスが0より大きいユーザのデータを取得し、その後、画面を描画する
+        self.accountDeleteStateGet(myUid: myUid,searchBar: searchBar)
+        
 
+    }
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String,searchBar:UISearchBar){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
                 }
+                //ユーザからデータを取得
+                self.getUserData(accountDeleteArray:accountDeleteArray,searchBar:searchBar)
             }
         }
+        
+    }
+    
+    //ユーザからデータを取得
+    private func getUserData(accountDeleteArray:[String],searchBar:UISearchBar){
+        //前方一致検索
+        let userRef = Firestore.firestore().collection(Const.users)
+        let ref = userRef.order(by: "userName").start(at: [inputText]).end(at: [inputText + "\u{f8ff}"])
+        ref.getDocuments() {
+            (querySnapshot,error) in
+            if let error = error {
+                SVProgressHUD.showError(withStatus: "検索に失敗しました")
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                self.userPostArray = querySnapshot!.documents.map {
+                    document in
+                    let userPostData = UserPostData(document:document)
+                    return userPostData
+                }
+                searchBar.endEditing(true)
+                
+                //削除ステータスが0より大きいユーザは除外する
+                for (index,post) in self.userPostArray.enumerated(){
+                    if accountDeleteArray.firstIndex(of: post.uid ?? "") != nil{
+                        self.userPostArray.remove(at:index)
+                    }
+                }
+                
+                //HUDを消す
+                SVProgressHUD.dismiss()
+                self.tableView.reloadData()
+                
+            }
+        }
+
         //キーボード閉じる
         searchBar.endEditing(true)
     }

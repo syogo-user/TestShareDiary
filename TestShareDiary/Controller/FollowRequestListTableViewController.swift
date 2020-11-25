@@ -30,9 +30,8 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if Auth.auth().currentUser != nil {
-            reloadView()
-        }
+        guard let myUid =  Auth.auth().currentUser?.uid else{return}
+        accountDeleteStateGet(myUid:myUid)
         //画面下部の境界線を消す
         tableView.tableFooterView = UIView()
     }
@@ -138,7 +137,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             }
             
             //(Aさん)のフォローリクエストを再取得した画面の再描画する
-            reloadView()
+            accountDeleteStateGet(myUid:myUid)
             self.tableView.reloadData()
         }
     }
@@ -168,12 +167,12 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             followRequestUpdateValue = FieldValue.arrayRemove([otherUserUid])
             followRequestPostRef.updateData(["followRequest":followRequestUpdateValue])
             //再描画
-            reloadView()
+            accountDeleteStateGet(myUid:myUid)
         }
     }
     
     //再描画
-    func reloadView(){
+    private func reloadView(accountDeleteArray:[String]){
         guard let myUid = Auth.auth().currentUser?.uid else {return }
         let postRef = Firestore.firestore().collection(Const.users).document(myUid)
         postRef.getDocument{
@@ -189,8 +188,7 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                     self.userPostArray = []
                     if followRequestArray.count != 0 {
                         //followRequestArrayに値がある場合
-                        self.arrayAppend(followRequestArray: followRequestArray)
-                        
+                        self.arrayAppend(followRequestArray: followRequestArray,accountDeleteArray:accountDeleteArray)
                     } else {
                         //followRequestArrayに値がない場合
                         self.userPostArray = []
@@ -201,8 +199,31 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
             
         }
     }
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                            
+                //描画
+                self.reloadView(accountDeleteArray:accountDeleteArray)
+            }
+        }
+        
+    }
     //受け取った配列をuserPostArrayに追加してリロードする
-    private func arrayAppend(followRequestArray:[String]){
+    private func arrayAppend(followRequestArray:[String],accountDeleteArray:[String]){
         //followRequestのuid配列からfollowRequestを申請してきているユーザ情報を取得する
         for followRequest in followRequestArray {
             let postRef2 = Firestore.firestore().collection(Const.users).whereField("uid", isEqualTo:followRequest)
@@ -225,6 +246,13 @@ class FollowRequestListTableViewController:UIViewController,UITableViewDelegate,
                                 return a.userName ?? "" < b.userName ?? ""
                             }
                         })
+                        //削除ステータスが0より大きいユーザは除外する
+                        for (index,userPost) in self.userPostArray.enumerated(){
+                            if accountDeleteArray.firstIndex(of: userPost.uid ?? "") != nil{
+                                self.userPostArray.remove(at:index)
+                            }
+                        }
+                        
                         self.tableView.reloadData()
                     }
                 }

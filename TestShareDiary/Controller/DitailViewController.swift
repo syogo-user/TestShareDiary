@@ -132,12 +132,11 @@ class DitailViewController: UIViewController {
         //戻るボタンの戻るの文字を削除
         self.navigationController!.navigationBar.topItem!.title = ""
         self.imageView.layer.cornerRadius = 30
-        
         guard let post = postData else {return}
         print("DEBUG contentSize",tableView.contentSize)
-        //画面項目を設定
-        contentSet(post:post)
-         
+        //削除ステータスのユーザを除外した後に画面項目を設定
+        self.accountDeleteStateGet(post: post)
+        
         //自分のuidではなかった時は削除ボタンを非表示
         if post.uid != Auth.auth().currentUser?.uid {
             self.postDeleteButton.isHidden = true//非表示
@@ -150,8 +149,7 @@ class DitailViewController: UIViewController {
         self.postDeleteButton.addTarget(self, action: #selector(postDelete(_:)), for: .touchUpInside)
         //likeUserButton押下時
         self.likeUserButton.addTarget(self, action: #selector(likeUserShow(_:)), for: .touchUpInside)
-        //テーブルビューの表示
-        tableViewSet()
+
         //スクロールでキーボードをしまう
         self.tableView.keyboardDismissMode = .interactive
         setupNotification()
@@ -451,7 +449,7 @@ class DitailViewController: UIViewController {
     }
     
     //テーブルビューの表示
-    private func tableViewSet(){
+    private func tableViewSet(accountDeleteArray:[String]){
         guard let postDataId = postData?.id else { return }
         Firestore.firestore().collection(Const.PostPath).document(postDataId).collection("messages").addSnapshotListener { (snapshots, err) in
             
@@ -465,7 +463,7 @@ class DitailViewController: UIViewController {
                     let dic = documentChange.document.data()
                     let comment = CommentData(document:dic)
                     //ユーザが削除されていた場合の対応としてユーザ名が取得できないものはunknowと表示する
-                    comment.userName = "unknow"
+                    comment.userName = Const.unknown
                     //ユーザ名を取得
                     let commentUserRef = Firestore.firestore().collection(Const.users).document(comment.uid)
                     commentUserRef.getDocument{
@@ -487,15 +485,22 @@ class DitailViewController: UIViewController {
                                 let m2Date = m2.createdAt.dateValue()
                                 return m1Date < m2Date
                             }
+                            
+                            //削除ステータスが0より大きいユーザはユーザ名とメッセージを以下の文言とする
+                            for (index,comment) in self.commentData.enumerated(){
+                                if accountDeleteArray.firstIndex(of: comment.uid) != nil{
+                                    self.commentData[index].message = "NoMessage"
+                                    self.commentData[index].userName = Const.unknown
+                                }
+                            }
                             //画面更新
                             self.tableView.reloadData()
-                            print("DEBUG:\(self.commentData.count - 1)")
-                            print("★DEBUG contentSize:\(self.tableView.contentSize):\(self.tableView.frame.height)")
+
+                            print("DEBUG contentSize:\(self.tableView.contentSize):\(self.tableView.frame.height)")
                             if self.scrollFlg {//scrollFlg がtrue（コメントボタン押下時の遷移）
                                 //コメントボタンを押下し、遷移した場合
-                                print("★DEBUG contentSize:\(self.tableView.contentSize)")
                                 self.tableView.scrollToRow(at: IndexPath(row:self.commentData.count - 1 , section: 0), at:.bottom, animated: true)
-                                print("★DEBUG contentSize:\(self.tableView.contentSize)")
+                                print("DEBUG contentSize:\(self.tableView.contentSize)")
                             }
 
 
@@ -513,7 +518,7 @@ class DitailViewController: UIViewController {
     }
     
     //画面項目の設定
-    private func contentSet(post:PostData){
+    private func contentSet(post:PostData,accountDeleteArray:[String]){
         //ユーザ名
         self.userName.text = post.documentUserName ?? ""
         // いいねボタンの表示
@@ -524,8 +529,14 @@ class DitailViewController: UIViewController {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        
+        
         //いいね数の表示
-        let likeNumber = post.likes.count
+        var likeArray = post.likes
+        //削除ステータスが立っているものは除外する
+        likeArray = self.deleteArray(array: likeArray, accountDeleteArray: accountDeleteArray)
+        
+        let likeNumber = likeArray.count
         self.likeUserButton.setTitle(likeNumber.description, for: .normal)  //文字列変換
         likeUserButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)//フォントサイズ
         likeUserButton.setTitleColor(.black, for: .normal)
@@ -557,7 +568,7 @@ class DitailViewController: UIViewController {
         //背景色を設定
         setBackgroundColor(colorIndex:post.backgroundColorIndex)
     }
-    private func reloadLikeShow(postId:String){
+    private func reloadLikeShow(accountDeleteArray:[String],postId:String){
         let postRef = Firestore.firestore().collection(Const.PostPath).document(postId)
         
         postRef.getDocument() {
@@ -567,7 +578,7 @@ class DitailViewController: UIViewController {
                 return
             } else {
                 guard let document = querySnapshot!.data() else {return}
-                guard let likes = document["likes"] as? [String] else {return}
+                guard var likes = document["likes"] as? [String] else {return}
                 
                 guard let myid = Auth.auth().currentUser?.uid else {return}
                 // likesの配列の中にmyidが含まれているかチェックすることで、自分がいいねを押しているかを判断
@@ -584,6 +595,10 @@ class DitailViewController: UIViewController {
                     //変数に設定
                     self.postData?.isLiked = false
                 }
+                
+                //削除ステータスがたっているものは除外する
+                likes  = self.deleteArray(array: likes, accountDeleteArray: accountDeleteArray)
+                
                 //変数にもlikesを設定
                 self.postData?.likes = likes
                 //いいね数の表示
@@ -594,6 +609,17 @@ class DitailViewController: UIViewController {
                 
             }
         }
+    }
+    
+    private func deleteArray(array :[String],accountDeleteArray:[String]) -> [String]{
+        var arrayUid = array
+        //削除ステータスが0より大きいユーザは除外する
+        for (index,uid) in arrayUid.enumerated(){
+            if accountDeleteArray.firstIndex(of: uid ) != nil{
+                arrayUid.remove(at:index)
+            }
+        }
+        return arrayUid
     }
     private func setPostImage(uid:String){
         let userRef = Firestore.firestore().collection(Const.users).document(uid)
@@ -707,8 +733,8 @@ class DitailViewController: UIViewController {
             let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
             postRef.updateData(["likes": updateValue])
             
-            //いいねの再表示
-            reloadLikeShow(postId:postData.id)
+            //削除ステータスのユーザを除外し、いいねの再表示
+            self.accountDeleteStateGet(postId:postData.id)
         }
     }
     //likeUserButton押下時
@@ -740,6 +766,55 @@ class DitailViewController: UIViewController {
             }
         }
 
+    }
+    
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(postId:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                //いいねの表示を再描画する
+                self.reloadLikeShow(accountDeleteArray:accountDeleteArray,postId:postId)
+
+
+            }
+        }
+        
+    }
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(post:PostData){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                            
+                //コンテンツ描画
+                self.contentSet(post: post,accountDeleteArray:accountDeleteArray)
+                //コメント表示
+                self.tableViewSet(accountDeleteArray: accountDeleteArray)
+            }
+        }
     }
 }
 //作成したデリゲートを使用する

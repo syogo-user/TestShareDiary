@@ -50,6 +50,7 @@
 		3DE8129824B9981300E85957 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8129724B9981300E85957 /* UIColorExtention.swift */; };
 		3DEA065E24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA065D24A0FB2800BFD73E /* MyDiaryFromCalendarViewController.swift */; };
 		91071FB624DCFCDF003B2EB2 /* CustomUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */; };
+		910A7720256E8494005EE6D4 /* CommonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910A771F256E8494005EE6D4 /* CommonUser.swift */; };
 		9110558624E9248600D1B796 /* AccountCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110558524E9248600D1B796 /* AccountCreateViewController.swift */; };
 		911FB07A24FB880000744B34 /* ShadowUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FB07924FB880000744B34 /* ShadowUIView.swift */; };
 		9123DFCA24DD738000BBAF11 /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */; };
@@ -114,6 +115,7 @@
 		7DD91AD566F0FDB5EB72749B /* Pods-TestShareDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestShareDiary.release.xcconfig"; path = "Target Support Files/Pods-TestShareDiary/Pods-TestShareDiary.release.xcconfig"; sourceTree = "<group>"; };
 		8A31F26DA0FAA2AB37ED4665 /* Pods-TestShareDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestShareDiary.debug.xcconfig"; path = "Target Support Files/Pods-TestShareDiary/Pods-TestShareDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		91071FB524DCFCDF003B2EB2 /* CustomUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIDelegate.swift; sourceTree = "<group>"; };
+		910A771F256E8494005EE6D4 /* CommonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUser.swift; sourceTree = "<group>"; };
 		9110558524E9248600D1B796 /* AccountCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreateViewController.swift; sourceTree = "<group>"; };
 		911FB07924FB880000744B34 /* ShadowUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowUIView.swift; sourceTree = "<group>"; };
 		9123DFC924DD738000BBAF11 /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				917A8A6024FA391900F159E5 /* CommonDate.swift */,
 				91F46CFB24E2E38000155CF5 /* Assets.xcassets */,
 				3DE8129724B9981300E85957 /* UIColorExtention.swift */,
+				910A771F256E8494005EE6D4 /* CommonUser.swift */,
 				91C912A62560D56000074A46 /* CheckBox.swift */,
 				3D9BFE8423FEE75F009893B1 /* SceneDelegate.swift */,
 				919ED0D525298511002344DF /* Validation.swift */,
@@ -438,6 +441,7 @@
 				3DAC348B249626D300738A0C /* ColorChoiceViewController.swift in Sources */,
 				3D9BFE9923FEE935009893B1 /* TimeLineViewController.swift in Sources */,
 				3DA5083824B1D0FA00FE1148 /* CommentTableViewCell.swift in Sources */,
+				910A7720256E8494005EE6D4 /* CommonUser.swift in Sources */,
 				3DCBC98124AB65AD00E78626 /* LikeUserListTableViewController.swift in Sources */,
 				919A071924DBF2C8004D07AE /* FullsizeImageViewController.swift in Sources */,
 				91F2974425032C1A00C59DBA /* GradationView.swift in Sources */,

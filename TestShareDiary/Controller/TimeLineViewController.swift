@@ -41,81 +41,13 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if Auth.auth().currentUser != nil {
-            guard let myUid = Auth.auth().currentUser?.uid else {return}
-            // ログイン済み
-            //listenerがnilでないとき return
-//            guard listener == nil  else{return}
-            
-            //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-            let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
-            userListener = postUserRef.addSnapshotListener() {
-                (querySnapshot2,error) in
-                if let error = error {
-                    print("DEBUG: snapshotの取得が失敗しました。\(error)")
-//                    if self.initialDisplayFlg {
-//                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
-//                    }
-                    return
-                } else {
-                    let document = querySnapshot2?.data()
-                    guard let doc = document else{return}
-                    if let docFollow = doc["follow"] {
-                        self.followAndMyUidArray = []
-                        self.followAndMyUidArray = docFollow as! [String]
-                        //自分のuidも追加
-                        self.followAndMyUidArray.append(myUid)
-                        //初期化
-                        self.postArray = []
-                        // TableViewの表示を更新する
-                        self.tableView.reloadData()
-                        //フォローしている人の配列でループ（自分含み）
-                        for uid in self.followAndMyUidArray{
-                            let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
-                            //スナップショットリスナーを追加
-                            self.postListenerArray.append(postsRef.addSnapshotListener(){ (querySnapshot, error) in
-                                //nillの場合は処理を飛ばす
-                                guard querySnapshot != nil  else{return}
-                                querySnapshot!.documents.forEach{
-                                    document in
-                                    let postData = PostData(document: document)
-                                    //配列に存在するかどうか
-                                    if self.postArray.firstIndex(where: {post -> Bool in return post.id == postData.id}) == nil {
-                                        //存在しない場合
-                                        //そのまま追加
-                                        self.postArray.append(postData)
-                                    }else{
-                                        //存在する場合
-                                        for (index,post) in self.postArray.enumerated(){
-                                            if post.id == postData.id {
-                                                //存在するデータを削除してから追加
-                                                self.postArray.remove(at: index)
-                                                self.postArray.append(postData)
-                                            }
-                                        }
-                                    }
-                                    
-                                    //日付順に入れ替える
-                                    self.postArray.sort{ (d0 ,d1) -> Bool in
-                                        if let date0 = d0.date, let date1 = d1.date{
-                                            //２つの日付が両方ともnilでないとき
-                                            return date0  > date1
-                                        }else{
-                                            return false
-                                        }
-                                    }
-                                    
-                                    // TableViewの表示を更新する
-                                    self.tableView.reloadData()
-                                }
-    
-                            })
-                        }
-                    }
-                }
-            }
-        }
+        super.viewWillAppear(animated)                                
+        
+        guard let myUid = Auth.auth().currentUser?.uid else {return}
+        //削除済みのユーザ出ないかを判断する　自分自身のviewContorllerを渡す
+        CommonUser.JudgDeleteUid(myUid: myUid,viewController:self)
+        //削除フラグが設定されている人を取得し、その後タイムラインを表示する
+        self.accountDeleteStateGet(myUid: myUid)    
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -146,8 +78,9 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         //セルを選択した時に選択状態の表示にしない（セルを選択した時に選択状態の表示にしない）
         //(つまりセルが選択された時にUITableViewCellSelectedBackgroundを使用しない)
         cell.selectionStyle = .none
-        
+
         cell.setPostData(postArray[indexPath.row])
+
         //いいねボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(tapLikeButton(_:forEvent:)), for: .touchUpInside)
         //コメントボタンを押下時
@@ -177,6 +110,85 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(detailViewController, animated: true)
         
     }
+    //ドキュメント表示
+    func documentShow(myUid:String,accountDeleteArray:[String]){
+        //◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        let postUserRef = Firestore.firestore().collection(Const.users).document(myUid)
+        userListener = postUserRef.addSnapshotListener() {
+            (querySnapshot2,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                //                    if self.initialDisplayFlg {
+                //                        SVProgressHUD.showError(withStatus: "データの取得に失敗しました")
+                //                    }
+                return
+            } else {
+                let document = querySnapshot2?.data()
+                guard let doc = document else{return}
+                if let docFollow = doc["follow"] {
+                    self.followAndMyUidArray = []
+                    self.followAndMyUidArray = docFollow as! [String]
+                    //自分のuidも追加
+                    self.followAndMyUidArray.append(myUid)
+                    //初期化
+                    self.postArray = []
+                    // TableViewの表示を更新する
+                    self.tableView.reloadData()
+                    //フォローしている人の配列でループ（自分含み）
+                    for uid in self.followAndMyUidArray{
+                        let postsRef = Firestore.firestore().collection(Const.PostPath).whereField("uid",isEqualTo:uid)//.order(by: "date", descending: true)
+                        //スナップショットリスナーを追加
+                        self.postListenerArray.append(postsRef.addSnapshotListener(){ (querySnapshot, error) in
+                            //nillの場合は処理を飛ばす
+                            guard querySnapshot != nil  else{return}
+                            querySnapshot!.documents.forEach{
+                                document in
+                                let postData = PostData(document: document)
+                                //配列に存在するかどうか
+                                if self.postArray.firstIndex(where: {post -> Bool in return post.id == postData.id}) == nil {
+                                    //存在しない場合
+                                    //そのまま追加
+                                    self.postArray.append(postData)
+                                }else{
+                                    //存在する場合
+                                    for (index,post) in self.postArray.enumerated(){
+                                        if post.id == postData.id {
+                                            //存在するデータを削除してから追加
+                                            self.postArray.remove(at: index)
+                                            self.postArray.append(postData)
+                                        }
+                                    }
+                                }
+                                
+                                //日付順に入れ替える
+                                self.postArray.sort{ (d0 ,d1) -> Bool in
+                                    if let date0 = d0.date, let date1 = d1.date{
+                                        //２つの日付が両方ともnilでないとき
+                                        return date0  > date1
+                                    }else{
+                                        return false
+                                    }
+                                }
+                                
+                                //削除ステータスが0より大きいユーザは除外する
+                                for (index,post) in self.postArray.enumerated(){
+                                    if accountDeleteArray.firstIndex(of: post.uid) != nil{
+                                        self.postArray.remove(at:index)
+                                    }
+                                }                                
+                                // TableViewの表示を更新する
+                                self.tableView.reloadData()
+                            }
+                            
+                        })
+                    }
+                }
+            }
+        }
+        
+
+    }
+    
     //いいねボタンがタップされた時に呼ばれるメソッド
     @objc func tapLikeButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG: likeボタンがタップされました。")
@@ -360,6 +372,29 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
         let dialog = UIAlertController(title: "自分の投稿です", message: nil, preferredStyle: .actionSheet)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(dialog,animated: true,completion: nil)
+    }
+    //削除フラグのあるアカウントを取得
+    private func accountDeleteStateGet(myUid:String){
+        //削除ステータスが0よりも大きいもの
+        let userRef = Firestore.firestore().collection(Const.users).whereField("accountDeleteState",isGreaterThan:0)
+        userRef.getDocuments(){
+            (querySnapshot,error) in
+            if let error = error {
+                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                return
+            } else {
+                var accountDeleteArray  :[String] = []
+                accountDeleteArray = querySnapshot!.documents.map {
+                    document -> String in
+                    let userUid = UserPostData(document:document).uid ?? ""
+                    return userUid
+                }
+                
+                //ドキュメント表示
+                self.documentShow(myUid: myUid,accountDeleteArray:accountDeleteArray)
+            }
+        }
+        
     }
 }
 
