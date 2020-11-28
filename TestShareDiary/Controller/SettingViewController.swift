@@ -7,6 +7,7 @@
 //
 import UIKit
 import Firebase
+import SVProgressHUD
 class SettingViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -104,6 +105,7 @@ class SettingViewController: UIViewController {
         //メッセージの保存
         let userRef = Firestore.firestore().collection(Const.users).document(myUid)
         userRef.updateData(docData)
+        SVProgressHUD.showInfo(withStatus: "アカウントを削除しました")
     }
     
 }

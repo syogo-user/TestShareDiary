@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SDWebImage
+import SVProgressHUD
 class LeftViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
@@ -158,6 +159,17 @@ class LeftViewController: UIViewController {
     private func logout(){
         //スライドメニューのクローズ
         closeLeft()
+        
+        //最終ログアウト日時を記録
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        let docData = [
+            "lastLogoutDate":FieldValue.serverTimestamp()
+            ] as [String : Any]
+        //メッセージの保存
+        let userRef = Firestore.firestore().collection(Const.users).document(myUid)
+        userRef.updateData(docData)
+        
+        sleep(1)
         // ログアウトする
         try! Auth.auth().signOut()
         // ログイン画面を表示する

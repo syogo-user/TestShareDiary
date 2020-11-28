@@ -416,6 +416,15 @@ class MailAddressChangeViewController: UIViewController {
     private func logout(){
         //スライドメニューのクローズ
         closeLeft()
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        let docData = [
+            "lastLogoutDate":FieldValue.serverTimestamp()
+            ] as [String : Any]
+        //メッセージの保存
+        let userRef = Firestore.firestore().collection(Const.users).document(myUid)
+        userRef.updateData(docData)
+        
+        sleep(1)
         // ログアウトする
         try! Auth.auth().signOut()
         // ログイン画面を表示する

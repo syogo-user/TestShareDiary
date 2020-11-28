@@ -13,9 +13,20 @@ struct CommonUser {
     
     //ログアウト
     static func logout(viewController :UIViewController){
+        //最終ログアウト日時を記録
+        guard let myUid = Auth.auth().currentUser?.uid else{return}
+        let docData = [
+            "lastLogoutDate":FieldValue.serverTimestamp()
+            ] as [String : Any]
+        //メッセージの保存
+        let userRef = Firestore.firestore().collection(Const.users).document(myUid)
+        userRef.updateData(docData)
+        
+        sleep(1)
         // ログアウトする
         try! Auth.auth().signOut()
         print("DEBUG:ログアウトしました！")
+        
         // ログイン画面を表示する
         let loginViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
         loginViewController?.modalPresentationStyle = .fullScreen
@@ -26,6 +37,7 @@ struct CommonUser {
         let tabBarController = viewController.tabBarController
         // ログイン画面から戻ってきた時のためにカレンダー画面（index = 0）を選択している状態にしておく
         tabBarController?.selectedIndex = 0
+
     }
     //自分のuidが削除されたユーザされたユーザかどうかを判定　削除済みの場合は強制ログアウト
     static func JudgDeleteUid (myUid:String,viewController:UIViewController){
@@ -34,7 +46,7 @@ struct CommonUser {
         userRef.getDocuments(){
             (querySnapshot,error) in
             if let error = error {
-                print("DEBUG: snapshotの取得が失敗しました。\(error)")
+                print("DEBUG★: snapshotの取得が失敗しました。\(error)")
                 return
             } else {
                 var accountDeleteArray  :[String] = []
@@ -53,5 +65,8 @@ struct CommonUser {
         }
     }
     
+
+    
     
 }
+

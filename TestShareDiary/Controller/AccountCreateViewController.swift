@@ -154,7 +154,9 @@ class AccountCreateViewController: UIViewController,SFSafariViewControllerDelega
                                 "keyAccountFlg":true,
                                 "administratorFlg":false,
                                 "accountDeleteState":0,
-                                "accountDeleteDate":""
+                                "accountDeleteDate":"",
+                                "lastLoginDate":FieldValue.serverTimestamp(),
+                                "lastLogoutDate":""
                                 ] as [String :Any]
                             postRef.setData(postDic)
                         }

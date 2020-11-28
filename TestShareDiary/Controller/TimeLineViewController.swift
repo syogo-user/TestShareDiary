@@ -391,7 +391,7 @@ class TimeLineViewController: UIViewController ,UITableViewDataSource, UITableVi
                 }
                 
                 //ドキュメント表示
-                self.documentShow(myUid: myUid,accountDeleteArray:accountDeleteArray)
+                    self.documentShow(myUid: myUid,accountDeleteArray:accountDeleteArray)
             }
         }
         
